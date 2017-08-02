@@ -16,7 +16,8 @@ namespace ConFin.Repository
         private enum Procedures
         {
             SP_InsUsuario,
-            SP_SelUsuario
+            SP_SelUsuario,
+            SP_UpdConfirmacaoCadastroUsuario,
         }
 
         public void Post(UsuarioDto usuario)
@@ -25,7 +26,7 @@ namespace ConFin.Repository
             AddParameter("Nome", usuario.Nome);
             AddParameter("Email", usuario.Email);
             AddParameter("Senha", usuario.Senha);
-            ExecuteNonQuery();
+            usuario.Id =  ExecuteNonQueryWithReturn();
         }
 
         public UsuarioDto Get(string email, string senha)
@@ -44,11 +45,19 @@ namespace ConFin.Repository
                         Email = reader.ReadAttr<string>("Email"),
                         Senha = reader.ReadAttr<string>("Senha"),
                         DataCadastro = reader.ReadAttr<DateTime>("DataCadastro"),
-                        DataConfirmacaoEmail = reader.ReadAttr<DateTime?>("DataConfirmacaoEmail"),
+                        DataSolConfirmCadastro = reader.ReadAttr<DateTime?>("DataSolConfirmCadastro"),
+                        DataConfirmCadastro = reader.ReadAttr<DateTime?>("DataConfirmCadastro"),
                         DataUltimaAlteracao = reader.ReadAttr<DateTime?>("DataUltimaAlteracao"),
                         DataDesativacao = reader.ReadAttr<DateTime?>("DataDesativacao")
                     };
             }
+        }
+
+        public void PutConfirmacaoCadastro(int idUsuario)
+        {
+            ExecuteProcedure(Procedures.SP_UpdConfirmacaoCadastroUsuario);
+            AddParameter("Id", idUsuario);
+            ExecuteNonQuery();
         }
     }
 }

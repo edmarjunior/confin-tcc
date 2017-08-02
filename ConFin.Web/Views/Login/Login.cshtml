@@ -1,0 +1,93 @@
+﻿
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper teal darken-3">
+            <a href="#" class="brand-logo">Controle Financeiro Pessoal</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li onclick="cadastrar()"><a href="#">Cadastrar-se</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<div class="container center" id="divContainerLogin">
+    <h2>Login</h2>
+    <div class="row">
+        <form id="formLogin" class="col s6 offset-s3" action="@Url.Action("PostLogin", "Login")" method="post">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="email" type="email" name="email" class="validate">
+                    <label for="email">E-mail</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="password" type="password" name="senha" class="validate">
+                    <label for="password">Senha</label>
+                </div>
+            </div>
+            <div class="row">
+                <span class="col s4"><a onclick="postLogin()" class="waves-effect waves-light btn" href="javascript:void(0)">Acessar</a></span>
+                <span class="col s8 offset-s5" onclick="cadastrar()"><a href="#">Não possuo conta (cadastrar-me)</a></span>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="container center" id="divContainerCadastro" style="display: none;">
+    <h2>Cadastre-se</h2>
+    <div class="row">
+        <form class="col s6 offset-s3">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="nome" type="text" class="validate">
+                    <label for="nome">Nome</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="email" type="email" class="validate">
+                    <label for="email">Email</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="password" type="password" class="validate">
+                    <label for="password">Password</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="passwordConfirmed" type="password" class="validate">
+                    <label for="passwordConfirmed">Confirmar Senha</label>
+                </div>
+            </div>
+            <div class="row">
+                <span class="col s5"><a class="waves-effect waves-light btn" href="Index.html"><i class="material-icons left">send</i>Cadastrar</a></span>
+                <span class="col s7 offset-s6" onclick="login()"><a href="#">Já sou cadastrado. Fazer login</a></span>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+<script>
+
+    function postLogin() {
+        console.log(10);
+        $("#formLogin").submit();
+    }
+
+
+    function cadastrar() {
+        $("#divContainerLogin").hide(function () {
+            $("#divContainerCadastro").show();
+        });
+    }
+
+    function login() {
+        $("#divContainerCadastro").hide(function () {
+            $("#divContainerLogin").show();
+        });
+    }
+
+</script>

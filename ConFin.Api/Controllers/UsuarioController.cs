@@ -27,7 +27,7 @@ namespace ConFin.Api.Controllers
                 _usuarioService.Post(usuario);
 
                 if (!_notification.Any)
-                    return Ok();
+                    return Ok("Cadastro solicitado com sucesso! Acesse a conta de e-mail informada para finalizar o cadastro");
 
                 return Content(HttpStatusCode.BadRequest, _notification.Get);
             }
@@ -36,6 +36,23 @@ namespace ConFin.Api.Controllers
                 return Content(HttpStatusCode.BadRequest, ex.Message);
             }
 
+        }
+
+        public IHttpActionResult GetConfirmacaoCadastro(int idUsuario)
+        {
+            try
+            {
+                _usuarioRepository.PutConfirmacaoCadastro(idUsuario);
+
+                if(!_notification.Any)
+                    return Ok();
+
+                return Content(HttpStatusCode.BadRequest, _notification.Get);
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex.Message);
+            }
         }
 
         public IHttpActionResult Get(string email, string senha)
@@ -49,5 +66,6 @@ namespace ConFin.Api.Controllers
                 return Content(HttpStatusCode.BadRequest, ex.Message);
             }
         }
+
     }
 }

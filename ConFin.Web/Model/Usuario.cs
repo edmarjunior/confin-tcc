@@ -1,9 +1,9 @@
 ﻿using ConFin.Common.Domain;
 using System;
 
-namespace ConFin.Domain.Usuario.Dto
+namespace ConFin.Web.Model
 {
-    public class UsuarioDto
+    public class Usuario
     {
         public int Id { get; set; }
         public string Nome { get; set; }
