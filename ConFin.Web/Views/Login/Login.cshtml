@@ -1,93 +1,135 @@
-﻿
-<div class="navbar-fixed">
-    <nav>
-        <div class="nav-wrapper teal darken-3">
-            <a href="#" class="brand-logo">Controle Financeiro Pessoal</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li onclick="cadastrar()"><a href="#">Cadastrar-se</a></li>
-            </ul>
-        </div>
-    </nav>
-</div>
-<div class="container center" id="divContainerLogin">
-    <h2>Login</h2>
-    <div class="row">
-        <form id="formLogin" class="col s6 offset-s3" action="@Url.Action("PostLogin", "Login")" method="post">
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="email" type="email" name="email" class="validate">
-                    <label for="email">E-mail</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="password" type="password" name="senha" class="validate">
-                    <label for="password">Senha</label>
-                </div>
-            </div>
-            <div class="row">
-                <span class="col s4"><a onclick="postLogin()" class="waves-effect waves-light btn" href="javascript:void(0)">Acessar</a></span>
-                <span class="col s8 offset-s5" onclick="cadastrar()"><a href="#">Não possuo conta (cadastrar-me)</a></span>
-            </div>
-        </form>
-    </div>
-</div>
-<div class="container center" id="divContainerCadastro" style="display: none;">
-    <h2>Cadastre-se</h2>
-    <div class="row">
-        <form class="col s6 offset-s3">
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="nome" type="text" class="validate">
-                    <label for="nome">Nome</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="email" type="email" class="validate">
-                    <label for="email">Email</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="password" type="password" class="validate">
-                    <label for="password">Password</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="passwordConfirmed" type="password" class="validate">
-                    <label for="passwordConfirmed">Confirmar Senha</label>
-                </div>
-            </div>
-            <div class="row">
-                <span class="col s5"><a class="waves-effect waves-light btn" href="Index.html"><i class="material-icons left">send</i>Cadastrar</a></span>
-                <span class="col s7 offset-s6" onclick="login()"><a href="#">Já sou cadastrado. Fazer login</a></span>
-            </div>
-        </form>
-    </div>
+﻿@{
+    Layout = null; 
+}
 
-</div>
+<html>
 
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConFin - Controle Financeiro Pessonal</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
+
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1 0 auto;
+        }
+
+        body {
+            background: #fff;
+        }
+
+        .input-field input[type=date]:focus + label,
+        .input-field input[type=text]:focus + label,
+        .input-field input[type=email]:focus + label,
+        .input-field input[type=password]:focus + label {
+            color: #e91e63;
+        }
+
+        .input-field input[type=date]:focus,
+        .input-field input[type=text]:focus,
+        .input-field input[type=email]:focus,
+        .input-field input[type=password]:focus {
+            border-bottom: 2px solid #e91e63;
+            box-shadow: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="section"></div>
+    <main>
+        <center>
+            <img class="responsive-img" style="width: 250px;" src="https://i.imgur.com/ax0NCsK.gif" />
+            <div class="section"></div>
+
+            <h5 class="indigo-text">Acesse sua Conta</h5>
+            <div class="section"></div>
+
+            <div class="container">
+                <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+
+                    <form class="col s12" method="post" action="@Url.Action("PostLogin", "Login")">
+                        <div class='row'>
+                            <div class='col s12'>
+                            </div>
+                        </div>
+
+                        <div class='row'>
+                            <div class='input-field col s12'>
+                                <input class='validate' type='email' name='email' id='txtEmail' />
+                                <label for='email'>E-mail</label>
+                            </div>
+                        </div>
+
+                        <div class='row'>
+                            <div class='input-field col s12'>
+                                <input class='validate' type='password' name='senha' id='txtSenha' />
+                                <label for='password'>Senha</label>
+                            </div>
+                            <label style='float: right;'>
+                                <a class='pink-text' href='#!'><b>Esqueceu a senha?</b></a>
+                            </label>
+                        </div>
+
+                        <br />
+                        <center>
+                            <div class='row'>
+                                <button id="btnSubmitLogin" type='submit' name='btn_login' class='col s12 btn btn-large waves-effect indigo'>Acessar</button>
+                            </div>
+                        </center>
+                    </form>
+                </div>
+            </div>
+            <a href="#!">Criar conta</a>
+        </center>
+
+        <div class="section"></div>
+        <div class="section"></div>
+    </main>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+</body>
+
+
+
+</html>
 
 <script>
+    $("#btnSubmitLogin").click(function () {
+        $('.toast').remove()
 
-    function postLogin() {
-        console.log(10);
-        $("#formLogin").submit();
+        if (!$("#txtEmail").val()) {
+            var $toastContent = $('<span>Favor preencher o campo E-mail</span>');
+            Materialize.toast('<span>Favor preencher o campo E-mail</span>', 10000, "red");
+            return false;
+        }
+
+        if (!$("#txtSenha").val()) {
+            var $toastContent = $('<span>Favor preencher o campo Senha</span>');
+            Materialize.toast('<span>Favor preencher o campo Senha</span>', 10000, "red");
+            return false;
+        }
+    });
+
+    function focus(id) {
+        console.log(100);
+        $(id).focus();
     }
 
-
-    function cadastrar() {
-        $("#divContainerLogin").hide(function () {
-            $("#divContainerCadastro").show();
-        });
-    }
-
-    function login() {
-        $("#divContainerCadastro").hide(function () {
-            $("#divContainerLogin").show();
-        });
-    }
-
+    
 </script>

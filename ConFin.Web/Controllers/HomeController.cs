@@ -7,7 +7,8 @@ namespace ConFin.Web.Controllers
     {
         public ActionResult Home(Usuario usuario)
         {
-            return View("Home");
+            ViewBag.Email = usuario.Email;
+            return View("Home", usuario);
         }
     }
 }

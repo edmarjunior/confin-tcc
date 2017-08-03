@@ -23,14 +23,22 @@ namespace ConFin.Web.Controllers
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var response = client.GetAsync(client.BaseAddress).Result;
 
-            if (response.IsSuccessStatusCode)
+            var result = response.Content.ReadAsStringAsync().Result;
+
+            if (!response.IsSuccessStatusCode)
             {
-                var usuario = JsonConvert.DeserializeObject<Usuario>(response.Content.ReadAsStringAsync().Result);
-                //return View("Home/Home", usuario);
-                return RedirectToAction("Home", "Home", usuario);
+                ViewBag.Error = result;
+                return View("Login");
             }
 
+            var usuario = JsonConvert.DeserializeObject<Usuario>(result);
+
+            if(usuario != null)
+                return RedirectToAction("Home", "Home", usuario);
+
+            ViewBag.Error = "E-mail ou Senha inserido não corresponde a nenhuma conta";
             return View("Login");
+
         }
     }
 }
