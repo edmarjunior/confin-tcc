@@ -1,0 +1,78 @@
+﻿
+
+<center>
+    <img class="responsive-img" style="width: 250px;" src="https://i.imgur.com/ax0NCsK.gif" />
+    <div class="section"></div>
+
+    <h5 class="indigo-text">Cadastrar nova conta</h5>
+    <div class="section"></div>
+
+    <div class="container">
+        <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+
+            <form id="formNovaContaUsuario" class="col s12" method="post" action="@Url.Action("Post", "Usuario")">
+                <br />
+
+                <div class='row'>
+                    <div class='input-field col s12'>
+                        <input class='validate' type='text' name='Nome' id='txtNomeCad' />
+                        <label for='email'>Nome</label>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='input-field col s12'>
+                        <input class='validate' type='email' name='Email' id='txtEmailCad' />
+                        <label for='email'>E-mail</label>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='input-field col s6'>
+                        <input class='validate' type='password' name='Senha' id='txtSenhaCad' />
+                        <label for='password'>Senha</label>
+                    </div>
+                    <div class='input-field col s6'>
+                        <input class='validate' type='password' name='ConfirmacaoSenha' id='txtConfirmacaoSenhaCad' />
+                        <label for='password'>Confirmar senha</label>
+                    </div>
+                </div>
+
+                <br />
+
+                <center>
+                    <div class='row'>
+                        <button id="btnSubmitLogin" onclick="cadastrarContaUsuario()" type='button' name='btn_login' class='col s12 btn btn-large waves-effect indigo'>Cadastrar</button>
+                    </div>
+                </center>
+            </form>
+        </div>
+    </div>
+    <a href="javascript:void(0)" onclick="showLogin()">Já sou cadastrado. Fazer Login</a>
+</center>
+
+
+<script>
+
+    function cadastrarContaUsuario() {
+
+        var urlCadastrarContaUsuario = '@Url.Action("CadastrarConta", "Login")';
+        var dadosConta = $("#formNovaContaUsuario").toObject();
+
+        $.post(urlCadastrarContaUsuario, dadosConta).success(function () {
+            Materialize.toast('<span>Conta criada com sucesso, favor verificar e-mail de confirmação.</span>', 20000, "green");
+        }).error(function () {
+            Materialize.toast('<span>Erro inesperado ao criar conta</span>', 20000, "red");
+        });
+
+    }
+
+    function showLogin() {
+        $("#formNovaContaUsuario")[0].reset();
+
+        $("#mainNovaConta").hide(function () {
+            $("#mainLogin").show();
+        });
+    }
+
+</script>

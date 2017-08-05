@@ -1,14 +1,23 @@
-﻿using ConFin.Web.Model;
+﻿using ConFin.Common.Web;
 using System.Web.Mvc;
 
 namespace ConFin.Web.Controllers
 {
-    public class HomeController: Controller
+    public class HomeController: BaseHomeController
     {
-        public ActionResult Home(Usuario usuario)
+        public ActionResult Home()
         {
-            ViewBag.Email = usuario.Email;
-            return View("Home", usuario);
+            if (UsuarioLogado == null)
+                return View("../Login/Login");
+
+            ViewBag.Email = UsuarioLogado.Email;
+            return View("Home", UsuarioLogado);
+        }
+
+        public ActionResult Logout()
+        {
+            UsuarioLogado = null;
+            return RedirectToAction("Home");
         }
     }
 }
