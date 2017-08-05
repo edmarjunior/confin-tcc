@@ -4,68 +4,67 @@
 <div class="section"></div>
    
 <main id="mainLogin">
-    <center>
-        <img class="responsive-img" style="width: 250px;" src="https://i.imgur.com/ax0NCsK.gif" />
-        <div class="section"></div>
-
-        <h5 class="indigo-text">Acesse sua Conta</h5>
-        <div class="section"></div>
+    <div style="text-align: center;" >
+        <img class="responsive-img" style="width: 250px;" src="https://i.imgur.com/ax0NCsK.gif" alt="Logo"/>
+        <div class="section" id="divErrorLogin" style="text-align: center">@Html.ValidationSummary()</div>
 
         <div class="container">
-            <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+            <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0 48px; border: 1px solid #EEE;">
+                <form id="formLogin" class="col s12" method="POST" action="@Url.Action("Get", "Login")">
+                    <div class="row">
+                        <div class="col s12 indigo-text">Acesse sua Conta</div>
+                    </div>
 
-                <form id="formLogin" class="col s12" method="post" action="@Url.Action("PostLogin", "Login")">
-                    <div class='row'>
-                        <div class='col s12'>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input class="validate" type="email" name="email" id="txtEmail"/>
+                            <label for="txtEmail">E-mail</label>
                         </div>
                     </div>
 
-                    <div class='row'>
-                        <div class='input-field col s12'>
-                            <input class='validate' type='email' name='email' id='txtEmail' />
-                            <label for='email'>E-mail</label>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input class="validate" type="password" name="senha" id="txtSenha"/>
+                            <label for="txtSenha">Senha</label>
                         </div>
-                    </div>
-
-                    <div class='row'>
-                        <div class='input-field col s12'>
-                            <input class='validate' type='password' name='senha' id='txtSenha' />
-                            <label for='password'>Senha</label>
-                        </div>
-                        <label style='float: right;'>
-                            <a class='pink-text' href='#!'><b>Esqueceu a senha?</b></a>
+                        <label style="float: right;">
+                            <a class="pink-text"><b>Esqueceu a senha?</b></a>
                         </label>
                     </div>
-
-                    <br />
-                    <center>
-                        <div class='row'>
-                            <button id="btnSubmitLogin" type='submit' name='btn_login' class='col s12 btn btn-large waves-effect indigo'>Acessar</button>
+                    <div style="text-align: center;">
+                        <div class="row">
+                            <button id="btnSubmitLogin" type="submit" name="btn_login" class="col s12 btn btn-large waves-effect indigo">Acessar</button>
                         </div>
-                    </center>
+                    </div>
                 </form>
             </div>
         </div>
+
         <a href="javascript:void(0)" onclick="criarConta()">Criar conta</a>
-    </center>
+
+        
+
+    </div>
 
     <div class="section"></div>
     <div class="section"></div>
 </main>
 
 <main id="mainNovaConta" style="display: none">
-    @Html.Partial("../Login/_NovaConta")
+    @Html.Partial("../Login/_CadastrarConta")
 </main>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 
 
-
 <script>
 
+    var urlGetLogin = '@Url.Action("Get", "Login")';
+
     $("#btnSubmitLogin").click(function () {
-        $('.toast').remove()
+
+        $('.toast').remove();
 
         if (!$("#txtEmail").val()) {
             Materialize.toast('<span>Favor preencher o campo E-mail</span>', 10000, "red");
@@ -76,16 +75,15 @@
             Materialize.toast('<span>Favor preencher o campo Senha</span>', 10000, "red");
             return false;
         }
+
+        return true;
     });
 
-    function focus(id) {
-        console.log(100);
-        $(id).focus();
-    }
 
     function criarConta() {
 
         $("#formLogin")[0].reset();
+        $("#divErrorLogin").empty();
 
         $("#mainLogin").hide(function () {
             $("#mainNovaConta").show();

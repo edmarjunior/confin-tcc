@@ -7,7 +7,7 @@ namespace ConFin.Web.Controllers
     {
         public ActionResult Home()
         {
-            if (UsuarioLogado == null)
+                if (UsuarioLogado == null)
                 return View("../Login/Login");
 
             ViewBag.Email = UsuarioLogado.Email;

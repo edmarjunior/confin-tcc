@@ -1,23 +1,39 @@
 ﻿using ConFin.Common.Domain;
-using ConFin.Domain.Usuario.Dto;
 using System.Net;
 using System.Net.Mail;
 
-namespace ConFin.Domain.Usuario
+namespace ConFin.Domain.Login
 {
-    public class UsuarioService : IUsuarioService
+    public class LoginService : ILoginService
     {
-        private readonly IUsuarioRepository _usuarioRepository;
-        private Notification _notification;
+        private readonly ILoginRepository _usuarioRepository;
+        private readonly Notification _notification;
 
 
-        public UsuarioService(IUsuarioRepository usuarioRepository, Notification notification)
+        public LoginService(ILoginRepository usuarioRepository, Notification notification)
         {
             _usuarioRepository = usuarioRepository;
             _notification = notification;
         }
 
-        public void Post(UsuarioDto usuario)
+        public Usuario Get(string email, string senha = null)
+        {
+            var usuario = _usuarioRepository.Get(email, senha);
+
+            if (usuario == null)
+            {
+                _notification.Add("Usuário não encontrado :(");
+                return null;
+            }
+
+            if (usuario.DataConfirmCadastro.HasValue)
+                return usuario;
+
+            _notification.Add("Aguardando usuário confirmar cadastro :(");
+            return null;
+        }
+
+        public void Post(Usuario usuario)
         {
             if (usuario == null)
             {
@@ -40,7 +56,7 @@ namespace ConFin.Domain.Usuario
             _usuarioRepository.CommitTransaction();
         }
 
-        private void EnviaEmailConfirmacaoCadastro(UsuarioDto usuario)
+        private static void EnviaEmailConfirmacaoCadastro(Usuario usuario)
         {
             var client = new SmtpClient()
             {
@@ -50,7 +66,7 @@ namespace ConFin.Domain.Usuario
                 Port = 587
             };
 
-            var mail = new MailMessage()
+            var mail = new MailMessage
             {
                 Sender = new MailAddress(usuario.Email, usuario.Nome),
                 From = new MailAddress("confinpessoal@outlook.com", "ConFin automático"),
@@ -58,7 +74,7 @@ namespace ConFin.Domain.Usuario
                 Body = $"<p>Prezado(a) {usuario.Nome.ToUpper()} </p>" +
                         "<p>Parabéns por tomar a decisão de ter um maior Controle Financeiro Pessoal ao utilizar nossos serviços</p>" +
                         "<p>Para confirmar seu acesso, favor clicar no link abaixo</p>" +
-                        $"<p><a href=\"http://localhost:5002/api/Usuario/GetConfirmacaoCadastro?idUsuario={usuario.Id}\">LINK PARA CONFIRMAR CADASTRO (CLIQUE AQUI)</a></p>" +
+                        $"<p><a href=\"http://localhost:5001/Login/GetConfirmacao?idUsuario={usuario.Id}\" target=\"_blank\">LINK PARA CONFIRMAR CADASTRO (CLIQUE AQUI)</a></p>" +
                         "<p>Este é um e-mail automático. Não é necessário respondê-lo</p>" +
                         "<p>Atenciosamente,</br>ConFin - Controle Financeiro Pessoal </p>",
                 IsBodyHtml = true,

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{19F4A349-818D-4CEC-9971-1372CBFE4C49}</ProjectGuid>
+    <ProjectGuid>{E60599E5-E2DD-499F-BEF6-0D673984EEA4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConFin.Domain</RootNamespace>
-    <AssemblyName>ConFin.Domain</AssemblyName>
+    <RootNamespace>ConFin.Application</RootNamespace>
+    <AssemblyName>ConFin.Application</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,8 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\ConFin.Web\Bin\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,14 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppService\LoginAppService.cs" />
+    <Compile Include="Interfaces\ILoginAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Login\ILoginRepository.cs" />
-    <Compile Include="Login\ILoginService.cs" />
-    <Compile Include="Login\LoginService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConFin.Common\ConFin.Common.csproj">
-      <Project>{58997fa3-74b8-4d3b-bec0-ab5ccf6acdd0}</Project>
+      <Project>{58997FA3-74B8-4D3B-BEC0-AB5CCF6ACDD0}</Project>
       <Name>ConFin.Common</Name>
     </ProjectReference>
   </ItemGroup>

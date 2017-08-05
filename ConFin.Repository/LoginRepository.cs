@@ -1,15 +1,15 @@
-﻿using ConFin.Common.Repository;
+﻿using ConFin.Common.Domain;
+using ConFin.Common.Repository;
 using ConFin.Common.Repository.Extension;
 using ConFin.Common.Repository.Infra;
-using ConFin.Domain.Usuario;
-using ConFin.Domain.Usuario.Dto;
+using ConFin.Domain.Login;
 using System;
 
 namespace ConFin.Repository
 {
-    public class UsuarioRepository : BaseRepository, IUsuarioRepository
+    public class LoginRepository : BaseRepository, ILoginRepository
     {
-        public UsuarioRepository(IDatabaseConnection connection) : base(connection)
+        public LoginRepository(IDatabaseConnection connection) : base(connection)
         {
         }
 
@@ -17,10 +17,10 @@ namespace ConFin.Repository
         {
             SP_InsUsuario,
             SP_SelUsuario,
-            SP_UpdConfirmacaoCadastroUsuario,
+            SP_UpdConfirmacaoCadastroUsuario
         }
 
-        public void Post(UsuarioDto usuario)
+        public void Post(Usuario usuario)
         {
             ExecuteProcedure(Procedures.SP_InsUsuario);
             AddParameter("Nome", usuario.Nome);
@@ -29,7 +29,7 @@ namespace ConFin.Repository
             usuario.Id =  ExecuteNonQueryWithReturn();
         }
 
-        public UsuarioDto Get(string email, string senha)
+        public Usuario Get(string email, string senha)
         {
             ExecuteProcedure(Procedures.SP_SelUsuario);
             AddParameter("Email", email);
@@ -38,7 +38,7 @@ namespace ConFin.Repository
             using (var reader = ExecuteReader())
             {
                 return !reader.Read() ? null
-                    : new UsuarioDto
+                    : new Usuario
                     {
                         Id = reader.ReadAttr<int>("Id"),
                         Nome = reader.ReadAttr<string>("Nome"),

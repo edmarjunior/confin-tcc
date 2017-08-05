@@ -1,5 +1,4 @@
-﻿using ConFin.Api.App_Start;
-using ConFin.Common.Api;
+﻿using ConFin.Common.Api;
 using SimpleInjector.Integration.WebApi;
 using System.Web.Http;
 

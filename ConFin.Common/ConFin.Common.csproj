@@ -93,7 +93,7 @@
     <Compile Include="Web\BaseController.cs" />
     <Compile Include="Web\BaseHomeController.cs" />
     <Compile Include="Web\SessionManagement.cs" />
-    <Compile Include="Web\Usuario.cs" />
+    <Compile Include="Domain\Usuario.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,9 +1,9 @@
 ﻿using ConFin.Common.Domain;
 using System;
 
-namespace ConFin.Web.Model
+namespace ConFin.Web.ViewModel
 {
-    public class Usuario
+    public class UsuarioViewModel
     {
         public int Id { get; set; }
         public string Nome { get; set; }

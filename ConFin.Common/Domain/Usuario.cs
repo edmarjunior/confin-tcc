@@ -1,9 +1,8 @@
-﻿using ConFin.Common.Domain;
-using System;
+﻿using System;
 
-namespace ConFin.Domain.Usuario.Dto
+namespace ConFin.Common.Domain
 {
-    public class UsuarioDto
+    public class Usuario
     {
         public int Id { get; set; }
         public string Nome { get; set; }
@@ -21,22 +20,21 @@ namespace ConFin.Domain.Usuario.Dto
         {
 
             if (string.IsNullOrEmpty(Nome))
-                notification.Add("O campo [Nome] não foi recebido");
+                notification.Add("O campo Nome não foi recebido");
 
             if (string.IsNullOrEmpty(Email))
-                notification.Add("O campo [Email] não foi recebido");
+                notification.Add("O campo Email não foi recebido");
 
             if (string.IsNullOrEmpty(Senha))
-                notification.Add("O campo [Senha] não foi recebido");
+                notification.Add("O campo Senha não foi recebido");
 
             if (string.IsNullOrEmpty(ConfirmacaoSenha))
-                notification.Add("O campo [Confirmacao Senha] não foi recebido");
+                notification.Add("O campo Confirmacao Senha não foi recebido");
 
             if (!string.IsNullOrEmpty(Senha) && !string.IsNullOrEmpty(ConfirmacaoSenha) && !Senha.Equals(ConfirmacaoSenha))
-                notification.Add("Os campos [Senha] e [Confirmação Senha] estão divergentes");
+                notification.Add("Senha não confere com a comfirmação");
 
             return !notification.Any;
-
         }
     }
 }

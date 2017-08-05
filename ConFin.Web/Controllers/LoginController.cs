@@ -1,83 +1,52 @@
-﻿using ConFin.Common.Web;
+﻿using ConFin.Application.Interfaces;
+using ConFin.Common.Domain;
+using ConFin.Common.Web;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Formatting;
-using System.Net.Http.Headers;
 using System.Web.Mvc;
 
 namespace ConFin.Web.Controllers
 {
-    public class LoginController: BaseHomeController
+    public class LoginController : BaseHomeController
     {
+        private readonly ILoginAppService _loginAppService;
+
+        public LoginController(ILoginAppService loginAppService)
+        {
+            _loginAppService = loginAppService;
+        }
+
         public ActionResult Login()
         {
             return View("Login");
         }
 
-        public ActionResult PostLogin(string email, string senha)
+        public ActionResult Get(string email, string senha)
         {
-            var client = new HttpClient();
-
-            client.BaseAddress = new Uri($"http://localhost:5002/api/Usuario?email={email}&senha={senha}");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            var response = client.GetAsync(client.BaseAddress).Result;
-
-            var result = response.Content.ReadAsStringAsync().Result;
-
+            var response = _loginAppService.Get(email, senha);
             if (!response.IsSuccessStatusCode)
             {
-                ViewBag.Error = result;
+                ModelState.AddModelError("Erro", response.Content.ReadAsStringAsync().Result.Replace('[', ' ').Replace(']', ' ').Replace('"', ' '));
                 return View("Login");
             }
 
-            var usuario = JsonConvert.DeserializeObject<Usuario>(result);
-
-            if(usuario != null)
-            {
-                UsuarioLogado = usuario;
-                return RedirectToAction("Home", "Home");
-
-            }
-
-            ViewBag.Error = "E-mail ou Senha inserido não corresponde a nenhuma conta";
-            return View("Login");
+            UsuarioLogado = JsonConvert.DeserializeObject<Usuario>(response.Content.ReadAsStringAsync().Result);
+            return RedirectToAction("Home", "Home");
         }
 
-        public ActionResult CadastrarConta(Usuario usuario)
+        public ActionResult GetConfirmacao(int idUsuario)
         {
-            var client = new HttpClient();
 
-            var response = client.PostAsync("http://localhost:5002/api/Usuario", usuario, new JsonMediaTypeFormatter
-            {
-                SerializerSettings = new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Include,
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                    ContractResolver = new DefaultContractResolver
-                    {
-                        IgnoreSerializableAttribute = false
-                    }
-                }
-            }).Result;
+            var response = _loginAppService.PutConfirmacaoCadastro(idUsuario);
+            if (!response.IsSuccessStatusCode)
+                return View("Error", response.Content.ReadAsStringAsync().Result);
 
+            return RedirectToAction("Home", "Home");
+        }
 
-            if (response.IsSuccessStatusCode)
-            {
-                Response.StatusCode = (int)HttpStatusCode.OK;
-                Response.TrySkipIisCustomErrors = true;
-                return Content("cadastro realizado com sucesso !!!");
-            }
-
-            Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            //Response.TrySkipIisCustomErrors = true;
-            return Content(response.Content.ReadAsStringAsync().Result);
-
-
-
+        public ActionResult Post(Usuario usuario)
+        {
+            var response = _loginAppService.Post(usuario);
+            return response.IsSuccessStatusCode ? Ok() : Error(response);
         }
     }
 }

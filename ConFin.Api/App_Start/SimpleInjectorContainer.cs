@@ -1,11 +1,11 @@
 ﻿using ConFin.Common.Domain;
 using ConFin.Common.Repository.Infra;
-using ConFin.Domain.Usuario;
+using ConFin.Domain.Login;
 using ConFin.Repository;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 
-namespace ConFin.Api.App_Start
+namespace ConFin.Api
 {
     public class SimpleInjectorContainer
     {
@@ -17,7 +17,6 @@ namespace ConFin.Api.App_Start
 
             Container.Register<IDatabaseConnection, DatabaseConnection>(Lifestyle.Scoped);
             Container.Register<Notification>(Lifestyle.Scoped);
-            //Container.RegisterSingleton(() => Config.Parameters);
 
             RegisterRepositories();
             RegisterServices();
@@ -28,12 +27,12 @@ namespace ConFin.Api.App_Start
 
         private static void RegisterRepositories()
         {
-            Container.Register<IUsuarioRepository, UsuarioRepository>();
+            Container.Register<ILoginRepository, LoginRepository>();
         }
 
         private static void RegisterServices()
         {
-            Container.Register<IUsuarioService, UsuarioService>();
+            Container.Register<ILoginService, LoginService>();
         }
     }
 }
