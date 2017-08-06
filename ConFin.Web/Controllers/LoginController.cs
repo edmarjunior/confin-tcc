@@ -48,5 +48,11 @@ namespace ConFin.Web.Controllers
             var response = _loginAppService.Post(usuario);
             return response.IsSuccessStatusCode ? Ok() : Error(response);
         }
+
+        public ActionResult Logout()
+        {
+            UsuarioLogado = null;
+            return RedirectToAction("Home", "Home");
+        }
     }
 }

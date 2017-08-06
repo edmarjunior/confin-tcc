@@ -5,68 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ConFin - Controle Financeiro Pessonal</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="text/javascript" src="~/Scripts/jquery-3.2.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-    <script type="text/javascript" src="~/Scripts/Common.js"></script>
-    <style>
-        
-        .preloader-background {
-	        display: flex;
-	        align-items: center;
-	        justify-content: center;
-	        background-color: rgba(255, 255, 255, 0.7);
-	        position: fixed;
-	        z-index: 100;
-	        top: 0;
-	        left: 0;
-	        right: 0;
-	        bottom: 0;	
-        }
-        .validation-summary-errors {
-	        margin-top: 20px;
-	        background: rgba(255, 0, 0, 0.5);
-	        color: white;
-	        border: 1px solid red;
-	        border-radius: 10px;
-	        font-size: 16px;
-	        font-family: 'Trebuchet MS', Trebuchet, Arial, sans-serif;
-        }
-        
-        body {
-            display: flex;
-            min-height: 100vh;
-            flex-direction: column;
-        }
+    <link type="text/css" rel="stylesheet" href="~/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="~/css/login.css" />
 
-        main {
-            flex: 1 0 auto;
-        }
+    <script type="text/javascript" src="~/Js/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="~/Js/materialize.min.js"></script>
 
-        body {
-            background: #fff;
-        }
-
-        .input-field input[type=date]:focus + label,
-        .input-field input[type=text]:focus + label,
-        .input-field input[type=email]:focus + label,
-        .input-field input[type=password]:focus + label {
-            color: #e91e63;
-        }
-
-        .input-field input[type=date]:focus,
-        .input-field input[type=text]:focus,
-        .input-field input[type=email]:focus,
-        .input-field input[type=password]:focus {
-            border-bottom: 2px solid #e91e63;
-            box-shadow: none;
-        }
-    
-    </style>
 </head>
 
 <body>
@@ -89,50 +33,10 @@
 
     @RenderBody()
 
+    <script type="text/javascript" src="~/Js/Common.js"></script>
+
 </body>
 
 </html>
 
-<script>
 
-    var loading = (function loading() {
-        $('.preloader-background, .preloader-wrapper').fadeIn();
-        return loading;
-    })();
-
-    var noLoading = (function noLoading() {
-        $('.preloader-background, .preloader-wrapper').fadeOut('slow');
-        return noLoading;
-    })();
-
-    $(document).ajaxStart(loading).ajaxStop(noLoading);
-
-    jQuery.fn.extend({
-        toObject: function () {
-            var obj = {}, formArray = [];
-
-            if ($(this).is("form"))
-                formArray = this.serializeArray();
-            else {
-                var container = $(this).wrap("<form/>");
-                formArray = container.parent().serializeArray();
-                container.unwrap("<form/>");
-            }
-
-            if (!formArray.length)
-                return obj;
-
-            $.each(formArray, function () {
-                if (obj[this.name] === undefined)
-                    obj[this.name] = this.value || '';
-                else {
-                    if (!obj[this.name].push)
-                        obj[this.name] = [obj[this.name]];
-                    obj[this.name].push(this.value || '');
-                }
-            });
-
-            return obj;
-        }
-    });
-</script>

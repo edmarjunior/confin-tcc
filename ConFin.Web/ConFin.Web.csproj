@@ -102,9 +102,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\materialize.min.css" />
+    <Content Include="Css\login.css" />
+    <Content Include="Css\materialize.min.css" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\Common.js" />
-    <Content Include="Scripts\jquery-3.2.1.min.js" />
+    <Content Include="Js\jquery-2.1.0.min.js" />
+    <Content Include="Js\materialize.min.js" />
+    <Content Include="Js\Common.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +133,16 @@
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Login\_CadastrarConta.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Fonts\roboto\Roboto-Bold.woff" />
+    <Content Include="Fonts\roboto\Roboto-Bold.woff2" />
+    <Content Include="Fonts\roboto\Roboto-Light.woff" />
+    <Content Include="Fonts\roboto\Roboto-Light.woff2" />
+    <Content Include="Fonts\roboto\Roboto-Medium.woff" />
+    <Content Include="Fonts\roboto\Roboto-Medium.woff2" />
+    <Content Include="Fonts\roboto\Roboto-Regular.woff" />
+    <Content Include="Fonts\roboto\Roboto-Regular.woff2" />
+    <Content Include="Fonts\roboto\Roboto-Thin.woff" />
+    <Content Include="Fonts\roboto\Roboto-Thin.woff2" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
