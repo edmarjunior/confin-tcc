@@ -3,21 +3,28 @@ using ConFin.Common.Repository;
 using ConFin.Common.Repository.Extension;
 using ConFin.Common.Repository.Infra;
 using ConFin.Domain.Login;
+using ConFin.Domain.Login.Dto;
 using System;
 
 namespace ConFin.Repository
 {
     public class LoginRepository : BaseRepository, ILoginRepository
     {
-        public LoginRepository(IDatabaseConnection connection) : base(connection)
+        private readonly Notification _notification;
+
+        public LoginRepository(IDatabaseConnection connection, Notification notification) : base(connection)
         {
+            _notification = notification;
         }
 
         private enum Procedures
         {
             SP_InsUsuario,
             SP_SelUsuario,
-            SP_UpdConfirmacaoCadastroUsuario
+            SP_UpdConfirmacaoCadastroUsuario,
+            SP_InsSolicitacaoTrocaSenhaLogin,
+            SP_SelSolicitacaoTrocaSenhaLogin,
+            SP_UpdSolicitacaoTrocaSenhaLogin
         }
 
         public void Post(Usuario usuario)
@@ -26,7 +33,7 @@ namespace ConFin.Repository
             AddParameter("Nome", usuario.Nome);
             AddParameter("Email", usuario.Email);
             AddParameter("Senha", usuario.Senha);
-            usuario.Id =  ExecuteNonQueryWithReturn();
+            usuario.Id = ExecuteNonQueryWithReturn();
         }
 
         public Usuario Get(string email, string senha)
@@ -37,7 +44,8 @@ namespace ConFin.Repository
 
             using (var reader = ExecuteReader())
             {
-                return !reader.Read() ? null
+                return !reader.Read()
+                    ? null
                     : new Usuario
                     {
                         Id = reader.ReadAttr<int>("Id"),
@@ -57,6 +65,42 @@ namespace ConFin.Repository
         {
             ExecuteProcedure(Procedures.SP_UpdConfirmacaoCadastroUsuario);
             AddParameter("Id", idUsuario);
+            ExecuteNonQuery();
+        }
+
+        public void PostSolicitacaoTrocaSenhaLogin(int idUsuario, string token)
+        {
+            ExecuteProcedure(Procedures.SP_InsSolicitacaoTrocaSenhaLogin);
+            AddParameter("IdUsuario", idUsuario);
+            AddParameter("Token", token);
+            ExecuteNonQuery();
+        }
+
+        public SolicitacaoTrocaSenhaLoginDto GetSolicitacaoTrocaSenhaLogin(int idUsuario, string token)
+        {
+            ExecuteProcedure(Procedures.SP_SelSolicitacaoTrocaSenhaLogin);
+            AddParameter("idUsuario", idUsuario);
+            AddParameter("Token", token);
+
+            using (var reader = ExecuteReader())
+            {
+                return !reader.Read()
+                    ? null
+                    : new SolicitacaoTrocaSenhaLoginDto
+                    {
+                        IdUsuario = reader.ReadAttr<int>("IdUsuario"),
+                        Token = reader.ReadAttr<string>("Token"),
+                        DataCadastro = reader.ReadAttr<DateTime>("DataCadastro"),
+                        DataUsuarioConfirmacao = reader.ReadAttr<DateTime?>("DataUsuarioConfirmacao")
+                    };
+            }
+        }
+
+        public void PutSolicitacaoTrocaSenhaLogin(int idUsuario, string token)
+        {
+            ExecuteProcedure(Procedures.SP_UpdSolicitacaoTrocaSenhaLogin);
+            AddParameter("idUsuario", idUsuario);
+            AddParameter("Token", token);
             ExecuteNonQuery();
         }
     }

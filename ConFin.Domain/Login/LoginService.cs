@@ -1,4 +1,5 @@
 ﻿using ConFin.Common.Domain;
+using System;
 using System.Net;
 using System.Net.Mail;
 
@@ -6,25 +7,27 @@ namespace ConFin.Domain.Login
 {
     public class LoginService : ILoginService
     {
-        private readonly ILoginRepository _usuarioRepository;
+        private readonly ILoginRepository _loginRepository;
         private readonly Notification _notification;
 
-
-        public LoginService(ILoginRepository usuarioRepository, Notification notification)
+        public LoginService(Notification notification, ILoginRepository loginRepository)
         {
-            _usuarioRepository = usuarioRepository;
             _notification = notification;
+            _loginRepository = loginRepository;
         }
 
-        public Usuario Get(string email, string senha = null)
+        public Common.Domain.Usuario Get(string email, string senha = null)
         {
-            var usuario = _usuarioRepository.Get(email, senha);
+            var usuario = _loginRepository.Get(email, senha);
 
             if (usuario == null)
             {
                 _notification.Add("Usuário não encontrado :(");
                 return null;
             }
+
+            if (_notification.Any)
+                return null;
 
             if (usuario.DataConfirmCadastro.HasValue)
                 return usuario;
@@ -33,7 +36,7 @@ namespace ConFin.Domain.Login
             return null;
         }
 
-        public void Post(Usuario usuario)
+        public void Post(Common.Domain.Usuario usuario)
         {
             if (usuario == null)
             {
@@ -44,19 +47,79 @@ namespace ConFin.Domain.Login
             if (!usuario.IsValid(_notification))
                 return;
 
-            if (_usuarioRepository.Get(usuario.Email) != null)
+            if (_loginRepository.Get(usuario.Email) != null)
             {
                 _notification.Add("E-mail de usuário já cadastrado");
                 return;
             }
 
-            _usuarioRepository.OpenTransaction();
-            _usuarioRepository.Post(usuario);
+            _loginRepository.OpenTransaction();
+            _loginRepository.Post(usuario);
             EnviaEmailConfirmacaoCadastro(usuario);
-            _usuarioRepository.CommitTransaction();
+            _loginRepository.CommitTransaction();
         }
 
-        private static void EnviaEmailConfirmacaoCadastro(Usuario usuario)
+        private static void EnviaEmailConfirmacaoCadastro(Common.Domain.Usuario usuario)
+        {
+
+            var body = $"<p>Prezado(a) {usuario.Nome.ToUpper()} </p>" +
+                          "<p>Parabéns por tomar a decisão de ter um maior Controle Financeiro Pessoal ao utilizar nossos serviços</p>" +
+                          "<p>Para confirmar seu acesso, favor clicar no link abaixo</p>" +
+                          $"<p><a href=\"http://localhost:5001/Login/GetConfirmacao?idUsuario={usuario.Id}\" target=\"_blank\">LINK PARA CONFIRMAR CADASTRO (CLIQUE AQUI)</a></p>" +
+                          "<p>Este é um e-mail automático. Não é necessário respondê-lo</p>" +
+                          "<p>Atenciosamente,</br>ConFin - Controle Financeiro Pessoal </p>";
+
+            EnviaEmail(usuario, body, "Confirmação de Cadastro");
+        }
+
+        public void PostReenviarSenha(string email)
+        {
+
+            var usuario = Get(email);
+            if (_notification.Any)
+                return;
+
+            var token = Guid.NewGuid().ToString();
+
+            _loginRepository.OpenTransaction();
+            _loginRepository.PostSolicitacaoTrocaSenhaLogin(usuario.Id, token);
+
+            if (_notification.Any)
+            {
+                _loginRepository.RollbackTransaction();
+                return;
+            }
+
+            var body = $"<p>Prezado(a) {usuario.Nome.ToUpper()} </p>" +
+                        "<p>É normal as vezes esquecermos nossas credenciais de acesso" +
+                        "<p>Para inserir uma nova senha de acesso, favor clicar no link abaixo</p>" +
+                       $"<p><a href=\"http://localhost:5001/Login/RedefinirSenha?idUsuario={usuario.Id}&token={token}\"" +
+                            " target=\"_blank\">LINK PARA REDEFINIR SENHA (CLIQUE AQUI)</a></p>" +
+                        "<p>Este é um e-mail automático. Não é necessário respondê-lo</p>" +
+                        "<p>Atenciosamente,</br>ConFin - Controle Financeiro Pessoal </p>";
+
+            EnviaEmail(usuario, body, "Alteração de Senha");
+            _loginRepository.CommitTransaction();
+
+        }
+
+        public void GetVerificaTokenValidoRedefinirSenha(int idUsuario, string token)
+        {
+            var dadosSolicitacao = _loginRepository.GetSolicitacaoTrocaSenhaLogin(idUsuario, token);
+            if (dadosSolicitacao == null)
+            {
+                _notification.Add("Solicitação de redefinição de senha não encontrada, favor realizar nova solicitação.");
+                return;
+            }
+
+            var tempoExpiracao = DateTime.Now - dadosSolicitacao.DataCadastro;
+
+            if (tempoExpiracao.Minutes > 60)
+                _notification.Add("A Solicitação de refinição de senha está expirada, favor realizar nova solicitação.");
+
+        }
+
+        private static void EnviaEmail(Common.Domain.Usuario usuario, string body, string subject)
         {
             var client = new SmtpClient()
             {
@@ -70,19 +133,13 @@ namespace ConFin.Domain.Login
             {
                 Sender = new MailAddress(usuario.Email, usuario.Nome),
                 From = new MailAddress("confinpessoal@outlook.com", "ConFin automático"),
-                Subject = "Confirmação de Cadastro",
-                Body = $"<p>Prezado(a) {usuario.Nome.ToUpper()} </p>" +
-                        "<p>Parabéns por tomar a decisão de ter um maior Controle Financeiro Pessoal ao utilizar nossos serviços</p>" +
-                        "<p>Para confirmar seu acesso, favor clicar no link abaixo</p>" +
-                        $"<p><a href=\"http://localhost:5001/Login/GetConfirmacao?idUsuario={usuario.Id}\" target=\"_blank\">LINK PARA CONFIRMAR CADASTRO (CLIQUE AQUI)</a></p>" +
-                        "<p>Este é um e-mail automático. Não é necessário respondê-lo</p>" +
-                        "<p>Atenciosamente,</br>ConFin - Controle Financeiro Pessoal </p>",
+                Subject = subject,
+                Body = body,
                 IsBodyHtml = true,
             };
 
             mail.To.Add(new MailAddress(usuario.Email, usuario.Nome));
             client.Send(mail);
         }
-
     }
 }

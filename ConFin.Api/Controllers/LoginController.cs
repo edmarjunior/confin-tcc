@@ -70,5 +70,40 @@ namespace ConFin.Api.Controllers
             }
         }
 
+        public IHttpActionResult PostReenviarSenha(string email)
+        {
+            try
+            {
+                _loginService.PostReenviarSenha(email);
+
+                if (!_notification.Any)
+                    return Ok();
+
+                return Content(HttpStatusCode.BadRequest, _notification.Get);
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        public IHttpActionResult GetVerificaTokenValidoRedefinirSenha(int idUsuario, string token)
+        {
+            try
+            {
+                _loginService.GetVerificaTokenValidoRedefinirSenha(idUsuario, token);
+
+                if (!_notification.Any)
+                    return Ok();
+
+                return Content(HttpStatusCode.BadRequest, _notification.Get);
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+        
+
     }
 }

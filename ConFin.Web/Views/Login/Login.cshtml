@@ -26,7 +26,7 @@
                             <label for="txtSenha">Senha</label>
                         </div>
                         <label style="float: right;">
-                            <a class="pink-text waves-effect waves-light modal-trigger" href="#modal1"><b>Esqueceu a senha?</b></a>
+                            <a class="pink-text waves-effect waves-light modal-trigger" href="#modalRecuperarSenha"><b>Esqueceu a senha?</b></a>
                         </label>
                     </div>
                     <div style="text-align: center;">
@@ -49,20 +49,8 @@
 </main>
 
  @*Modal Recuperar senha*@ 
-<div id="modal1" class="modal" style="font-family: 'Trebuchet MS', Trebuchet, Arial, sans-serif">
-    <div class="modal-content">
-        <h4>Recuperar senha</h4>
-        <p>Será enviado um link ao e-mail informado abaixo para redefinição de senha</p>
-        <div class="row">
-            <div class="input-field col s12">
-                <input class="validate" type="email" name="email" id="txtEmailRecuperar" />
-                <label for="txtEmailRecuperar">E-mail</label>
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Enviar E-mail</a>
-    </div>
+<div id="modalRecuperarSenha" class="modal" style="font-family: 'Trebuchet MS', Trebuchet, Arial, sans-serif">
+    @Html.Partial("../Login/_ModalRecuperarSenha")
 </div>
 
 
@@ -71,7 +59,6 @@
 
 
 <script>
-    $('.modal').modal();;
 
     var urlGetLogin = '@Url.Action("Get", "Login")';
 
@@ -91,7 +78,6 @@
 
         return true;
     });
-
 
     function criarConta() {
 

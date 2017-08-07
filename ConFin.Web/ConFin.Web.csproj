@@ -143,6 +143,8 @@
     <Content Include="Fonts\roboto\Roboto-Regular.woff2" />
     <Content Include="Fonts\roboto\Roboto-Thin.woff" />
     <Content Include="Fonts\roboto\Roboto-Thin.woff2" />
+    <Content Include="Views\Login\RedefinirSenha.cshtml" />
+    <Content Include="Views\Login\_ModalRecuperarSenha.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

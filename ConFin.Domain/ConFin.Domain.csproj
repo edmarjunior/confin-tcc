@@ -40,10 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Login\Dto\SolicitacaoTrocaSenhaLoginDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Login\ILoginRepository.cs" />
     <Compile Include="Login\ILoginService.cs" />
     <Compile Include="Login\LoginService.cs" />
+    <Compile Include="Usuario\IUsuarioRepository.cs" />
+    <Compile Include="Usuario\IUsuarioService.cs" />
+    <Compile Include="Usuario\UsuarioService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConFin.Common\ConFin.Common.csproj">

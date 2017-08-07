@@ -1,0 +1,83 @@
+﻿@model ConFin.Common.Domain.Usuario
+@{ Layout = "~/Views/Shared/_LayoutLogin.cshtml"; }
+
+
+<div class="section"></div>
+
+<main id="mainLogin">
+    <div style="text-align: center;">
+        <img class="responsive-img" style="width: 250px;" src="https://i.imgur.com/ax0NCsK.gif" alt="Logo" />
+        <div class="section" id="divErrorLogin" style="text-align: center">@Html.ValidationSummary()</div>
+
+        <div class="container">
+            <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0 48px; border: 1px solid #EEE;">
+                <form id="formLogin" class="col s12" method="POST" action="@Url.Action("PostRedefinirSenha")">
+                    
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <input type="hidden" name="Nome" value="@Model.Nome" />
+                    <input type="hidden" name="Email" value="@Model.Email" />
+                    <input type="hidden" name="DataCadastro" value="@Model.DataCadastro" />
+                    <input type="hidden" name="DataSolConfirmCadastro" value="@Model.DataSolConfirmCadastro" />
+                    <input type="hidden" name="DataConfirmCadastro" value="@Model.DataConfirmCadastro" />
+                    <input type="hidden" name="DataUltimaAlteracao" value="@Model.DataUltimaAlteracao" />
+                    <input type="hidden" name="DataDesativacao" value="@Model.DataDesativacao" />
+                    <input type="hidden" name="token" value="@ViewBag.Token"/>
+                    
+                    
+                    <div class="row">
+                        <div class="col s12 indigo-text">Redefinir senha</div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input readonly class="validate" type="email" name="Email" id="txtEmail" value="@Model.Email"/>
+                            <label for="txtEmail">E-mail</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input class="validate" type="password" name="Senha" id="txtNovaSenha"/>
+                            <label for="txtNovaSenha">Nova senha</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input class="validate" type="password" name="ConfirmacaoSenha" id="txtNovaSenhaConfirmar" />
+                            <label for="txtNovaSenhaConfirmar">Confirmar nova senha</label>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div class="row">
+                            <button id="btnSubmitRedefinirSenha" type="submit" class="col s12 btn-large waves-effect indigo">Redefinir senha</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <a href="@Url.Action("Login", "Login")">Não desejo alterar minha senha (Fazer Login)</a>
+    </div>
+
+    <div class="section"></div>
+    <div class="section"></div>
+</main>
+
+<script>
+
+    $("#btnSubmitRedefinirSenha").click(function() {
+
+        if (!$("#txtNovaSenha").val()) {
+            Materialize.toast('<span>Favor preencher o campo Nova Senha</span>', 10000, "red");
+            return false;
+        }
+
+        if (!$("#txtNovaSenhaConfirmar").val()) {
+            Materialize.toast('<span>Favor preencher o campo Confirmar Nova Senha</span>', 10000, "red");
+            return false;
+        }
+
+        if ($("#txtNovaSenha").val() != $("#txtNovaSenhaConfirmar").val()) {
+            Materialize.toast('<span>Nova senha não confere com a confirmação</span>', 10000, "red");
+            return false;
+        }
+
+        return true;
+    });
+
+</script>

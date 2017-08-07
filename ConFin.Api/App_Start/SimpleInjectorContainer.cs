@@ -1,6 +1,7 @@
 ﻿using ConFin.Common.Domain;
 using ConFin.Common.Repository.Infra;
 using ConFin.Domain.Login;
+using ConFin.Domain.Usuario;
 using ConFin.Repository;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
@@ -28,11 +29,13 @@ namespace ConFin.Api
         private static void RegisterRepositories()
         {
             Container.Register<ILoginRepository, LoginRepository>();
+            Container.Register<IUsuarioRepository, UsuarioRepository>();
         }
 
         private static void RegisterServices()
         {
             Container.Register<ILoginService, LoginService>();
+            Container.Register<IUsuarioService, UsuarioService>();
         }
     }
 }

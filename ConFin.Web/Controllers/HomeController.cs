@@ -1,4 +1,5 @@
 ﻿using ConFin.Common.Web;
+using System;
 using System.Web.Mvc;
 
 namespace ConFin.Web.Controllers
@@ -7,17 +8,31 @@ namespace ConFin.Web.Controllers
     {
         public ActionResult Home()
         {
-            if (UsuarioLogado == null)
-            return View("../Login/Login");
+            try
+            {
+                if (UsuarioLogado == null)
+                    return View("../Login/Login");
 
-            ViewBag.Email = UsuarioLogado.Email;
-            return View("Home", UsuarioLogado);
+                ViewBag.Email = UsuarioLogado.Email;
+                return View("Home", UsuarioLogado);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex.Message);
+            }
         }
 
         public ActionResult Logout()
         {
-            UsuarioLogado = null;
-            return RedirectToAction("Home");
+            try
+            {
+                UsuarioLogado = null;
+                return RedirectToAction("Home");
+            }
+            catch (Exception ex)
+            {
+                return Error(ex.Message);
+            }
         }
     }
 }
