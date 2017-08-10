@@ -2,6 +2,7 @@
 using ConFin.Application.AppService.Usuario;
 using ConFin.Common.Domain;
 using ConFin.Common.Web;
+using ConFin.Web.ViewModel;
 using Newtonsoft.Json;
 using System;
 using System.Web.Mvc;
@@ -31,18 +32,27 @@ namespace ConFin.Web.Controllers
             }
         }
 
-        public ActionResult Get(string email, string senha)
+        public ActionResult Get(UsuarioViewModel usuario)
         {
             try
             {
-                var response = _loginAppService.Get(email, senha);
+                var response = _loginAppService.Get(usuario.Email, usuario.Senha);
                 if (!response.IsSuccessStatusCode)
-                {
-                    ModelState.AddModelError("Erro", response.Content.ReadAsStringAsync().Result.Replace('[', ' ').Replace(']', ' ').Replace('"', ' '));
-                    return View("Login");
-                }
+                    return Error(response);
 
                 UsuarioLogado = JsonConvert.DeserializeObject<Usuario>(response.Content.ReadAsStringAsync().Result);
+                return Ok("Login realizado com sucesso.");
+            }
+            catch (Exception ex)
+            {
+                return Error(ex.Message);
+            }
+        }
+
+        public ActionResult RedirectToHome()
+        {
+            try
+            {
                 return RedirectToAction("Home", "Home");
             }
             catch (Exception ex)
@@ -56,7 +66,7 @@ namespace ConFin.Web.Controllers
             try
             {
                 var response = _loginAppService.Post(usuario);
-                return response.IsSuccessStatusCode ? Ok() : Error(response);
+                return response.IsSuccessStatusCode ? Ok("Usuário cadastrado com sucesso.") : Error(response);
             }
             catch (Exception ex)
             {
@@ -85,7 +95,7 @@ namespace ConFin.Web.Controllers
             try
             {
                 var response = _loginAppService.PostReenviarSenha(email);
-                return response.IsSuccessStatusCode ? Ok() : Error(response);
+                return response.IsSuccessStatusCode ? Ok("") : Error(response);
             }
             catch (Exception ex)
             {

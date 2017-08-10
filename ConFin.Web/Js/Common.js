@@ -1,18 +1,83 @@
 ﻿
+function isValidEmail(email) {
+    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    return emailReg.test(email);
+}
+
+function loading() {
+
+    if ($(".modal.open").length)
+        $(".modal.open").prepend(getHtmlLoading());
+    else
+        $("body").prepend(getHtmlLoading());
+
+    $('.preloader-background, .preloader-wrapper').fadeIn();
+};
+
+function noLoading() {
+    $('.preloader-background, .preloader-wrapper').fadeOut('slow');
+    $(".preloader-background").remove();
+};
+
+function getHtmlLoading() {
+    
+    return  '<div class="preloader-background">'
+        +      '<div class="preloader-wrapper big active">'
+        +          '<div class="spinner-layer spinner-blue-only">'
+        +              '<div class="circle-clipper left">'
+        +                  '<div class="circle"></div>'
+        +              '</div>'
+        +              '<div class="gap-patch">'
+        +                  '<div class="circle"></div>'
+        +              '</div>'
+        +              '<div class="circle-clipper right">'
+        +                  '<div class="circle"></div>'
+        +              '</div>'
+        +          '</div>'
+        +      '</div>'
+        +  '</div>';
+}
+
+function showToast(message, type) {
+    Materialize.toast("<span>" + message + "</span>", 10000, (type || "red"));
+    return false;
+}
+
+function isFieldEmpty(fields) {
+
+    var hasFieldEmpty = false;
+
+    for (var i = 0; i < fields.length; i++) {
+
+        if ($(fields[i]).val())
+            continue;
+
+        var fieldId = $(fields[i]).attr("id");
+        var labelName = $("label[for='" + fieldId + "']").text();
+        showToast("Favor preencher o campo " + labelName);
+        hasFieldEmpty = true;
+    }
+
+    return hasFieldEmpty;
+}
+
+$(document).ajaxStart(loading).ajaxStop(noLoading)
+    .ajaxError(function (event, xhr) {
+        var message = xhr.responseText || "Falha ao realizar operação";
+        showToast(message);
+    })
+    .ajaxSuccess(function (event, xhr) {
+
+        //if ($(".modal.open").length)
+        //    $(".modal").modal("close");
+
+        //var message = xhr.responseText || "Operação realizada com sucesso";
+        //showToast(message, "green");
+
+});
+
 
 // fazer plugin para ser usado no sistema
-
-var loading = (function loading() {
-    $('.preloader-background, .preloader-wrapper').fadeIn();
-    return loading;
-})();
-
-var noLoading = (function noLoading() {
-    $('.preloader-background, .preloader-wrapper').fadeOut('slow');
-    return noLoading;
-})();
-
-$(document).ajaxStart(loading).ajaxStop(noLoading);
 
 jQuery.fn.extend({
     toObject: function () {
@@ -42,3 +107,33 @@ jQuery.fn.extend({
         return obj;
     }
 });
+
+var onModalConfirm;
+
+function showModalConfirm(mensagem, fnc) {
+    onModalConfirm = fnc;
+    var htmlModal = '<div id="modalConfirmacao" class="modal">'
+                    +    '<div class="modal-content">'
+                    +       "<br/>"
+                    +       "<h4>Confirmação</h4>"
+                    +       "<div class='divider'></div>"
+                    +       "<a style='position: absolute; top: 10px; right: 50px;'>"
+                    +           "<i class='large material-icons' style='color: gold;'>warning</i>"
+                    +        "</a>"
+                    +       "<p>" + mensagem + "</p>"
+                    +    "</div>"
+                    +    "<div class='modal-footer'>"
+                    +       "<a href='#!' onclick='onModalConfirm()' style='color:green' class='modal-action modal-close waves-effect waves-green btn-flat'>Confirmar</a>"
+                    +       "<a href='#!' style='color:red' class='modal-action modal-close waves-effect waves-red btn-flat'>Cancelar</a>"
+                    +    "</div>"
+                    + " </div>";
+
+    $("#containerPrincipal").prepend(htmlModal);
+    $(".modal").modal();
+    $("#modalConfirmacao").modal("open");
+}
+
+
+
+
+

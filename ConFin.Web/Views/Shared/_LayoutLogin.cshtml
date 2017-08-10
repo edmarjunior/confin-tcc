@@ -2,11 +2,11 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ConFin - Controle Financeiro Pessonal</title>
-    <link type="text/css" rel="stylesheet" href="~/css/materialize.min.css" media="screen,projection" />
-    <link type="text/css" rel="stylesheet" href="~/css/login.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/materialize.min.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="~/css/login.css"/>
 
     <script type="text/javascript" src="~/Js/jquery-2.1.0.min.js"></script>
     <script type="text/javascript" src="~/Js/materialize.min.js"></script>
@@ -15,28 +15,14 @@
 
 <body>
 
-    <div class="preloader-background">
-        <div class="preloader-wrapper big active">
-            <div class="spinner-layer spinner-blue-only">
-                <div class="circle-clipper left">
-                    <div class="circle"></div>
-                </div>
-                <div class="gap-patch">
-                    <div class="circle"></div>
-                </div>
-                <div class="circle-clipper right">
-                    <div class="circle"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+@RenderBody()
 
-    @RenderBody()
-
-    <script type="text/javascript" src="~/Js/Common.js"></script>
+<script type="text/javascript" src="~/Js/Common.js"></script>
 
 </body>
 
 </html>
+
+<script>$('#mainLogin').show(1000)</script>
 
 

@@ -1,6 +1,7 @@
 ﻿@{ Layout = null;}
 
 <div class="modal-content">
+
     <h4>Recuperar senha</h4>
     <p>Será enviado um link ao e-mail informado abaixo para redefinição de senha</p>
     <div class="row">
@@ -15,8 +16,8 @@
 </div>
 
 <script>
-    
-    $('.modal').modal();;
+
+    $('.modal').modal();
 
     var urlPostReenviarSenha = '@Url.Action("PostReenviarSenha", "Login")';
 
@@ -31,9 +32,9 @@
             email: $("#txtEmailRecuperar").val()
         }).success(function () {
             $('#modalRecuperarSenha').modal('close');
-            Materialize.toast('<span>Conta criada com sucesso, favor verificar e-mail de confirmação.</span>', 20000, "green");
+            Materialize.toast('<span>Conta criada com sucesso, favor verificar e-mail de confirmação.</span>', 10000, "green");
         }).error(function (xhr) {
-            Materialize.toast('<span>' + xhr.responseText +'</span>', 20000, "red");
+            Materialize.toast('<span>' + xhr.responseText + '</span>', 5000, "red");
         });
 
         return true;

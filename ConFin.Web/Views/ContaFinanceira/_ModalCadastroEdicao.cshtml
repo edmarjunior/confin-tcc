@@ -1,0 +1,51 @@
+﻿@{ Layout = null;}
+
+<div id="modalContaCadastroEdicao" class="modal">
+    <div class="modal-content">
+        <div class="section" style="text-align: center">
+            <h1 style="color: gray; font-size: 20pt;" class="caption">Cadastro/Edição - Conta Financeira</h1>
+            <div class="divider" style="margin-bottom: 30px"></div>
+        </div>
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <select class="multiple">
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="1">Poupança</option>
+                            <option value="2">Conta Corrente</option>
+                            <option value="3">Carteira</option>
+                        </select>
+                        <label>Tipo</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="txtNomeConta" type="text" class="validate">
+                        <label for="txtNomeConta">Nome</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="txtDescricao" type="text" class="validate">
+                        <label for="txtDescricao">Descrição</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="txtSaldoInicialConta" type="text" class="validate">
+                        <label for="txtSaldoInicialConta">Saldo inicial</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" onclick="cadastrarEditarConta()" style="color:green" class="modal-action waves-effect waves-green btn-flat">Confirmar</a>
+        <a href="#!" style="color:red" class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</a>
+    </div>
+</div>
+
+
+<script>
+    $('select').material_select();
+    function cadastrarEditarConta() {
+        alert("Todo");
+    }
+</script>

@@ -1,6 +1,5 @@
 ﻿using ConFin.Common.Domain;
 using ConFin.Domain.Usuario;
-using System;
 using System.Net;
 using System.Web.Http;
 
@@ -21,35 +20,20 @@ namespace ConFin.Api.Controllers
 
         public IHttpActionResult Get(int id)
         {
-            try
-            {
-                var usuario = _usuarioRepository.Get(id);
-                if (!_notification.Any)
-                    return Ok(usuario);
+            var usuario = _usuarioRepository.Get(id);
+            if (!_notification.Any)
+                return Ok(usuario);
 
-                return Content(HttpStatusCode.BadRequest, _notification.Get);
-            }
-            catch (Exception ex)
-            {
-                return Content(HttpStatusCode.BadRequest, ex.Message);
-            }
+            return Content(HttpStatusCode.BadRequest, _notification.Get);
         }
-
 
         public IHttpActionResult PutSenha(int id, string token, string novaSenha)
         {
-            try
-            {
-                _usuarioService.PutSenha(id, token, novaSenha);
-                if (!_notification.Any)
-                    return Ok();
+            _usuarioService.PutSenha(id, token, novaSenha);
+            if (!_notification.Any)
+                return Ok();
 
-                return Content(HttpStatusCode.BadRequest, _notification.Get);
-            }
-            catch (Exception ex)
-            {
-                return Content(HttpStatusCode.BadRequest, ex.Message);
-            }
+            return Content(HttpStatusCode.BadRequest, _notification.Get);
         }
     }
 }

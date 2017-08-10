@@ -1,0 +1,22 @@
+﻿
+<ul id="menuLateral" class="side-nav">
+
+    <li><a class="waves-effect" href="http://localhost:5001/Home"><i class="material-icons">home</i>Home</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">Opções Menu</a></li>
+    <li data-url="http://localhost:5001/Home/ContaFinanceira/ContaFinanceira"><a class="waves-effect"><i class="material-icons">account_balance_wallet</i>Contas Financeira</a></li>
+    <li><a class="waves-effect"><i class="material-icons">compare_arrows</i>Lançamentos</a></li>
+
+</ul>
+
+
+<script>
+    
+    $(document).on('click', '#menuLateral > li[data-url]', function () {
+        $('.button-collapse').sideNav('hide');
+
+        $.get($(this).attr("data-url")).success(function(data) {
+            $("#containerPrincipal").html(data);
+        });
+    });
+</script>

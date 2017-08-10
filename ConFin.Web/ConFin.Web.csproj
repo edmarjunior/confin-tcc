@@ -102,8 +102,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Imagens\logo2.png" />
     <Content Include="Content\materialize.min.css" />
     <Content Include="Css\login.css" />
+    <Content Include="Css\material-icon.css" />
     <Content Include="Css\materialize.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Js\jquery-2.1.0.min.js" />
@@ -114,6 +116,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SimpleInjectorContainer.cs" />
+    <Compile Include="Controllers\ContaFinanceiraController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -145,6 +148,11 @@
     <Content Include="Fonts\roboto\Roboto-Thin.woff2" />
     <Content Include="Views\Login\RedefinirSenha.cshtml" />
     <Content Include="Views\Login\_ModalRecuperarSenha.cshtml" />
+    <Content Include="Fonts\fontMaterialDesign.woff2" />
+    <Content Include="Views\Shared\_Cabecalho.cshtml" />
+    <Content Include="Views\Shared\_MenuLateral.cshtml" />
+    <Content Include="Views\ContaFinanceira\ContaFinanceira.cshtml" />
+    <Content Include="Views\ContaFinanceira\_ModalCadastroEdicao.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ConFin.Common.Api.Infra;
+using Newtonsoft.Json;
 using System.Net.Http.Formatting;
 using System.Web.Http;
 using System.Web.Http.Dependencies;
@@ -22,6 +23,7 @@ namespace ConFin.Common.Api
             });
 
             config.DependencyResolver = dependencyResolver;
+            config.Filters.Add(new ExceptionFilter());
         }
     }
 }

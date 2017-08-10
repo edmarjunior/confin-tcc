@@ -1,103 +1,78 @@
 ﻿
+<div class="container" >
+    <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0 48px; border: 1px solid #EEE;">
 
-<div style="text-align: center;" >
-    <img class="responsive-img" style="width: 250px;" src="https://i.imgur.com/ax0NCsK.gif" alt="Logo"/>
-    <div class="section"></div>
+        <form id="formNovaContaUsuario" class="col s12">
+            <div class="row">
+                <div class="col s12 indigo-text">Cadastrar nova conta</div>
+            </div>
 
-    <div class="container">
-        <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0 48px; border: 1px solid #EEE;">
+            <div class="row" style="margin-bottom: 10px !important">
+                <div class="input-field col s12">
+                    <input class="validate" type="text" name="Nome" id="txtNomeCad" />
+                    <label for="txtNomeCad">Nome</label>
+                </div>
+            </div>
 
-            <form id="formNovaContaUsuario" class="col s12" method="post" action="@Url.Action("Post", "Login")">
+            <div class="row" style="margin-bottom: 10px !important">
+                <div class="input-field col s12">
+                    <input class="validate" type="email" name="Email" id="txtEmailCad" />
+                    <label for="txtEmailCad">E-mail</label>
+                </div>
+            </div>
+
+            <div class="row" style="margin-bottom: 10px !important">
+                <div class="input-field col s6">
+                    <input class="validate" type="password" name="Senha" id="txtSenhaCad" />
+                    <label for="txtSenhaCad">Senha</label>
+                </div>
+                <div class="input-field col s6">
+                    <input class="validate" type="password" name="ConfirmacaoSenha" id="txtConfirmacaoSenhaCad" />
+                    <label for="txtConfirmacaoSenhaCad">Confirmar senha</label>
+                </div>
+            </div>
+
+            <br />
+
+            <div style="text-align: center;">
                 <div class="row">
-                    <div class="col s12 indigo-text">Cadastrar nova conta</div>
+                    <button id="btnSubmitLogin" type="submit" name="btn_login"
+                            class="col s12 btn btn-large waves-effect indigo">
+                        Cadastrar
+                    </button>
                 </div>
-
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input class="validate" type="text" name="Nome" id="txtNomeCad" />
-                        <label for="txtNomeCad">Nome</label>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input class="validate" type="email" name="Email" id="txtEmailCad" />
-                        <label for="txtEmailCad">E-mail</label>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="input-field col s6">
-                        <input class="validate" type="password" name="Senha" id="txtSenhaCad" />
-                        <label for="txtSenhaCad">Senha</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <input class="validate" type="password" name="ConfirmacaoSenha" id="txtConfirmacaoSenhaCad" />
-                        <label for="txtConfirmacaoSenhaCad">Confirmar senha</label>
-                    </div>
-                </div>
-
-                <br/>
-
-                <div style="text-align: center;" >
-                    <div class="row">
-                        <button id="btnSubmitLogin" onclick="cadastrarContaUsuario()" type="button" name="btn_login" class="col s12 btn btn-large waves-effect indigo">Cadastrar</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
-    <a href="javascript:void(0)" onclick="showLogin()">Já sou cadastrado. Fazer Login</a>
 </div>
+<a href="javascript:void(0)" onclick="showLogin()">Já sou cadastrado. Fazer Login</a>
 
 
 <script>
 
     var urlPostLogin = '@Url.Action("Post", "Login")';
 
-    function cadastrarContaUsuario() {
+    $("#formNovaContaUsuario").submit(function (event) {
+        event.preventDefault();
 
         $('.toast').remove();
 
-        if (!$("#txtNomeCad").val()) {
-            Materialize.toast('<span>Favor preencher o campo Nome</span>', 10000, "red");
+        if (isFieldEmpty($("#txtNomeCad, #txtEmailCad, #txtSenhaCad, #txtConfirmacaoSenhaCad")))
             return false;
-        }
 
-        if (!$("#txtEmailCad").val()) {
-            Materialize.toast('<span>Favor preencher o campo E-mail</span>', 10000, "red");
-            return false;
-        }
+        if ($("#txtSenhaCad").val() != $("#txtConfirmacaoSenhaCad").val())
+            return showToast("Senha não confere com a confirmação");
 
-        if (!$("#txtSenhaCad").val()) {
-            Materialize.toast('<span>Favor preencher o campo Senha</span>', 10000, "red");
-            return false;
-        }
+        $.post(urlPostLogin, $("#formNovaContaUsuario").toObject());
 
-        if (!$("#txtConfirmacaoSenhaCad").val()) {
-            Materialize.toast('<span>Favor preencher o campo Confirmar Senha</span>', 10000, "red");
-            return false;
-        }
-
-        if ($("#txtSenhaCad").val() != $("#txtConfirmacaoSenhaCad").val()) {
-            Materialize.toast('<span>Senha não confere com a confirmação</span>', 10000, "red");
-            return false;
-        }
-
-        $.post(urlPostLogin, $("#formNovaContaUsuario").toObject()).success(function() {
-            showLogin();
-            Materialize.toast('<span>Conta criada com sucesso, favor verificar e-mail de confirmação.</span>', 20000, "green");
-        }).error(function(xhr) {
-            Materialize.toast('<span>Falha ao cadastrar conta: ' + xhr.responseText + '</span>', 20000, "red");
-        });
-
-    }
+        return false;
+    });
 
     function showLogin() {
 
         $("#formNovaContaUsuario")[0].reset();
 
-        $("#mainNovaConta").hide(function() {
+        $("#mainNovaConta").hide(function () {
             $("#mainLogin").show();
         });
 
