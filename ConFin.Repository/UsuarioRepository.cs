@@ -1,4 +1,5 @@
 ﻿using ConFin.Common.Domain;
+using ConFin.Common.Domain.Dto;
 using ConFin.Common.Repository;
 using ConFin.Common.Repository.Extension;
 using ConFin.Common.Repository.Infra;
@@ -22,7 +23,7 @@ namespace ConFin.Repository
             SP_UpdUsuarioSenha
         }
 
-        public Usuario Get(int id)
+        public UsuarioDto Get(int id)
         {
             ExecuteProcedure(Procedures.SP_SelUsuario);
             AddParameter("Id", id);
@@ -30,7 +31,7 @@ namespace ConFin.Repository
             using (var reader = ExecuteReader())
             {
                 if (reader.Read())
-                    return new Usuario
+                    return new UsuarioDto
                     {
                         Id = reader.ReadAttr<int>("Id"),
                         Nome = reader.ReadAttr<string>("Nome"),

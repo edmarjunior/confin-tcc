@@ -1,4 +1,4 @@
-﻿using ConFin.Common.Domain;
+﻿using ConFin.Common.Domain.Dto;
 using System.Net;
 using System.Net.Http;
 using System.Web.Mvc;
@@ -7,9 +7,9 @@ namespace ConFin.Common.Web
 {
     public class BaseController: Controller
     {
-        public Usuario UsuarioLogado
+        public UsuarioDto UsuarioLogado
         {
-            get { return SessionManagement.Get<Usuario>("UsuarioLogado"); }
+            get { return SessionManagement.Get<UsuarioDto>("UsuarioLogado"); }
             set { SessionManagement.Update("UsuarioLogado", value); }
         }
 

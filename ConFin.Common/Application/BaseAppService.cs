@@ -16,9 +16,9 @@ namespace ConFin.Common.Application
         private string _uri;
         private readonly HttpClient _client;
 
-        protected BaseAppService(string uri)
+        protected BaseAppService(string controllerApi)
         {
-            _uri = uri;
+            _uri = $"http://localhost:5002/api/{controllerApi}";
             _client = new HttpClient();
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -79,6 +79,19 @@ namespace ConFin.Common.Application
         {
             _uri += $"/{action}";
             return PutRequest(objeto, parametros);
+        }
+
+        protected HttpResponseMessage DeleteRequest(object parametros = null)
+        {
+            AddParametersUri(parametros);
+            _client.BaseAddress = new Uri($"{_uri}");
+            return _client.DeleteAsync(_client.BaseAddress).Result;
+        }
+
+        protected HttpResponseMessage DeleteRequest(string action, object parametros = null)
+        {
+            _uri += $"/{action}";
+            return DeleteRequest(parametros);
         }
 
         private void AddParametersUri(object parametros)

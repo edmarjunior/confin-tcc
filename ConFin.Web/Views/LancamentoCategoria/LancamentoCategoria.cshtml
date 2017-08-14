@@ -1,0 +1,98 @@
+﻿@model IEnumerable<ConFin.Common.Domain.Dto.LancamentoCategoriaDto>
+@{ Layout = null;}
+
+<div class="container">
+    <div class="section" style="text-align: center">
+        <h1 style="color: gray; font-size: 20pt;" class="caption">Categorias de Lançamento</h1>
+        <div class="divider"></div>
+    </div>
+
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Cor</th>
+                <th>Nome</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var categoria in Model)
+                {
+                    <tr>
+                        <td><a style="cursor: default"><i style="color: @categoria.Cor" class="material-icons">bookmark</i></a></td>
+                        <td>@categoria.Nome</td>
+                        <td class="center-align">
+                            <a title="Excluir categoria" style="color: crimson" href="javascript:void(0)" onclick="deleteCategoria(@categoria.Id)">
+                                <i class="material-icons">delete_forever</i>
+                            </a>
+                            <a title="Editar categoria" style="color: dimgray" href="javascript:void(0)" onclick="showModalCadastroEdicaoCategoria(@categoria.Id)">
+                                <i class="material-icons">mode_edit</i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td style="text-align: center" colspan="3">Nenhum registro encontrado.</td></tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+
+<div class="fixed-action-btn horizontal click-to-toggle">
+    <a href="javascript:void(0)" onclick="showModalCadastroEdicaoCategoria()" class="waves-effect waves-light modal-trigger btn-floating btn-large">
+        <i class="material-icons">add</i>
+    </a>
+</div>
+
+<script>
+
+    var urlsCategoria = {
+        LancamentoCategoria: '@Url.Action("LancamentoCategoria", "LancamentoCategoria")',
+        GetModalCadastroEdicao: '@Url.Action("GetModalCadastroEdicao", "LancamentoCategoria")',
+        Post: '@Url.Action("Post", "LancamentoCategoria")',
+        Put: '@Url.Action("Put", "LancamentoCategoria")',
+        Delete: '@Url.Action("Delete", "LancamentoCategoria")'
+    };
+
+    function showModalCadastroEdicaoCategoria(idCategoria) {
+        $.get(urlsCategoria.GetModalCadastroEdicao, {
+            idCategoria: idCategoria
+        }).success(function (data) {
+            $("#containerPrincipal").append(data);
+            $('#modalCategoriaCadastroEdicao').modal({complete: function() {
+                $('#modalCategoriaCadastroEdicao').remove();
+            }});
+            $("#modalCategoriaCadastroEdicao").modal("open");
+            verifyLabelActive();
+        });
+    }
+
+    function deleteCategoria(idCategoria) {
+        showModalConfirm("Deseja realmente excluir esta categoria?", function() {
+            $.post(urlsCategoria.Delete, {
+                idCategoria: idCategoria
+            }).success(function (data) {
+                showToast(data, "green");
+                atualizarCategorias();
+            });
+        });
+    }
+
+    function atualizarCategorias() {
+        setTimeout(function() {
+            $.get(urlsCategoria.LancamentoCategoria).success(function(data) {
+                $("#containerPrincipal").html(data);
+            });
+        }, 100);
+
+    }
+
+</script>

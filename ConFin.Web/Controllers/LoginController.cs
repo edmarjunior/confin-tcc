@@ -1,6 +1,6 @@
 ﻿using ConFin.Application.AppService.Login;
 using ConFin.Application.AppService.Usuario;
-using ConFin.Common.Domain;
+using ConFin.Common.Domain.Dto;
 using ConFin.Common.Web;
 using ConFin.Web.ViewModel;
 using Newtonsoft.Json;
@@ -40,7 +40,7 @@ namespace ConFin.Web.Controllers
                 if (!response.IsSuccessStatusCode)
                     return Error(response);
 
-                UsuarioLogado = JsonConvert.DeserializeObject<Usuario>(response.Content.ReadAsStringAsync().Result);
+                UsuarioLogado = JsonConvert.DeserializeObject<UsuarioDto>(response.Content.ReadAsStringAsync().Result);
                 return Ok("Login realizado com sucesso.");
             }
             catch (Exception ex)
@@ -61,12 +61,14 @@ namespace ConFin.Web.Controllers
             }
         }
 
-        public ActionResult Post(Usuario usuario)
+        public ActionResult Post(UsuarioDto usuario)
         {
             try
             {
                 var response = _loginAppService.Post(usuario);
-                return response.IsSuccessStatusCode ? Ok("Usuário cadastrado com sucesso.") : Error(response);
+                return !response.IsSuccessStatusCode 
+                    ? Error(response) 
+                    : Ok("Solicitação realizada com sucesso, foi enviado um e-mail para a confirmação do cadastro.");
             }
             catch (Exception ex)
             {
@@ -117,7 +119,7 @@ namespace ConFin.Web.Controllers
                     return View("Error", model: response.Content.ReadAsStringAsync().Result);
 
 
-                var usuario = JsonConvert.DeserializeObject<Usuario>(response.Content.ReadAsStringAsync().Result);
+                var usuario = JsonConvert.DeserializeObject<UsuarioDto>(response.Content.ReadAsStringAsync().Result);
                 ViewBag.Token = token;
                 return View("RedefinirSenha", usuario);
 
@@ -128,7 +130,7 @@ namespace ConFin.Web.Controllers
             }
         }
 
-        public ActionResult PostRedefinirSenha(Usuario usuario, string token)
+        public ActionResult PostRedefinirSenha(UsuarioDto usuario, string token)
         {
             try
             {

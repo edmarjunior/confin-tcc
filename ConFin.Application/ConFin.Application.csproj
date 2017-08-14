@@ -47,6 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppService\ContaFinanceiraTipo\ContaFinanceiraTipoAppService.cs" />
+    <Compile Include="AppService\ContaFinanceiraTipo\IContaFinanceiraTipoAppService.cs" />
+    <Compile Include="AppService\ContaFinanceira\ContaFinanceiraAppService.cs" />
+    <Compile Include="AppService\ContaFinanceira\IContaFinanceiraAppService.cs" />
+    <Compile Include="AppService\LancamentoCategoria\ILancamentoCategoriaAppService.cs" />
+    <Compile Include="AppService\LancamentoCategoria\LancamentoCategoriaAppService.cs" />
+    <Compile Include="AppService\Lancamento\ILancamentoAppService.cs" />
+    <Compile Include="AppService\Lancamento\LancamentoAppService.cs" />
     <Compile Include="AppService\Login\LoginAppService.cs" />
     <Compile Include="AppService\Login\ILoginAppService.cs" />
     <Compile Include="AppService\Usuario\IUsuarioAppService.cs" />

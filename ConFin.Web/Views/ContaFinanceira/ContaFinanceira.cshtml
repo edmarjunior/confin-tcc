@@ -1,4 +1,5 @@
-﻿@{ Layout = null;}
+﻿@model IEnumerable<ConFin.Web.ViewModel.ContaFinanceiraViewModel>
+@{ Layout = null;}
 
 <div class="container">
     <div class="section" style="text-align: center">
@@ -17,46 +18,30 @@
         </thead>
 
         <tbody>
-            <tr>
-                <td>Caixa</td>
-                <td>Poupança</td>
-                <td>100.87</td>
-                <td>
-                    <a title="Excluir conta" style="color: crimson" href="javascript:void(0)" onclick="deleteConta()">
-                        <i class="material-icons">delete_forever</i>
-                    </a>
-                    <a title="Editar conta" style="color: dimgray" href="javascript:void(0)" onclick="editarConta()">
-                        <i class="material-icons">mode_edit</i>
-                    </a>
-                </td>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var conta in Model)
+                {
+                    <tr>
+                        <td>@conta.Nome</td>
+                        <td>@conta.NomeTipo</td>
+                        <td>TODO</td>
+                        <td class="center-align">
+                            <a title="Excluir conta" style="color: crimson" href="javascript:void(0)" onclick="deleteConta(@conta.Id)">
+                                <i class="material-icons">delete_forever</i>
+                            </a>
+                            <a title="Editar conta" style="color: dimgray" href="javascript:void(0)" onclick="showModalCadastroEdicao(@conta.Id)">
+                                <i class="material-icons">mode_edit</i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td style="text-align: center" colspan="4">Nenhum registro encontrado.</td></tr>
+            }
 
-            </tr>
-            <tr>
-                <td>Bradesco</td>
-                <td>Conta Corrente</td>
-                <td>113.76</td>
-                <td>
-                    <a title="Excluir conta" style="color: crimson" href="javascript:void(0)" onclick="deleteConta()">
-                        <i class="material-icons">delete_forever</i>
-                    </a>
-                    <a title="Editar conta" style="color: dimgray" href="javascript:void(0)" onclick="editarConta()">
-                        <i class="material-icons">mode_edit</i>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>Pessoal</td>
-                <td>Carteira</td>
-                <td>70.00</td>
-                <td>
-                    <a title="Excluir conta" style="color: crimson" href="javascript:void(0)" onclick="deleteConta()">
-                        <i class="material-icons">delete_forever</i>
-                    </a>
-                    <a title="Editar conta" style="color: dimgray" href="javascript:void(0)" onclick="editarConta()">
-                        <i class="material-icons">mode_edit</i>
-                    </a>
-                </td>
-            </tr>
         </tbody>
     </table>
 </div>
@@ -64,32 +49,51 @@
 
 
 <div class="fixed-action-btn horizontal click-to-toggle">
-    <a href="javascript:void(0)" onclick="showModalConta()" class="waves-effect waves-light modal-trigger btn-floating btn-large">
+    <a href="javascript:void(0)" onclick="showModalCadastroEdicao()" class="waves-effect waves-light modal-trigger btn-floating btn-large">
         <i class="material-icons">add</i>
     </a>
 </div>
 
 <script>
 
-    var urlModalConta = '@Url.Action("GetModalCadastroEdicao", "ContaFinanceira")';
+    var urlsConta = {
+        ContaFinanceira: '@Url.Action("ContaFinanceira", "ContaFinanceira")',
+        GetModalCadastroEdicao: '@Url.Action("GetModalCadastroEdicao", "ContaFinanceira")',
+        Post: '@Url.Action("Post", "ContaFinanceira")',
+        Put: '@Url.Action("Put", "ContaFinanceira")',
+        Delete: '@Url.Action("Delete", "ContaFinanceira")'
+    };
 
-    function showModalConta() {
-        $.get(urlModalConta).success(function(data) {
+    function showModalCadastroEdicao(idConta) {
+        $.get(urlsConta.GetModalCadastroEdicao, {
+            idConta: idConta
+        }).success(function (data) {
             $("#containerPrincipal").append(data);
-            $('.modal').modal();
+            $('#modalContaCadastroEdicao').modal({complete: function() {
+                $('#modalContaCadastroEdicao').remove();
+            }});
             $("#modalContaCadastroEdicao").modal("open");
+            verifyLabelActive();
         });
     }
 
-
-    function deleteConta() {
+    function deleteConta(idConta) {
         showModalConfirm("Deseja realmente excluir esta conta?", function() {
-            alert("Confirmado");
+            $.post(urlsConta.Delete, {
+                idConta: idConta
+            }).success(function (data) {
+                showToast(data, "green");
+                atualizarContas();
+            });
         });
     }
 
-    function editarConta() {
-        alert("TODO");
+    function atualizarContas() {
+        setTimeout(function() {
+            $.get(urlsConta.ContaFinanceira).success(function (data) {
+                $("#containerPrincipal").html(data);
+            });
+        }, 100);
     }
 
 </script>

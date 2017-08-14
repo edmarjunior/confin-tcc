@@ -40,6 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContaFinanceiraTipo\IContaFinanceiraTipoRepository.cs" />
+    <Compile Include="ContaFinanceira\ContaFinanceiraService.cs" />
+    <Compile Include="ContaFinanceira\IContaFinanceiraRepository.cs" />
+    <Compile Include="ContaFinanceira\IContaFinanceiraService.cs" />
+    <Compile Include="LancamentoCategoria\ILancamentoCategoriaRepository.cs" />
+    <Compile Include="Lancamento\ILancamentoRepository.cs" />
     <Compile Include="Login\Dto\SolicitacaoTrocaSenhaLoginDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Login\ILoginRepository.cs" />

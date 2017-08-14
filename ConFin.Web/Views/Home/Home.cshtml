@@ -1,4 +1,4 @@
-﻿@model ConFin.Common.Domain.Usuario
+﻿@model ConFin.Common.Domain.Dto.UsuarioDto
 
 <div class="container" id="divGridLancamento">
     <h2>Lançamentos</h2>
@@ -103,11 +103,11 @@
                         <option value="" disabled selected>Selecione</option>
                         <option value="1">Despesa</option>
                         <option value="2">Receita</option>
-                    </select>
+                    </select>   
                     <label>Tipo</label>
                 </div>
                 <div class="input-field col s6">
-                    <input id="txtData" type="text" class="validate">
+                    <input id="txtData" type="text" class="date">
                     <label for="txtData">Data</label>
                 </div>
             </div>
@@ -117,7 +117,7 @@
                     <label for="txtDescricao">Descrição</label>
                 </div>
                 <div class="input-field col s6">
-                    <input id="txtValor" type="text" class="validate">
+                    <input id="txtValor" type="text" maxlength="12" class="validate money">
                     <label for="txtValor">Valor</label>
                 </div>
             </div>
@@ -212,27 +212,30 @@
 </div>
 
 
+
+
 <script>
+
     function abrirCadastroLancamento() {
-        $("#divGridLancamento, #divGridCategoria, #divDadosCategoria").hide(function () {
+        $("#divGridLancamento, #divGridCategoria, #divDadosCategoria").hide(function() {
             $("#divDadosLancamento").show();
         });
     }
 
     function abrirGridLancamento() {
-        $("#divDadosLancamento, #divGridCategoria, #divDadosCategoria").hide(function () {
+        $("#divDadosLancamento, #divGridCategoria, #divDadosCategoria").hide(function() {
             $("#divGridLancamento").show();
         });
     }
 
     function abrirCadastroCategoria() {
-        $("#divGridCategoria, #divDadosLancamento, #divGridLancamento").hide(function () {
+        $("#divGridCategoria, #divDadosLancamento, #divGridLancamento").hide(function() {
             $("#divDadosCategoria").show();
         });
     }
 
     function abrirGridCategoria() {
-        $("#divDadosCategoria, #divDadosLancamento, #divGridLancamento").hide(function () {
+        $("#divDadosCategoria, #divDadosLancamento, #divGridLancamento").hide(function() {
             $("#divGridCategoria").show();
         });
     }

@@ -1,4 +1,5 @@
 ﻿using ConFin.Common.Domain;
+using ConFin.Common.Domain.Dto;
 using System;
 using System.Net;
 using System.Net.Mail;
@@ -16,7 +17,7 @@ namespace ConFin.Domain.Login
             _loginRepository = loginRepository;
         }
 
-        public Common.Domain.Usuario Get(string email, string senha = null)
+        public UsuarioDto Get(string email, string senha = null)
         {
             var usuario = _loginRepository.Get(email, senha);
 
@@ -32,11 +33,11 @@ namespace ConFin.Domain.Login
             if (usuario.DataConfirmCadastro.HasValue)
                 return usuario;
 
-            _notification.Add("Aguardando usuário confirmar cadastro :(");
+            _notification.Add("Aguardando usuário confirmar cadastro");
             return null;
         }
 
-        public void Post(Common.Domain.Usuario usuario)
+        public void Post(UsuarioDto usuario)
         {
             if (usuario == null)
             {
@@ -59,13 +60,13 @@ namespace ConFin.Domain.Login
             _loginRepository.CommitTransaction();
         }
 
-        private static void EnviaEmailConfirmacaoCadastro(Common.Domain.Usuario usuario)
+        private static void EnviaEmailConfirmacaoCadastro(UsuarioDto usuario)
         {
 
             var body = $"<p>Prezado(a) {usuario.Nome.ToUpper()} </p>" +
                           "<p>Parabéns por tomar a decisão de ter um maior Controle Financeiro Pessoal ao utilizar nossos serviços</p>" +
                           "<p>Para confirmar seu acesso, favor clicar no link abaixo</p>" +
-                          $"<p><a href=\"http://localhost:5001/Login/GetConfirmacao?idUsuario={usuario.Id}\" target=\"_blank\">LINK PARA CONFIRMAR CADASTRO (CLIQUE AQUI)</a></p>" +
+                          $"<p><a href=\"http://localhost:5001/Home/Login/GetConfirmacao?idUsuario={usuario.Id}\" target=\"_blank\">LINK PARA CONFIRMAR CADASTRO (CLIQUE AQUI)</a></p>" +
                           "<p>Este é um e-mail automático. Não é necessário respondê-lo</p>" +
                           "<p>Atenciosamente,</br>ConFin - Controle Financeiro Pessoal </p>";
 
@@ -119,7 +120,7 @@ namespace ConFin.Domain.Login
 
         }
 
-        private static void EnviaEmail(Common.Domain.Usuario usuario, string body, string subject)
+        private static void EnviaEmail(UsuarioDto usuario, string body, string subject)
         {
             var client = new SmtpClient()
             {

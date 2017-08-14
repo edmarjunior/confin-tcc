@@ -1,4 +1,5 @@
 ﻿using ConFin.Common.Domain;
+using ConFin.Common.Domain.Dto;
 using ConFin.Common.Repository;
 using ConFin.Common.Repository.Extension;
 using ConFin.Common.Repository.Infra;
@@ -27,7 +28,7 @@ namespace ConFin.Repository
             SP_UpdSolicitacaoTrocaSenhaLogin
         }
 
-        public void Post(Usuario usuario)
+        public void Post(UsuarioDto usuario)
         {
             ExecuteProcedure(Procedures.SP_InsUsuario);
             AddParameter("Nome", usuario.Nome);
@@ -36,7 +37,7 @@ namespace ConFin.Repository
             usuario.Id = ExecuteNonQueryWithReturn();
         }
 
-        public Usuario Get(string email, string senha)
+        public UsuarioDto Get(string email, string senha)
         {
             ExecuteProcedure(Procedures.SP_SelUsuario);
             AddParameter("Email", email);
@@ -46,7 +47,7 @@ namespace ConFin.Repository
             {
                 return !reader.Read()
                     ? null
-                    : new Usuario
+                    : new UsuarioDto
                     {
                         Id = reader.ReadAttr<int>("Id"),
                         Nome = reader.ReadAttr<string>("Nome"),

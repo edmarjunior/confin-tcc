@@ -1,24 +1,4 @@
-﻿.preloader-background {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(255, 255, 255, 0.7);
-    position: fixed;
-    z-index: 100;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-}
-
-.validation-summary-errors {
-    background: rgba(255, 0, 0, 0.5);
-    color: white;
-    border: 1px solid red;
-    font-size: 16px;
-    font-family: 'Trebuchet MS', Trebuchet, Arial, sans-serif;
-}
-
+﻿
 body {
     display: flex;
     min-height: 100vh;
@@ -46,8 +26,4 @@ body {
 .input-field input[type=password]:focus {
     border-bottom: 2px solid #e91e63;
     box-shadow: none;
-}
-
-table:not(.highlight) tbody tr:hover {
-    background-color: lightblue !important;
 }

@@ -61,23 +61,9 @@ function isFieldEmpty(fields) {
     return hasFieldEmpty;
 }
 
-$(document).ajaxStart(loading).ajaxStop(noLoading)
-    .ajaxError(function (event, xhr) {
-        var message = xhr.responseText || "Falha ao realizar operação";
-        showToast(message);
-    })
-    .ajaxSuccess(function (event, xhr) {
-
-        //if ($(".modal.open").length)
-        //    $(".modal").modal("close");
-
-        //var message = xhr.responseText || "Operação realizada com sucesso";
-        //showToast(message, "green");
-
+$(document).ajaxStart(loading).ajaxStop(noLoading).ajaxError(function (event, xhr) {
+    showToast(xhr.responseText || "Falha ao realizar operação");
 });
-
-
-// fazer plugin para ser usado no sistema
 
 jQuery.fn.extend({
     toObject: function () {
@@ -133,7 +119,21 @@ function showModalConfirm(mensagem, fnc) {
     $("#modalConfirmacao").modal("open");
 }
 
+function verifyLabelActive() {
+    $("label").each(function (e, element) {
+        var id = $(element).attr("for");
+        if ($("#" + id).val())
+            $(element).addClass("active");
+    });
+}
 
+//(function ($) {
+//    $(function () {
+//        $('.datepicker').pickadate({
+//            selectMonths: true, // Creates a dropdown to control month
+//            selectYears: 15 // Creates a dropdown of 15 years to control year
+//        });
 
-
+//    }); // end of document ready
+//})(jQuery); // end of jQuery name space
 

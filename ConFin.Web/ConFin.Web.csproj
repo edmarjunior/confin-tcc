@@ -103,14 +103,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Imagens\logo2.png" />
-    <Content Include="Content\materialize.min.css" />
-    <Content Include="Css\login.css" />
-    <Content Include="Css\material-icon.css" />
-    <Content Include="Css\materialize.min.css" />
+    <Content Include="css\common.css" />
+    <Content Include="css\login.css" />
+    <Content Include="css\materialize.css" />
+    <Content Include="css\materialize.min.css" />
     <Content Include="Global.asax" />
-    <Content Include="Js\jquery-2.1.0.min.js" />
-    <Content Include="Js\materialize.min.js" />
-    <Content Include="Js\Common.js" />
+    <Content Include="js\common.js" />
+    <Content Include="js\jquery-2.1.0.min.js" />
+    <Content Include="js\jquery.mask.min.js" />
+    <Content Include="js\materialize.js" />
+    <Content Include="js\materialize.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -118,11 +120,15 @@
     <Compile Include="App_Start\SimpleInjectorContainer.cs" />
     <Compile Include="Controllers\ContaFinanceiraController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LancamentoCategoriaController.cs" />
+    <Compile Include="Controllers\LancamentoController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\ContaFinanceiraViewModel.cs" />
+    <Compile Include="ViewModel\LancamentoViewModel.cs" />
     <Compile Include="ViewModel\UsuarioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -136,23 +142,26 @@
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Login\_CadastrarConta.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Fonts\roboto\Roboto-Bold.woff" />
-    <Content Include="Fonts\roboto\Roboto-Bold.woff2" />
-    <Content Include="Fonts\roboto\Roboto-Light.woff" />
-    <Content Include="Fonts\roboto\Roboto-Light.woff2" />
-    <Content Include="Fonts\roboto\Roboto-Medium.woff" />
-    <Content Include="Fonts\roboto\Roboto-Medium.woff2" />
-    <Content Include="Fonts\roboto\Roboto-Regular.woff" />
-    <Content Include="Fonts\roboto\Roboto-Regular.woff2" />
-    <Content Include="Fonts\roboto\Roboto-Thin.woff" />
-    <Content Include="Fonts\roboto\Roboto-Thin.woff2" />
     <Content Include="Views\Login\RedefinirSenha.cshtml" />
     <Content Include="Views\Login\_ModalRecuperarSenha.cshtml" />
-    <Content Include="Fonts\fontMaterialDesign.woff2" />
     <Content Include="Views\Shared\_Cabecalho.cshtml" />
     <Content Include="Views\Shared\_MenuLateral.cshtml" />
     <Content Include="Views\ContaFinanceira\ContaFinanceira.cshtml" />
     <Content Include="Views\ContaFinanceira\_ModalCadastroEdicao.cshtml" />
+    <Content Include="Views\LancamentoCategoria\LancamentoCategoria.cshtml" />
+    <Content Include="fonts\roboto\Roboto-Bold.woff" />
+    <Content Include="fonts\roboto\Roboto-Bold.woff2" />
+    <Content Include="fonts\roboto\Roboto-Light.woff" />
+    <Content Include="fonts\roboto\Roboto-Light.woff2" />
+    <Content Include="fonts\roboto\Roboto-Medium.woff" />
+    <Content Include="fonts\roboto\Roboto-Medium.woff2" />
+    <Content Include="fonts\roboto\Roboto-Regular.woff" />
+    <Content Include="fonts\roboto\Roboto-Regular.woff2" />
+    <Content Include="fonts\roboto\Roboto-Thin.woff" />
+    <Content Include="fonts\roboto\Roboto-Thin.woff2" />
+    <Content Include="Views\LancamentoCategoria\_ModalCadastroEdicaoLancamentoCategoria.cshtml" />
+    <Content Include="Views\Lancamento\Lancamento.cshtml" />
+    <Content Include="Views\Lancamento\_ModalCadastroEdicaoLancamento.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

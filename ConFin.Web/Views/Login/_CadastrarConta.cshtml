@@ -63,7 +63,10 @@
         if ($("#txtSenhaCad").val() != $("#txtConfirmacaoSenhaCad").val())
             return showToast("Senha não confere com a confirmação");
 
-        $.post(urlPostLogin, $("#formNovaContaUsuario").toObject());
+        $.post(urlPostLogin, $("#formNovaContaUsuario").toObject()).success(function(message) {
+            showToast(message, "green");
+            showLogin();
+        });
 
         return false;
     });

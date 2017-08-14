@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace ConFin.Common.Domain
+namespace ConFin.Common.Domain.Dto
 {
-    public class Usuario
+    public class UsuarioDto
     {
         public int Id { get; set; }
         public string Nome { get; set; }

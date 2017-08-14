@@ -1,0 +1,58 @@
+﻿@using ConFin.Common.Web.Extension
+@model ConFin.Common.Domain.Dto.LancamentoCategoriaDto
+@{ Layout = null;}
+
+
+<div id="modalCategoriaCadastroEdicao" class="modal">
+
+    <div class="modal-content">
+        <div class="section" style="text-align: center">
+            <h1 style="color: gray; font-size: 20pt;" class="caption">@(ViewBag.IndicadorCadastro == "S" ? "Cadastrar" : "Editar") Categoria de lançamento</h1>
+            <div class="divider" style="margin-bottom: 30px"></div>
+        </div>
+        <div class="row">
+            <form id="formCategoriaCadastroEdicao" class="col s12">
+                <input type="hidden" id="hiddenIndicadorCadastroCategoria" value="@ViewBag.IndicadorCadastro" />
+                <input type="hidden" name="Id" value="@Model.Id" />
+
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="txtNomeCategoria" type="text" class="validate" name="Nome" value="@Model.Nome">
+                        <label for="txtNomeCategoria">Nome</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="txtCorCategoria" type="color" name="Cor" value="@Model.Cor">
+                        <label for="txtCorCategoria">Cor</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="javascript:void(0)" onclick="cadastrarEditarCategoria()" style="color: green" class="modal-action waves-effect waves-green btn-flat">Confirmar</a>
+        <a href="javascript:void(0)" style="color: red" class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</a>
+    </div>
+</div>
+
+
+<script>
+
+    $('select').material_select();
+    var urlPostPutCategoria = $("#hiddenIndicadorCadastroCategoria").val() == "S" ? urlsCategoria.Post : urlsCategoria.Put;
+
+    function cadastrarEditarCategoria() {
+        $('.toast').remove();
+
+
+        if (isFieldEmpty($("#txtNomeCategoria")))
+            return false;
+
+
+        $.post(urlPostPutCategoria, $("#formCategoriaCadastroEdicao").toObject()).success(function (message) {
+            $("#modalCategoriaCadastroEdicao").modal("close");
+            showToast(message, "green");
+            atualizarCategorias();
+        });
+    }
+
+</script>

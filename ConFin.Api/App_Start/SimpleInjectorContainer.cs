@@ -1,5 +1,9 @@
 ﻿using ConFin.Common.Domain;
 using ConFin.Common.Repository.Infra;
+using ConFin.Domain.ContaFinanceira;
+using ConFin.Domain.ContaFinanceiraTipo;
+using ConFin.Domain.Lancamento;
+using ConFin.Domain.LancamentoCategoria;
 using ConFin.Domain.Login;
 using ConFin.Domain.Usuario;
 using ConFin.Repository;
@@ -30,12 +34,17 @@ namespace ConFin.Api
         {
             Container.Register<ILoginRepository, LoginRepository>();
             Container.Register<IUsuarioRepository, UsuarioRepository>();
+            Container.Register<IContaFinanceiraRepository, ContaFinanceiraRepository>();
+            Container.Register<IContaFinanceiraTipoRepository, ContaFinanceiraTipoRepository>();
+            Container.Register<ILancamentoCategoriaRepository, LancamentoCategoriaRepository>();
+            Container.Register<ILancamentoRepository, LancamentoRepository>();
         }
 
         private static void RegisterServices()
         {
             Container.Register<ILoginService, LoginService>();
             Container.Register<IUsuarioService, UsuarioService>();
+            Container.Register<IContaFinanceiraService, ContaFinanceiraService>();
         }
     }
 }

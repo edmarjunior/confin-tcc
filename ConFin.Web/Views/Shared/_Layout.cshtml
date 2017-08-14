@@ -5,30 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ConFin - Controle Financeiro Pessonal</title>
 
-    <link type="text/css" rel="stylesheet" href="~/Css/material-icon.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="~/css/materialize.min.css" media="screen,projection" />
-    <link type="text/css" rel="stylesheet" href="~/css/login.css" />
-
-    <script type="text/javascript" src="~/Js/jquery-2.1.0.min.js"></script>
-    <script type="text/javascript" src="~/Js/materialize.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="~/css/common.css" />
+ 
+    <script type="text/javascript" src="~/js/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="~/js/materialize.js"></script>
+    <script type="text/javascript" src="~/js/common.js"></script>
+    <script type="text/javascript" src="~/js/jquery.mask.min.js"></script>
 
     <script>
-        $(document).ready(function () { $('select').material_select(); });
+        $(document).ready(function () {
+            $('.date').mask('00/00/0000', { placeholder: "__/__/____" });
+            $('.time').mask('00:00:00');
+            $('.date_time').mask('00/00/0000 00:00:00');
+            $('.cep').mask('00000-000');
+            $('.phone').mask('0000-0000');
+            $('.phone_with_ddd').mask('(00) 0000-0000');
+            $('.phone_us').mask('(000) 000-0000');
+            $('.mixed').mask('AAA 000-S0S');
+            $('.cpf').mask('000.000.000-00', { reverse: true });
+            $('.cnpj').mask('00.000.000/0000-00', { reverse: true });
+            $('.money').mask("#.##0,00", { reverse: true });
+            $('.money2').mask('000.000.000.000.000,00', { reverse: true });
+
+            $('.percent').mask('##0,00%', { reverse: true });
+            $('.clear-if-not-match').mask("00/00/0000", { clearIfNotMatch: true });
+           
+            $('.selectonfocus').mask("00/00/0000", { selectOnFocus: true });
+        });
     </script>
-    <style>
-        .preloader-background {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #eee;
-            position: fixed;
-            z-index: 100;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-        }
-    </style>
 
 </head>
 <body>
@@ -40,15 +46,18 @@
         @RenderBody()
     </div>
 
-    <script type="text/javascript" src="~/Js/Common.js"></script>
+    
 
 </body>
 </html>
+
+
 
 <script>
 
     $(".button-collapse").sideNav();
     $('.tooltipped').tooltip({ delay: 25 });
     $('.modal').modal();
+    $('select').material_select();
 
 </script>

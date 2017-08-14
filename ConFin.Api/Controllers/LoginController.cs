@@ -1,4 +1,5 @@
 ﻿using ConFin.Common.Domain;
+using ConFin.Common.Domain.Dto;
 using ConFin.Domain.Login;
 using System.Net;
 using System.Web.Http;
@@ -28,7 +29,7 @@ namespace ConFin.Api.Controllers
             return Content(HttpStatusCode.BadRequest, _notification.Get);
         }
 
-        public IHttpActionResult Post(Usuario usuario)
+        public IHttpActionResult Post(UsuarioDto usuario)
         {
             _loginService.Post(usuario);
 
