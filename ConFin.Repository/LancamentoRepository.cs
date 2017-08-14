@@ -36,12 +36,20 @@ namespace ConFin.Repository
                         Id = reader.ReadAttr<int>("Id"),
                         Descricao = reader.ReadAttr<string>("Descricao"),
                         Valor = reader.ReadAttr<decimal>("Valor"),
-                        Data = reader.ReadAttr<DateTime>("Data"),
+                        Data = reader.ReadAttr<DateTime>("DataLancamento"),
                         IdConta = reader.ReadAttr<int>("IdConta"),
+                        NomeConta = reader.ReadAttr<string>("NomeConta"),
                         IdCategoria = reader.ReadAttr<int>("IdCategoria"),
                         NomeCategoria = reader.ReadAttr<string>("NomeCategoria"),
                         CorCategoria = reader.ReadAttr<string>("CorCategoria"),
-                        IndicadorPago = reader.ReadAttr<string>("IndicadorPago")
+                        IndicadorPago = reader.ReadAttr<string>("IndicadorPago"),
+                        // manut
+                        IdUsuarioCadastro = reader.ReadAttr<int>("IdUsuarioCadastro"),
+                        NomeUsuarioCadastro = reader.ReadAttr<string>("NomeUsuarioCadastro"),
+                        DataCadastro = reader.ReadAttr<DateTime>("DataCadastro"),
+                        IdUsuarioUltimaAlteracao = reader.ReadAttr<int?>("IdUsuarioUltimaAlteracao"),
+                        NomeUsuarioUltimaAlteracao = reader.ReadAttr<string>("NomeUsuarioUltimaAlteracao"),
+                        DataUltimaAlteracao = reader.ReadAttr<DateTime?>("DataUltimaAlteracao")
                     });
 
             return lancamentos;
@@ -61,7 +69,7 @@ namespace ConFin.Repository
                         Id = reader.ReadAttr<int>("Id"),
                         Descricao = reader.ReadAttr<string>("Descricao"),
                         Valor = reader.ReadAttr<decimal>("Valor"),
-                        Data = reader.ReadAttr<DateTime>("Data"),
+                        Data = reader.ReadAttr<DateTime>("DataLancamento"),
                         IdConta = reader.ReadAttr<int>("IdConta"),
                         IdCategoria = reader.ReadAttr<int>("IdCategoria"),
                         IndicadorPago = reader.ReadAttr<string>("IndicadorPago"),
@@ -82,7 +90,7 @@ namespace ConFin.Repository
             ExecuteProcedure(Procedures.SP_InsLancamento);
             AddParameter("Descricao", lancamento.Descricao);
             AddParameter("Valor", lancamento.Valor);
-            AddParameter("Data", lancamento.Data);
+            AddParameter("DataLancamento", lancamento.Data);
             AddParameter("IdConta", lancamento.IdConta);
             AddParameter("IdCategoria", lancamento.IdCategoria);
             AddParameter("IndicadorPago", lancamento.IndicadorPago);
@@ -95,11 +103,12 @@ namespace ConFin.Repository
             ExecuteProcedure(Procedures.SP_UpdLancamento);
             AddParameter("Descricao", lancamento.Descricao);
             AddParameter("Valor", lancamento.Valor);
-            AddParameter("Data", lancamento.Data);
+            AddParameter("DataLancamento", lancamento.Data);
             AddParameter("IdConta", lancamento.IdConta);
             AddParameter("IdCategoria", lancamento.IdCategoria);
             AddParameter("IndicadorPago", lancamento.IndicadorPago);
             AddParameter("IdUsuario", lancamento.IdUsuarioUltimaAlteracao);
+            AddParameter("IdLancamento", lancamento.Id);
             ExecuteNonQuery();
         }
 
