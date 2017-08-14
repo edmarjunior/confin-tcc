@@ -1,2 +1,114 @@
-﻿@model IEnumerable<ConFin.Web.ViewModel.LancamentoViewModel>
+﻿@using ConFin.Common.Web.Extension
+@model IEnumerable<ConFin.Web.ViewModel.LancamentoViewModel>
     @{ Layout = null;}
+
+<div class="container">
+    <div class="section" style="text-align: center">
+        <h1 style="color: gray; font-size: 20pt;" class="caption">Lançamentos</h1>
+        <div class="divider"></div>
+    </div>
+
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Despesa/Receita</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Data</th>
+                <th>Conta</th>
+                <th>Categoria</th>
+                <th>Pago</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var lancamento in Model)
+                {
+                    <tr>
+                        <td>@lancamento.IndicadorReceitaDespesa</td>
+                        <td>@lancamento.Descricao</td>
+                        <td>@lancamento.Valor.ToMoney()</td>
+                        <td>@lancamento.Data.ToShortTimeString()</td>
+                        <td>@lancamento.NomeConta</td>
+                        <td>
+                            <a style="cursor: default">
+                                <i style="color: @lancamento.CorCategoria" class="material-icons">bookmark</i>
+                            </a>
+                            @lancamento.NomeCategoria
+                        </td>
+                        <td>@lancamento.IndicadorPago</td>
+                        <td class="center-align">
+                            <a title="Excluir lançamento" style="color: crimson" href="javascript:void(0)" onclick="deleteLancamento(@lancamento.Id)">
+                                <i class="material-icons">delete_forever</i>
+                            </a>
+                            <a title="Editar lançamento" style="color: dimgray" href="javascript:void(0)" onclick="showModalCadastroEdicaoLancamento(@lancamento.Id)">
+                                <i class="material-icons">mode_edit</i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td style="text-align: center" colspan="8">Nenhum registro encontrado.</td></tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+
+<div class="fixed-action-btn horizontal click-to-toggle">
+    <a href="javascript:void(0)" onclick="showModalCadastroEdicaoLancamento()" class="waves-effect waves-light modal-trigger btn-floating btn-large">
+        <i class="material-icons">add</i>
+    </a>
+</div>
+
+<script>
+
+    var urlsLancamento = {
+        Lancamento: '@Url.Action("Lancamento", "Lancamento")',
+        GetModalCadastroEdicao: '@Url.Action("GetModalCadastroEdicao", "Lancamento")',
+        Post: '@Url.Action("Post", "Lancamento")',
+        Put: '@Url.Action("Put", "Lancamento")',
+        Delete: '@Url.Action("Delete", "Lancamento")'
+    };
+
+    function showModalCadastroEdicaoCategoria(idLancamento) {
+        $.get(urlsLancamento.GetModalCadastroEdicao, {
+            idLancamento: idLancamento
+        }).success(function (data) {
+            $("#containerPrincipal").append(data);
+            $('#modalLancamentoCadastroEdicao').modal({complete: function() {
+                $('#modalLancamentoCadastroEdicao').remove();
+            }});
+            $("#modalLancamentoCadastroEdicao").modal("open");
+            verifyLabelActive();
+        });
+    }
+
+    function deleteLancamento(idLancamento) {
+        showModalConfirm("Deseja realmente excluir este lançamento?", function() {
+            $.post(urlsLancamento.Delete, {
+                idLancamento: idLancamento
+            }).success(function (data) {
+                showToast(data, "green");
+                atualizarLancamentos();
+            });
+        });
+    }
+
+    function atualizarLancamentos() {
+        setTimeout(function() {
+            $.get(urlsLancamento.Lancamento).success(function(data) {
+                $("#containerPrincipal").html(data);
+            });
+        }, 100);
+
+    }
+
+</script>

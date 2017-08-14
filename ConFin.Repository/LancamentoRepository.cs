@@ -34,6 +34,7 @@ namespace ConFin.Repository
                     lancamentos.Add(new LancamentoDto
                     {
                         Id = reader.ReadAttr<int>("Id"),
+                        IndicadorReceitaDespesa = reader.ReadAttr<string>("IndicadorReceitaDespesa"),
                         Descricao = reader.ReadAttr<string>("Descricao"),
                         Valor = reader.ReadAttr<decimal>("Valor"),
                         Data = reader.ReadAttr<DateTime>("DataLancamento"),
@@ -67,6 +68,7 @@ namespace ConFin.Repository
                     : new LancamentoDto
                     {
                         Id = reader.ReadAttr<int>("Id"),
+                        IndicadorReceitaDespesa = reader.ReadAttr<string>("IndicadorReceitaDespesa"),
                         Descricao = reader.ReadAttr<string>("Descricao"),
                         Valor = reader.ReadAttr<decimal>("Valor"),
                         Data = reader.ReadAttr<DateTime>("DataLancamento"),
@@ -88,6 +90,7 @@ namespace ConFin.Repository
         public void Post(LancamentoDto lancamento)
         {
             ExecuteProcedure(Procedures.SP_InsLancamento);
+            AddParameter("IndicadorReceitaDespesa", lancamento.IndicadorReceitaDespesa);
             AddParameter("Descricao", lancamento.Descricao);
             AddParameter("Valor", lancamento.Valor);
             AddParameter("DataLancamento", lancamento.Data);
@@ -101,6 +104,7 @@ namespace ConFin.Repository
         public void Put(LancamentoDto lancamento)
         {
             ExecuteProcedure(Procedures.SP_UpdLancamento);
+            AddParameter("IndicadorReceitaDespesa", lancamento.IndicadorReceitaDespesa);
             AddParameter("Descricao", lancamento.Descricao);
             AddParameter("Valor", lancamento.Valor);
             AddParameter("DataLancamento", lancamento.Data);

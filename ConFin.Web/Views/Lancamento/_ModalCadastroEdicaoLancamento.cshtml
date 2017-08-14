@@ -1,2 +1,56 @@
 ﻿@model ConFin.Web.ViewModel.LancamentoViewModel
 @{ Layout = null;}
+
+<div id="modalLancamentoCadastroEdicao" class="modal">
+
+    <div class="modal-content">
+        <div class="section" style="text-align: center">
+            <h1 style="color: gray; font-size: 20pt;" class="caption">@(ViewBag.IndicadorCadastro == "S" ? "Cadastrar" : "Editar") Lançamentos</h1>
+            <div class="divider" style="margin-bottom: 30px"></div>
+        </div>
+        <div class="row">
+            <form id="formLancamentoCadastroEdicao" class="col s12">
+                <input type="hidden" id="hiddenIndicadorCadastroLancamento" value="@ViewBag.IndicadorCadastro" />
+                <input type="hidden" name="Id" value="@Model.Id" />
+
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="txtDescricaoLancamento" type="text" class="validate" name="Descricao" value="@Model.Descricao">
+                        <label for="txtDescricaoLancamento">Descrição</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="txtValorLancamento" type="color" name="Valor" value="@Model.Valor">
+                        <label for="txtValorLancamento">Valor</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="javascript:void(0)" onclick="cadastrarEditarLancamento()" style="color: green" class="modal-action waves-effect waves-green btn-flat">Confirmar</a>
+        <a href="javascript:void(0)" style="color: red" class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</a>
+    </div>
+</div>
+
+
+<script>
+
+    $('select').material_select();
+    var urlPostPutLancamento = $("#hiddenIndicadorCadastroLancamento").val() == "S" ? urlsLancamento.Post : urlsLancamento.Put;
+
+    function cadastrarEditarLancamento() {
+        $('.toast').remove();
+
+
+        if (isFieldEmpty($("#txtDescricaoLancamento, #txtValorLancamento")))
+            return false;
+
+
+        $.post(urlPostPutLancamento, $("#formLancamentoCadastroEdicao").toObject()).success(function (message) {
+            $("#modalLancamentoCadastroEdicao").modal("close");
+            showToast(message, "green");
+            atualizarLancamentos();
+        });
+    }
+
+</script>
