@@ -11,6 +11,8 @@ namespace ConFin.Common.Domain.Dto
         public DateTime Data { get; set; }
         public int IdConta { get; set; }
         public int IdCategoria { get; set; }
+        public string NomeCategoria { get; set; }
+        public string CorCategoria { get; set; }
         public string IndicadorPago { get; set; }
     }
 }
