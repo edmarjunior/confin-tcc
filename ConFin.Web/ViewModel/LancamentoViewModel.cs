@@ -1,6 +1,8 @@
 ﻿using ConFin.Common.Domain.Auxiliar;
 using ConFin.Common.Domain.Dto;
+using ConFin.Common.Web.Extension;
 using System;
+using System.Collections.Generic;
 
 namespace ConFin.Web.ViewModel
 {
@@ -33,16 +35,34 @@ namespace ConFin.Web.ViewModel
 
         }
 
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string IndicadorReceitaDespesa { get; set; }
         public string Descricao { get; set; }
-        public decimal Valor { get; set; }
-        public DateTime Data { get; set; }
-        public int IdConta { get; set; }
+        public decimal? Valor { get; set; }
+        public DateTime? Data { get; set; }
+        public int? IdConta { get; set; }
         public string NomeConta { get; set; }
-        public int IdCategoria { get; set; }
+        public int? IdCategoria { get; set; }
         public string NomeCategoria { get; set; }
         public string CorCategoria { get; set; }
         public string IndicadorPago { get; set; }
+
+        public IEnumerable<ContaFinanceiraDto> ContasFinanceira{ get; set; }
+        public IEnumerable<LancamentoCategoriaDto> Categorias { get; set; }
+
+        public string IndicadorPagamento => IndicadorPago ?? "N";
+
+        public string DataLancamento => Data?.ToShortDateString();
+        public string ValorLancamento => Valor.ToMoney();
+
+        public string ShouldCheckReceitaDespesa(string indicadorReceitaDespesa)
+        {
+            return IndicadorReceitaDespesa.Equals(indicadorReceitaDespesa) ? "checked" : string.Empty;
+        }
+
+        public bool IsReceita => IndicadorReceitaDespesa == "R";
+        public bool IsPago => IndicadorPagamento != "N";
+        public bool IsVencido => !IsPago && DateTime.Today > Data;
+
     }
 }

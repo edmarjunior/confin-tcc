@@ -1,32 +1,80 @@
-﻿@model ConFin.Web.ViewModel.LancamentoViewModel
+﻿@using ConFin.Common.Web.Extension
+@model ConFin.Web.ViewModel.LancamentoViewModel
 @{ Layout = null;}
 
 <div id="modalLancamentoCadastroEdicao" class="modal">
 
     <div class="modal-content">
         <div class="section" style="text-align: center">
-            <h1 style="color: gray; font-size: 20pt;" class="caption">@(ViewBag.IndicadorCadastro == "S" ? "Cadastrar" : "Editar") Lançamentos</h1>
-            <div class="divider" style="margin-bottom: 30px"></div>
+            <h1 style="color: gray; font-size: 20pt; margin-top: -5px;" class="caption">@(ViewBag.IndicadorCadastro == "S" ? "Cadastrar" : "Editar") Lançamentos</h1>
+            <div class="divider" style="margin-top: -10px;"></div>
         </div>
         <div class="row">
             <form id="formLancamentoCadastroEdicao" class="col s12">
                 <input type="hidden" id="hiddenIndicadorCadastroLancamento" value="@ViewBag.IndicadorCadastro" />
                 <input type="hidden" name="Id" value="@Model.Id" />
+                <input type="hidden" id="hiddenIndicadorPago" name="IndicadorPago" value="@Model.IndicadorPagamento" />
 
                 <div class="row">
+                    <div class="col s6">
+                        <p style="float: left; margin-left: 20px">
+                            <input class="with-gap" name="IndicadorReceitaDespesa" type="radio" id="indReceitaDespesa_R" value="R"
+                                   @Model.ShouldCheckReceitaDespesa("R") />
+                            <label style="margin-right: 25px" for="indReceitaDespesa_R">Receita</label>
+
+                            <input class="with-gap" name="IndicadorReceitaDespesa" type="radio" id="indReceitaDespesa_D" value="D"
+                                   @Model.ShouldCheckReceitaDespesa("D") />
+                            <label for="indReceitaDespesa_D">Despesa</label>
+                        </p>
+                    </div>
+                    <div class="input-field col s6">
+                        <select class="multiple" name="IdConta" id="comboConta">
+                            <option value="" disabled selected>Selecione</option>
+                            @foreach (var conta in Model.ContasFinanceira)
+                            {
+                                <option @(Model.IdConta == conta.Id ? "selected" : string.Empty) value="@conta.Id">@conta.Nome</option>
+                            }
+                        </select>
+                        <label>Conta</label>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -15px;">
                     <div class="input-field col s6">
                         <input id="txtDescricaoLancamento" type="text" class="validate" name="Descricao" value="@Model.Descricao">
                         <label for="txtDescricaoLancamento">Descrição</label>
                     </div>
                     <div class="input-field col s6">
-                        <input id="txtValorLancamento" type="color" name="Valor" value="@Model.Valor">
+                        <select class="multiple" name="IdCategoria" id="comboCategorias">
+                            <option value="" disabled selected>Selecione</option>
+                            @foreach (var categoria in Model.Categorias)
+                            {
+                                <option @(Model.IdCategoria == categoria.Id ? "selected" : string.Empty) value="@categoria.Id">@categoria.Nome</option>
+                            }
+                        </select>
+                        <label>Categoria</label>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -15px;">
+                    <div class="input-field col s3">
+                        <input class="money" id="txtValorLancamento" type="text" name="Valor" value="@Model.Valor.ToMoney()">
                         <label for="txtValorLancamento">Valor</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input id="txtDataLancamento" type="text" class="date" name="Data" value="@Model.DataLancamento">
+                        <label for="txtDataLancamento" class="active">Data</label>
+                    </div>
+                    <div class="input-field col s6" style="text-align: center">
+                        <span id="spanMensagemIndicadorPgto">Já foi @(Model.IndicadorReceitaDespesa.Equals("R") ? "recebido" : "pago")?</span>
+                        <a href="javascript:void(0)" id="btnIndicadorPago" style="background-color: gray" 
+                           class="btn-floating @(Model.IndicadorPago == "S" ? "indicador-green" : string.Empty)">
+                            <i class="material-icons">thumb_up</i>
+                        </a>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer" style="margin-top: -25px;">
         <a href="javascript:void(0)" onclick="cadastrarEditarLancamento()" style="color: green" class="modal-action waves-effect waves-green btn-flat">Confirmar</a>
         <a href="javascript:void(0)" style="color: red" class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</a>
     </div>
@@ -34,17 +82,31 @@
 
 
 <script>
-
     $('select').material_select();
     var urlPostPutLancamento = $("#hiddenIndicadorCadastroLancamento").val() == "S" ? urlsLancamento.Post : urlsLancamento.Put;
+
+    $("#btnIndicadorPago").click(function () {
+        $(this).toggleClass("indicador-green");
+        $("#hiddenIndicadorPago").val($(this).hasClass("indicador-green") ? "S" : "N");
+    });
+
+    $("input:radio[name=IndicadorReceitaDespesa]").change(function() {
+        $("#spanMensagemIndicadorPgto").text("Já foi " + ($(this).val() == "R" ? "recebido" : "pago") + "?");
+    });
 
     function cadastrarEditarLancamento() {
         $('.toast').remove();
 
+        if (!$("#comboConta").val()) 
+            showToast("Favor preencher o campo Conta");
 
-        if (isFieldEmpty($("#txtDescricaoLancamento, #txtValorLancamento")))
+        if (!$("#comboCategorias").val()) 
+            showToast("Favor preencher o campo Categoria");
+
+        isFieldEmpty($("#txtDescricaoLancamento, #txtValorLancamento, #txtDataLancamento"));
+        
+        if ($('.toast').length)
             return false;
-
 
         $.post(urlPostPutLancamento, $("#formLancamentoCadastroEdicao").toObject()).success(function (message) {
             $("#modalLancamentoCadastroEdicao").modal("close");
