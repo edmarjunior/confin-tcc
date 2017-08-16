@@ -13,7 +13,7 @@
             <form id="formLancamentoCadastroEdicao" class="col s12">
                 <input type="hidden" id="hiddenIndicadorCadastroLancamento" value="@ViewBag.IndicadorCadastro" />
                 <input type="hidden" name="Id" value="@Model.Id" />
-                <input type="hidden" id="hiddenIndicadorPago" name="IndicadorPago" value="@Model.IndicadorPagamento" />
+                <input type="hidden" id="hiddenIndicadorPagoRecebido" name="IndicadorPagoRecebido" value="@Model.IndicadorPagamentoReceb" />
 
                 <div class="row">
                     <div class="col s6">
@@ -66,7 +66,7 @@
                     <div class="input-field col s6" style="text-align: center">
                         <span id="spanMensagemIndicadorPgto">Já foi @(Model.IndicadorReceitaDespesa.Equals("R") ? "recebido" : "pago")?</span>
                         <a href="javascript:void(0)" id="btnIndicadorPago" style="background-color: gray" 
-                           class="btn-floating @(Model.IndicadorPago == "S" ? "indicador-green" : string.Empty)">
+                           class="btn-floating @(Model.IndicadorPagoRecebido == "S" ? "indicador-green" : string.Empty)">
                             <i class="material-icons">thumb_up</i>
                         </a>
                     </div>
@@ -87,7 +87,7 @@
 
     $("#btnIndicadorPago").click(function () {
         $(this).toggleClass("indicador-green");
-        $("#hiddenIndicadorPago").val($(this).hasClass("indicador-green") ? "S" : "N");
+        $("#hiddenIndicadorPagoRecebido").val($(this).hasClass("indicador-green") ? "S" : "N");
     });
 
     $("input:radio[name=IndicadorReceitaDespesa]").change(function() {

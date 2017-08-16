@@ -10,5 +10,6 @@ namespace ConFin.Domain.Lancamento
         void Post(LancamentoDto lancamento);
         void Put(LancamentoDto lancamento);
         void Delete(int idLancamento);
+        void PutIndicadorPagoRecebido(LancamentoDto lancamento);
     }
 }

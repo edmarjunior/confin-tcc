@@ -137,5 +137,19 @@ namespace ConFin.Web.Controllers
                 return Error(ex.Message);
             }
         }
+
+        public ActionResult PutIndicadorPagoRecebido(LancamentoDto lancamento)
+        {
+            try
+            {
+                lancamento.IdUsuarioUltimaAlteracao = UsuarioLogado.Id;
+                var response = _lancamentoAppService.PutIndicadorPagoRecebido(lancamento);
+                return response.IsSuccessStatusCode ? Ok() : Error(response);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex.Message);
+            }
+        }
     }
 }

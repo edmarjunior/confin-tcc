@@ -37,5 +37,10 @@ namespace ConFin.Application.AppService.Lancamento
         {
             return DeleteRequest(new { idLancamento });
         }
+
+        public HttpResponseMessage PutIndicadorPagoRecebido(LancamentoDto lancamento)
+        {
+            return PutRequest("PutIndicadorPagoRecebido", lancamento);
+        }
     }
 }

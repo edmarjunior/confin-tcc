@@ -47,5 +47,14 @@ namespace ConFin.Api.Controllers
 
             return Content(HttpStatusCode.BadRequest, _notification.Get);
         }
+
+        public IHttpActionResult PutIndicadorPagoRecebido(LancamentoDto lancamento)
+        {
+            _lancamentoRepository.PutIndicadorPagoRecebido(lancamento);
+            if (!_notification.Any)
+                return Ok();
+
+            return Content(HttpStatusCode.BadRequest, _notification.Get);
+        }
     }
 }

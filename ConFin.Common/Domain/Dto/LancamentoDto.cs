@@ -15,6 +15,6 @@ namespace ConFin.Common.Domain.Dto
         public int IdCategoria { get; set; }
         public string NomeCategoria { get; set; }
         public string CorCategoria { get; set; }
-        public string IndicadorPago { get; set; }
+        public string IndicadorPagoRecebido { get; set; }
     }
 }

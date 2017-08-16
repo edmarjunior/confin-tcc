@@ -6,6 +6,19 @@
     .indicador-green {
         background-color: green !important;
     }
+
+    .pago-recebido {
+        background-color: green !important;
+    }
+    
+    .vencido:not(.pago-recebido) {
+        background-color: #ff0000 !important;
+    }
+    
+    .vincendo:not(.pago-recebido) {
+        background-color: gray !important;
+    }
+
 </style>
 
 <div class="container">
@@ -59,21 +72,29 @@
                             </a>
                         </td>
                         <td>
-                            @if (lancamento.IsPago)
+                            @if (lancamento.IsPagoRecebido)
                             {
-                                <a href="javascript:void(0)" class="btn-floating indicador-green tooltipped" data-position="top" data-delay="25" data-tooltip="@(lancamento.IsReceita ? "Recebido" : "Pago")">
+                                <a href="javascript:void(0)" onclick="alteraStatusLancamento(this, @lancamento.Id)"
+                                   class="btn-floating tooltipped pago-recebido 
+                                   @(lancamento.DataLancamentoMenorHoje ? "vencido" : "") 
+                                   @(lancamento.IsReceita ? "receita" : "despesa")"
+                                   data-position="top" data-delay="25" data-tooltip="@(lancamento.IsReceita ? "Recebido" : "Pago")">
                                     <i class="material-icons">thumb_up</i>
                                 </a>
                             }
                             else if (lancamento.IsVencido)
                             {
-                                <a href="javascript:void(0)" class="btn-floating tooltipped" style="background-color: #ff0000!important" data-position="top" data-delay="25" data-tooltip="Atrasado">
+                                <a href="javascript:void(0)" onclick="alteraStatusLancamento(this, @lancamento.Id)" 
+                                   class="btn-floating tooltipped vencido @(lancamento.IsReceita ? "receita" : "despesa")"
+                                   data-position="top" data-delay="25" data-tooltip="Atrasado">
                                     <i class="material-icons">thumb_down</i>
                                 </a>
                             }
                             else
                             {
-                                <a href="javascript:void(0)" style="background-color: gray" class="btn-floating tooltipped" data-position="top" data-delay="25" data-tooltip="Não @(lancamento.IsReceita ? "Recebido" : "Pago")">
+                                <a href="javascript:void(0)" onclick="alteraStatusLancamento(this, @lancamento.Id)"
+                                   class="btn-floating tooltipped vincendo @(lancamento.IsReceita ? "receita" : "despesa")" 
+                                   data-position="top" data-delay="25" data-tooltip="Não @(lancamento.IsReceita ? "Recebido" : "Pago")">
                                     <i class="material-icons">thumb_up</i>
                                 </a>
                             }
@@ -129,7 +150,8 @@
         GetModalCadastroEdicao: '@Url.Action("GetModalCadastroEdicao", "Lancamento")',
         Post: '@Url.Action("Post", "Lancamento")',
         Put: '@Url.Action("Put", "Lancamento")',
-        Delete: '@Url.Action("Delete", "Lancamento")'
+        Delete: '@Url.Action("Delete", "Lancamento")',
+        PutIndicadorPagoRecebido: '@Url.Action("PutIndicadorPagoRecebido", "Lancamento")'
     };
 
     function showModalCadastroEdicaoLancamento(idLancamento, indicadorReceitaDespesa) {
@@ -166,6 +188,56 @@
             });
         }, 100);
 
+    }
+
+    var isPagoRecebido, isVencido, isVincendo, isReceita;
+
+    function alteraStatusLancamento(button, idLancamento) {
+
+        var btn = $(button);
+
+        isPagoRecebido = btn.hasClass("pago-recebido");
+        isVencido = btn.hasClass("vencido");
+        isVincendo = btn.hasClass("vincendo");
+        isReceita = btn.hasClass("receita");
+
+        desableLoading();
+        $.post(urlsLancamento.PutIndicadorPagoRecebido, {
+            Id: idLancamento,
+            IndicadorPagoRecebido: (isPagoRecebido ? "N" : "S")
+        }).success(function () {
+            atualizarBotaoIndicadorPagoRecebido(btn);
+        });
+    }
+
+    function atualizarBotaoIndicadorPagoRecebido(btn) {
+
+        if (isPagoRecebido && !isVencido) {
+            btn.removeClass("pago-recebido");
+            btn.addClass("vincendo");
+            btn.attr("data-tooltip", "Não " + (isReceita ? "Recebido" : "Pago")).tooltip();
+            return;
+        }
+
+        if (isPagoRecebido && isVencido) {
+            btn.removeClass("pago-recebido");
+            btn.find("i").text("thumb_down");
+            btn.attr("data-tooltip", "Atrasado").tooltip();
+            return;
+        }
+
+        if (isVincendo) {
+            btn.addClass("pago-recebido");
+            btn.attr("data-tooltip", (isReceita ? "Recebido" : "Pago")).tooltip();
+            return;
+        }
+
+        if (isVencido) {
+            btn.addClass("pago-recebido");
+            btn.find("i").text("thumb_up");
+            btn.attr("data-tooltip", (isReceita ? "Recebido" : "Pago")).tooltip();
+            return;
+        }
     }
 
 </script>

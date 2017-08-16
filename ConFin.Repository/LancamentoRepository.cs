@@ -20,7 +20,9 @@ namespace ConFin.Repository
             SP_SelLancamento,
             SP_InsLancamento,
             SP_UpdLancamento,
-            SP_DelLancamento
+            SP_DelLancamento,
+            SP_UpdLancamentoIndicadorPagoRecebido,
+
         }
 
         public IEnumerable<LancamentoDto> GetAll(int idUsuario, int? idConta = null)
@@ -43,7 +45,7 @@ namespace ConFin.Repository
                         IdCategoria = reader.ReadAttr<int>("IdCategoria"),
                         NomeCategoria = reader.ReadAttr<string>("NomeCategoria"),
                         CorCategoria = reader.ReadAttr<string>("CorCategoria"),
-                        IndicadorPago = reader.ReadAttr<string>("IndicadorPago"),
+                        IndicadorPagoRecebido = reader.ReadAttr<string>("IndicadorPagoRecebido"),
                         // manut
                         IdUsuarioCadastro = reader.ReadAttr<int>("IdUsuarioCadastro"),
                         NomeUsuarioCadastro = reader.ReadAttr<string>("NomeUsuarioCadastro"),
@@ -74,7 +76,7 @@ namespace ConFin.Repository
                         Data = reader.ReadAttr<DateTime>("DataLancamento"),
                         IdConta = reader.ReadAttr<int>("IdConta"),
                         IdCategoria = reader.ReadAttr<int>("IdCategoria"),
-                        IndicadorPago = reader.ReadAttr<string>("IndicadorPago"),
+                        IndicadorPagoRecebido = reader.ReadAttr<string>("IndicadorPagoRecebido"),
 
                         // manut
                         IdUsuarioCadastro = reader.ReadAttr<int>("IdUsuarioCadastro"),
@@ -96,7 +98,7 @@ namespace ConFin.Repository
             AddParameter("DataLancamento", lancamento.Data);
             AddParameter("IdConta", lancamento.IdConta);
             AddParameter("IdCategoria", lancamento.IdCategoria);
-            AddParameter("IndicadorPago", lancamento.IndicadorPago);
+            AddParameter("IndicadorPagoRecebido", lancamento.IndicadorPagoRecebido);
             AddParameter("IdUsuario", lancamento.IdUsuarioCadastro);
             ExecuteNonQuery();
         }
@@ -110,7 +112,7 @@ namespace ConFin.Repository
             AddParameter("DataLancamento", lancamento.Data);
             AddParameter("IdConta", lancamento.IdConta);
             AddParameter("IdCategoria", lancamento.IdCategoria);
-            AddParameter("IndicadorPago", lancamento.IndicadorPago);
+            AddParameter("IndicadorPagoRecebido", lancamento.IndicadorPagoRecebido);
             AddParameter("IdUsuario", lancamento.IdUsuarioUltimaAlteracao);
             AddParameter("IdLancamento", lancamento.Id);
             ExecuteNonQuery();
@@ -120,6 +122,15 @@ namespace ConFin.Repository
         {
             ExecuteProcedure(Procedures.SP_DelLancamento);
             AddParameter("IdLancamento", idLancamento);
+            ExecuteNonQuery();
+        }
+
+        public void PutIndicadorPagoRecebido(LancamentoDto lancamento)
+        {
+            ExecuteProcedure(Procedures.SP_UpdLancamentoIndicadorPagoRecebido);
+            AddParameter("IdLancamento", lancamento.Id);
+            AddParameter("IndicadorPagoRecebido", lancamento.IndicadorPagoRecebido);
+            AddParameter("IdUsuario", lancamento.IdUsuarioUltimaAlteracao);
             ExecuteNonQuery();
         }
     }

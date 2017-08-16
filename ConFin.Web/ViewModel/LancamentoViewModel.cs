@@ -24,7 +24,7 @@ namespace ConFin.Web.ViewModel
             IdCategoria = model.IdCategoria;
             NomeCategoria = model.NomeCategoria;
             CorCategoria = model.CorCategoria;
-            IndicadorPago = model.IndicadorPago;
+            IndicadorPagoRecebido = model.IndicadorPagoRecebido;
 
             IdUsuarioCadastro = model.IdUsuarioCadastro;
             NomeUsuarioCadastro = model.NomeUsuarioCadastro;
@@ -45,12 +45,12 @@ namespace ConFin.Web.ViewModel
         public int? IdCategoria { get; set; }
         public string NomeCategoria { get; set; }
         public string CorCategoria { get; set; }
-        public string IndicadorPago { get; set; }
+        public string IndicadorPagoRecebido { get; set; }
 
         public IEnumerable<ContaFinanceiraDto> ContasFinanceira{ get; set; }
         public IEnumerable<LancamentoCategoriaDto> Categorias { get; set; }
 
-        public string IndicadorPagamento => IndicadorPago ?? "N";
+        public string IndicadorPagamentoReceb => IndicadorPagoRecebido ?? "N";
 
         public string DataLancamento => Data?.ToShortDateString();
         public string ValorLancamento => Valor.ToMoney();
@@ -61,8 +61,9 @@ namespace ConFin.Web.ViewModel
         }
 
         public bool IsReceita => IndicadorReceitaDespesa == "R";
-        public bool IsPago => IndicadorPagamento != "N";
-        public bool IsVencido => !IsPago && DateTime.Today > Data;
+        public bool IsPagoRecebido => IndicadorPagamentoReceb != "N";
+        public bool IsVencido => !IsPagoRecebido && DateTime.Today > Data;
+        public bool DataLancamentoMenorHoje => DateTime.Today > Data;
 
     }
 }

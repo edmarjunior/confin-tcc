@@ -8,8 +8,8 @@ namespace ConFin.Common.Repository.Infra
     {
         public DatabaseConnection()
         {
-           // SqlConnection = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=ConFin;Integrated Security=True"); /*Casa*/
-            SqlConnection = new SqlConnection("Data Source=EDMAR-PC;Initial Catalog=ConFin;Integrated Security=True"); /*Empresa*/
+            SqlConnection = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=ConFin;Integrated Security=True"); /*Casa*/
+            //SqlConnection = new SqlConnection("Data Source=EDMAR-PC;Initial Catalog=ConFin;Integrated Security=True"); /*Empresa*/
         }
 
         public SqlConnection SqlConnection { get; }

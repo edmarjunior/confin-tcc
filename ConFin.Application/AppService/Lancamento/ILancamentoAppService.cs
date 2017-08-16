@@ -10,5 +10,6 @@ namespace ConFin.Application.AppService.Lancamento
         HttpResponseMessage Post(LancamentoDto lancamento);
         HttpResponseMessage Put(LancamentoDto lancamento);
         HttpResponseMessage Delete(int idLancamento);
+        HttpResponseMessage PutIndicadorPagoRecebido(LancamentoDto lancamento);
     }
 }
