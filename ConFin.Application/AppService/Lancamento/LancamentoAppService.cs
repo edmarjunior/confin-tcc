@@ -29,7 +29,7 @@ namespace ConFin.Application.AppService.Lancamento
 
         public HttpResponseMessage Put(LancamentoDto lancamento)
         {
-            return PutRequest(lancamento);
+            return PutRequest("Put", lancamento);
 
         }
 
