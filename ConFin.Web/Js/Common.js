@@ -4,7 +4,16 @@ function isValidEmail(email) {
     return emailReg.test(email);
 }
 
+var cancelLoading = false;
+
+function desableLoading() {
+    cancelLoading = true;
+}
+
 function loading() {
+
+    if (cancelLoading)
+        return;
 
     if ($(".modal.open").length)
         $(".modal.open").prepend(getHtmlLoading());
@@ -15,6 +24,12 @@ function loading() {
 };
 
 function noLoading() {
+
+    if (cancelLoading) {
+        cancelLoading = false;
+        return;
+    }
+
     $('.preloader-background, .preloader-wrapper').fadeOut('slow');
     $(".preloader-background").remove();
 };
@@ -126,14 +141,3 @@ function verifyLabelActive() {
             $(element).addClass("active");
     });
 }
-
-//(function ($) {
-//    $(function () {
-//        $('.datepicker').pickadate({
-//            selectMonths: true, // Creates a dropdown to control month
-//            selectYears: 15 // Creates a dropdown of 15 years to control year
-//        });
-
-//    }); // end of document ready
-//})(jQuery); // end of jQuery name space
-
