@@ -4,7 +4,7 @@ using ConFin.Common.Web.Extension;
 using System;
 using System.Collections.Generic;
 
-namespace ConFin.Web.ViewModel
+namespace ConFin.Web.ViewModel.Lancamento
 {
     public class LancamentoViewModel: DataManut
     {
@@ -61,6 +61,13 @@ namespace ConFin.Web.ViewModel
         }
 
         public bool IsReceita => IndicadorReceitaDespesa == "R";
+        public bool IsReceitaRealizada => IsReceita && IsPagoRecebido;
+        public bool IsReceitaPrevista => IsReceita && !IsPagoRecebido;
+
+        public bool IsDespesa => IndicadorReceitaDespesa == "D";
+        public bool IsDespesaRealizada => IsDespesa && IsPagoRecebido;
+        public bool IsDespesaPrevista => IsDespesa && !IsPagoRecebido;
+
         public bool IsPagoRecebido => IndicadorPagamentoReceb != "N";
         public bool IsVencido => !IsPagoRecebido && DateTime.Today > Data;
         public bool DataLancamentoMenorHoje => DateTime.Today > Data;

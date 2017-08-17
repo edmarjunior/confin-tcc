@@ -122,13 +122,15 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LancamentoCategoriaController.cs" />
     <Compile Include="Controllers\LancamentoController.cs" />
+    <Compile Include="ViewModel\Lancamento\LancamentoResumoViewModel.cs" />
+    <Compile Include="ViewModel\Lancamento\ResumoLancamentosViewModel.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\ContaFinanceiraViewModel.cs" />
-    <Compile Include="ViewModel\LancamentoViewModel.cs" />
+    <Compile Include="ViewModel\Lancamento\LancamentoViewModel.cs" />
     <Compile Include="ViewModel\UsuarioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -3,7 +3,7 @@ using ConFin.Application.AppService.Lancamento;
 using ConFin.Application.AppService.LancamentoCategoria;
 using ConFin.Common.Domain.Dto;
 using ConFin.Common.Web;
-using ConFin.Web.ViewModel;
+using ConFin.Web.ViewModel.Lancamento;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -33,8 +33,10 @@ namespace ConFin.Web.Controllers
                 if (!response.IsSuccessStatusCode)
                     return Error(response);
 
-                var lancamentos = JsonConvert.DeserializeObject<IEnumerable<LancamentoDto>>(response.Content.ReadAsStringAsync().Result);
-                return View("Lancamento", lancamentos.Select(x => new LancamentoViewModel(x)).OrderBy(y => y.DataLancamento));
+                var lancamentos = JsonConvert.DeserializeObject<IEnumerable<LancamentoDto>>(response.Content.ReadAsStringAsync().Result)
+                    .Select(x => new LancamentoViewModel(x)).ToList();
+
+                return View("Lancamento", new LancamentoResumoViewModel(lancamentos));
             }
             catch (Exception ex)
             {
