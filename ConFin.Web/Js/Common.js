@@ -141,3 +141,14 @@ function verifyLabelActive() {
             $(element).addClass("active");
     });
 }
+
+
+String.prototype.toDecimal = function () {
+    return (this == "" ? 0 : parseFloat(this.replace(/\./g, '').replace(',', '.')));
+}
+
+Number.prototype.toMoney = function () {
+    var re = '\\d(?=(\\d{3})+\\D)',
+    num = this.toFixed(2);
+    return num.replace('.', ',').replace(new RegExp(re, 'g'), '$&' + ('.'));
+};
