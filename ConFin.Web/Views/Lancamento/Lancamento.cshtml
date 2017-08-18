@@ -9,11 +9,11 @@
     .pago-recebido {
         background-color: green !important;
     }
-    
+
     .vencido:not(.pago-recebido) {
         background-color: #ff0000 !important;
     }
-    
+
     .vincendo:not(.pago-recebido) {
         background-color: gray !important;
     }
@@ -39,80 +39,80 @@
             </tr>
         </thead>
         <tbody>
-        @if (Model.Lancamentos.Any())
-        {
-            foreach (var lancamento in Model.Lancamentos)
+            @if (Model.Lancamentos.Any())
             {
-                <tr>
-                    <td>
-                        @if (lancamento.IsReceita)
+                foreach (var lancamento in Model.Lancamentos)
+                {
+                    <tr data-valor="@lancamento.Valor">
+                        <td>
+                            @if (lancamento.IsReceita)
                         {
-                            <a style="color: #008000" class="tooltipped" data-position="top" data-delay="25" data-tooltip="Receita">
-                                <i class="material-icons">tag_faces</i>
-                            </a>
+                        <a style="color: #008000" class="tooltipped" data-position="top" data-delay="25" data-tooltip="Receita">
+                            <i class="material-icons">tag_faces</i>
+                        </a>
                         }
                         else
                         {
-                            <a style="color: #ff0000" class="tooltipped" data-position="top" data-delay="25" data-tooltip="Despesa">
-                                <i class="material-icons">mood_bad</i>
-                            </a>
+                        <a style="color: #ff0000" class="tooltipped" data-position="top" data-delay="25" data-tooltip="Despesa">
+                            <i class="material-icons">mood_bad</i>
+                        </a>
 
                         }
-                    </td>
-                    <td>@lancamento.DataLancamento</td>
-                    <td>@lancamento.Descricao</td>
-                    <td>@lancamento.ValorLancamento</td>
-                    <td>@lancamento.NomeConta</td>
-                    <td class="center-align">
-                        <a style="cursor: default" class="tooltipped" data-position="top" data-delay="25" data-tooltip="@lancamento.NomeCategoria">
-                            <i style="color: @lancamento.CorCategoria" class="material-icons">bookmark</i>
-                        </a>
-                    </td>
-                    <td>
-                        @if (lancamento.IsPagoRecebido)
-                        {
-                            <a href="javascript:void(0)" onclick="alteraStatusLancamento(this, @lancamento.Id)"
-                               class="btn-floating tooltipped pago-recebido 
-                                   @(lancamento.DataLancamentoMenorHoje ? "vencido" : "") 
-                                   @(lancamento.IsReceita ? "receita" : "despesa")"
-                               data-position="top" data-delay="25" data-tooltip="@(lancamento.IsReceita ? "Recebido" : "Pago")">
-                                <i class="material-icons">thumb_up</i>
+                        </td>
+                        <td>@lancamento.DataLancamento</td>
+                        <td>@lancamento.Descricao</td>
+                        <td>@lancamento.ValorLancamento</td>
+                        <td>@lancamento.NomeConta</td>
+                        <td class="center-align">
+                            <a style="cursor: default" class="tooltipped" data-position="top" data-delay="25" data-tooltip="@lancamento.NomeCategoria">
+                                <i style="color: @lancamento.CorCategoria" class="material-icons">bookmark</i>
                             </a>
+                        </td>
+                        <td>
+                            @if (lancamento.IsPagoRecebido)
+                        {
+                        <a href="javascript:void(0)" onclick="alteraStatusLancamento(this, @lancamento.Id)"
+                           class="btn-floating tooltipped pago-recebido
+                                   @(lancamento.DataLancamentoMenorHoje ? "vencido" : "")
+                                   @(lancamento.IsReceita ? "receita" : "despesa")"
+                           data-position="top" data-delay="25" data-tooltip="@(lancamento.IsReceita ? "Recebido" : "Pago")">
+                            <i class="material-icons">thumb_up</i>
+                        </a>
                         }
                         else if (lancamento.IsVencido)
                         {
-                            <a href="javascript:void(0)" onclick="alteraStatusLancamento(this, @lancamento.Id)"
-                               class="btn-floating tooltipped vencido @(lancamento.IsReceita ? "receita" : "despesa")"
-                               data-position="top" data-delay="25" data-tooltip="Atrasado">
-                                <i class="material-icons">thumb_down</i>
-                            </a>
+                        <a href="javascript:void(0)" onclick="alteraStatusLancamento(this, @lancamento.Id)"
+                           class="btn-floating tooltipped vencido @(lancamento.IsReceita ? "receita" : "despesa")"
+                           data-position="top" data-delay="25" data-tooltip="Atrasado">
+                            <i class="material-icons">thumb_down</i>
+                        </a>
                         }
                         else
                         {
-                            <a href="javascript:void(0)" onclick="alteraStatusLancamento(this, @lancamento.Id)"
-                               class="btn-floating tooltipped vincendo @(lancamento.IsReceita ? "receita" : "despesa")"
-                               data-position="top" data-delay="25" data-tooltip="Não @(lancamento.IsReceita ? "Recebido" : "Pago")">
-                                <i class="material-icons">thumb_up</i>
-                            </a>
+                        <a href="javascript:void(0)" onclick="alteraStatusLancamento(this, @lancamento.Id)"
+                           class="btn-floating tooltipped vincendo @(lancamento.IsReceita ? "receita" : "despesa")"
+                           data-position="top" data-delay="25" data-tooltip="Não @(lancamento.IsReceita ? "Recebido" : "Pago")">
+                            <i class="material-icons">thumb_up</i>
+                        </a>
                         }
-                    </td>
-                    <td class="center-align">
-                        <a style="color: crimson" href="javascript:void(0)" onclick="deleteLancamento(@lancamento.Id)"
-                           class="tooltipped" data-position="top" data-delay="25" data-tooltip="Excluir">
-                            <i class="material-icons">delete_forever</i>
-                        </a>
-                        <a style="color: dimgray" href="javascript:void(0)" onclick="showModalCadastroEdicaoLancamento(@lancamento.Id)"
-                           class="tooltipped" data-position="top" data-delay="25" data-tooltip="Editar">
-                            <i class="material-icons">mode_edit</i>
-                        </a>
-                    </td>
-                </tr>
+                        </td>
+                        <td class="center-align">
+                            <a style="color: crimson" href="javascript:void(0)" onclick="deleteLancamento(@lancamento.Id)"
+                               class="tooltipped" data-position="top" data-delay="25" data-tooltip="Excluir">
+                                <i class="material-icons">delete_forever</i>
+                            </a>
+                            <a style="color: dimgray" href="javascript:void(0)" onclick="showModalCadastroEdicaoLancamento(@lancamento.Id)"
+                               class="tooltipped" data-position="top" data-delay="25" data-tooltip="Editar">
+                                <i class="material-icons">mode_edit</i>
+                            </a>
+                        </td>
+                    </tr>
+                }
             }
-        }
-        else
-        {
-            <tr><td style="text-align: center" colspan="8">Nenhum registro encontrado.</td></tr>
-        }
+            else
+            {
+                <tr><td style="text-align: center" colspan="8">Nenhum registro encontrado.</td></tr>
+            }
 
         </tbody>
         <tfoot style="border: 1px solid gray">
@@ -134,14 +134,14 @@
                 <th style="border: 1px solid gray" class="center">Atual</th>
             </tr>
             <tr>
-                <td style="border: 1px solid gray" class="center">@Model.Resumo.TotReceitasPrevista</td>
-                <td style="border: 1px solid gray" class="center">@Model.Resumo.TotReceitasRealizada</td>
+                <td id="tdReceitaPrev" style="border: 1px solid gray" class="center">@Model.Resumo.TotReceitasPrevista</td>
+                <td id="tdReceitaRealiz" style="border: 1px solid gray; color:#1e90ff" class="center">@Model.Resumo.TotReceitasRealizada</td>
                 <td></td>
-                <td style="border: 1px solid gray" class="center">@Model.Resumo.TotDespesasPrevista</td>
-                <td style="border: 1px solid gray" class="center">@Model.Resumo.TotDespesasRealizada</td>
+                <td id="tdDespesaPrev" style="border: 1px solid gray" class="center">@Model.Resumo.TotDespesasPrevista</td>
+                <td id="tdDespesaRealiz" style="border: 1px solid gray; color:#1e90ff" class="center">@Model.Resumo.TotDespesasRealizada</td>
                 <td></td>
-                <td style="border: 1px solid gray" class="center">@Model.Resumo.TotSaldoPrevisto</td>
-                <td style="border: 1px solid gray" class="center">@Model.Resumo.TotSaldoAtual</td>
+                <td id="tdSaldoPrev" style="border: 1px solid gray" class="center">@Model.Resumo.TotSaldoPrevisto</td>
+                <td id="tdSaldoAtual" style="border: 1px solid gray; color:@(Model.Resumo.SaldoAtual < 0 ? "#ff0000" : "#008000")" class="center">@Model.Resumo.TotSaldoAtual</td>
             </tr>
         </tfoot>
     </table>
@@ -238,19 +238,69 @@
 
     function atualizarBotaoIndicadorPagoRecebido(btn) {
 
-        if (isPagoRecebido && !isVencido) {
+        var vlrLancamento = btn.closest("tr").attr("data-valor").toDecimal();
+
+        // variaveis de totais do resumo
+        var totReceitaPrev = $("#tdReceitaPrev").text().toDecimal(),
+            totReceitaRealiz = $("#tdReceitaRealiz").text().toDecimal(),
+            totDespesaPrev = $("#tdDespesaPrev").text().toDecimal(),
+            totDespesaRealiz = $("#tdDespesaRealiz").text().toDecimal(),
+            totSaldoPrev = $("#tdSaldoPrev").text().toDecimal(),
+            totSaldoAtual = $("#tdSaldoAtual").text().toDecimal();
+
+
+        if (isPagoRecebido) {
             btn.removeClass("pago-recebido");
-            btn.addClass("vincendo");
-            btn.attr("data-tooltip", "Não " + (isReceita ? "Recebido" : "Pago")).tooltip();
+
+            if (isReceita) {
+                // atualizando receitas (prevista e atual)
+                $("#tdReceitaRealiz").text((totReceitaRealiz - vlrLancamento).toMoney());
+            } else {
+                // atualizando despesas (prevista e atual)
+                $("#tdDespesaRealiz").text((totDespesaRealiz - vlrLancamento).toMoney());
+            }
+
+            if (!isReceita)
+                vlrLancamento = vlrLancamento * -1;
+
+            // colocando cor no saldo (vermelho para negativo e verde para positivo)
+            $("#tdSaldoAtual").css({ "color": ((totSaldoAtual - vlrLancamento) < 0 ? "#ff0000" : "#008000") });
+
+
+            // atualizando saldos (previsto e atual)
+            $("#tdSaldoAtual").text((totSaldoAtual - vlrLancamento).toMoney());
+
+
+            // atualizando icone do botão e mensagem do tooltip
+            if (!isVencido) {
+                btn.addClass("vincendo");
+                btn.attr("data-tooltip", "Não " + (isReceita ? "Recebido" : "Pago")).tooltip();
+            } else {
+                btn.find("i").text("thumb_down");
+                btn.attr("data-tooltip", "Atrasado").tooltip();
+            }
+
             return;
         }
 
-        if (isPagoRecebido && isVencido) {
-            btn.removeClass("pago-recebido");
-            btn.find("i").text("thumb_down");
-            btn.attr("data-tooltip", "Atrasado").tooltip();
-            return;
+        // caso NÃO esteje Pago/Recebido
+
+        if (isReceita) {
+            // atualizando receitas (prevista e atual)
+            $("#tdReceitaRealiz").text((totReceitaRealiz + vlrLancamento).toMoney());
+        } else {
+            // atualizando despesas (prevista e atual)
+            $("#tdDespesaRealiz").text((totDespesaRealiz + vlrLancamento).toMoney());
         }
+
+        if (!isReceita)
+            vlrLancamento = vlrLancamento * -1;
+
+        // colocando cor no saldo (vermelho para negativo e verde para positivo)
+        $("#tdSaldoAtual").css({ "color": ((totSaldoAtual + vlrLancamento) < 0 ? "#ff0000" : "#008000") });
+
+        // atualizando saldos (previsto e atual)
+        $("#tdSaldoAtual").text((totSaldoAtual + vlrLancamento).toMoney());
 
         if (isVincendo) {
             btn.addClass("pago-recebido");

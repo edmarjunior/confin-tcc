@@ -9,9 +9,9 @@ namespace ConFin.Web.ViewModel.Lancamento
         public ResumoLancamentosViewModel(List<LancamentoViewModel> lancamentos)
         {
             TotalDespesasRealizada = lancamentos.Where(x => x.IsDespesaRealizada).Sum(x => x.Valor);
-            TotalDespesasPrevista = lancamentos.Where(x => x.IsDespesaPrevista).Sum(x => x.Valor);
+            TotalDespesasPrevista = lancamentos.Where(x => x.IsDespesa).Sum(x => x.Valor);
             TotalReceitasRealizada = lancamentos.Where(x => x.IsReceitaRealizada).Sum(x => x.Valor);
-            TotalReceitasPrevista = lancamentos.Where(x => x.IsReceitaPrevista).Sum(x => x.Valor);
+            TotalReceitasPrevista = lancamentos.Where(x => x.IsReceita).Sum(x => x.Valor);
         }
 
 
@@ -22,7 +22,7 @@ namespace ConFin.Web.ViewModel.Lancamento
         public decimal? TotalReceitasPrevista { get; set; }
 
         public decimal? SaldoAtual => (TotalReceitasRealizada ?? 0) - (TotalDespesasRealizada ?? 0);
-        public decimal? SaldoPrevisto => SaldoAtual + (TotalReceitasPrevista ?? 0) - (TotalDespesasPrevista ?? 0);
+        public decimal? SaldoPrevisto => (TotalReceitasPrevista ?? 0) - (TotalDespesasPrevista ?? 0);
 
 
 
