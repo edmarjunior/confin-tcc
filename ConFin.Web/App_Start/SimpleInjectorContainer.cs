@@ -3,6 +3,7 @@ using ConFin.Application.AppService.ContaFinanceiraTipo;
 using ConFin.Application.AppService.Lancamento;
 using ConFin.Application.AppService.LancamentoCategoria;
 using ConFin.Application.AppService.Login;
+using ConFin.Application.AppService.Transferencia;
 using ConFin.Application.AppService.Usuario;
 using SimpleInjector;
 
@@ -20,6 +21,7 @@ namespace ConFin.Web
             container.Register<IContaFinanceiraAppService, ContaFinanceiraAppService>();
             container.Register<ILancamentoCategoriaAppService, LancamentoCategoriaAppService>();
             container.Register<ILancamentoAppService, LancamentoAppService>();
+            container.Register<ITransferenciaAppService, TransferenciaAppService>();
 
             container.Verify();
             return container;

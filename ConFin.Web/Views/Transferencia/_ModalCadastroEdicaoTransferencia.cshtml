@@ -1,0 +1,118 @@
+﻿@using ConFin.Common.Web.Extension
+@model ConFin.Web.ViewModel.TransferenciaViewModel
+@{ Layout = null;}
+
+<div id="modalTransferenciaCadastroEdicao" class="modal">
+
+    <div class="modal-content">
+        <div class="section" style="text-align: center">
+            <h1 style="color: gray; font-size: 20pt; margin-top: -5px;" class="caption">@(ViewBag.IndicadorCadastro == "S" ? "Cadastrar" : "Editar") Transferência</h1>
+            <div class="divider" style="margin-top: -10px;"></div>
+        </div>
+        <div class="row">
+            <form id="formTransferenciaCadastroEdicao" class="col s12">
+                <input type="hidden" id="hiddenIndicadorCadastroTransferencia" value="@ViewBag.IndicadorCadastro" />
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <input type="hidden" id="hiddenIndicadorPagoRecebido" name="IndicadorPagoRecebido" value="@Model.IndicadorPagamentoReceb" />
+
+                <div class="row">
+
+                    <div class="input-field col s6">
+                        <select class="multiple" name="IdContaOrigem" id="comboContaOrigem">
+                            <option value="" disabled selected>Selecione</option>
+                            @foreach (var conta in Model.ContasFinanceira)
+                            {
+                                <option @(Model.IdContaOrigem == conta.Id ? "selected" : string.Empty) value="@conta.Id">@conta.Nome</option>
+                            }
+                        </select>
+                        <label>Conta de origem</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <select class="multiple" name="IdContaDestino" id="comboContaDestino">
+                            <option value="" disabled selected>Selecione</option>
+                            @foreach (var conta in Model.ContasFinanceira)
+                            {
+                                <option @(Model.IdContaDestino == conta.Id ? "selected" : string.Empty) value="@conta.Id">@conta.Nome</option>
+                            }
+                        </select>
+                        <label>Conta de destino</label>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -15px;">
+                    <div class="input-field col s6">
+                        <input id="txtDescricaoTransferencia" type="text" class="validate" name="Descricao" value="@Model.Descricao">
+                        <label for="txtDescricaoTransferencia">Descrição</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <select class="multiple" name="IdCategoria" id="comboCategoriasTransferencia">
+                            <option value="" disabled selected>Selecione</option>
+                            @foreach (var categoria in Model.Categorias)
+                            {
+                                <option @(Model.IdCategoria == categoria.Id ? "selected" : string.Empty) value="@categoria.Id">@categoria.Nome</option>
+                            }
+                        </select>
+                        <label>Categoria</label>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -15px;">
+                    <div class="input-field col s3">
+                        <input class="money" id="txtValorTransferencia" type="text" name="Valor" value="@Model.Valor.ToMoney()">
+                        <label for="txtValorTransferencia">Valor</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input id="txtDataTransferencia" type="text" class="date" name="Data" value="@Model.DataTransferencia">
+                        <label for="txtDataTransferencia" class="active">Data</label>
+                    </div>
+                    <div class="input-field col s6" style="text-align: center">
+                        <span id="spanMensagemIndicadorPgto">Já foi realizada?</span>
+                        <a href="javascript:void(0)" id="btnIndicadorTransferenciaPago" style="background-color: gray"
+                           class="btn-floating @(Model.IndicadorPagoRecebido == "S" ? "indicador-green" : string.Empty)">
+                            <i class="material-icons">thumb_up</i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer" style="margin-top: -25px;">
+        <a href="javascript:void(0)" onclick="cadastrarEditarTransferencia()" style="color: green" class="modal-action waves-effect waves-green btn-flat">Confirmar</a>
+        <a href="javascript:void(0)" style="color: red" class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</a>
+    </div>
+</div>
+
+
+<script>
+    $('select').material_select();
+    var urlPostPutTransferencia = $("#hiddenIndicadorCadastroTransferencia").val() == "S" ? urlsTransferencia.Post : urlsTransferencia.Put;
+
+    $("#btnIndicadorTransferenciaPago").click(function () {
+        $(this).toggleClass("indicador-green");
+        $("#hiddenIndicadorPagoRecebido").val($(this).hasClass("indicador-green") ? "S" : "N");
+    });
+
+
+    function cadastrarEditarTransferencia() {
+        $('.toast').remove();
+
+        if (!$("#comboContaOrigem").val())
+            showToast("Favor preencher o campo Conta Origem");
+
+        if (!$("#comboContaDestino").val())
+            showToast("Favor preencher o campo Conta Destino");
+
+        if (!$("#comboCategoriasTransferencia").val())
+            showToast("Favor preencher o campo Categoria");
+
+        isFieldEmpty($("#txtDescricaoTransferencia, #txtValorTransferencia, #txtDataTransferencia"));
+
+        if ($('.toast').length)
+            return false;
+
+        $.post(urlsTransferencia, $("#formTransferenciaCadastroEdicao").toObject()).success(function (message) {
+            $("#modalTransferenciaCadastroEdicao").modal("close");
+            showToast(message, "green");
+            atualizarTransferencias();
+        });
+    }
+
+</script>

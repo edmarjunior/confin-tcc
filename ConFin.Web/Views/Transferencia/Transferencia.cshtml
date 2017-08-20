@@ -1,0 +1,165 @@
+﻿@model IEnumerable<ConFin.Web.ViewModel.TransferenciaViewModel>
+@{ Layout = null;}
+
+<style>
+    .pago-recebido {
+        background-color: green !important;
+    }
+
+    .vincendo:not(.pago-recebido) {
+        background-color: gray !important;
+    }
+</style>
+
+<div class="container">
+    <div class="section" style="text-align: center">
+        <h1 style="color: gray; font-size: 20pt;" class="caption">Lançamentos</h1>
+        <div class="divider"></div>
+    </div>
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Conta Origem</th>
+                <th>Conta Destino</th>
+                <th>Categoria</th>
+                <th>Pago</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Any())
+            {
+                foreach (var transferencia in Model)
+                {
+                    <tr data-valor="@transferencia.Valor">
+                        <td>@transferencia.DataTransferencia</td>
+                        <td>@transferencia.Descricao</td>
+                        <td>@transferencia.ValorTransferencia</td>
+                        <td>@transferencia.NomeContaOrigem</td>
+                        <td>@transferencia.NomeContaDestino</td>
+                        <td class="center-align">
+                            <a style="cursor: default" class="tooltipped" data-position="top" data-delay="25" data-tooltip="@transferencia.NomeCategoria">
+                                <i style="color: @transferencia.CorCategoria" class="material-icons">bookmark</i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="javascript:void(0)" onclick="alteraStatusTransferencia(this, @transferencia.Id)"
+                                class="btn-floating tooltipped @(transferencia.IsPagoRecebido ? "pago-recebido" : "vincendo")" 
+                                data-position="top" data-delay="25" data-tooltip="@(transferencia.IsPagoRecebido ? "Pago" : "Não pago")">
+                                <i class="material-icons">@(transferencia.IsPagoRecebido ? "thumb_up" : "thumb_down")</i>
+                            </a>
+                        </td>
+                        <td class="center-align">
+                            <a style="color: crimson" href="javascript:void(0)" onclick="deleteTransferencia(@transferencia.Id)"
+                               class="tooltipped" data-position="top" data-delay="25" data-tooltip="Excluir">
+                                <i class="material-icons">delete_forever</i>
+                            </a>
+                            <a style="color: dimgray" href="javascript:void(0)" onclick="showModalCadastroEdicaoTransferencia(@transferencia.Id)"
+                               class="tooltipped" data-position="top" data-delay="25" data-tooltip="Editar">
+                                <i class="material-icons">mode_edit</i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td style="text-align: center" colspan="8">Nenhum registro encontrado.</td></tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<div class="fixed-action-btn horizontal click-to-toggle">
+    <a href="javascript:void(0)" onclick="showModalCadastroEdicaoTransferencia()" class="waves-effect waves-light modal-trigger btn-floating btn-large">
+        <i class="material-icons">add</i>
+    </a>
+</div>
+
+<script>
+
+    $('.tooltipped').tooltip({ delay: 25 });
+
+    var urlsTransferencia = {
+        Transferencia: '@Url.Action("Transferencia", "Transferencia")',
+        GetModalCadastroEdicao: '@Url.Action("GetModalCadastroEdicao", "Transferencia")',
+        Post: '@Url.Action("Post", "Transferencia")',
+        Put: '@Url.Action("Put", "Transferencia")',
+        Delete: '@Url.Action("Delete", "Transferencia")',
+        PutIndicadorPagoRecebido: '@Url.Action("PutIndicadorPagoRecebido", "Transferencia")'
+    };
+
+    function showModalCadastroEdicaoTransferencia(idTransferencia) {
+        $.get(urlsTransferencia.GetModalCadastroEdicao, {
+            idTransferencia: idTransferencia
+        }).success(function (data) {
+            $("#containerPrincipal").append(data);
+            $('#modalTransferenciaCadastroEdicao').modal({
+                complete: function () {
+                    $('#modalTransferenciaCadastroEdicao').remove();
+                }
+            });
+            $("#modalTransferenciaCadastroEdicao").modal("open");
+            verifyLabelActive();
+        });
+    }
+
+    function deleteTransferencia(idTransferencia) {
+        showModalConfirm("Deseja realmente excluir esta transferência?", function () {
+            $.post(urlsTransferencia.Delete, {
+                idTransferencia: idTransferencia
+            }).success(function (data) {
+                showToast(data, "green");
+                atualizarTransferencias();
+            });
+        });
+    }
+
+    function atualizarTransferencias() {
+        setTimeout(function () {
+            $.get(urlsTransferencia.Transferencia).success(function (data) {
+                $("#containerPrincipal").html(data);
+            });
+        }, 100);
+
+    }
+
+    var isPagoRecebido, isVincendo;
+
+    function alteraStatusTransferencia(button, idTransferencia) {
+
+        var btn = $(button);
+
+        isPagoRecebido = btn.hasClass("pago-recebido");
+        isVincendo = btn.hasClass("vincendo");
+
+        desableLoading();
+        $.post(urlsTransferencia.PutIndicadorPagoRecebido, {
+            Id: idTransferencia,
+            IndicadorPagoRecebido: (isPagoRecebido ? "N" : "S")
+        }).success(function () {
+            atualizarBotaoIndicadorPagoRecebido(btn);
+        });
+    }
+
+    function atualizarBotaoIndicadorPagoRecebido(btn) {
+
+        // caso a transferencia estiver sendo paga
+        if (!isPagoRecebido) {
+            btn.addClass("pago-recebido");
+            btn.find("i").text("thumb_up");
+            btn.attr("data-tooltip", "Pago").tooltip();
+            return;
+        }
+
+        btn.removeClass("pago-recebido");
+        btn.addClass("vincendo");
+        btn.find("i").text("thumb_down");
+        btn.attr("data-tooltip", "Não Pago").tooltip();
+    }
+
+</script>
