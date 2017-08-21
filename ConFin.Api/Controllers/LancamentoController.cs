@@ -17,7 +17,8 @@ namespace ConFin.Api.Controllers
             _lancamentoRepository = lancamentoRepository;
         }
 
-        public IHttpActionResult GetAll(int idUsuario, int? idConta = null) => Ok(_lancamentoRepository.GetAll(idUsuario, idConta));
+        public IHttpActionResult GetAll(int idUsuario, int? idConta = null, int? idCategoria = null) 
+            => Ok(_lancamentoRepository.GetAll(idUsuario, idConta, idCategoria));
 
         public IHttpActionResult Get(int idLancamento) => Ok(_lancamentoRepository.Get(idLancamento));
 
@@ -56,5 +57,8 @@ namespace ConFin.Api.Controllers
 
             return Content(HttpStatusCode.BadRequest, _notification.Get);
         }
+
+        public IHttpActionResult GetResumo(int idUsuario, int? idConta = null, int? idCategoria = null) 
+            => Ok(_lancamentoRepository.GetResumo(idUsuario, idConta, idCategoria));
     }
 }

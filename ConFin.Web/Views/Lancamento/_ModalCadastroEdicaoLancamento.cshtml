@@ -64,9 +64,9 @@
                         <label for="txtDataLancamento" class="active">Data</label>
                     </div>
                     <div class="input-field col s6" style="text-align: center">
-                        <span id="spanMensagemIndicadorPgto">Já foi @(Model.IndicadorReceitaDespesa.Equals("R") ? "recebido" : "pago")?</span>
+                        <span id="spanMensagemIndicadorPgto">Já foi @(Model.IndicadorReceitaDespesa =="R" ? "recebido" : "pago")?</span>
                         <a href="javascript:void(0)" id="btnIndicadorPago" style="background-color: gray" 
-                           class="btn-floating @(Model.IndicadorPagoRecebido == "S" ? "indicador-green" : string.Empty)">
+                           class="btn-floating @(Model.IndicadorPagoRecebido == "S" ? "pago-recebido" : string.Empty)">
                             <i class="material-icons">thumb_up</i>
                         </a>
                     </div>
@@ -82,12 +82,12 @@
 
 
 <script>
-    $('select').material_select();
+    $('#comboConta, #comboCategorias').material_select();
     var urlPostPutLancamento = $("#hiddenIndicadorCadastroLancamento").val() == "S" ? urlsLancamento.Post : urlsLancamento.Put;
 
     $("#btnIndicadorPago").click(function () {
-        $(this).toggleClass("indicador-green");
-        $("#hiddenIndicadorPagoRecebido").val($(this).hasClass("indicador-green") ? "S" : "N");
+        $(this).toggleClass("pago-recebido");
+        $("#hiddenIndicadorPagoRecebido").val($(this).hasClass("pago-recebido") ? "S" : "N");
     });
 
     $("input:radio[name=IndicadorReceitaDespesa]").change(function() {

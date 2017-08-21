@@ -1,4 +1,5 @@
 ﻿using ConFin.Application.AppService.ContaFinanceira;
+using ConFin.Application.AppService.Lancamento;
 using ConFin.Application.AppService.LancamentoCategoria;
 using ConFin.Application.AppService.Transferencia;
 using ConFin.Common.Domain.Dto;
@@ -17,24 +18,29 @@ namespace ConFin.Web.Controllers
         private readonly ITransferenciaAppService _transferenciaAppService;
         private readonly ILancamentoCategoriaAppService _lancamentoCategoriaAppService;
         private readonly IContaFinanceiraAppService _contaFinanceiraAppService;
+        private readonly ILancamentoAppService _lancamentoAppService;
 
-        public TransferenciaController(ITransferenciaAppService transferenciaAppService, IContaFinanceiraAppService contaFinanceiraAppService, ILancamentoCategoriaAppService lancamentoCategoriaAppService)
+
+        public TransferenciaController(ITransferenciaAppService transferenciaAppService, 
+            IContaFinanceiraAppService contaFinanceiraAppService, ILancamentoCategoriaAppService lancamentoCategoriaAppService, 
+            ILancamentoAppService lancamentoAppService)
         {
             _transferenciaAppService = transferenciaAppService;
             _contaFinanceiraAppService = contaFinanceiraAppService;
             _lancamentoCategoriaAppService = lancamentoCategoriaAppService;
+            _lancamentoAppService = lancamentoAppService;
         }
 
         public ActionResult Transferencia()
         {
             try
             {
-                var response = _transferenciaAppService.Get(UsuarioLogado.Id);
+                var response = _transferenciaAppService.GetAll(UsuarioLogado.Id);
                 if (!response.IsSuccessStatusCode)
                     return Error(response);
 
-                var contas = JsonConvert.DeserializeObject<IEnumerable<TransferenciaDto>>(response.Content.ReadAsStringAsync().Result);
-                return View("Transferencia", contas.Select(x => new TransferenciaViewModel(x)));
+                var transferencias = JsonConvert.DeserializeObject<IEnumerable<TransferenciaDto>>(response.Content.ReadAsStringAsync().Result);
+                return View("Transferencia", transferencias.Select(x => new TransferenciaViewModel(x)));
             }
             catch (Exception ex)
             {

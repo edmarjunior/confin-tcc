@@ -91,6 +91,7 @@
     <Compile Include="Domain\Dto\ContaFinanceiraTipoDto.cs" />
     <Compile Include="Domain\Dto\LancamentoCategoriaDto.cs" />
     <Compile Include="Domain\Dto\LancamentoDto.cs" />
+    <Compile Include="Domain\Dto\LancamentoResumoGeralDto.cs" />
     <Compile Include="Domain\Dto\TransferenciaDto.cs" />
     <Compile Include="Domain\Notification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

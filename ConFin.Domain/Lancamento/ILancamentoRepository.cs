@@ -5,11 +5,12 @@ namespace ConFin.Domain.Lancamento
 {
     public interface ILancamentoRepository
     {
-        IEnumerable<LancamentoDto> GetAll(int idUsuario, int? idConta = null);
+        IEnumerable<LancamentoDto> GetAll(int idUsuario, int? idConta = null, int? idCategoria = null);
         LancamentoDto Get(int idLancamento);
         void Post(LancamentoDto lancamento);
         void Put(LancamentoDto lancamento);
         void Delete(int idLancamento);
         void PutIndicadorPagoRecebido(LancamentoDto lancamento);
+        LancamentoResumoGeralDto GetResumo(int idUsuario, int? idConta = null, int? idCategoria = null);
     }
 }

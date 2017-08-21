@@ -3,6 +3,7 @@ using ConFin.Application.AppService.Lancamento;
 using ConFin.Application.AppService.LancamentoCategoria;
 using ConFin.Common.Domain.Dto;
 using ConFin.Common.Web;
+using ConFin.Web.ViewModel.Home;
 using ConFin.Web.ViewModel.Lancamento;
 using Newtonsoft.Json;
 using System;
@@ -25,18 +26,42 @@ namespace ConFin.Web.Controllers
             _contaFinanceiraAppService = contaFinanceiraAppService;
         }
 
-        public ActionResult Lancamento()
+        public ActionResult Lancamento(int? idConta = null, int? idCategoria = null)
         {
             try
             {
-                var response = _lancamentoAppService.GetAll(UsuarioLogado.Id);
+                #region combo conta
+                var responseConta = _contaFinanceiraAppService.GetAll(UsuarioLogado.Id);
+                if (!responseConta.IsSuccessStatusCode)
+                    return Error(responseConta);
+
+                var contas = JsonConvert.DeserializeObject<IEnumerable<ContaFinanceiraDto>>(responseConta.Content.ReadAsStringAsync().Result).ToList();
+                if (!contas.Any())
+                    return Error("Antes de visualizar lançamentos é necessario cadastrar uma conta");
+                #endregion
+
+                #region combo categoria
+                var responseCategoria = _lancamentoCategoriaAppService.Get(UsuarioLogado.Id);
+                if (!responseCategoria.IsSuccessStatusCode)
+                    return Error(responseCategoria);
+
+                var categorias = JsonConvert.DeserializeObject<IEnumerable<LancamentoCategoriaDto>>(responseCategoria.Content.ReadAsStringAsync().Result).ToList();
+                if (!categorias.Any())
+                    return Error("Antes de visualizar lançamentos é necessario cadastrar categorias");
+                #endregion
+
+                var response = _lancamentoAppService.GetAll(UsuarioLogado.Id, idConta, idCategoria);
                 if (!response.IsSuccessStatusCode)
                     return Error(response);
 
                 var lancamentos = JsonConvert.DeserializeObject<IEnumerable<LancamentoDto>>(response.Content.ReadAsStringAsync().Result)
                     .Select(x => new LancamentoViewModel(x)).ToList();
 
-                return View("Lancamento", new LancamentoResumoViewModel(lancamentos));
+                return View("Lancamento", new LancamentoMasterViewModel(lancamentos, idConta, idCategoria)
+                {
+                    Contas = contas,
+                    Categorias = categorias
+                });
             }
             catch (Exception ex)
             {
@@ -48,7 +73,7 @@ namespace ConFin.Web.Controllers
         {
             try
             {
-                // combo de Contas
+                #region combo conta
                 var responseConta = _contaFinanceiraAppService.GetAll(UsuarioLogado.Id);
                 if (!responseConta.IsSuccessStatusCode)
                     return Error(responseConta);
@@ -56,8 +81,9 @@ namespace ConFin.Web.Controllers
                 var contas = JsonConvert.DeserializeObject<IEnumerable<ContaFinanceiraDto>>(responseConta.Content.ReadAsStringAsync().Result).ToList();
                 if(!contas.Any())
                     return Error("Não foi encontrada nenhuma Conta para cadastrar o lançamento");
+                #endregion
 
-                // combo de Categorias de lançamento
+                #region combo categoria
                 var responseCategoria = _lancamentoCategoriaAppService.Get(UsuarioLogado.Id);
                 if (!responseCategoria.IsSuccessStatusCode)
                     return Error(responseCategoria);
@@ -65,6 +91,7 @@ namespace ConFin.Web.Controllers
                 var categorias = JsonConvert.DeserializeObject<IEnumerable<LancamentoCategoriaDto>>(responseCategoria.Content.ReadAsStringAsync().Result).ToList();
                 if (!categorias.Any())
                     return Error("Não foi encontrada nenhuma Categoria para cadastrar o lançamento");
+                #endregion
 
                 // cadastro
                 if (!idLancamento.HasValue)
@@ -147,6 +174,23 @@ namespace ConFin.Web.Controllers
                 lancamento.IdUsuarioUltimaAlteracao = UsuarioLogado.Id;
                 var response = _lancamentoAppService.PutIndicadorPagoRecebido(lancamento);
                 return response.IsSuccessStatusCode ? Ok() : Error(response);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex.Message);
+            }
+        }
+
+        public ActionResult GetResumoLancamento(int? idConta = null, int? idCategoria = null)
+        {
+            try
+            {
+                var responseResumoLancamento = _lancamentoAppService.GetResumo(UsuarioLogado.Id, idConta, idCategoria);
+                if (!responseResumoLancamento.IsSuccessStatusCode)
+                    return Error(responseResumoLancamento);
+
+                var resumoLancamentoDto = JsonConvert.DeserializeObject<LancamentoResumoGeralDto>(responseResumoLancamento.Content.ReadAsStringAsync().Result);
+                return Json(new LancamentoResumoGeralViewModel(resumoLancamentoDto), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

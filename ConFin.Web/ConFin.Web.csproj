@@ -123,8 +123,9 @@
     <Compile Include="Controllers\LancamentoCategoriaController.cs" />
     <Compile Include="Controllers\LancamentoController.cs" />
     <Compile Include="Controllers\TransferenciaController.cs" />
-    <Compile Include="ViewModel\Lancamento\LancamentoResumoViewModel.cs" />
-    <Compile Include="ViewModel\Lancamento\ResumoLancamentosViewModel.cs" />
+    <Compile Include="ViewModel\Home\HomeViewModel.cs" />
+    <Compile Include="ViewModel\Home\LancamentoResumoGeralViewModel.cs" />
+    <Compile Include="ViewModel\Lancamento\LancamentoMasterViewModel.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">

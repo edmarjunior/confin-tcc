@@ -13,7 +13,7 @@
 
 <div class="container">
     <div class="section" style="text-align: center">
-        <h1 style="color: gray; font-size: 20pt;" class="caption">Lançamentos</h1>
+        <h1 style="color: gray; font-size: 20pt;" class="caption">Transferência de valores entre contas</h1>
         <div class="divider"></div>
     </div>
     <table class="striped">
@@ -30,7 +30,7 @@
             </tr>
         </thead>
         <tbody>
-            @if (Model.Any())
+            @if (Model != null && Model.Any())
             {
                 foreach (var transferencia in Model)
                 {
@@ -83,6 +83,10 @@
 <script>
 
     $('.tooltipped').tooltip({ delay: 25 });
+
+    // atualizando o resumo de lançamentos (previstos e realizados)
+    sendAjaxAtualizaResumoGeral();
+
 
     var urlsTransferencia = {
         Transferencia: '@Url.Action("Transferencia", "Transferencia")',

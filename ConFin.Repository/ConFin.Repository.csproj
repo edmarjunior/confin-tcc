@@ -46,6 +46,7 @@
     <Compile Include="LancamentoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LoginRepository.cs" />
+    <Compile Include="TransferenciaRepository.cs" />
     <Compile Include="UsuarioRepository.cs" />
   </ItemGroup>
   <ItemGroup>

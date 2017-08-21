@@ -51,6 +51,7 @@
     <Compile Include="Login\ILoginRepository.cs" />
     <Compile Include="Login\ILoginService.cs" />
     <Compile Include="Login\LoginService.cs" />
+    <Compile Include="Transferencia\ITransferenciaRepository.cs" />
     <Compile Include="Usuario\IUsuarioRepository.cs" />
     <Compile Include="Usuario\IUsuarioService.cs" />
     <Compile Include="Usuario\UsuarioService.cs" />

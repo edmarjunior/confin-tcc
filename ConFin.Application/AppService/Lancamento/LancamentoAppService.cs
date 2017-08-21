@@ -4,15 +4,15 @@ using System.Net.Http;
 
 namespace ConFin.Application.AppService.Lancamento
 {
-    public class LancamentoAppService: BaseAppService, ILancamentoAppService
+    public class LancamentoAppService : BaseAppService, ILancamentoAppService
     {
         public LancamentoAppService() : base("Lancamento")
         {
         }
 
-        public HttpResponseMessage GetAll(int idUsuario, int? idConta = null)
+        public HttpResponseMessage GetAll(int idUsuario, int? idConta = null, int? idCategoria = null)
         {
-            return GetRequest("GetAll", new { idUsuario, idConta });
+            return GetRequest("GetAll", new { idUsuario, idConta, idCategoria });
         }
 
         public HttpResponseMessage Get(int idLancamento)
@@ -41,6 +41,11 @@ namespace ConFin.Application.AppService.Lancamento
         public HttpResponseMessage PutIndicadorPagoRecebido(LancamentoDto lancamento)
         {
             return PutRequest("PutIndicadorPagoRecebido", lancamento);
+        }
+
+        public HttpResponseMessage GetResumo(int idUsuario, int? idConta = null, int? idCategoria = null)
+        {
+            return GetRequest("GetResumo", new { idUsuario, idConta, idCategoria });
         }
     }
 }

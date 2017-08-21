@@ -5,6 +5,7 @@ using ConFin.Domain.ContaFinanceiraTipo;
 using ConFin.Domain.Lancamento;
 using ConFin.Domain.LancamentoCategoria;
 using ConFin.Domain.Login;
+using ConFin.Domain.Transferencia;
 using ConFin.Domain.Usuario;
 using ConFin.Repository;
 using SimpleInjector;
@@ -38,6 +39,7 @@ namespace ConFin.Api
             Container.Register<IContaFinanceiraTipoRepository, ContaFinanceiraTipoRepository>();
             Container.Register<ILancamentoCategoriaRepository, LancamentoCategoriaRepository>();
             Container.Register<ILancamentoRepository, LancamentoRepository>();
+            Container.Register<ITransferenciaRepository, TransferenciaRepository>();
         }
 
         private static void RegisterServices()

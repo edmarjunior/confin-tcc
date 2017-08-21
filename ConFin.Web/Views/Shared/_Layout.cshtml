@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="~/css/materialize.min.css" media="screen,projection" />
     <link type="text/css" rel="stylesheet" href="~/css/common.css" />
- 
+
     <script type="text/javascript" src="~/js/jquery-2.1.0.min.js"></script>
     <script type="text/javascript" src="~/js/materialize.js"></script>
     <script type="text/javascript" src="~/js/common.js"></script>
@@ -31,22 +31,75 @@
 
             $('.percent').mask('##0,00%', { reverse: true });
             $('.clear-if-not-match').mask("00/00/0000", { clearIfNotMatch: true });
-           
+
             $('.selectonfocus').mask("00/00/0000", { selectOnFocus: true });
         });
     </script>
 
+    <style>
+        .footer {
+            position: fixed !important;
+            bottom: 0 !important;
+            width: 100% !important;
+            z-index: 2;
+            background-color: #00BFFF;
+        }
+    </style>
 </head>
 <body>
 
     @Html.Partial("_Cabecalho")
     @Html.Partial("_MenuLateral")
 
+    <footer class="footer page-footer">
+        <div id="divResumoSaldo" class="container" style="display: none">
+            <div class="row">
+                <div class="col l3 s12">
+                    <h5 class="white-text">Resumo Financeiro</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3">Previsto</a></li>
+                        <li><a class="grey-text text-lighten-3">Realizado</a></li>
+                    </ul>
+                </div>
+                <div class="col l2 offset-l2 s12">
+                    <h5 class="white-text">Despesas</h5>
+                    <ul>
+                        <li id="liDespesaPrev">-</li>
+                        <li id="liDespesaRealiz">-</li>
+                    </ul>
+                </div>
+                <div class="col l2 offset-l2 s12">
+                    <h5 class="white-text">Receitas</h5>
+                    <ul>
+                        <li id="liReceitaPrev">-</li>
+                        <li id="liReceitaRealiz">-</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                <a class="grey-text text-lighten-4">
+                    Saldo Previsto: (R$)
+                    <span id="spanSaldoPrev" style="font-size: 25pt">-</span>
+                </a>
+
+                <a style="margin-left: 25px; padding: 10px;" href="javascript:void(0)"
+                   onclick="slideToggleResumoSaldo(this)" class="tooltipped up grey-text text-lighten-4 right"
+                   data-position="top" data-delay="25" data-tooltip="Exibir Resumo Financeiro">
+                    <i class="material-icons">keyboard_arrow_up</i>
+                </a>
+                <a class="grey-text text-lighten-4 right">
+                    Saldo atual: (R$)
+                    <span id="spanSaldoAtual" style="font-size: 25pt">-</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
     <div class="container" id="containerPrincipal">
         @RenderBody()
     </div>
-
-    
 
 </body>
 </html>
@@ -54,6 +107,21 @@
 
 
 <script>
+
+    function slideToggleResumoSaldo(button) {
+        if ($(button).hasClass("up")) {
+            $(button).removeClass("up");
+            $(button).attr("data-tooltip", "Ocultar Resumo Financeiro").tooltip();
+            $(button).find("i").text("keyboard_arrow_down");
+
+            $("#divResumoSaldo").slideDown();
+        } else {
+            $(button).addClass("up");
+            $(button).attr("data-tooltip", "Exibir Resumo Financeiro").tooltip();
+            $(button).find("i").text("keyboard_arrow_up");
+            $("#divResumoSaldo").slideUp();
+        }
+    }
 
     $(".button-collapse").sideNav();
     $('.tooltipped').tooltip({ delay: 25 });

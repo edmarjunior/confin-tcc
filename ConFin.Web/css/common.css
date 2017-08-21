@@ -15,7 +15,10 @@ table:not(.highlight) tbody tr:hover {
     background-color: lightblue !important;
 }
 
-
 .picker__footer {
     display: none;
+}
+
+#containerPrincipal {
+    width: 85% !important;
 }

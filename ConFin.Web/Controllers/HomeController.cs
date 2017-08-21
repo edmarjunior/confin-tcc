@@ -1,4 +1,6 @@
-﻿using ConFin.Common.Web;
+﻿using ConFin.Application.AppService.Lancamento;
+using ConFin.Common.Web;
+using ConFin.Web.ViewModel.Home;
 using System;
 using System.Web.Mvc;
 
@@ -6,6 +8,13 @@ namespace ConFin.Web.Controllers
 {
     public class HomeController: BaseHomeController
     {
+        private readonly ILancamentoAppService _lancamentoAppService;
+
+        public HomeController(ILancamentoAppService lancamentoAppService)
+        {
+            _lancamentoAppService = lancamentoAppService;
+        }
+
         public ActionResult Home()
         {
             try
@@ -14,7 +23,7 @@ namespace ConFin.Web.Controllers
                     return View("../Login/Login");
 
                 ViewBag.Email = UsuarioLogado.Email;
-                return View("Home", UsuarioLogado);
+                return View("Home", new HomeViewModel());
             }
             catch (Exception ex)
             {

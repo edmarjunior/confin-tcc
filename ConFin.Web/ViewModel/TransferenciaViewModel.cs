@@ -21,6 +21,7 @@ namespace ConFin.Web.ViewModel
             NomeContaDestino = model.NomeContaDestino;
             Valor = model.Valor;
             Descricao = model.Descricao;
+            Data = model.Data;
             IdCategoria = model.IdCategoria;
             NomeCategoria = model.NomeCategoria;
             CorCategoria = model.CorCategoria;

@@ -99,6 +99,7 @@
     <Compile Include="Controllers\LancamentoCategoriaController.cs" />
     <Compile Include="Controllers\LancamentoController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\TransferenciaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

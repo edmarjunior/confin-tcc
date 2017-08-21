@@ -66,7 +66,7 @@
                     <div class="input-field col s6" style="text-align: center">
                         <span id="spanMensagemIndicadorPgto">Já foi realizada?</span>
                         <a href="javascript:void(0)" id="btnIndicadorTransferenciaPago" style="background-color: gray"
-                           class="btn-floating @(Model.IndicadorPagoRecebido == "S" ? "indicador-green" : string.Empty)">
+                           class="btn-floating @(Model.IndicadorPagoRecebido == "S" ? "pago-recebido" : string.Empty)">
                             <i class="material-icons">thumb_up</i>
                         </a>
                     </div>
@@ -82,12 +82,17 @@
 
 
 <script>
-    $('select').material_select();
-    var urlPostPutTransferencia = $("#hiddenIndicadorCadastroTransferencia").val() == "S" ? urlsTransferencia.Post : urlsTransferencia.Put;
+    
+    $('#comboContaOrigem, #comboContaDestino, #comboCategoriasTransferencia').material_select();
+
+    var urlPostPutTransferencia = $("#hiddenIndicadorCadastroTransferencia").val() == "S"
+        ? '@Url.Action("Post","Transferencia")'
+        : '@Url.Action("Put","Transferencia")';
+
 
     $("#btnIndicadorTransferenciaPago").click(function () {
-        $(this).toggleClass("indicador-green");
-        $("#hiddenIndicadorPagoRecebido").val($(this).hasClass("indicador-green") ? "S" : "N");
+        $(this).toggleClass("pago-recebido");
+        $("#hiddenIndicadorPagoRecebido").val($(this).hasClass("pago-recebido") ? "S" : "N");
     });
 
 
@@ -108,7 +113,7 @@
         if ($('.toast').length)
             return false;
 
-        $.post(urlsTransferencia, $("#formTransferenciaCadastroEdicao").toObject()).success(function (message) {
+        $.post(urlPostPutTransferencia, $("#formTransferenciaCadastroEdicao").toObject()).success(function (message) {
             $("#modalTransferenciaCadastroEdicao").modal("close");
             showToast(message, "green");
             atualizarTransferencias();

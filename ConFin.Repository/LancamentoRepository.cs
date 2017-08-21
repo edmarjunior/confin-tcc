@@ -22,14 +22,16 @@ namespace ConFin.Repository
             SP_UpdLancamento,
             SP_DelLancamento,
             SP_UpdLancamentoIndicadorPagoRecebido,
+            SP_SelLancamentosResumo
 
         }
 
-        public IEnumerable<LancamentoDto> GetAll(int idUsuario, int? idConta = null)
+        public IEnumerable<LancamentoDto> GetAll(int idUsuario, int? idConta = null, int? idCategoria = null)
         {
             ExecuteProcedure(Procedures.SP_SelLancamentos);
             AddParameter("IdUsuario", idUsuario);
             AddParameter("IdConta", idConta);
+            AddParameter("IdCategoria", idCategoria);
             var lancamentos = new List<LancamentoDto>();
             using (var reader = ExecuteReader())
                 while (reader.Read())
@@ -41,7 +43,9 @@ namespace ConFin.Repository
                         Valor = reader.ReadAttr<decimal>("Valor"),
                         Data = reader.ReadAttr<DateTime>("DataLancamento"),
                         IdConta = reader.ReadAttr<int>("IdConta"),
-                        NomeConta = reader.ReadAttr<string>("NomeConta"),
+                        NomeContaOrigem = reader.ReadAttr<string>("NomeContaOrigem"),
+                        IdContaDestino = reader.ReadAttr<int?>("IdContaDestino"),
+                        NomeContaDestino = reader.ReadAttr<string>("NomeContaDestino"),
                         IdCategoria = reader.ReadAttr<int>("IdCategoria"),
                         NomeCategoria = reader.ReadAttr<string>("NomeCategoria"),
                         CorCategoria = reader.ReadAttr<string>("CorCategoria"),
@@ -132,6 +136,29 @@ namespace ConFin.Repository
             AddParameter("IndicadorPagoRecebido", lancamento.IndicadorPagoRecebido);
             AddParameter("IdUsuario", lancamento.IdUsuarioUltimaAlteracao);
             ExecuteNonQuery();
+        }
+
+        public LancamentoResumoGeralDto GetResumo(int idUsuario, int? idConta = null, int? idCategoria = null)
+        {
+            ExecuteProcedure(Procedures.SP_SelLancamentosResumo);
+            AddParameter("IdUsuario", idUsuario);
+            AddParameter("IdConta", idConta);
+            AddParameter("IdCategoria", idCategoria);
+
+            using (var reader = ExecuteReader())
+            {
+                return !reader.Read()
+                    ? null
+                    : new LancamentoResumoGeralDto
+                    {
+                        TotReceitasPrevista = reader.ReadAttr<decimal>("TotReceitasPrevista"),
+                        TotReceitasRealizada = reader.ReadAttr<decimal>("TotReceitasRealizada"),
+                        TotDespesasPrevista = reader.ReadAttr<decimal>("TotDespesasPrevista"),
+                        TotDespesasRealizada = reader.ReadAttr<decimal>("TotDespesasRealizada"),
+                        TotSaldoPrevisto = reader.ReadAttr<decimal>("TotSaldoPrevisto"),
+                        TotSaldoAtual = reader.ReadAttr<decimal>("TotSaldoAtual")
+                    };
+            }
         }
     }
 }

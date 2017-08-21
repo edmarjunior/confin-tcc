@@ -152,3 +152,20 @@ Number.prototype.toMoney = function () {
     num = this.toFixed(2);
     return num.replace('.', ',').replace(new RegExp(re, 'g'), '$&' + ('.'));
 };
+
+
+function sendAjaxAtualizaResumoGeral(idConta, idCategoria) {
+    $.get("http://localhost:5001/Home/Lancamento/GetResumoLancamento", {
+        idConta: idConta,
+        idCategoria: idCategoria
+    }).success(function (json) {
+        $("#spanSaldoPrev").text(json.TotalSaldoPrevisto);
+        $("#spanSaldoAtual").text(json.TotalSaldoAtual);
+        $("#liDespesaPrev").text(json.TotalDespesasPrevista);
+        $("#liDespesaRealiz").text(json.TotalDespesasRealizada);
+        $("#liReceitaPrev").text(json.TotalReceitasPrevista);
+        $("#liReceitaRealiz").text(json.TotalReceitasRealizada);
+        // atualiza a cor do saldo (vermelho ou verde)
+        $("#spanSaldoAtual").css("color", (json.TotalSaldoAtual.toDecimal() >= 0) ? "greenyellow" : "red");
+    });
+}

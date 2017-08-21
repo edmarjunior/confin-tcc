@@ -20,7 +20,9 @@ namespace ConFin.Web.ViewModel.Lancamento
             Valor = model.Valor;
             Data = model.Data;
             IdConta = model.IdConta;
-            NomeConta = model.NomeConta;
+            IdContaDestino = model.IdContaDestino;
+            NomeContaOrigem = model.NomeContaOrigem;
+            NomeContaDestino = model.NomeContaDestino;
             IdCategoria = model.IdCategoria;
             NomeCategoria = model.NomeCategoria;
             CorCategoria = model.CorCategoria;
@@ -41,7 +43,9 @@ namespace ConFin.Web.ViewModel.Lancamento
         public decimal? Valor { get; set; }
         public DateTime? Data { get; set; }
         public int? IdConta { get; set; }
-        public string NomeConta { get; set; }
+        public string NomeContaOrigem { get; set; }
+        public int? IdContaDestino { get; set; }
+        public string NomeContaDestino { get; set; }
         public int? IdCategoria { get; set; }
         public string NomeCategoria { get; set; }
         public string CorCategoria { get; set; }
@@ -57,7 +61,7 @@ namespace ConFin.Web.ViewModel.Lancamento
 
         public string ShouldCheckReceitaDespesa(string indicadorReceitaDespesa)
         {
-            return IndicadorReceitaDespesa.Equals(indicadorReceitaDespesa) ? "checked" : string.Empty;
+            return IndicadorReceitaDespesa == indicadorReceitaDespesa ? "checked" : string.Empty;
         }
 
         public bool IsReceita => IndicadorReceitaDespesa == "R";
@@ -69,6 +73,8 @@ namespace ConFin.Web.ViewModel.Lancamento
         public bool IsPagoRecebido => IndicadorPagamentoReceb != "N";
         public bool IsVencido => !IsPagoRecebido && DateTime.Today > Data;
         public bool DataLancamentoMenorHoje => DateTime.Today > Data;
+
+        public bool IsTransferencia => IndicadorReceitaDespesa == "T";
 
     }
 }
