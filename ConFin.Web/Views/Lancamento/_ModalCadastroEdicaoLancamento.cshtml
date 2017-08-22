@@ -17,7 +17,7 @@
 
                 <div class="row">
                     <div class="col s6">
-                        <p style="float: left; margin-left: 20px">
+                        <p style="float: left;">
                             <input class="with-gap" name="IndicadorReceitaDespesa" type="radio" id="indReceitaDespesa_R" value="R"
                                    @Model.ShouldCheckReceitaDespesa("R") />
                             <label style="margin-right: 25px" for="indReceitaDespesa_R">Receita</label>
@@ -38,7 +38,7 @@
                         <label>Conta</label>
                     </div>
                 </div>
-                <div class="row" style="margin-top: -15px;">
+                <div class="row" style="margin-top: -18px;">
                     <div class="input-field col s6">
                         <input id="txtDescricaoLancamento" type="text" class="validate" name="Descricao" value="@Model.Descricao">
                         <label for="txtDescricaoLancamento">Descrição</label>
@@ -54,7 +54,7 @@
                         <label>Categoria</label>
                     </div>
                 </div>
-                <div class="row" style="margin-top: -15px;">
+                <div class="row" style="margin-top: -18px;">
                     <div class="input-field col s3">
                         <input class="money" id="txtValorLancamento" type="text" name="Valor" value="@Model.Valor.ToMoney()">
                         <label for="txtValorLancamento">Valor</label>
@@ -63,18 +63,49 @@
                         <input id="txtDataLancamento" type="text" class="date" name="Data" value="@Model.DataLancamento">
                         <label for="txtDataLancamento" class="active">Data</label>
                     </div>
-                    <div class="input-field col s6" style="text-align: center">
-                        <span id="spanMensagemIndicadorPgto">Já foi @(Model.IndicadorReceitaDespesa =="R" ? "recebido" : "pago")?</span>
-                        <a href="javascript:void(0)" id="btnIndicadorPago" style="background-color: gray" 
+                    <div class="input-field col s6" style="text-align: center; margin-top: 20px">
+                        <span id="spanMensagemIndicadorPgto">Já foi @(Model.IndicadorReceitaDespesa == "R" ? "recebido" : "pago")?</span>
+                        <a href="javascript:void(0)" id="btnIndicadorPago" style="background-color: gray"
                            class="btn-floating @(Model.IndicadorPagoRecebido == "S" ? "pago-recebido" : string.Empty)">
                             <i class="material-icons">thumb_up</i>
                         </a>
                     </div>
                 </div>
+                <div id="divRepetirLancamento" class="row" style="margin-top: -10px;">
+                    <div id="divCheckRepetir" class="col s6" style="display: none">
+                        <p>
+                            <input type="checkbox" name="TipoCompromisso" id="checkLancamentoParcelado" value="2" />
+                            <label style="margin-right: 93px" for="checkLancamentoParcelado">Parcelado</label>
+                            <input type="checkbox" name="TipoCompromisso" id="checkLancamentoFixo" value="1" />
+                            <label for="checkLancamentoFixo">Fixo</label>
+                        </p>
+                    </div>
+                    <div id="divQtdParcRepetir" class="input-field col s3" style="margin-top: -10px; display: none">
+                        <input id="txtQtdParcelas" type="text" class="validate" name="QtdParcelas">
+                        <label for="txtQtdParcelas">Quantidade</label>
+                    </div>
+                    <div id="divComboPeriodoRepetir" class="col s3" style="display: none">
+                        <select class="browser-default" name="IdPeriodo" id="comboPeriodo">
+                            <option value="" disabled selected>Selecione periodo</option>
+                            <option value="1">Anual</option>
+                            <option value="2">Semestral</option>
+                            <option value="3">Trimestral</option>
+                            <option value="4">Bimestral</option>
+                            <option value="5">Mensal</option>
+                            <option value="6">Semanal</option>
+                            <option value="7">Diario</option>
+                        </select>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
-    <div class="modal-footer" style="margin-top: -25px;">
+    <div class="modal-footer" style="margin-top: -40px;">
+        <a href="javascript:void(0)" id="btnShowDivsRepetirLancamento" onclick="showDivsRepetirLancamento()" style="margin-left: 20px;"
+           class="btn-floating tooltipped left" data-position="top" data-delay="25"
+           data-tooltip="Repetir (Fixo/Parcelado)">
+            <i class="material-icons">repeat</i>
+        </a>
         <a href="javascript:void(0)" onclick="cadastrarEditarLancamento()" style="color: green" class="modal-action waves-effect waves-green btn-flat">Confirmar</a>
         <a href="javascript:void(0)" style="color: red" class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</a>
     </div>
@@ -82,7 +113,9 @@
 
 
 <script>
-    $('#comboConta, #comboCategorias').material_select();
+    $('#comboConta, #comboCategorias, #comboPeriodo').material_select();
+    $('#btnShowDivsRepetirLancamento').tooltip({ delay: 25 });
+
     var urlPostPutLancamento = $("#hiddenIndicadorCadastroLancamento").val() == "S" ? urlsLancamento.Post : urlsLancamento.Put;
 
     $("#btnIndicadorPago").click(function () {
@@ -90,21 +123,49 @@
         $("#hiddenIndicadorPagoRecebido").val($(this).hasClass("pago-recebido") ? "S" : "N");
     });
 
-    $("input:radio[name=IndicadorReceitaDespesa]").change(function() {
+    $("input[name='TipoCompromisso']").click(function () {
+
+        
+
+        if ($(this).val() == 1)
+            $("#checkLancamentoParcelado").removeAttr("checked");
+        else 
+            $("#checkLancamentoFixo").removeAttr("checked");
+
+        if (!$("input[name='TipoCompromisso']:checked").length) {
+            $("#divQtdParcRepetir, #divQtdParcRepetir, #divComboPeriodoRepetir").fadeOut();
+            return;
+        }
+
+        if ($(this).val() == 1)
+            $("#divQtdParcRepetir").fadeOut();
+        else
+            $("#divQtdParcRepetir").fadeIn();
+
+        $("#divComboPeriodoRepetir").fadeIn();
+
+    });
+
+    $("input:radio[name=IndicadorReceitaDespesa]").change(function () {
         $("#spanMensagemIndicadorPgto").text("Já foi " + ($(this).val() == "R" ? "recebido" : "pago") + "?");
     });
+
+
+    function showDivsRepetirLancamento() {
+        $("#divRepetirLancamento, #divCheckRepetir").fadeIn();
+    }
 
     function cadastrarEditarLancamento() {
         $('.toast').remove();
 
-        if (!$("#comboConta").val()) 
+        if (!$("#comboConta").val())
             showToast("Favor preencher o campo Conta");
 
-        if (!$("#comboCategorias").val()) 
+        if (!$("#comboCategorias").val())
             showToast("Favor preencher o campo Categoria");
 
         isFieldEmpty($("#txtDescricaoLancamento, #txtValorLancamento, #txtDataLancamento"));
-        
+
         if ($('.toast').length)
             return false;
 

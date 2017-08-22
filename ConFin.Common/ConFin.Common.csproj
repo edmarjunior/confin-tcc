@@ -87,11 +87,13 @@
     <Compile Include="Api\Controllers\PingController.cs" />
     <Compile Include="Api\WebApiConfig.cs" />
     <Compile Include="Domain\Auxiliar\DataManut.cs" />
+    <Compile Include="Domain\Dto\CompromissoDto.cs" />
     <Compile Include="Domain\Dto\ContaFinanceiraDto.cs" />
     <Compile Include="Domain\Dto\ContaFinanceiraTipoDto.cs" />
     <Compile Include="Domain\Dto\LancamentoCategoriaDto.cs" />
     <Compile Include="Domain\Dto\LancamentoDto.cs" />
     <Compile Include="Domain\Dto\LancamentoResumoGeralDto.cs" />
+    <Compile Include="Domain\Dto\PeriodoDto.cs" />
     <Compile Include="Domain\Dto\TransferenciaDto.cs" />
     <Compile Include="Domain\Notification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

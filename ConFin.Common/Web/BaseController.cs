@@ -35,7 +35,7 @@ namespace ConFin.Common.Web
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if(UsuarioLogado == null)
-                filterContext.Result = new RedirectResult("localhost:5001/Home/Home");
+                filterContext.Result = new RedirectResult("http://localhost:5001/Home/Home");
         }
     }
 }
