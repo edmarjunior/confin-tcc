@@ -57,18 +57,15 @@
 
     function cadastrarEditarConta() {
         $('.toast').remove();
-
-        if (!$("#comboTiposConta").val())
-            showToast("Favor preencher o campo Tipo");
-
-        isFieldEmpty($("#txtNomeConta, #txtSaldoInicialConta"))
+        $.toast({ condition: !$("#comboTiposConta").val(), message: "Favor preencher o campo Tipo" });
+        isFieldEmpty($("#txtNomeConta, #txtSaldoInicialConta"));
         
         if ($('.toast').length)
             return false;
 
         $.post(urlPostPut, $("#formContaCadastroEdicao").toObject()).success(function (message) {
             $("#modalContaCadastroEdicao").modal("close");
-            showToast(message, "green");
+            $.toast({ message: message, type: "success" });
             atualizarContas();
             //setTimeout(atualizarContas, 100);
         });

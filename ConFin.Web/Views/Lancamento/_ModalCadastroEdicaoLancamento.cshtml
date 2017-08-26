@@ -158,12 +158,8 @@
     function cadastrarEditarLancamento() {
         $('.toast').remove();
 
-        if (!$("#comboConta").val())
-            showToast("Favor preencher o campo Conta");
-
-        if (!$("#comboCategorias").val())
-            showToast("Favor preencher o campo Categoria");
-
+        $.toast({ condition: !$("#comboConta").val(), message: "Favor preencher o campo Conta" });
+        $.toast({ condition: !$("#comboCategorias").val(), message: "Favor preencher o campo Categoria" });
         isFieldEmpty($("#txtDescricaoLancamento, #txtValorLancamento, #txtDataLancamento"));
 
         if ($('.toast').length)
@@ -171,7 +167,7 @@
 
         $.post(urlPostPutLancamento, $("#formLancamentoCadastroEdicao").toObject()).success(function (message) {
             $("#modalLancamentoCadastroEdicao").modal("close");
-            showToast(message, "green");
+            $.toast({ message: message, type: "success" });
             atualizarLancamentos();
         });
     }

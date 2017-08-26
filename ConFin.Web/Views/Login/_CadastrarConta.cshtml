@@ -1,5 +1,5 @@
 ﻿
-<div class="container" >
+<div class="container">
     <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0 48px; border: 1px solid #EEE;">
 
         <form id="formNovaContaUsuario" class="col s12">
@@ -47,24 +47,22 @@
 </div>
 <a href="javascript:void(0)" onclick="showLogin()">Já sou cadastrado. Fazer Login</a>
 
-
 <script>
 
     var urlPostLogin = '@Url.Action("Post", "Login")';
 
     $("#formNovaContaUsuario").submit(function (event) {
         event.preventDefault();
-
         $('.toast').remove();
 
         if (isFieldEmpty($("#txtNomeCad, #txtEmailCad, #txtSenhaCad, #txtConfirmacaoSenhaCad")))
             return false;
 
-        if ($("#txtSenhaCad").val() != $("#txtConfirmacaoSenhaCad").val())
-            return showToast("Senha não confere com a confirmação");
+        var condition = !!$("#txtSenhaCad").val() && !!$("#txtConfirmacaoSenhaCad").val() && $("#txtSenhaCad").val() != $("#txtConfirmacaoSenhaCad").val();
+        $.toast({ condition: condition, message: "Os campos de Senha estão diferentes" });
 
-        $.post(urlPostLogin, $("#formNovaContaUsuario").toObject()).success(function(message) {
-            showToast(message, "green");
+        $.post(urlPostLogin, $("#formNovaContaUsuario").toObject()).success(function (message) {
+            $.toast({ message: message, type: "success" });
             showLogin();
         });
 
@@ -72,13 +70,8 @@
     });
 
     function showLogin() {
-
         $("#formNovaContaUsuario")[0].reset();
-
-        $("#mainNovaConta").hide(function () {
-            $("#mainLogin").show();
-        });
-
+        $("#mainNovaConta").hide(function () { $("#mainLogin").show(); });
     }
 
 </script>

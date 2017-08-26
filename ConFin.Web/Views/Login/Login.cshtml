@@ -3,12 +3,10 @@
 
 <div class="section" id="divLogo" style="text-align: center;">
     <img style="" class="responsive-img" src="~/Content/Imagens/logo2.png" alt="Logo"/>
-
 </div>
 
 <main id="mainLogin" style="display: none; text-align: center; margin-top:30px">
     <div class="container">
-        @*<div class="section" id="divErrorLogin" style="text-align: center">@Html.ValidationSummary()</div>*@
         <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0 48px; border: 1px solid #EEE;">
             <form id="formLogin" class="col s12" method="POST" action="@Url.Action("RedirectToHome", "Login")">
                 <div class="row">
@@ -59,11 +57,9 @@
         e.preventDefault();
         $('.toast').remove();
 
-        if (isFieldEmpty($("#txtEmail, #txtSenha")))
+        if (isFieldEmpty($("#txtEmail, #txtSenha"))
+            || $.toast({ condition: !isValidEmail($("#txtEmail").val()), message: "Endereço de e-mail inválido" }))
             return false;
-
-        if (!isValidEmail($("#txtEmail").val()))
-            return showToast("Endereço de e-mail inválido");
 
         $.post(urlGetLogin, $("#formLogin").toObject()).success(function () {
             loading();

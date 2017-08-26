@@ -50,7 +50,7 @@
 
         $.post(urlPostPutCategoria, $("#formCategoriaCadastroEdicao").toObject()).success(function (message) {
             $("#modalCategoriaCadastroEdicao").modal("close");
-            showToast(message, "green");
+            $.toast({ message: message, type: "success" });
             atualizarCategorias();
         });
     }

@@ -98,16 +98,9 @@
 
     function cadastrarEditarTransferencia() {
         $('.toast').remove();
-
-        if (!$("#comboContaOrigem").val())
-            showToast("Favor preencher o campo Conta Origem");
-
-        if (!$("#comboContaDestino").val())
-            showToast("Favor preencher o campo Conta Destino");
-
-        if (!$("#comboCategoriasTransferencia").val())
-            showToast("Favor preencher o campo Categoria");
-
+        $.toast({ condition: !$("#comboContaOrigem").val(), message: "Favor preencher o campo Conta Origem" });
+        $.toast({ condition: !$("#comboContaDestino").val(), message: "Favor preencher o campo Conta Destino" });
+        $.toast({ condition: !$("#comboCategoriasTransferencia").val(), message: "Favor preencher o campo Categoria" });
         isFieldEmpty($("#txtDescricaoTransferencia, #txtValorTransferencia, #txtDataTransferencia"));
 
         if ($('.toast').length)
@@ -115,7 +108,7 @@
 
         $.post(urlPostPutTransferencia, $("#formTransferenciaCadastroEdicao").toObject()).success(function (message) {
             $("#modalTransferenciaCadastroEdicao").modal("close");
-            showToast(message, "green");
+            $.toast({ message: message, type: "success" });
             atualizarTransferencias();
         });
     }

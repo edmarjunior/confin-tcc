@@ -53,9 +53,25 @@ function getHtmlLoading() {
         +  '</div>';
 }
 
-function showToast(message, type) {
-    Materialize.toast("<span>" + message + "</span>", 10000, (type || "red"));
-    return false;
+$.toast = function(config) {
+    var cfg = $.extend({
+        condition: true,
+        message: "",
+        type: "error",
+        delay: 10000
+    }, config);
+
+    if (!cfg.condition)
+        return cfg.condition;
+
+    var color;
+    switch (cfg.type) {
+        case "success": color = "green"; break;
+        default: color = "red"; break;
+    }
+    Materialize.toast("<span>" + cfg.message + "</span>", cfg.delay, color);
+
+    return cfg.condition;
 }
 
 function isFieldEmpty(fields) {
@@ -69,7 +85,7 @@ function isFieldEmpty(fields) {
 
         var fieldId = $(fields[i]).attr("id");
         var labelName = $("label[for='" + fieldId + "']").text();
-        showToast("Favor preencher o campo " + labelName);
+        $.toast({ message: "Favor preencher o campo " + labelName });
         hasFieldEmpty = true;
     }
 
@@ -77,7 +93,7 @@ function isFieldEmpty(fields) {
 }
 
 $(document).ajaxStart(loading).ajaxStop(noLoading).ajaxError(function (event, xhr) {
-    showToast(xhr.responseText || "Falha ao realizar operação");
+    $.toast({message: xhr.responseText || "Falha ao realizar operação"});
 });
 
 jQuery.fn.extend({

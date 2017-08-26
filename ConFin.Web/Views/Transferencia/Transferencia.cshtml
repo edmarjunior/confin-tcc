@@ -117,8 +117,8 @@
         showModalConfirm("Deseja realmente excluir esta transferência?", function () {
             $.post(urlsTransferencia.Delete, {
                 idTransferencia: idTransferencia
-            }).success(function (data) {
-                showToast(data, "green");
+            }).success(function (message) {
+                $.toast({ message: message, type: "success" });
                 atualizarTransferencias();
             });
         });

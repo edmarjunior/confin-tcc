@@ -79,8 +79,8 @@
         showModalConfirm("Deseja realmente excluir esta categoria?", function() {
             $.post(urlsCategoria.Delete, {
                 idCategoria: idCategoria
-            }).success(function (data) {
-                showToast(data, "green");
+            }).success(function (message) {
+                $.toast({ message: message, type: "success" });
                 atualizarCategorias();
             });
         });

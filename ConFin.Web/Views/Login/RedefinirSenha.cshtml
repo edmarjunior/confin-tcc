@@ -1,18 +1,17 @@
 ﻿@model ConFin.Common.Domain.Dto.UsuarioDto
 @{ Layout = "~/Views/Shared/_LayoutLogin.cshtml"; }
 
-
-<div class="section"></div>
+<div class="section" id="divLogo" style="text-align: center;">
+    <img style="" class="responsive-img" src="~/Content/Imagens/logo2.png" alt="Logo" />
+</div>
 
 <main id="mainLogin">
     <div style="text-align: center;">
-        <img class="responsive-img" style="width: 250px;" src="https://i.imgur.com/ax0NCsK.gif" alt="Logo" />
-        <div class="section" id="divErrorLogin" style="text-align: center">@Html.ValidationSummary()</div>
 
         <div class="container">
             <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0 48px; border: 1px solid #EEE;">
                 <form id="formLogin" class="col s12" method="POST" action="@Url.Action("PostRedefinirSenha")">
-                    
+
                     <input type="hidden" name="Id" value="@Model.Id" />
                     <input type="hidden" name="Nome" value="@Model.Nome" />
                     <input type="hidden" name="Email" value="@Model.Email" />
@@ -21,21 +20,20 @@
                     <input type="hidden" name="DataConfirmCadastro" value="@Model.DataConfirmCadastro" />
                     <input type="hidden" name="DataUltimaAlteracao" value="@Model.DataUltimaAlteracao" />
                     <input type="hidden" name="DataDesativacao" value="@Model.DataDesativacao" />
-                    <input type="hidden" name="token" value="@ViewBag.Token"/>
-                    
-                    
+                    <input type="hidden" name="token" value="@ViewBag.Token" />
+
                     <div class="row">
                         <div class="col s12 indigo-text">Redefinir senha</div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input readonly class="validate" type="email" name="Email" id="txtEmail" value="@Model.Email"/>
+                            <input readonly class="validate" type="email" name="Email" id="txtEmail" value="@Model.Email" />
                             <label for="txtEmail">E-mail</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input class="validate" type="password" name="Senha" id="txtNovaSenha"/>
+                            <input class="validate" type="password" name="Senha" id="txtNovaSenha" />
                             <label for="txtNovaSenha">Nova senha</label>
                         </div>
                         <div class="input-field col s6">
@@ -60,24 +58,18 @@
 
 <script>
 
-    $("#btnSubmitRedefinirSenha").click(function() {
+    $("#btnSubmitRedefinirSenha").click(function () {
 
-        if (!$("#txtNovaSenha").val()) {
-            Materialize.toast('<span>Favor preencher o campo Nova Senha</span>', 10000, "red");
+        $('.toast').remove();
+        $.toast({ condition: !$("#txtNovaSenha").val(), message: "Favor preencher o campo Nova Senha" });
+        $.toast({ condition: !$("#txtNovaSenhaConfirmar").val(), message: "Favor preencher o campo Confirmar Nova Senha" });
+
+        var condition = !!$("#txtNovaSenha").val() && !!$("#txtNovaSenhaConfirmar").val() && $("#txtNovaSenha").val() != $("#txtNovaSenhaConfirmar").val();
+        $.toast({ condition: condition, message: "Os campos de Senha estão diferentes" });
+
+        if ($('.toast').length)
             return false;
-        }
 
-        if (!$("#txtNovaSenhaConfirmar").val()) {
-            Materialize.toast('<span>Favor preencher o campo Confirmar Nova Senha</span>', 10000, "red");
-            return false;
-        }
-
-        if ($("#txtNovaSenha").val() != $("#txtNovaSenhaConfirmar").val()) {
-            Materialize.toast('<span>Nova senha não confere com a confirmação</span>', 10000, "red");
-            return false;
-        }
-
-        return true;
     });
 
 </script>

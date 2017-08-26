@@ -81,8 +81,8 @@
         showModalConfirm("Deseja realmente excluir esta conta?", function() {
             $.post(urlsConta.Delete, {
                 idConta: idConta
-            }).success(function (data) {
-                showToast(data, "green");
+            }).success(function (message) {
+                $.toast({ message: message, type: "success" });
                 atualizarContas();
             });
         });
