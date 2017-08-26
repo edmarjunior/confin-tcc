@@ -169,6 +169,7 @@
     <Content Include="Views\Lancamento\_ModalCadastroEdicaoLancamento.cshtml" />
     <Content Include="Views\Transferencia\Transferencia.cshtml" />
     <Content Include="Views\Transferencia\_ModalCadastroEdicaoTransferencia.cshtml" />
+    <None Include="Properties\PublishProfiles\confin - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

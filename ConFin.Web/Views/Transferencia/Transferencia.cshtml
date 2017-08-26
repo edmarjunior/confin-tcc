@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ConFin.Web.ViewModel.TransferenciaViewModel>
+﻿@using ConFin.Common.Web.Extension
+@model IEnumerable<ConFin.Web.ViewModel.TransferenciaViewModel>
 @{ Layout = null;}
 
 <style>
@@ -85,7 +86,7 @@
     $('.tooltipped').tooltip({ delay: 25 });
 
     // atualizando o resumo de lançamentos (previstos e realizados)
-    sendAjaxAtualizaResumoGeral();
+    sendAjaxAtualizaResumoGeral('@Url.Action("GetResumoLancamento", "Lancamento")');
 
 
     var urlsTransferencia = {

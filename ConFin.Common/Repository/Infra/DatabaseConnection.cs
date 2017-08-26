@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConFin.Common.Domain;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -8,8 +9,7 @@ namespace ConFin.Common.Repository.Infra
     {
         public DatabaseConnection()
         {
-            SqlConnection = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=ConFin;Integrated Security=True"); /*Casa*/
-            //SqlConnection = new SqlConnection("Data Source=EDMAR-PC;Initial Catalog=ConFin;Integrated Security=True"); /*Empresa*/
+            SqlConnection = new SqlConnection(new Parameters().ConnectionString);
         }
 
         public SqlConnection SqlConnection { get; }

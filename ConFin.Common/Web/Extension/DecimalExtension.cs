@@ -1,4 +1,6 @@
-﻿namespace ConFin.Common.Web.Extension
+﻿using ConFin.Common.Domain;
+
+namespace ConFin.Common.Web.Extension
 {
     public static class DecimalExtension
     {
@@ -11,5 +13,11 @@
         {
             return value != 0 ? $"{value:N}" : defaultValue;
         }
+
+        public static string GetUriWeb(this string controllerAction)
+        {
+            return new Parameters().UriWeb + controllerAction;
+        }
+
     }
 }

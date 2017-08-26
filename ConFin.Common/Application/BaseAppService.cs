@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ConFin.Common.Domain;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Globalization;
@@ -18,7 +19,8 @@ namespace ConFin.Common.Application
 
         protected BaseAppService(string controllerApi)
         {
-            _uri = $"http://localhost:5002/api/{controllerApi}";
+            var parameters = new Parameters();
+            _uri = $"{parameters.UriApi}{controllerApi}";
             _client = new HttpClient();
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

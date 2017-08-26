@@ -1,4 +1,5 @@
-﻿using ConFin.Common.Domain.Dto;
+﻿using ConFin.Common.Domain;
+using ConFin.Common.Domain.Dto;
 using System.Net;
 using System.Net.Http;
 using System.Web.Mvc;
@@ -23,19 +24,21 @@ namespace ConFin.Common.Web
         protected ActionResult Error(HttpResponseMessage response)
         {
             Response.StatusCode = (int) response.StatusCode;
+            Response.TrySkipIisCustomErrors = true;
             return Content(response.Content.ReadAsStringAsync().Result.Replace('[', ' ').Replace(']', ' ').Replace('"', ' '));
         }
 
         protected ActionResult Error(string mensagem)
         {
             Response.StatusCode = (int) HttpStatusCode.BadRequest;
+            Response.TrySkipIisCustomErrors = true;
             return Content(mensagem);
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if(UsuarioLogado == null)
-                filterContext.Result = new RedirectResult("http://localhost:5001/Home/Home");
+                filterContext.Result = new RedirectResult(new Parameters().UriWeb + "Home");
         }
     }
 }

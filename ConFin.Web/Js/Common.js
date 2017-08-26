@@ -154,8 +154,8 @@ Number.prototype.toMoney = function () {
 };
 
 
-function sendAjaxAtualizaResumoGeral(idConta, idCategoria) {
-    $.get("http://localhost:5001/Home/Lancamento/GetResumoLancamento", {
+function sendAjaxAtualizaResumoGeral(url, idConta, idCategoria) {
+    $.get(url, {
         idConta: idConta,
         idCategoria: idCategoria
     }).success(function (json) {

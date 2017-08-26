@@ -1,4 +1,5 @@
-﻿@model ConFin.Web.ViewModel.Lancamento.LancamentoMasterViewModel
+﻿@using ConFin.Common.Web.Extension
+@model ConFin.Web.ViewModel.Lancamento.LancamentoMasterViewModel
 @{ Layout = null;}
 
 <style>
@@ -190,8 +191,9 @@
     };
 
     var atualizarSaldos = (function fnc() {
+        var urlAtualizaSaldo = '@Url.Action("GetResumoLancamento", "Lancamento")';
         // atualizando o resumo de lançamentos (previstos e realizados)
-        sendAjaxAtualizaResumoGeral($("#thComboConta").val(), $("#thComboCategoria").val());
+        sendAjaxAtualizaResumoGeral(urlAtualizaSaldo, $("#thComboConta").val(), $("#thComboCategoria").val());
         return fnc;
     })();
 

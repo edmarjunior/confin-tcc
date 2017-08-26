@@ -10,11 +10,13 @@ namespace ConFin.Domain.Login
     {
         private readonly ILoginRepository _loginRepository;
         private readonly Notification _notification;
+        private static Parameters _parameters;
 
-        public LoginService(Notification notification, ILoginRepository loginRepository)
+        public LoginService(Notification notification, ILoginRepository loginRepository, Parameters parameters)
         {
             _notification = notification;
             _loginRepository = loginRepository;
+            _parameters = parameters;
         }
 
         public UsuarioDto Get(string email, string senha = null)
@@ -26,9 +28,6 @@ namespace ConFin.Domain.Login
                 _notification.Add("Usuário não encontrado :(");
                 return null;
             }
-
-            if (_notification.Any)
-                return null;
 
             if (usuario.DataConfirmCadastro.HasValue)
                 return usuario;
@@ -66,7 +65,7 @@ namespace ConFin.Domain.Login
             var body = $"<p>Prezado(a) {usuario.Nome.ToUpper()} </p>" +
                           "<p>Parabéns por tomar a decisão de ter um maior Controle Financeiro Pessoal ao utilizar nossos serviços</p>" +
                           "<p>Para confirmar seu acesso, favor clicar no link abaixo</p>" +
-                          $"<p><a href=\"http://localhost:5001/Home/Login/GetConfirmacao?idUsuario={usuario.Id}\" target=\"_blank\">LINK PARA CONFIRMAR CADASTRO (CLIQUE AQUI)</a></p>" +
+                          $"<p><a href=\"{_parameters.UriWeb}Login/GetConfirmacao?idUsuario={usuario.Id}\" target=\"_blank\">LINK PARA CONFIRMAR CADASTRO (CLIQUE AQUI)</a></p>" +
                           "<p>Este é um e-mail automático. Não é necessário respondê-lo</p>" +
                           "<p>Atenciosamente,</br>ConFin - Controle Financeiro Pessoal </p>";
 
@@ -94,7 +93,7 @@ namespace ConFin.Domain.Login
             var body = $"<p>Prezado(a) {usuario.Nome.ToUpper()} </p>" +
                         "<p>É normal as vezes esquecermos nossas credenciais de acesso" +
                         "<p>Para inserir uma nova senha de acesso, favor clicar no link abaixo</p>" +
-                       $"<p><a href=\"http://localhost:5001/Login/RedefinirSenha?idUsuario={usuario.Id}&token={token}\"" +
+                       $"<p><a href=\"{_parameters.UriWeb}Login/RedefinirSenha?idUsuario={usuario.Id}&token={token}\"" +
                             " target=\"_blank\">LINK PARA REDEFINIR SENHA (CLIQUE AQUI)</a></p>" +
                         "<p>Este é um e-mail automático. Não é necessário respondê-lo</p>" +
                         "<p>Atenciosamente,</br>ConFin - Controle Financeiro Pessoal </p>";
