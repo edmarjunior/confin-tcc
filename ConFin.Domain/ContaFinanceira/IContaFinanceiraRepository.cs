@@ -10,5 +10,6 @@ namespace ConFin.Domain.ContaFinanceira
         void Post(ContaFinanceiraDto conta);
         void Put(ContaFinanceiraDto conta);
         void Delete(int idUsuario, int idConta);
+        bool PossuiVinculos(int idConta);
     }
 }

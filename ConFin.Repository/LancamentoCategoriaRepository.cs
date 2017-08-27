@@ -1,4 +1,5 @@
-﻿using ConFin.Common.Domain.Dto;
+﻿using ConFin.Common.Domain;
+using ConFin.Common.Domain.Dto;
 using ConFin.Common.Repository;
 using ConFin.Common.Repository.Extension;
 using ConFin.Common.Repository.Infra;
@@ -10,8 +11,11 @@ namespace ConFin.Repository
 {
     public class LancamentoCategoriaRepository : BaseRepository, ILancamentoCategoriaRepository
     {
-        public LancamentoCategoriaRepository(IDatabaseConnection connection) : base(connection)
+        private readonly Notification _notification;
+
+        public LancamentoCategoriaRepository(IDatabaseConnection connection, Notification notification) : base(connection)
         {
+            _notification = notification;
         }
 
         private enum Procedures
@@ -20,7 +24,8 @@ namespace ConFin.Repository
             SP_SelLancamentoCategoria,
             SP_InsLancamentoCategoria,
             SP_UpdLancamentoCategoria,
-            SP_DelLancamentoCategoria
+            SP_DelLancamentoCategoria,
+            FNC_LancamentoCategoriaPossuiVinculos
         }
 
         public IEnumerable<LancamentoCategoriaDto> Get(int idUsuario)
@@ -93,6 +98,26 @@ namespace ConFin.Repository
             ExecuteProcedure(Procedures.SP_DelLancamentoCategoria);
             AddParameter("IdCategoria", idCategoria);
             ExecuteNonQuery();
+        }
+
+        public bool PossuiVinculos(int idCategoria)
+        {
+            ExecuteProcedure(Procedures.FNC_LancamentoCategoriaPossuiVinculos);
+            AddParameter("IdCategoria", idCategoria);
+            var retorno = ExecuteNonQueryWithReturn<byte>();
+
+            string msg;
+
+            switch (retorno)
+            {
+                case 0: return false;
+                case 1: msg = "A categoria não pode ser excluida por possuir vinculo com lançamentos"; break;
+                case 2: msg = "A categoria não pode ser excluida por possuir vinculo com transferências"; break;
+                default: msg = "Erro não esperado durante verificação de vinculos da categoria"; break;
+            }
+
+            _notification.Add(msg);
+            return true;
         }
     }
 }

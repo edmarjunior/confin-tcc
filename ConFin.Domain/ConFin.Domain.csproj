@@ -45,6 +45,8 @@
     <Compile Include="ContaFinanceira\IContaFinanceiraRepository.cs" />
     <Compile Include="ContaFinanceira\IContaFinanceiraService.cs" />
     <Compile Include="LancamentoCategoria\ILancamentoCategoriaRepository.cs" />
+    <Compile Include="LancamentoCategoria\ILancamentoCategoriaService.cs" />
+    <Compile Include="LancamentoCategoria\LancamentoCategoriaService.cs" />
     <Compile Include="Lancamento\ILancamentoRepository.cs" />
     <Compile Include="Login\Dto\SolicitacaoTrocaSenhaLoginDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

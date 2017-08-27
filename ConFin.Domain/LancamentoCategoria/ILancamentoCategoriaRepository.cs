@@ -10,5 +10,6 @@ namespace ConFin.Domain.LancamentoCategoria
         void Post(LancamentoCategoriaDto categoria);
         void Put(LancamentoCategoriaDto categoria);
         void Delete(int idUsuario, int idCategoria);
+        bool PossuiVinculos(int idConta);
     }
 }

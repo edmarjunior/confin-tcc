@@ -26,7 +26,7 @@
                         <label>Tipo</label>
                     </div>
                     <div class="input-field col s6">
-                        <input id="txtNomeConta" type="text" class="validate" name="Nome" value="@Model.Nome">
+                        <input id="txtNomeConta" type="text" class="validate" maxlength="50" name="Nome" value="@Model.Nome">
                         <label for="txtNomeConta">Nome</label>
                     </div>
                 </div>
@@ -67,7 +67,6 @@
             $("#modalContaCadastroEdicao").modal("close");
             $.toast({ message: message, type: "success" });
             atualizarContas();
-            //setTimeout(atualizarContas, 100);
         });
     }
 

@@ -1,4 +1,5 @@
-﻿using ConFin.Common.Domain.Dto;
+﻿using ConFin.Common.Domain;
+using ConFin.Common.Domain.Dto;
 using ConFin.Common.Repository;
 using ConFin.Common.Repository.Extension;
 using ConFin.Common.Repository.Infra;
@@ -10,8 +11,11 @@ namespace ConFin.Repository
 {
     public class ContaFinanceiraRepository : BaseRepository, IContaFinanceiraRepository
     {
-        public ContaFinanceiraRepository(IDatabaseConnection connection) : base(connection)
+        private readonly Notification _notification;
+
+        public ContaFinanceiraRepository(IDatabaseConnection connection, Notification notification) : base(connection)
         {
+            _notification = notification;
         }
 
         private enum Procedures
@@ -20,7 +24,8 @@ namespace ConFin.Repository
             SP_SelContaFinanceira,
             SP_InsContaFinanceira,
             SP_UpdContaFinanceira,
-            SP_DelContaFinanceira
+            SP_DelContaFinanceira,
+            FNC_ContaPossuiVinculos
         }
 
         public IEnumerable<ContaFinanceiraDto> GetAll(int idUsuario)
@@ -101,6 +106,26 @@ namespace ConFin.Repository
             // AddParameter("IdUsuario", idUsuario);
             AddParameter("IdConta", idConta);
             ExecuteNonQuery();
+        }
+
+        public bool PossuiVinculos(int idConta)
+        {
+            ExecuteProcedure(Procedures.FNC_ContaPossuiVinculos);
+            AddParameter("IdConta", idConta);
+            var retorno = ExecuteNonQueryWithReturn<byte>();
+
+            string msg;
+
+            switch (retorno)
+            {
+                case 0: return false;
+                case 1: msg = "A conta não pode ser excluida por possuir vinculo com lançamentos"; break;
+                case 2: msg = "A conta não pode ser excluida por possuir vinculo com transferências"; break;
+                default: msg = "Erro não esperado durante verificação de vinculos da conta"; break;
+            }
+
+            _notification.Add(msg);
+            return true;
         }
     }
 }

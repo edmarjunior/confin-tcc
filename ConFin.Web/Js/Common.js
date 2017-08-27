@@ -140,8 +140,8 @@ function showModalConfirm(mensagem, fnc) {
                     +       "<p>" + mensagem + "</p>"
                     +    "</div>"
                     +    "<div class='modal-footer'>"
-                    +       "<a href='#!' onclick='onModalConfirm()' style='color:green' class='modal-action modal-close waves-effect waves-green btn-flat'>Confirmar</a>"
-                    +       "<a href='#!' style='color:red' class='modal-action modal-close waves-effect waves-red btn-flat'>Cancelar</a>"
+                    +       "<a href='javascript:void(0)' onclick='onModalConfirm()' style='color:green' class='modal-action modal-close waves-effect waves-green btn-flat'>Confirmar</a>"
+                    +       "<a href='javascript:void(0)' style='color:red' class='modal-action modal-close waves-effect waves-red btn-flat'>Cancelar</a>"
                     +    "</div>"
                     + " </div>";
 

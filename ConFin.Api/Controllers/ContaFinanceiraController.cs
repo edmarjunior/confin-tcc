@@ -25,7 +25,7 @@ namespace ConFin.Api.Controllers
 
         public IHttpActionResult Post(ContaFinanceiraDto conta)
         {
-            _contaFinanceiraRepository.Post(conta);
+            _contaFinanceiraService.Post(conta);
             if (!_notification.Any)
                 return Ok();
 
@@ -34,7 +34,7 @@ namespace ConFin.Api.Controllers
 
         public IHttpActionResult Put(ContaFinanceiraDto conta)
         {
-            _contaFinanceiraRepository.Put(conta);
+            _contaFinanceiraService.Put(conta);
             if (!_notification.Any)
                 return Ok();
 
@@ -43,7 +43,7 @@ namespace ConFin.Api.Controllers
 
         public IHttpActionResult Delete(int idUsuario, int idConta)
         {
-            _contaFinanceiraRepository.Delete(idUsuario, idConta);
+            _contaFinanceiraService.Delete(idUsuario, idConta);
             if (!_notification.Any)
                 return Ok();
 
