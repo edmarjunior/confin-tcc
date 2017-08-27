@@ -1,5 +1,6 @@
 ﻿using ConFin.Common.Domain.Auxiliar;
 using ConFin.Common.Domain.Dto;
+using ConFin.Common.Web.Extension;
 using System.Collections.Generic;
 
 namespace ConFin.Web.ViewModel
@@ -37,6 +38,10 @@ namespace ConFin.Web.ViewModel
         public decimal? ValorSaldoInicial { get; set; }
         public string Descricao { get; set; }
         public decimal? Saldo { get; set; }
+
+        public string ValorSaldoInicialFormat => ValorSaldoInicial.ToMoney("0,00");
+        public string ValorSaldoAtual => Saldo.ToMoney("0,00");
+
 
         public IEnumerable<ContaFinanceiraTipoDto> TiposConta { get; set; }
     }

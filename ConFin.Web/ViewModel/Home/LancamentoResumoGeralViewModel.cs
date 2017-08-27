@@ -13,6 +13,7 @@ namespace ConFin.Web.ViewModel.Home
             TotDespesasRealizada = model.TotDespesasRealizada;
             TotSaldoPrevisto = model.TotSaldoPrevisto;
             TotSaldoAtual = model.TotSaldoAtual;
+            TotValorSaldoInicialConta = model.TotValorSaldoInicialConta;
         }
 
         public decimal TotReceitasPrevista { get; set; }
@@ -21,6 +22,7 @@ namespace ConFin.Web.ViewModel.Home
         public decimal TotDespesasRealizada { get; set; }
         public decimal TotSaldoPrevisto { get; set; }
         public decimal TotSaldoAtual { get; set; }
+        public decimal TotValorSaldoInicialConta { get; set; }
 
         public string TotalReceitasPrevista => TotReceitasPrevista.ToMoney("0,00");
         public string TotalReceitasRealizada => TotReceitasRealizada.ToMoney("0,00");
@@ -28,5 +30,6 @@ namespace ConFin.Web.ViewModel.Home
         public string TotalDespesasRealizada => TotDespesasRealizada.ToMoney("0,00");
         public string TotalSaldoPrevisto => TotSaldoPrevisto.ToMoney("0,00");
         public string TotalSaldoAtual => TotSaldoAtual.ToMoney("0,00");
+        public string TotalValorSaldoInicialConta => TotValorSaldoInicialConta.ToMoney("0,00");
     }
 }

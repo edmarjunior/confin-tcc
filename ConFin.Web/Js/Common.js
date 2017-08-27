@@ -175,8 +175,10 @@ function sendAjaxAtualizaResumoGeral(url, idConta, idCategoria) {
         idConta: idConta,
         idCategoria: idCategoria
     }).success(function (json) {
+        $("#spanSaldoAnterior").text(json.TotalValorSaldoInicialConta);
         $("#spanSaldoPrev").text(json.TotalSaldoPrevisto);
         $("#spanSaldoAtual").text(json.TotalSaldoAtual);
+
         $("#liDespesaPrev").text(json.TotalDespesasPrevista);
         $("#liDespesaRealiz").text(json.TotalDespesasRealizada);
         $("#liReceitaPrev").text(json.TotalReceitasPrevista);

@@ -8,5 +8,6 @@
         public decimal TotDespesasRealizada { get; set; }
         public decimal TotSaldoPrevisto { get; set; }
         public decimal TotSaldoAtual { get; set; }
+        public decimal TotValorSaldoInicialConta { get; set; }
     }
 }

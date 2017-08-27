@@ -156,7 +156,8 @@ namespace ConFin.Repository
                         TotDespesasPrevista = reader.ReadAttr<decimal>("TotDespesasPrevista"),
                         TotDespesasRealizada = reader.ReadAttr<decimal>("TotDespesasRealizada"),
                         TotSaldoPrevisto = reader.ReadAttr<decimal>("TotSaldoPrevisto"),
-                        TotSaldoAtual = reader.ReadAttr<decimal>("TotSaldoAtual")
+                        TotSaldoAtual = reader.ReadAttr<decimal>("TotSaldoAtual"),
+                        TotValorSaldoInicialConta = reader.ReadAttr<decimal>("TotValorSaldoInicialConta")
                     };
             }
         }

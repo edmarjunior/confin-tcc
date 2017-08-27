@@ -12,7 +12,8 @@
             <tr>
                 <th>Nome</th>
                 <th>Tipo</th>
-                <th>Saldo (R$)</th>
+                <th>Saldo Inicial (R$)</th>
+                <th>Saldo Atual (R$)</th>
                 <th></th>
             </tr>
         </thead>
@@ -25,7 +26,8 @@
                     <tr>
                         <td>@conta.Nome</td>
                         <td>@conta.NomeTipo</td>
-                        <td>TODO</td>
+                        <td>@conta.ValorSaldoInicialFormat</td>
+                        <td>@conta.ValorSaldoAtual</td>
                         <td class="center-align">
                             <a title="Excluir conta" style="color: crimson" href="javascript:void(0)" onclick="deleteConta(@conta.Id)">
                                 <i class="material-icons">delete_forever</i>

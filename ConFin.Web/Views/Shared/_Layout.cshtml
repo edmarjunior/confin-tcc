@@ -79,20 +79,32 @@
         </div>
         <div class="footer-copyright">
             <div class="container">
-                <a class="grey-text text-lighten-4">
-                    Saldo Previsto: (R$)
-                    <span id="spanSaldoPrev" style="font-size: 25pt">-</span>
-                </a>
+                <div class="row">
+                    <div class="col s2 center-align">
+                        <p class="grey-text text-lighten-4 ">Saldo Anterior: (R$)</p>
+                        <p style="font-size: 25pt; margin: -17px"><span id="spanSaldoAnterior">-</span></p>
+                    </div>
+                    <div class="col s8 center-align">
+                        <p class="grey-text text-lighten-4 ">Saldo Atual: (R$)</p>
+                        <p style="font-size: 25pt; margin: -17px"><span id="spanSaldoAtual">-</span></p>
+                    </div>
+                    <div class="col s2 center-align">
+                        <p class="grey-text text-lighten-4 ">Saldo Previsto: (R$)</p>
+                        <p style="font-size: 25pt; margin: -17px"><span id="spanSaldoPrev">-</span></p>
+                    </div>
+                    
+                    <a style="position: absolute; bottom: 30px; right: 20px;" href="javascript:void(0)"
+                       onclick="slideToggleResumoSaldo(this)" class="tooltipped up grey-text text-lighten-4"
+                       data-position="top" data-delay="25" data-tooltip="Exibir Resumo Financeiro">
+                        <i class="material-icons">keyboard_arrow_up</i>
+                    </a>
 
-                <a style="margin-left: 25px; padding: 10px;" href="javascript:void(0)"
-                   onclick="slideToggleResumoSaldo(this)" class="tooltipped up grey-text text-lighten-4 right"
-                   data-position="top" data-delay="25" data-tooltip="Exibir Resumo Financeiro">
-                    <i class="material-icons">keyboard_arrow_up</i>
-                </a>
-                <a class="grey-text text-lighten-4 right">
-                    Saldo atual: (R$)
-                    <span id="spanSaldoAtual" style="font-size: 25pt">-</span>
-                </a>
+                </div>
+                
+
+                
+
+                
             </div>
         </div>
     </footer>
