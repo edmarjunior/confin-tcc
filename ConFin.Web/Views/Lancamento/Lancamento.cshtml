@@ -4,15 +4,15 @@
 
 <style>
     .pago-recebido {
-        background-color: green !important;
+        color: limegreen  !important;
     }
 
     .vencido:not(.pago-recebido) {
-        background-color: #ff0000 !important;
+        color: #ff0000 !important;
     }
 
     .vincendo:not(.pago-recebido) {
-        background-color: gray !important;
+        color: gray !important;
     }
 
     #thComboConta, #thComboCategoria {
@@ -27,7 +27,7 @@
         <h1 style="color: gray; font-size: 20pt;" class="caption">Lançamentos</h1>
         <div class="divider"></div>
     </div>
-    <table class="striped">
+    <table class="striped" style="margin-bottom: 100px">
         <thead>
             <tr>
                 <th></th>
@@ -101,7 +101,7 @@
                             @if (lancamento.IsPagoRecebido)
                             {
                                 <a href="javascript:void(0)" onclick="alteraStatusLancamento(this, @lancamento.Id)"
-                                   class="btn-floating tooltipped pago-recebido
+                                   class="tooltipped pago-recebido
                                    @(lancamento.DataLancamentoMenorHoje ? "vencido" : "")
                                    @(lancamento.IsReceita ? "receita" : "despesa")"
                                    data-position="top" data-delay="25" data-tooltip="@(lancamento.IsReceita ? "Recebido" : "Pago")">
@@ -111,7 +111,7 @@
                             else if (lancamento.IsVencido)
                             {
                                 <a href="javascript:void(0)" onclick="alteraStatusLancamento(this, @lancamento.Id)"
-                                   class="btn-floating tooltipped vencido @(lancamento.IsReceita ? "receita" : "despesa")"
+                                   class="tooltipped vencido @(lancamento.IsReceita ? "receita" : "despesa")"
                                    data-position="top" data-delay="25" data-tooltip="Atrasado">
                                     <i class="material-icons">thumb_down</i>
                                 </a>
@@ -119,7 +119,7 @@
                             else
                             {
                                 <a href="javascript:void(0)" onclick="alteraStatusLancamento(this, @lancamento.Id)"
-                                   class="btn-floating tooltipped vincendo @(lancamento.IsReceita ? "receita" : "despesa")"
+                                   class="tooltipped vincendo @(lancamento.IsReceita ? "receita" : "despesa")"
                                    data-position="top" data-delay="25" data-tooltip="Não @(lancamento.IsReceita ? "Recebido" : "Pago")">
                                     <i class="material-icons">thumb_up</i>
                                 </a>
@@ -147,7 +147,7 @@
     </table>
 </div>
 
-<div class="fixed-action-btn">
+<div class="btnAdd fixed-action-btn">
     <a class="btn-floating btn-large">
         <i class="large material-icons">add</i>
     </a>

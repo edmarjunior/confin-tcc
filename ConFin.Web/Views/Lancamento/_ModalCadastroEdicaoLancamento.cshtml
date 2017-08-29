@@ -2,7 +2,14 @@
 @model ConFin.Web.ViewModel.Lancamento.LancamentoViewModel
 @{ Layout = null;}
 
-<div id="modalLancamentoCadastroEdicao" class="modal">
+<style>
+    .lanc-pago-recebido {
+        background-color: limegreen !important;
+    }
+</style>
+
+
+<div id="modalLancamentoCadastroEdicao" class="modal" style="max-height: 80%!important;">
 
     <div class="modal-content">
         <div class="section" style="text-align: center">
@@ -66,7 +73,7 @@
                     <div class="input-field col s6" style="text-align: center; margin-top: 20px">
                         <span id="spanMensagemIndicadorPgto">Já foi @(Model.IndicadorReceitaDespesa == "R" ? "recebido" : "pago")?</span>
                         <a href="javascript:void(0)" id="btnIndicadorPago" style="background-color: gray"
-                           class="btn-floating @(Model.IndicadorPagoRecebido == "S" ? "pago-recebido" : string.Empty)">
+                           class="btn-floating @(Model.IndicadorPagoRecebido == "S" ? "lanc-pago-recebido" : string.Empty)">
                             <i class="material-icons">thumb_up</i>
                         </a>
                     </div>
@@ -119,8 +126,8 @@
     var urlPostPutLancamento = $("#hiddenIndicadorCadastroLancamento").val() == "S" ? urlsLancamento.Post : urlsLancamento.Put;
 
     $("#btnIndicadorPago").click(function () {
-        $(this).toggleClass("pago-recebido");
-        $("#hiddenIndicadorPagoRecebido").val($(this).hasClass("pago-recebido") ? "S" : "N");
+        $(this).toggleClass("lanc-pago-recebido");
+        $("#hiddenIndicadorPagoRecebido").val($(this).hasClass("lanc-pago-recebido") ? "S" : "N");
     });
 
     $("input[name='TipoCompromisso']").click(function () {

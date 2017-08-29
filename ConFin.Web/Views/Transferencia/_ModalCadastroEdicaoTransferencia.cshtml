@@ -2,6 +2,12 @@
 @model ConFin.Web.ViewModel.TransferenciaViewModel
 @{ Layout = null;}
 
+<style>
+    .trans-pago-recebido {
+        background-color: limegreen  !important;
+    }
+</style>
+
 <div id="modalTransferenciaCadastroEdicao" class="modal">
 
     <div class="modal-content">
@@ -66,7 +72,7 @@
                     <div class="input-field col s6" style="text-align: center">
                         <span id="spanMensagemIndicadorPgto">Já foi realizada?</span>
                         <a href="javascript:void(0)" id="btnIndicadorTransferenciaPago" style="background-color: gray"
-                           class="btn-floating @(Model.IndicadorPagoRecebido == "S" ? "pago-recebido" : string.Empty)">
+                           class="btn-floating @(Model.IndicadorPagoRecebido == "S" ? "trans-pago-recebido" : string.Empty)">
                             <i class="material-icons">thumb_up</i>
                         </a>
                     </div>
@@ -91,8 +97,8 @@
 
 
     $("#btnIndicadorTransferenciaPago").click(function () {
-        $(this).toggleClass("pago-recebido");
-        $("#hiddenIndicadorPagoRecebido").val($(this).hasClass("pago-recebido") ? "S" : "N");
+        $(this).toggleClass("trans-pago-recebido");
+        $("#hiddenIndicadorPagoRecebido").val($(this).hasClass("trans-pago-recebido") ? "S" : "N");
     });
 
 

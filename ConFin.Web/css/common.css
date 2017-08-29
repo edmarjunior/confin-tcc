@@ -22,3 +22,12 @@ table:not(.highlight) tbody tr:hover {
 #containerPrincipal {
     width: 85% !important;
 }
+
+table tbody td {
+    padding: 5px 5px;
+}
+
+.btnAdd {
+    right: 10%;
+    bottom: 30%
+}
