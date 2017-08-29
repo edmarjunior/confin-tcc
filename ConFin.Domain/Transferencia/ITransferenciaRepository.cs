@@ -11,5 +11,6 @@ namespace ConFin.Domain.Transferencia
         void Put(TransferenciaDto transferencia);
         void Delete(int idTransferencia);
         void PutIndicadorPagoRecebido(TransferenciaDto transferencia);
+        bool GetVerificaClientePossuiTransferenciaHabilitada(int idUsuario);
     }
 }

@@ -152,12 +152,15 @@
         <i class="large material-icons">add</i>
     </a>
     <ul>
-        <li>
-            <a href="javascript:void(0)" onclick="showModalCadastroEdicaoTransferencia()"
-               class="btn-floating blue modal-trigger tooltipped" data-position="left" data-delay="25" data-tooltip="Transferência">
-                <i class="material-icons">compare_arrows</i>
-            </a>
-        </li>
+        @if ((bool)ViewBag.PossuiOpcaoTransferencia)
+        {
+            <li>
+                <a href="javascript:void(0)" onclick="showModalCadastroEdicaoTransferencia()"
+                   class="btn-floating blue modal-trigger tooltipped" data-position="left" data-delay="25" data-tooltip="Transferência">
+                    <i class="material-icons">compare_arrows</i>
+                </a>
+            </li>
+        }
         <li>
             <a href="javascript:void(0)" onclick="showModalCadastroEdicaoLancamento(this, null, 'R')"
                class="btn-floating green modal-trigger tooltipped" data-position="left" data-delay="25" data-tooltip="Receita">

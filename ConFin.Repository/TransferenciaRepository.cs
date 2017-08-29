@@ -21,7 +21,8 @@ namespace ConFin.Repository
             SP_InsTransferencia,
             SP_UpdTransferencia,
             SP_DelTransferencia,
-            SP_UpdTransferenciaIndicadorPago
+            SP_UpdTransferenciaIndicadorPago,
+            FNC_VerificaClientePossuiTransferenciaHabilitada
         }
 
         public IEnumerable<TransferenciaDto> GetAll(int idUsuario)
@@ -127,6 +128,13 @@ namespace ConFin.Repository
             AddParameter("IndicadorPagoRecebido", transferencia.IndicadorPagoRecebido);
             AddParameter("IdUsuario", transferencia.IdUsuarioUltimaAlteracao);
             ExecuteNonQuery();
+        }
+
+        public bool GetVerificaClientePossuiTransferenciaHabilitada(int idUsuario)
+        {
+            ExecuteProcedure(Procedures.FNC_VerificaClientePossuiTransferenciaHabilitada);
+            AddParameter("IdUsuario", idUsuario);
+            return ExecuteNonQueryWithReturn<string>() == "S";
         }
     }
 }

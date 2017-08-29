@@ -1,4 +1,5 @@
 ﻿using ConFin.Application.AppService.LancamentoCategoria;
+using ConFin.Application.AppService.Transferencia;
 using ConFin.Common.Domain.Dto;
 using ConFin.Common.Web;
 using Newtonsoft.Json;
@@ -12,7 +13,7 @@ namespace ConFin.Web.Controllers
     {
         private readonly ILancamentoCategoriaAppService _lancamentoCategoriaAppService;
 
-        public LancamentoCategoriaController(ILancamentoCategoriaAppService lancamentoCategoriaAppService)
+        public LancamentoCategoriaController(ILancamentoCategoriaAppService lancamentoCategoriaAppService, ITransferenciaAppService transferenciaAppService)
         {
             _lancamentoCategoriaAppService = lancamentoCategoriaAppService;
         }

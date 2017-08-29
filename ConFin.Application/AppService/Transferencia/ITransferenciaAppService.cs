@@ -11,5 +11,6 @@ namespace ConFin.Application.AppService.Transferencia
         HttpResponseMessage Put(TransferenciaDto transferencia);
         HttpResponseMessage Delete(int idTransferencia);
         HttpResponseMessage PutIndicadorPagoRecebido(TransferenciaDto transferencia);
+        HttpResponseMessage GetVerificaClientePossuiTransferenciaHabilitada(int idUsuario);
     }
 }

@@ -57,5 +57,14 @@ namespace ConFin.Api.Controllers
 
             return Content(HttpStatusCode.BadRequest, _notification.Get);
         }
+
+        public IHttpActionResult GetVerificaClientePossuiTransferenciaHabilitada(int idUsuario)
+        {
+            if (_transferenciaRepository.GetVerificaClientePossuiTransferenciaHabilitada(idUsuario))
+                return Ok();
+
+            return Content(HttpStatusCode.NotAcceptable, "O cliente não possui a opção de fazer transferência");
+        }
+
     }
 }

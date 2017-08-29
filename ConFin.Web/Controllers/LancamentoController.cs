@@ -1,6 +1,7 @@
 ﻿using ConFin.Application.AppService.ContaFinanceira;
 using ConFin.Application.AppService.Lancamento;
 using ConFin.Application.AppService.LancamentoCategoria;
+using ConFin.Application.AppService.Transferencia;
 using ConFin.Common.Domain.Dto;
 using ConFin.Common.Web;
 using ConFin.Web.ViewModel.Home;
@@ -18,12 +19,15 @@ namespace ConFin.Web.Controllers
         private readonly ILancamentoAppService _lancamentoAppService;
         private readonly ILancamentoCategoriaAppService _lancamentoCategoriaAppService;
         private readonly IContaFinanceiraAppService _contaFinanceiraAppService;
+        private readonly ITransferenciaAppService _transferenciaAppService;
 
-        public LancamentoController(ILancamentoAppService lancamentoAppService, ILancamentoCategoriaAppService lancamentoCategoriaAppService, IContaFinanceiraAppService contaFinanceiraAppService)
+
+        public LancamentoController(ILancamentoAppService lancamentoAppService, ILancamentoCategoriaAppService lancamentoCategoriaAppService, IContaFinanceiraAppService contaFinanceiraAppService, ITransferenciaAppService transferenciaAppService)
         {
             _lancamentoAppService = lancamentoAppService;
             _lancamentoCategoriaAppService = lancamentoCategoriaAppService;
             _contaFinanceiraAppService = contaFinanceiraAppService;
+            _transferenciaAppService = transferenciaAppService;
         }
 
         public ActionResult Lancamento(int? idConta = null, int? idCategoria = null)
@@ -56,6 +60,10 @@ namespace ConFin.Web.Controllers
 
                 var lancamentos = JsonConvert.DeserializeObject<IEnumerable<LancamentoDto>>(response.Content.ReadAsStringAsync().Result)
                     .Select(x => new LancamentoViewModel(x)).ToList();
+
+                var responsePossuiOpcaoTransferencia = _transferenciaAppService.GetVerificaClientePossuiTransferenciaHabilitada(UsuarioLogado.Id);
+                ViewBag.PossuiOpcaoTransferencia = responsePossuiOpcaoTransferencia.IsSuccessStatusCode;
+
 
                 return View("Lancamento", new LancamentoMasterViewModel(lancamentos, idConta, idCategoria)
                 {

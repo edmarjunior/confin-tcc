@@ -39,5 +39,11 @@ namespace ConFin.Application.AppService.Transferencia
         {
             return PutRequest("PutIndicadorPagoRecebido", transferencia);
         }
+
+        public HttpResponseMessage GetVerificaClientePossuiTransferenciaHabilitada(int idUsuario)
+        {
+            return GetRequest("GetVerificaClientePossuiTransferenciaHabilitada", new { idUsuario });
+
+        }
     }
 }

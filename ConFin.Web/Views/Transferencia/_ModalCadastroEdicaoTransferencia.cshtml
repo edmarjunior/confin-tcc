@@ -105,6 +105,8 @@
     function filtraContasTransferencia(btn, idSelectFiltrado) {
 
         var idContaSelecionada = $(btn).val();
+        var idContaAnteriorComboFiltrado = $("#" + idSelectFiltrado).val();
+
         $.get(urlGetContas, {
             idConta: idContaSelecionada
         }).success(function (json) {
@@ -114,7 +116,8 @@
                 console.log(conta);
                 $("#" + idSelectFiltrado).append("<option value='" + conta.Id + "'>" + conta.Nome + "</option>");
             });
-            
+
+            $("#" + idSelectFiltrado).val(idContaAnteriorComboFiltrado);
             $("#" + idSelectFiltrado).material_select();
             console.log(json);
         });
