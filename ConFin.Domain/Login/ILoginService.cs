@@ -8,5 +8,7 @@ namespace ConFin.Domain.Login
         void Post(UsuarioDto usuario);
         void PostReenviarSenha(string email);
         void GetVerificaTokenValidoRedefinirSenha(int idUsuario, string token);
+        void PutConfirmacaoCadastro(int idUsuario);
+
     }
 }

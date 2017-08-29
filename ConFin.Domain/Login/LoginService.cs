@@ -1,5 +1,7 @@
 ﻿using ConFin.Common.Domain;
 using ConFin.Common.Domain.Dto;
+using ConFin.Domain.ContaFinanceira;
+using ConFin.Domain.LancamentoCategoria;
 using System;
 using System.Net;
 using System.Net.Mail;
@@ -9,14 +11,19 @@ namespace ConFin.Domain.Login
     public class LoginService : ILoginService
     {
         private readonly ILoginRepository _loginRepository;
+        private readonly IContaFinanceiraRepository _contaFinanceiraRepository;
+        private readonly ILancamentoCategoriaRepository _lancamentoCategoriaRepository;
+
         private readonly Notification _notification;
         private static Parameters _parameters;
 
-        public LoginService(Notification notification, ILoginRepository loginRepository, Parameters parameters)
+        public LoginService(Notification notification, ILoginRepository loginRepository, Parameters parameters, IContaFinanceiraRepository contaFinanceiraRepository, ILancamentoCategoriaRepository lancamentoCategoriaRepository)
         {
             _notification = notification;
             _loginRepository = loginRepository;
             _parameters = parameters;
+            _contaFinanceiraRepository = contaFinanceiraRepository;
+            _lancamentoCategoriaRepository = lancamentoCategoriaRepository;
         }
 
         public UsuarioDto Get(string email, string senha = null)
@@ -117,6 +124,28 @@ namespace ConFin.Domain.Login
             if (tempoExpiracao.Minutes > 60)
                 _notification.Add("A Solicitação de refinição de senha está expirada, favor realizar nova solicitação.");
 
+        }
+
+        public void PutConfirmacaoCadastro(int idUsuario)
+        {
+            _loginRepository.OpenTransaction();
+
+            _loginRepository.PutConfirmacaoCadastro(idUsuario);
+
+            _contaFinanceiraRepository.Post(new ContaFinanceiraDto
+            {
+                Nome = "Padrão",
+                IdTipo = 3, // Carteira
+                ValorSaldoInicial = 0,
+                IdUsuarioCadastro = idUsuario
+            });
+
+            _lancamentoCategoriaRepository.PostCategoriasIniciaisUsuario(idUsuario);
+
+            if(!_notification.Any)
+                _loginRepository.CommitTransaction();
+            else
+                _loginRepository.RollbackTransaction();
         }
 
         private static void EnviaEmail(UsuarioDto usuario, string body, string subject)

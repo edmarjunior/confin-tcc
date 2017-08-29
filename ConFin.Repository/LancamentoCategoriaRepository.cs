@@ -25,7 +25,8 @@ namespace ConFin.Repository
             SP_InsLancamentoCategoria,
             SP_UpdLancamentoCategoria,
             SP_DelLancamentoCategoria,
-            FNC_LancamentoCategoriaPossuiVinculos
+            FNC_LancamentoCategoriaPossuiVinculos,
+            SP_InsCategoriasIniciaisUsuario
         }
 
         public IEnumerable<LancamentoCategoriaDto> Get(int idUsuario)
@@ -118,6 +119,13 @@ namespace ConFin.Repository
 
             _notification.Add(msg);
             return true;
+        }
+
+        public void PostCategoriasIniciaisUsuario(int idUsuario)
+        {
+            ExecuteProcedure(Procedures.SP_InsCategoriasIniciaisUsuario);
+            AddParameter("IdUsuario", idUsuario);
+            ExecuteNonQuery();
         }
     }
 }

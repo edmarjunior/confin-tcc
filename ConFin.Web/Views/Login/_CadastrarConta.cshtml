@@ -59,7 +59,8 @@
             return false;
 
         var condition = !!$("#txtSenhaCad").val() && !!$("#txtConfirmacaoSenhaCad").val() && $("#txtSenhaCad").val() != $("#txtConfirmacaoSenhaCad").val();
-        $.toast({ condition: condition, message: "Os campos de Senha estão diferentes" });
+        if ($.toast({ condition: condition, message: "Os campos de Senha estão diferentes" }))
+            return false;
 
         $.post(urlPostLogin, $("#formNovaContaUsuario").toObject()).success(function (message) {
             $.toast({ message: message, type: "success" });

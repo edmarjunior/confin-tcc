@@ -20,7 +20,7 @@ table:not(.highlight) tbody tr:hover {
 }
 
 #containerPrincipal {
-    width: 85% !important;
+    width: 100% !important;
 }
 
 table tbody td {

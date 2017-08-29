@@ -41,7 +41,7 @@ namespace ConFin.Api.Controllers
 
         public IHttpActionResult PutConfirmacaoCadastro(int idUsuario)
         {
-                _loginRepository.PutConfirmacaoCadastro(idUsuario);
+            _loginService.PutConfirmacaoCadastro(idUsuario);
 
                 if(!_notification.Any)
                     return Ok();
