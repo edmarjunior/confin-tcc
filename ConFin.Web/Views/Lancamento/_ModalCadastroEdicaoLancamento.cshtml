@@ -47,7 +47,7 @@
                 </div>
                 <div class="row" style="margin-top: -18px;">
                     <div class="input-field col s6">
-                        <input id="txtDescricaoLancamento" type="text" class="validate" name="Descricao" value="@Model.Descricao">
+                        <input id="txtDescricaoLancamento" type="text" class="validate" maxlength="50" name="Descricao" value="@Model.Descricao">
                         <label for="txtDescricaoLancamento">Descrição</label>
                     </div>
                     <div class="input-field col s6">
@@ -63,7 +63,7 @@
                 </div>
                 <div class="row" style="margin-top: -18px;">
                     <div class="input-field col s3">
-                        <input class="money" id="txtValorLancamento" type="text" name="Valor" value="@Model.Valor.ToMoney()">
+                        <input class="money" id="txtValorLancamento" type="text" maxlength="14" name="Valor" value="@Model.Valor.ToMoney()">
                         <label for="txtValorLancamento">Valor</label>
                     </div>
                     <div class="input-field col s3">
@@ -164,13 +164,16 @@
 
     function cadastrarEditarLancamento() {
         $('.toast').remove();
+        
 
         $.toast({ condition: !$("#comboConta").val(), message: "Favor preencher o campo Conta" });
         $.toast({ condition: !$("#comboCategorias").val(), message: "Favor preencher o campo Categoria" });
         isFieldEmpty($("#txtDescricaoLancamento, #txtValorLancamento, #txtDataLancamento"));
+        $.toast({ condition: !!$("#txtDataLancamento").val() && !$("#txtDataLancamento").val().isValidDate(), message: "Data de lançamento inválida" });
 
         if ($('.toast').length)
             return false;
+
 
         $.post(urlPostPutLancamento, $("#formLancamentoCadastroEdicao").toObject()).success(function (message) {
             $("#modalLancamentoCadastroEdicao").modal("close");

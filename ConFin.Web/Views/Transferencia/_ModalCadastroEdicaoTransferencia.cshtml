@@ -46,7 +46,7 @@
                 </div>
                 <div class="row" style="margin-top: -15px;">
                     <div class="input-field col s6">
-                        <input id="txtDescricaoTransferencia" type="text" class="validate" name="Descricao" value="@Model.Descricao">
+                        <input id="txtDescricaoTransferencia" type="text" class="validate" maxlength="50" name="Descricao" value="@Model.Descricao">
                         <label for="txtDescricaoTransferencia">Descrição</label>
                     </div>
                     <div class="input-field col s6">
@@ -62,7 +62,7 @@
                 </div>
                 <div class="row" style="margin-top: -15px;">
                     <div class="input-field col s3">
-                        <input class="money" id="txtValorTransferencia" type="text" name="Valor" value="@Model.Valor.ToMoney()">
+                        <input class="money" id="txtValorTransferencia" type="text" name="Valor" maxlength="14" value="@Model.Valor.ToMoney()">
                         <label for="txtValorTransferencia">Valor</label>
                     </div>
                     <div class="input-field col s3">
@@ -108,6 +108,7 @@
         $.toast({ condition: !$("#comboContaDestino").val(), message: "Favor preencher o campo Conta Destino" });
         $.toast({ condition: !$("#comboCategoriasTransferencia").val(), message: "Favor preencher o campo Categoria" });
         isFieldEmpty($("#txtDescricaoTransferencia, #txtValorTransferencia, #txtDataTransferencia"));
+        $.toast({ condition: !!$("#txtDataTransferencia").val() && !$("#txtDataTransferencia").val().isValidDate(), message: "Data de transferência inválida" });
 
         if ($('.toast').length)
             return false;
