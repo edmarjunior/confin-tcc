@@ -24,8 +24,8 @@
                 <div class="row">
 
                     <div class="input-field col s6">
-                        <select class="multiple" name="IdContaOrigem" id="comboContaOrigem">
-                            <option value="" disabled selected>Selecione</option>
+                        <select class="multiple" name="IdContaOrigem" id="comboContaOrigem" onchange="filtraContasTransferencia(this, 'comboContaDestino')">
+                            <option data-selecione value="" disabled selected>Selecione</option>
                             @foreach (var conta in Model.ContasFinanceira)
                             {
                                 <option @(Model.IdContaOrigem == conta.Id ? "selected" : string.Empty) value="@conta.Id">@conta.Nome</option>
@@ -34,8 +34,8 @@
                         <label>Conta de origem</label>
                     </div>
                     <div class="input-field col s6">
-                        <select class="multiple" name="IdContaDestino" id="comboContaDestino">
-                            <option value="" disabled selected>Selecione</option>
+                        <select class="multiple" name="IdContaDestino" id="comboContaDestino" onchange="filtraContasTransferencia(this, 'comboContaOrigem')">
+                            <option data-selecione value="" disabled selected>Selecione</option>
                             @foreach (var conta in Model.ContasFinanceira)
                             {
                                 <option @(Model.IdContaDestino == conta.Id ? "selected" : string.Empty) value="@conta.Id">@conta.Nome</option>
@@ -95,12 +95,30 @@
         ? '@Url.Action("Post","Transferencia")'
         : '@Url.Action("Put","Transferencia")';
 
+    var urlGetContas = '@Url.Action("GetFilter","ContaFinanceira")';
 
     $("#btnIndicadorTransferenciaPago").click(function () {
         $(this).toggleClass("trans-pago-recebido");
         $("#hiddenIndicadorPagoRecebido").val($(this).hasClass("trans-pago-recebido") ? "S" : "N");
     });
 
+    function filtraContasTransferencia(btn, idSelectFiltrado) {
+
+        var idContaSelecionada = $(btn).val();
+        $.get(urlGetContas, {
+            idConta: idContaSelecionada
+        }).success(function (json) {
+            $("#" + idSelectFiltrado + " > option:not(option[data-selecione])").remove();
+
+            json.map(function (conta) {
+                console.log(conta);
+                $("#" + idSelectFiltrado).append("<option value='" + conta.Id + "'>" + conta.Nome + "</option>");
+            });
+            
+            $("#" + idSelectFiltrado).material_select();
+            console.log(json);
+        });
+    }
 
     function cadastrarEditarTransferencia() {
         $('.toast').remove();

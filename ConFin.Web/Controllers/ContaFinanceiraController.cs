@@ -112,5 +112,25 @@ namespace ConFin.Web.Controllers
                 return Error(ex.Message);
             }
         }
+
+
+        public ActionResult GetFilter(int idConta)
+        {
+            try
+            {
+                var response = _contaFinanceiraAppService.GetAll(UsuarioLogado.Id);
+                if (!response.IsSuccessStatusCode)
+                    return Error(response);
+
+                var contas = JsonConvert.DeserializeObject<IEnumerable<ContaFinanceiraDto>>(response.Content.ReadAsStringAsync().Result).ToList();
+                return !contas.Any() 
+                    ? Error("A transferência não poderá ser realizada, você possui somente uma conta.") 
+                    : Json(contas.Where(x => x.Id != idConta), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex.Message);
+            }
+        }
     }
 }
