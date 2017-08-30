@@ -55,11 +55,12 @@
     $('select').material_select();
     var urlPostPut =  $("#hiddenIndicadorCadastro").val() == "S" ? urlsConta.Post : urlsConta.Put;
 
+
     function cadastrarEditarConta() {
         $('.toast').remove();
         $.toast({ condition: !$("#comboTiposConta").val(), message: "Favor preencher o campo Tipo" });
         isFieldEmpty($("#txtNomeConta, #txtSaldoInicialConta"));
-        
+
         if ($('.toast').length)
             return false;
 
@@ -67,6 +68,7 @@
             $("#modalContaCadastroEdicao").modal("close");
             $.toast({ message: message, type: "success" });
             atualizarContas();
+            verificaOpcaoMenuTransferencia();
         });
     }
 

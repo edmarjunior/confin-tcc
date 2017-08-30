@@ -113,7 +113,6 @@ namespace ConFin.Web.Controllers
             }
         }
 
-
         public ActionResult GetFilter(int idConta)
         {
             try

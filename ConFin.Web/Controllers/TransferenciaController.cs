@@ -156,5 +156,22 @@ namespace ConFin.Web.Controllers
                 return Error(ex.Message);
             }
         }
+
+
+        public ActionResult PossuiOpcaoTransferencia()
+        {
+            try
+            {
+                var responsePossuiOpcaoTransferencia = _transferenciaAppService.GetVerificaClientePossuiTransferenciaHabilitada(UsuarioLogado.Id);
+                return responsePossuiOpcaoTransferencia.IsSuccessStatusCode
+                    ? Ok("1")
+                    : Ok("0");
+            }
+            catch (Exception ex)
+            {
+                return Error(ex.Message);
+            }
+        }
+        
     }
 }

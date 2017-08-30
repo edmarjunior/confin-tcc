@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ConFin.Web.ViewModel.ContaFinanceiraViewModel>
+﻿@using ConFin.Common.Web.Extension
+@model IEnumerable<ConFin.Web.ViewModel.ContaFinanceiraViewModel>
 @{ Layout = null;}
 
 <div class="container">
@@ -94,12 +95,32 @@
             }).success(function (message) {
                 $.toast({ message: message, type: "success" });
                 atualizarContas();
+                verificaOpcaoMenuTransferencia();
             });
         });
     }
 
+    var urlPossuiOpcaoTransferencia = '@Url.Action("PossuiOpcaoTransferencia", "Transferencia")';
+    function verificaOpcaoMenuTransferencia() {
+        $.get(urlPossuiOpcaoTransferencia).success(function (codigoRetorno) {
+            if (codigoRetorno == "1") {
 
-    
+                if (!$("#opcaoTransferencia").length) {
+                    var opcao = '<li id="opcaoTransferencia" data-url="@Url.AbsoluteAction("Transferencia", "Transferencia")"><a class="waves-effect"><i class="material-icons">compare_arrows</i>Transferências</a></li>';
+                    $("#menuLateral").append(opcao);
+                }
+
+            } else {
+                if ($("#opcaoTransferencia").length) {
+                    $("#opcaoTransferencia").remove();
+                }
+                console.log("não possui opção de transferencia");
+            }
+        });
+    }
+
+
+
 
     function atualizarContas() {
         setTimeout(function () {

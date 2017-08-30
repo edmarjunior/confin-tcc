@@ -8,7 +8,12 @@
     <li data-url="@Url.AbsoluteAction("ContaFinanceira", "ContaFinanceira")"><a class="waves-effect"><i class="material-icons">account_balance_wallet</i>Contas Financeira</a></li>
     <li data-url="@Url.AbsoluteAction("Lancamento", "Lancamento")"><a class="waves-effect"><i class="material-icons">thumbs_up_down</i>Lançamentos</a></li>
     <li data-url="@Url.AbsoluteAction("LancamentoCategoria", "LancamentoCategoria")"><a class="waves-effect"><i class="material-icons">bookmark_border</i>Categorias Lançamento</a></li>
-    <li data-url="@Url.AbsoluteAction("Transferencia", "Transferencia")"><a class="waves-effect"><i class="material-icons">compare_arrows</i>Transferências</a></li>
+
+    @if ((bool)ViewBag.PossuiOpcaoTransferencia)
+    {
+        <li id="opcaoTransferencia" data-url="@Url.AbsoluteAction("Transferencia", "Transferencia")"><a class="waves-effect"><i class="material-icons">compare_arrows</i>Transferências</a></li>
+    }
+
 
 </ul>
 
