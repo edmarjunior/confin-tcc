@@ -3,352 +3,381 @@
 @{ Layout = null;}
 
 <style>
-    .pago-recebido {
-        color: limegreen  !important;
-    }
+	.pago-recebido {
+		color: limegreen  !important;
+	}
 
-    .vencido:not(.pago-recebido) {
-        color: #ff0000 !important;
-    }
+	.vencido:not(.pago-recebido) {
+		color: #ff0000 !important;
+	}
 
-    .vincendo:not(.pago-recebido) {
-        color: gray !important;
-    }
+	.vincendo:not(.pago-recebido) {
+		color: gray !important;
+	}
 
-    #thComboConta, #thComboCategoria {
-        display: inline-block !important;
-        width: auto !important;
-    }
+	#thComboConta, #thComboCategoria {
+		display: inline-block !important;
+		width: auto !important;
+	}
 
 </style>
 
 <div class="container" style="width: 75%">
-    <div class="section" style="text-align: center">
-        <h1 style="color: gray; font-size: 20pt;" class="caption">Lançamentos</h1>
-        <div class="divider"></div>
-    </div>
-    <table class="striped" style="margin-bottom: 100px">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Data</th>
-                <th>Descrição</th>
-                <th>Valor</th>
-                <th>
-                    <select id="thComboConta" onchange="atualizarLancamentos()">
-                        <option @(!Model.IdContaFiltro.HasValue ? "selected" : "") value="">Contas</option>
-                        
-                        @if (Model.Contas != null && Model.Contas.Any())
-                        {
-                            foreach (var conta in Model.Contas)
-                            {
-                                <option @(Model.IdContaFiltro == conta.Id ? "selected" : "") value="@conta.Id">@conta.Nome</option>
-                            }
-                        }
-                    </select>
+	<div class="section" style="text-align: center">
+		<h1 style="color: gray; font-size: 20pt;" class="caption">Lançamentos</h1>
+		<div class="divider"></div>
+	</div>
+	
+	<div class="section" style="text-align: center; vertical-align: middle" >
+		<a href="javascript:void(0)" onclick="atualizarLancamentos(-1)" class="tooltipped" data-position="top" data-delay="25" data-tooltip="Mês anterior">
+			<i class="material-icons small">keyboard_arrow_left</i>
+		</a>
+		<a>@Model.NomeMesDataPesquisa de @Model.AnoDataPesquisa</a>
+		<a href="javascript:void(0)" onclick="atualizarLancamentos(+1)" class="tooltipped" data-position="top" data-delay="25" data-tooltip="Próximo mês">
+			<i class="material-icons small">keyboard_arrow_right</i>
+		</a>
+		<input type="hidden" id="hiddenMesAtual" value="@Model.MesDataPesquisa" />
+		<input type="hidden" id="hiddenAnoAtual" value="@Model.AnoDataPesquisa"/>
+	</div>
+   
+	 <table class="striped" style="margin-bottom: 100px">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Data</th>
+				<th>Descrição</th>
+				<th>Valor</th>
+				<th>
+					<select id="thComboConta" onchange="atualizarLancamentos()">
+						<option @(!Model.IdContaFiltro.HasValue ? "selected" : "") value="">Contas</option>
+						
+						@if (Model.Contas != null && Model.Contas.Any())
+						{
+							foreach (var conta in Model.Contas)
+							{
+								<option @(Model.IdContaFiltro == conta.Id ? "selected" : "") value="@conta.Id">@conta.Nome</option>
+							}
+						}
+					</select>
 
-                </th>
-                <th>
-                    <select id="thComboCategoria" onchange="atualizarLancamentos()">
-                        <option @(!Model.IdCategoriaFiltro.HasValue ? "selected" : "") value="">Categorias</option>
+				</th>
+				<th>
+					<select id="thComboCategoria" onchange="atualizarLancamentos()">
+						<option @(!Model.IdCategoriaFiltro.HasValue ? "selected" : "") value="">Categorias</option>
 
-                        @if (Model.Contas != null && Model.Contas.Any())
-                        {
-                            foreach (var categoria in Model.Categorias)
-                            {
-                                <option @(Model.IdCategoriaFiltro == categoria.Id ? "selected" : "") value="@categoria.Id">@categoria.Nome</option>
-                            }
-                        }
-                    </select>
-                </th>
-                <th>Pago</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.Lancamentos.Any())
-            {
-                foreach (var lancamento in Model.Lancamentos.OrderBy(x => x.Data))
-                {
-                    <tr data-valor="@lancamento.Valor" data-transferencia="@(lancamento.IsTransferencia ? "S" : "N")" data-conta-destino="@lancamento.IdContaDestino">
-                        <td>
+						@if (Model.Contas != null && Model.Contas.Any())
+						{
+							foreach (var categoria in Model.Categorias)
+							{
+								<option @(Model.IdCategoriaFiltro == categoria.Id ? "selected" : "") value="@categoria.Id">@categoria.Nome</option>
+							}
+						}
+					</select>
+				</th>
+				<th>Pago</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@if (Model.Lancamentos.Any())
+			{
+				foreach (var lancamento in Model.Lancamentos.OrderBy(x => x.Data))
+				{
+					<tr data-valor="@lancamento.Valor" data-transferencia="@(lancamento.IsTransferencia ? "S" : "N")" data-conta-destino="@lancamento.IdContaDestino">
+						<td>
 
-                            <a style="color: @(lancamento.IsReceita ? "#008000" : lancamento.IsDespesa ? "#ff0000" : "#0000cd" )"
-                               class="tooltipped" data-position="top" data-delay="25" 
-                               data-tooltip="@(lancamento.IsReceita ? "Receita" : lancamento.IsDespesa ? "Despesa" : "Transferência" )">
-                                <i class="material-icons">@(lancamento.IsReceita ? "tag_faces" : lancamento.IsDespesa ? "mood_bad" : "compare_arrows" )</i>
-                            </a>
-                        </td>
-                        <td>@lancamento.DataLancamento</td>
-                        <td>@lancamento.Descricao</td>
-                        <td>@lancamento.ValorLancamento</td>
-                        <td>
-                            @lancamento.NomeContaOrigem
-                            @if (!string.IsNullOrEmpty(lancamento.NomeContaDestino))
-                            {
-                                <a style="cursor: default">
-                                    <i style="color: #0000cd" class="material-icons">trending_flat</i>
-                                </a>
-                                @lancamento.NomeContaDestino
-                            }
-                        </td>
-                        <td class="center-align">
-                            <a style="cursor: default" class="tooltipped" data-position="top" data-delay="25" data-tooltip="@lancamento.NomeCategoria">
-                                <i style="color: @lancamento.CorCategoria" class="material-icons">bookmark</i>
-                            </a>
-                        </td>
-                        <td>
-                            @if (lancamento.IsPagoRecebido)
-                            {
-                                <a href="javascript:void(0)" onclick="alteraStatusLancamento(this, @lancamento.Id)"
-                                   class="tooltipped pago-recebido
-                                   @(lancamento.DataLancamentoMenorHoje ? "vencido" : "")
-                                   @(lancamento.IsReceita ? "receita" : "despesa")"
-                                   data-position="top" data-delay="25" data-tooltip="@(lancamento.IsReceita ? "Recebido" : "Pago")">
-                                    <i class="material-icons">thumb_up</i>
-                                </a>
-                            }
-                            else if (lancamento.IsVencido)
-                            {
-                                <a href="javascript:void(0)" onclick="alteraStatusLancamento(this, @lancamento.Id)"
-                                   class="tooltipped vencido @(lancamento.IsReceita ? "receita" : "despesa")"
-                                   data-position="top" data-delay="25" data-tooltip="Atrasado">
-                                    <i class="material-icons">thumb_down</i>
-                                </a>
-                            }
-                            else
-                            {
-                                <a href="javascript:void(0)" onclick="alteraStatusLancamento(this, @lancamento.Id)"
-                                   class="tooltipped vincendo @(lancamento.IsReceita ? "receita" : "despesa")"
-                                   data-position="top" data-delay="25" data-tooltip="Não @(lancamento.IsReceita ? "Recebido" : "Pago")">
-                                    <i class="material-icons">thumb_up</i>
-                                </a>
-                            }
-                        </td>
-                        <td class="center-align">
-                            <a style="color: crimson" href="javascript:void(0)" onclick="deleteLancamento(this, @lancamento.Id)"
-                               class="tooltipped" data-position="top" data-delay="25" data-tooltip="Excluir">
-                                <i class="material-icons">delete_forever</i>
-                            </a>
-                            <a style="color: dimgray" href="javascript:void(0)" onclick="showModalCadastroEdicaoLancamento(this, @lancamento.Id)"
-                               class="tooltipped" data-position="top" data-delay="25" data-tooltip="Editar">
-                                <i class="material-icons">mode_edit</i>
-                            </a>
-                        </td>
-                    </tr>
-                }
-            }
-            else
-            {
-                <tr><td style="text-align: center" colspan="8">Nenhum registro encontrado.</td></tr>
-            }
+							<a style="color: @(lancamento.IsReceita ? "#008000" : lancamento.IsDespesa ? "#ff0000" : "#0000cd" )"
+							   class="tooltipped" data-position="top" data-delay="25" 
+							   data-tooltip="@(lancamento.IsReceita ? "Receita" : lancamento.IsDespesa ? "Despesa" : "Transferência" )">
+								<i class="material-icons">@(lancamento.IsReceita ? "tag_faces" : lancamento.IsDespesa ? "mood_bad" : "compare_arrows" )</i>
+							</a>
+						</td>
+						<td>@lancamento.DataLancamento</td>
+						<td>@lancamento.Descricao</td>
+						<td>@lancamento.ValorLancamento</td>
+						<td>
+							@lancamento.NomeContaOrigem
+							@if (!string.IsNullOrEmpty(lancamento.NomeContaDestino))
+							{
+								<a style="cursor: default">
+									<i style="color: #0000cd" class="material-icons">trending_flat</i>
+								</a>
+								@lancamento.NomeContaDestino
+							}
+						</td>
+						<td class="center-align">
+							<a style="cursor: default" class="tooltipped" data-position="top" data-delay="25" data-tooltip="@lancamento.NomeCategoria">
+								<i style="color: @lancamento.CorCategoria" class="material-icons">bookmark</i>
+							</a>
+						</td>
+						<td>
+							@if (lancamento.IsPagoRecebido)
+							{
+								<a href="javascript:void(0)" onclick="alteraStatusLancamento(this, @lancamento.Id)"
+								   class="tooltipped pago-recebido
+								   @(lancamento.DataLancamentoMenorHoje ? "vencido" : "")
+								   @(lancamento.IsReceita ? "receita" : "despesa")"
+								   data-position="top" data-delay="25" data-tooltip="@(lancamento.IsReceita ? "Recebido" : "Pago")">
+									<i class="material-icons">thumb_up</i>
+								</a>
+							}
+							else if (lancamento.IsVencido)
+							{
+								<a href="javascript:void(0)" onclick="alteraStatusLancamento(this, @lancamento.Id)"
+								   class="tooltipped vencido @(lancamento.IsReceita ? "receita" : "despesa")"
+								   data-position="top" data-delay="25" data-tooltip="Atrasado">
+									<i class="material-icons">thumb_down</i>
+								</a>
+							}
+							else
+							{
+								<a href="javascript:void(0)" onclick="alteraStatusLancamento(this, @lancamento.Id)"
+								   class="tooltipped vincendo @(lancamento.IsReceita ? "receita" : "despesa")"
+								   data-position="top" data-delay="25" data-tooltip="Não @(lancamento.IsReceita ? "Recebido" : "Pago")">
+									<i class="material-icons">thumb_up</i>
+								</a>
+							}
+						</td>
+						<td class="center-align">
+							<a style="color: crimson" href="javascript:void(0)" onclick="deleteLancamento(this, @lancamento.Id)"
+							   class="tooltipped" data-position="top" data-delay="25" data-tooltip="Excluir">
+								<i class="material-icons">delete_forever</i>
+							</a>
+							<a style="color: dimgray" href="javascript:void(0)" onclick="showModalCadastroEdicaoLancamento(this, @lancamento.Id)"
+							   class="tooltipped" data-position="top" data-delay="25" data-tooltip="Editar">
+								<i class="material-icons">mode_edit</i>
+							</a>
+						</td>
+					</tr>
+				}
+			}
+			else
+			{
+				<tr><td style="text-align: center" colspan="8">Nenhum registro encontrado.</td></tr>
+			}
 
-        </tbody>
-    </table>
+		</tbody>
+	</table>
 </div>
 
 <div class="btnAdd fixed-action-btn">
-    <a class="btn-floating btn-large">
-        <i class="large material-icons">add</i>
-    </a>
-    <ul>
-        @if ((bool)ViewBag.PossuiOpcaoTransferencia)
-        {
-            <li>
-                <a href="javascript:void(0)" onclick="showModalCadastroEdicaoTransferencia()"
-                   class="btn-floating blue modal-trigger tooltipped" data-position="left" data-delay="25" data-tooltip="Transferência">
-                    <i class="material-icons">compare_arrows</i>
-                </a>
-            </li>
-        }
-        <li>
-            <a href="javascript:void(0)" onclick="showModalCadastroEdicaoLancamento(this, null, 'R')"
-               class="btn-floating green modal-trigger tooltipped" data-position="left" data-delay="25" data-tooltip="Receita">
-                <i class="material-icons">tag_faces</i>
-            </a>
-        </li>
-        <li>
-            <a href="javascript:void(0)" onclick="showModalCadastroEdicaoLancamento(this, null, 'D')"
-               class="btn-floating red modal-trigger tooltipped" data-position="left" data-delay="25" data-tooltip="Despesa">
-                <i class="material-icons">mood_bad</i>
-            </a>
-        </li>
-    </ul>
+	<a class="btn-floating btn-large">
+		<i class="large material-icons">add</i>
+	</a>
+	<ul>
+		@if ((bool)ViewBag.PossuiOpcaoTransferencia)
+		{
+			<li>
+				<a href="javascript:void(0)" onclick="showModalCadastroEdicaoTransferencia()"
+				   class="btn-floating blue modal-trigger tooltipped" data-position="left" data-delay="25" data-tooltip="Transferência">
+					<i class="material-icons">compare_arrows</i>
+				</a>
+			</li>
+		}
+		<li>
+			<a href="javascript:void(0)" onclick="showModalCadastroEdicaoLancamento(this, null, 'R')"
+			   class="btn-floating green modal-trigger tooltipped" data-position="left" data-delay="25" data-tooltip="Receita">
+				<i class="material-icons">tag_faces</i>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:void(0)" onclick="showModalCadastroEdicaoLancamento(this, null, 'D')"
+			   class="btn-floating red modal-trigger tooltipped" data-position="left" data-delay="25" data-tooltip="Despesa">
+				<i class="material-icons">mood_bad</i>
+			</a>
+		</li>
+	</ul>
 </div>
 
 <script>
 
-    $('.tooltipped').tooltip({ delay: 25 });
+	$(".tooltipped").tooltip({ delay: 25 });
 
-    var urlsLancamento = {
-        Lancamento: '@Url.Action("Lancamento", "Lancamento")',
-        GetModalCadastroEdicao: '@Url.Action("GetModalCadastroEdicao", "Lancamento")',
-        Post: '@Url.Action("Post", "Lancamento")',
-        Put: '@Url.Action("Put", "Lancamento")',
-        Delete: '@Url.Action("Delete", "Lancamento")',
-        PutIndicadorPagoRecebido: '@Url.Action("PutIndicadorPagoRecebido", "Lancamento")',
-        PutTransferenciaIndicadorPagoRecebido: '@Url.Action("PutIndicadorPagoRecebido", "Transferencia")',
-        GetTransferenciaModalCadastroEdicao: '@Url.Action("GetModalCadastroEdicao", "Transferencia")',
-        DeleteTransferencia: '@Url.Action("Delete", "Transferencia")'
+	var urlsLancamento = {
+		Lancamento: '@Url.Action("Lancamento", "Lancamento")',
+		GetModalCadastroEdicao: '@Url.Action("GetModalCadastroEdicao", "Lancamento")',
+		Post: '@Url.Action("Post", "Lancamento")',
+		Put: '@Url.Action("Put", "Lancamento")',
+		Delete: '@Url.Action("Delete", "Lancamento")',
+		PutIndicadorPagoRecebido: '@Url.Action("PutIndicadorPagoRecebido", "Lancamento")',
+		PutTransferenciaIndicadorPagoRecebido: '@Url.Action("PutIndicadorPagoRecebido", "Transferencia")',
+		GetTransferenciaModalCadastroEdicao: '@Url.Action("GetModalCadastroEdicao", "Transferencia")',
+		DeleteTransferencia: '@Url.Action("Delete", "Transferencia")',
+		GetComboPeriodos: '@Url.Action("GetPeriodos", "Lancamento")'
 
-    };
+	};
 
-    var atualizarSaldos = (function fnc() {
-        var urlAtualizaSaldo = '@Url.Action("GetResumoLancamento", "Lancamento")';
-        // atualizando o resumo de lançamentos (previstos e realizados)
-        sendAjaxAtualizaResumoGeral(urlAtualizaSaldo, $("#thComboConta").val(), $("#thComboCategoria").val());
-        return fnc;
-    })();
+	var urlAtualizaSaldo = '@Url.Action("GetResumoLancamento", "Lancamento")';
+	var atualizarSaldos = (function fnc() {
+		// atualizando o resumo de lançamentos (previstos e realizados)
+		sendAjaxAtualizaResumoGeral(urlAtualizaSaldo, $("#thComboConta").val(), $("#thComboCategoria").val(), $("#hiddenMesAtual").val(), $("#hiddenAnoAtual").val());
+		return fnc;
+	})();
 
-    function showModalCadastroEdicaoLancamento(button, idLancamento, indicadorReceitaDespesa) {
+	function showModalCadastroEdicaoLancamento(button, idLancamento, indicadorReceitaDespesa) {
 
-        var btn = $(button);
+		var btn = $(button);
 
-        if (btn.closest("tr").attr("data-transferencia") == "S") {
-            showModalCadastroEdicaoTransferencia(idLancamento);
-            return;
-        }
+		if (btn.closest("tr").attr("data-transferencia") == "S") {
+			showModalCadastroEdicaoTransferencia(idLancamento);
+			return;
+		}
 
-        $.get(urlsLancamento.GetModalCadastroEdicao, {
-            idLancamento: idLancamento,
-            indicadorReceitaDespesa: indicadorReceitaDespesa
-        }).success(function (data) {
-            $("#containerPrincipal").append(data);
-            $('#modalLancamentoCadastroEdicao').modal({
-                complete: function () {
-                    $('#modalLancamentoCadastroEdicao').remove();
-                }
-            });
-            $("#modalLancamentoCadastroEdicao").modal("open");
-            verifyLabelActive();
-        });
-    }
+		$.get(urlsLancamento.GetModalCadastroEdicao, {
+			idLancamento: idLancamento,
+			indicadorReceitaDespesa: indicadorReceitaDespesa
+		}).success(function (data) {
+			$("#containerPrincipal").append(data);
+			$('#modalLancamentoCadastroEdicao').modal({
+				complete: function () {
+					$('#modalLancamentoCadastroEdicao').remove();
+				}
+			});
+			$("#modalLancamentoCadastroEdicao").modal("open");
+			verifyLabelActive();
+		});
+	}
 
-    function showModalCadastroEdicaoTransferencia(idTransferencia) {
+	function showModalCadastroEdicaoTransferencia(idTransferencia) {
 
-        $.get(urlsLancamento.GetTransferenciaModalCadastroEdicao, {
-            idTransferencia: idTransferencia
-        }).success(function (data) {
-            $("#containerPrincipal").append(data);
-            $('#modalTransferenciaCadastroEdicao').modal({
-                complete: function () {
-                    $('#modalTransferenciaCadastroEdicao').remove();
-                }
-            });
-            $("#modalTransferenciaCadastroEdicao").modal("open");
-            verifyLabelActive();
-        });
-    }
+		$.get(urlsLancamento.GetTransferenciaModalCadastroEdicao, {
+			idTransferencia: idTransferencia
+		}).success(function (data) {
+			$("#containerPrincipal").append(data);
+			$('#modalTransferenciaCadastroEdicao').modal({
+				complete: function () {
+					$('#modalTransferenciaCadastroEdicao').remove();
+				}
+			});
+			$("#modalTransferenciaCadastroEdicao").modal("open");
+			verifyLabelActive();
+		});
+	}
 
-    function deleteLancamento(button, idLancamento) {
+	function deleteLancamento(button, idLancamento) {
 
-        var btn = $(button);
+		var btn = $(button);
 
-        if (btn.closest("tr").attr("data-transferencia") == "S") {
-            deleteTransferencia(idLancamento);
-            return;
-        }
+		if (btn.closest("tr").attr("data-transferencia") == "S") {
+			deleteTransferencia(idLancamento);
+			return;
+		}
 
-        showModalConfirm("Deseja realmente excluir este lançamento?", function () {
-            $.post(urlsLancamento.Delete, {
-                idLancamento: idLancamento
-            }).success(function (message) {
-                $.toast({ message: message, type: "success" });
-                atualizarLancamentos();
-            });
-        });
-    }
+		showModalConfirm("Deseja realmente excluir este lançamento?", function () {
+			$.post(urlsLancamento.Delete, {
+				idLancamento: idLancamento
+			}).success(function (message) {
+				$.toast({ message: message, type: "success" });
+				atualizarLancamentos(0);
+			});
+		});
+	}
 
-    function deleteTransferencia(idTransferencia) {
+	function deleteTransferencia(idTransferencia) {
 
-        showModalConfirm("Deseja realmente excluir esta transferência?", function () {
-            $.post(urlsLancamento.DeleteTransferencia, {
-                idTransferencia: idTransferencia
-            }).success(function (message) {
-                $.toast({ message: message, type: "success" });
-                atualizarLancamentos();
-            });
-        });
-    }
+		showModalConfirm("Deseja realmente excluir esta transferência?", function () {
+			$.post(urlsLancamento.DeleteTransferencia, {
+				idTransferencia: idTransferencia
+			}).success(function (message) {
+				$.toast({ message: message, type: "success" });
+				atualizarLancamentos(0);
+			});
+		});
+	}
 
-    function atualizarLancamentos() {
+	function atualizarLancamentos(qtdAddMonth) {
+		$('.tooltipped').tooltip('remove');
 
-        setTimeout(function () {
-            $.get(urlsLancamento.Lancamento, {
-                idConta: $("#thComboConta").val(),
-                idCategoria: $("#thComboCategoria").val()
-            }).success(function (data) {
-                $("#containerPrincipal").html(data);
-            });
-        }, 100);
+		var mes = +$("#hiddenMesAtual").val() + qtdAddMonth,
+			ano = +$("#hiddenAnoAtual").val();
 
-    }
+		if (mes < 1) {
+			mes = 12;
+			ano--;
+		}
+		else if (mes > 12) {
+			mes = 1;
+			ano++;
+		}
 
-    var isPagoRecebido, isVencido, isVincendo, isReceita;
+		setTimeout(function () {
+			$.get(urlsLancamento.Lancamento, {
+				idConta: $("#thComboConta").val(),
+				idCategoria: $("#thComboCategoria").val(),
+				mes: mes,
+				ano: ano
+			}).success(function (data) {
+				$("#containerPrincipal").html(data);
+			});
+		}, 100);
 
-    function alteraStatusLancamento(button, idLancamento) {
+	}
 
-        var btn = $(button);
+	var isPagoRecebido, isVencido, isVincendo, isReceita;
 
-        isPagoRecebido = btn.hasClass("pago-recebido");
-        isVencido = btn.hasClass("vencido");
-        isVincendo = btn.hasClass("vincendo");
-        isReceita = btn.hasClass("receita");
+	function alteraStatusLancamento(button, idLancamento) {
 
-        if (btn.closest("tr").attr("data-transferencia") == "S") {
-            alteraStatusTransferencia(btn, idLancamento);
-            return;
-        }
+		var btn = $(button);
 
-        desableLoading();
-        $.post(urlsLancamento.PutIndicadorPagoRecebido, {
-            Id: idLancamento,
-            IndicadorPagoRecebido: (isPagoRecebido ? "N" : "S")
-        }).success(function () {
-            atualizarBotaoIndicadorPagoRecebido(btn);
-            atualizarSaldos();
-        });
-    }
+		isPagoRecebido = btn.hasClass("pago-recebido");
+		isVencido = btn.hasClass("vencido");
+		isVincendo = btn.hasClass("vincendo");
+		isReceita = btn.hasClass("receita");
 
-    function alteraStatusTransferencia(btn, idTransferencia) {
+		if (btn.closest("tr").attr("data-transferencia") == "S") {
+			alteraStatusTransferencia(btn, idLancamento);
+			return;
+		}
 
-        desableLoading();
-        $.post(urlsLancamento.PutTransferenciaIndicadorPagoRecebido, {
-            Id: idTransferencia,
-            IndicadorPagoRecebido: (isPagoRecebido ? "N" : "S")
-        }).success(function () {
-            atualizarBotaoIndicadorPagoRecebido(btn);
-            atualizarSaldos();
-        });
-    }
+		desableLoading();
+		$.post(urlsLancamento.PutIndicadorPagoRecebido, {
+			Id: idLancamento,
+			IndicadorPagoRecebido: (isPagoRecebido ? "N" : "S")
+		}).success(function () {
+			atualizarBotaoIndicadorPagoRecebido(btn);
+			atualizarSaldos();
+		});
+	}
 
-    function atualizarBotaoIndicadorPagoRecebido(btn) {
+	function alteraStatusTransferencia(btn, idTransferencia) {
 
-        // caso NÃO esteje Pago/Recebido
-        if (!isPagoRecebido) {
-            btn.addClass("pago-recebido");
-            btn.attr("data-tooltip", (isReceita ? "Recebido" : "Pago")).tooltip();
+		desableLoading();
+		$.post(urlsLancamento.PutTransferenciaIndicadorPagoRecebido, {
+			Id: idTransferencia,
+			IndicadorPagoRecebido: (isPagoRecebido ? "N" : "S")
+		}).success(function () {
+			atualizarBotaoIndicadorPagoRecebido(btn);
+			atualizarSaldos();
+		});
+	}
 
-            if (isVencido)
-                btn.find("i").text("thumb_up");
+	function atualizarBotaoIndicadorPagoRecebido(btn) {
 
-            return;
-        }
+		// caso NÃO esteje Pago/Recebido
+		if (!isPagoRecebido) {
+			btn.addClass("pago-recebido");
+			btn.attr("data-tooltip", (isReceita ? "Recebido" : "Pago")).tooltip();
 
-        btn.removeClass("pago-recebido");
+			if (isVencido)
+				btn.find("i").text("thumb_up");
 
-        if (!isVencido) {
-            btn.addClass("vincendo");
-            btn.attr("data-tooltip", "Não " + (isReceita ? "Recebido" : "Pago")).tooltip();
-        } else {
-            btn.find("i").text("thumb_down");
-            btn.attr("data-tooltip", "Atrasado").tooltip();
-        }
+			return;
+		}
 
-    }
+		btn.removeClass("pago-recebido");
 
-    function atualizarTransferencias() {
-        atualizarLancamentos();
-    }
+		if (!isVencido) {
+			btn.addClass("vincendo");
+			btn.attr("data-tooltip", "Não " + (isReceita ? "Recebido" : "Pago")).tooltip();
+		} else {
+			btn.find("i").text("thumb_down");
+			btn.attr("data-tooltip", "Atrasado").tooltip();
+		}
+
+	}
+
+	function atualizarTransferencias() {
+		atualizarLancamentos(0);
+	}
 
 </script>

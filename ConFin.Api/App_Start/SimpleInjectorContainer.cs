@@ -48,6 +48,7 @@ namespace ConFin.Api
             Container.Register<IUsuarioService, UsuarioService>();
             Container.Register<IContaFinanceiraService, ContaFinanceiraService>();
             Container.Register<ILancamentoCategoriaService, LancamentoCategoriaService>();
+            Container.Register<ILancamentoService, LancamentoService>();
         }
     }
 }

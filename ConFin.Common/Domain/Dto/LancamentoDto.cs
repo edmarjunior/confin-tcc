@@ -18,5 +18,8 @@ namespace ConFin.Common.Domain.Dto
         public string NomeCategoria { get; set; }
         public string CorCategoria { get; set; }
         public string IndicadorPagoRecebido { get; set; }
+        public string IndicadorFixoParcelado { get; set; }
+        public byte? IdPeriodo { get; set; }
+        public short? TotalParcelasOriginal { get; set; }
     }
 }

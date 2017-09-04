@@ -30,7 +30,7 @@ namespace ConFin.Web.Controllers
             _transferenciaAppService = transferenciaAppService;
         }
 
-        public ActionResult Lancamento(int? idConta = null, int? idCategoria = null)
+        public ActionResult Lancamento(int? idConta = null, int? idCategoria = null, byte? mes = null, short? ano = null)
         {
             try
             {
@@ -54,7 +54,10 @@ namespace ConFin.Web.Controllers
                     return Error("Antes de visualizar lançamentos é necessario cadastrar categorias");
                 #endregion
 
-                var response = _lancamentoAppService.GetAll(UsuarioLogado.Id, idConta, idCategoria);
+                mes = (byte?)(mes ?? DateTime.Today.Month);
+                ano = (short?)(ano ?? DateTime.Today.Year);
+
+                var response = _lancamentoAppService.GetAll(UsuarioLogado.Id, (byte)mes, (short)ano, idConta, idCategoria);
                 if (!response.IsSuccessStatusCode)
                     return Error(response);
 
@@ -64,8 +67,7 @@ namespace ConFin.Web.Controllers
                 var responsePossuiOpcaoTransferencia = _transferenciaAppService.GetVerificaClientePossuiTransferenciaHabilitada(UsuarioLogado.Id);
                 ViewBag.PossuiOpcaoTransferencia = responsePossuiOpcaoTransferencia.IsSuccessStatusCode;
 
-
-                return View("Lancamento", new LancamentoMasterViewModel(lancamentos, idConta, idCategoria)
+                return View("Lancamento", new LancamentoMasterViewModel(lancamentos, (byte)mes, (short)ano, idConta, idCategoria)
                 {
                     Contas = contas,
                     Categorias = categorias
@@ -189,11 +191,14 @@ namespace ConFin.Web.Controllers
             }
         }
 
-        public ActionResult GetResumoLancamento(int? idConta = null, int? idCategoria = null)
+        public ActionResult GetResumoLancamento(int? idConta = null, int? idCategoria = null, byte? mes = null, short? ano = null)
         {
             try
             {
-                var responseResumoLancamento = _lancamentoAppService.GetResumo(UsuarioLogado.Id, idConta, idCategoria);
+                mes = (byte?) (mes ?? DateTime.Today.Month);
+                ano = (short?) (ano ?? DateTime.Today.Year);
+
+                var responseResumoLancamento = _lancamentoAppService.GetResumo(UsuarioLogado.Id, (byte)mes, (short)ano, idConta, idCategoria);
                 if (!responseResumoLancamento.IsSuccessStatusCode)
                     return Error(responseResumoLancamento);
 
@@ -205,5 +210,26 @@ namespace ConFin.Web.Controllers
                 return Error(ex.Message);
             }
         }
+
+        public ActionResult GetPeriodos()
+        {
+            try
+            {
+                var response = _lancamentoAppService.GetPeriodo();
+                if (!response.IsSuccessStatusCode)
+                    return Error(response);
+
+                var periodos = JsonConvert.DeserializeObject<IEnumerable<PeriodoDto>>(response.Content.ReadAsStringAsync().Result).ToList();
+                return !periodos.Any()
+                    ? Error("Falha ao buscar periodos para lançamentos fixo/parcelado.")
+                    : Json(periodos, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Error(ex.Message);
+            }
+        }
+
     }
 }

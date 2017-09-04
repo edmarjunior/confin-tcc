@@ -81,26 +81,19 @@
                 <div id="divRepetirLancamento" class="row" style="margin-top: -10px;">
                     <div id="divCheckRepetir" class="col s6" style="display: none">
                         <p>
-                            <input type="checkbox" name="TipoCompromisso" id="checkLancamentoParcelado" value="2" />
+                            <input type="checkbox" name="IndicadorFixoParcelado" id="checkLancamentoParcelado" value="P" />
                             <label style="margin-right: 93px" for="checkLancamentoParcelado">Parcelado</label>
-                            <input type="checkbox" name="TipoCompromisso" id="checkLancamentoFixo" value="1" />
+                            <input type="checkbox" name="IndicadorFixoParcelado" id="checkLancamentoFixo" value="F" />
                             <label for="checkLancamentoFixo">Fixo</label>
                         </p>
                     </div>
                     <div id="divQtdParcRepetir" class="input-field col s3" style="margin-top: -10px; display: none">
-                        <input id="txtQtdParcelas" type="text" class="validate" name="QtdParcelas">
+                        <input id="txtQtdParcelas" type="number" max="240" maxlength="3" class="validate" name="TotalParcelasOriginal">
                         <label for="txtQtdParcelas">Quantidade</label>
                     </div>
                     <div id="divComboPeriodoRepetir" class="col s3" style="display: none">
                         <select class="browser-default" name="IdPeriodo" id="comboPeriodo">
                             <option value="" disabled selected>Selecione periodo</option>
-                            <option value="1">Anual</option>
-                            <option value="2">Semestral</option>
-                            <option value="3">Trimestral</option>
-                            <option value="4">Bimestral</option>
-                            <option value="5">Mensal</option>
-                            <option value="6">Semanal</option>
-                            <option value="7">Diario</option>
                         </select>
                     </div>
                 </div>
@@ -120,7 +113,10 @@
 
 
 <script>
-    $('#comboConta, #comboCategorias, #comboPeriodo').material_select();
+
+    $("#txtQtdParcelas").mask("000");
+
+    $('#comboConta, #comboCategorias').material_select();
     $('#btnShowDivsRepetirLancamento').tooltip({ delay: 25 });
 
     var urlPostPutLancamento = $("#hiddenIndicadorCadastroLancamento").val() == "S" ? urlsLancamento.Post : urlsLancamento.Put;
@@ -130,21 +126,21 @@
         $("#hiddenIndicadorPagoRecebido").val($(this).hasClass("lanc-pago-recebido") ? "S" : "N");
     });
 
-    $("input[name='TipoCompromisso']").click(function () {
+    $("input[name='IndicadorFixoParcelado']").click(function () {
 
-        
+        console.log($(this).val());
 
-        if ($(this).val() == 1)
+        if ($(this).val() == "F")
             $("#checkLancamentoParcelado").removeAttr("checked");
-        else 
+        else
             $("#checkLancamentoFixo").removeAttr("checked");
 
-        if (!$("input[name='TipoCompromisso']:checked").length) {
+        if (!$("input[name='IndicadorFixoParcelado']:checked").length) {
             $("#divQtdParcRepetir, #divQtdParcRepetir, #divComboPeriodoRepetir").fadeOut();
             return;
         }
 
-        if ($(this).val() == 1)
+        if ($(this).val() == "F")
             $("#divQtdParcRepetir").fadeOut();
         else
             $("#divQtdParcRepetir").fadeIn();
@@ -159,26 +155,41 @@
 
 
     function showDivsRepetirLancamento() {
-        $("#divRepetirLancamento, #divCheckRepetir").fadeIn();
+
+        if ($("#divCheckRepetir").is(":visible"))
+            return false;
+
+        $.get(urlsLancamento.GetComboPeriodos).success(function (json) {
+
+            json.map(function (periodo) {
+                $("#comboPeriodo").append("<option value='" + periodo.Id + "'>" + periodo.Descricao + "</option>");
+            });
+
+            $("#comboPeriodo").material_select();
+            $("#divRepetirLancamento, #divCheckRepetir").fadeIn();
+
+        });
+
     }
 
     function cadastrarEditarLancamento() {
         $('.toast').remove();
-        
 
         $.toast({ condition: !$("#comboConta").val(), message: "Favor preencher o campo Conta" });
         $.toast({ condition: !$("#comboCategorias").val(), message: "Favor preencher o campo Categoria" });
         isFieldEmpty($("#txtDescricaoLancamento, #txtValorLancamento, #txtDataLancamento"));
         $.toast({ condition: !!$("#txtDataLancamento").val() && !$("#txtDataLancamento").val().isValidDate(), message: "Data de lançamento inválida" });
+        $.toast({ condition: $("#checkLancamentoParcelado").is(":checked") && !$("#txtQtdParcelas").val(), message: "Favor preencher a Quantidade de parcelas" });
+        $.toast({ condition: !!$("#txtQtdParcelas").val() && (+$("#txtQtdParcelas").val() > 240), message: "O limite máximo de parcelas é de 240" });
+        $.toast({ condition: $("#checkLancamentoParcelado").is(":checked") && !$("#txtQtdParcelas").val(), message: "Favor preencher a Quantidade de parcelas" });
 
         if ($('.toast').length)
             return false;
 
-
         $.post(urlPostPutLancamento, $("#formLancamentoCadastroEdicao").toObject()).success(function (message) {
             $("#modalLancamentoCadastroEdicao").modal("close");
             $.toast({ message: message, type: "success" });
-            atualizarLancamentos();
+            atualizarLancamentos(0);
         });
     }
 

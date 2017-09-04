@@ -170,10 +170,12 @@ Number.prototype.toMoney = function () {
 };
 
 
-function sendAjaxAtualizaResumoGeral(url, idConta, idCategoria) {
+function sendAjaxAtualizaResumoGeral(url, idConta, idCategoria, mes, ano) {
     $.get(url, {
         idConta: idConta,
-        idCategoria: idCategoria
+        idCategoria: idCategoria,
+        mes: mes,
+        ano: ano
     }).success(function (json) {
         $("#spanSaldoAnterior").text(json.TotalValorSaldoInicialConta);
         $("#spanSaldoPrev").text(json.TotalSaldoPrevisto);

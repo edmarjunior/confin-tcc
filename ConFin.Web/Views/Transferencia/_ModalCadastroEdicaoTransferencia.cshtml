@@ -113,7 +113,6 @@
             $("#" + idSelectFiltrado + " > option:not(option[data-selecione])").remove();
 
             json.map(function (conta) {
-                console.log(conta);
                 $("#" + idSelectFiltrado).append("<option value='" + conta.Id + "'>" + conta.Nome + "</option>");
             });
 

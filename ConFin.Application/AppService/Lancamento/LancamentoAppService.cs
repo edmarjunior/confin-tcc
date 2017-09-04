@@ -10,9 +10,9 @@ namespace ConFin.Application.AppService.Lancamento
         {
         }
 
-        public HttpResponseMessage GetAll(int idUsuario, int? idConta = null, int? idCategoria = null)
+        public HttpResponseMessage GetAll(int idUsuario, byte? mes = null, short? ano = null, int? idConta = null, int? idCategoria = null)
         {
-            return GetRequest("GetAll", new { idUsuario, idConta, idCategoria });
+            return GetRequest("GetAll", new { idUsuario, mes, ano, idConta, idCategoria });
         }
 
         public HttpResponseMessage Get(int idLancamento)
@@ -43,9 +43,14 @@ namespace ConFin.Application.AppService.Lancamento
             return PutRequest("PutIndicadorPagoRecebido", lancamento);
         }
 
-        public HttpResponseMessage GetResumo(int idUsuario, int? idConta = null, int? idCategoria = null)
+        public HttpResponseMessage GetResumo(int idUsuario, byte mes, short ano, int? idConta = null, int? idCategoria = null)
         {
-            return GetRequest("GetResumo", new { idUsuario, idConta, idCategoria });
+            return GetRequest("GetResumo", new { idUsuario, mes, ano, idConta, idCategoria });
+        }
+
+        public HttpResponseMessage GetPeriodo()
+        {
+            return GetRequest("GetPeriodo");
         }
     }
 }

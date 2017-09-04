@@ -48,6 +48,8 @@
     <Compile Include="LancamentoCategoria\ILancamentoCategoriaService.cs" />
     <Compile Include="LancamentoCategoria\LancamentoCategoriaService.cs" />
     <Compile Include="Lancamento\ILancamentoRepository.cs" />
+    <Compile Include="Lancamento\ILancamentoService.cs" />
+    <Compile Include="Lancamento\LancamentoService.cs" />
     <Compile Include="Login\Dto\SolicitacaoTrocaSenhaLoginDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Login\ILoginRepository.cs" />

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace ConFin.Repository
 {
-    public class LancamentoRepository: BaseRepository, ILancamentoRepository
+    public class LancamentoRepository : BaseRepository, ILancamentoRepository
     {
         public LancamentoRepository(IDatabaseConnection connection) : base(connection)
         {
@@ -22,16 +22,22 @@ namespace ConFin.Repository
             SP_UpdLancamento,
             SP_DelLancamento,
             SP_UpdLancamentoIndicadorPagoRecebido,
-            SP_SelLancamentosResumo
-
+            SP_SelLancamentosResumo,
+            SP_InsCompromisso,
+            SP_InsCompromissoLancamento,
+            SP_SelPeriodo,
+            SP_DelCompromissoLancamento
         }
 
-        public IEnumerable<LancamentoDto> GetAll(int idUsuario, int? idConta = null, int? idCategoria = null)
+        public IEnumerable<LancamentoDto> GetAll(int idUsuario, byte? mes = null, short? ano = null, int? idConta = null, int? idCategoria = null)
         {
             ExecuteProcedure(Procedures.SP_SelLancamentos);
             AddParameter("IdUsuario", idUsuario);
             AddParameter("IdConta", idConta);
             AddParameter("IdCategoria", idCategoria);
+            AddParameter("Mes", mes);
+            AddParameter("Ano", ano);
+
             var lancamentos = new List<LancamentoDto>();
             using (var reader = ExecuteReader())
                 while (reader.Read())
@@ -93,7 +99,7 @@ namespace ConFin.Repository
             }
         }
 
-        public void Post(LancamentoDto lancamento)
+        public int Post(LancamentoDto lancamento)
         {
             ExecuteProcedure(Procedures.SP_InsLancamento);
             AddParameter("IndicadorReceitaDespesa", lancamento.IndicadorReceitaDespesa);
@@ -104,7 +110,7 @@ namespace ConFin.Repository
             AddParameter("IdCategoria", lancamento.IdCategoria);
             AddParameter("IndicadorPagoRecebido", lancamento.IndicadorPagoRecebido);
             AddParameter("IdUsuario", lancamento.IdUsuarioCadastro);
-            ExecuteNonQuery();
+            return ExecuteNonQueryWithReturn();
         }
 
         public void Put(LancamentoDto lancamento)
@@ -138,12 +144,14 @@ namespace ConFin.Repository
             ExecuteNonQuery();
         }
 
-        public LancamentoResumoGeralDto GetResumo(int idUsuario, int? idConta = null, int? idCategoria = null)
+        public LancamentoResumoGeralDto GetResumo(int idUsuario, byte mes, short ano, int? idConta = null, int? idCategoria = null)
         {
             ExecuteProcedure(Procedures.SP_SelLancamentosResumo);
             AddParameter("IdUsuario", idUsuario);
             AddParameter("IdConta", idConta);
             AddParameter("IdCategoria", idCategoria);
+            AddParameter("Mes", mes);
+            AddParameter("Ano", ano);
 
             using (var reader = ExecuteReader())
             {
@@ -160,6 +168,68 @@ namespace ConFin.Repository
                         TotValorSaldoInicialConta = reader.ReadAttr<decimal>("TotValorSaldoInicialConta")
                     };
             }
+        }
+
+        public int PostCompromisso(CompromissoDto compromisso)
+        {
+            ExecuteProcedure(Procedures.SP_InsCompromisso);
+            AddParameter("Descricao", compromisso.Descricao);
+            AddParameter("IdPeriodo", compromisso.IdPeriodo);
+            AddParameter("DataInicio", compromisso.DataInicio);
+            AddParameter("TotalParcelasOriginal", compromisso.TotalParcelasOriginal);
+            AddParameter("IdUsuarioCadastro", compromisso.IdUsuarioCadastro);
+            AddParameter("DataCadastro", compromisso.DataCadastro);
+            AddParameter("IdConta", compromisso.IdConta);
+            return ExecuteNonQueryWithReturn();
+        }
+
+        public int PostCompromissoLancamento(int idCompromisso, int idLancamento, int numeroLancamento)
+        {
+            ExecuteProcedure(Procedures.SP_InsCompromissoLancamento);
+            AddParameter("IdCompromisso", idCompromisso);
+            AddParameter("IdLancamento", idLancamento);
+            AddParameter("NumeroLancamento", numeroLancamento);
+            return ExecuteNonQueryWithReturn();
+        }
+
+        public void DeleteCompromissoLancamento(int idLancamento)
+        {
+            ExecuteProcedure(Procedures.SP_DelCompromissoLancamento);
+            AddParameter("IdLancamento", idLancamento);
+            ExecuteNonQuery();
+        }
+
+        public IEnumerable<PeriodoDto> GetPeriodo()
+        {
+            ExecuteProcedure(Procedures.SP_SelPeriodo);
+            var periodos = new List<PeriodoDto>();
+            using (var reader = ExecuteReader())
+                while (reader.Read())
+                    periodos.Add(new PeriodoDto
+                    {
+                        Id = reader.ReadAttr<byte>("Id"),
+                        Descricao = reader.ReadAttr<string>("Descricao"),
+                        Quantidade = reader.ReadAttr<byte>("Quantidade"),
+                        IndicadorDiaMes = reader.ReadAttr<string>("IndicadorDiaMes")
+                    });
+
+            return periodos;
+        }
+
+        public PeriodoDto GetPeriodo(byte id)
+        {
+            ExecuteProcedure(Procedures.SP_SelPeriodo);
+            AddParameter("Id", id);
+            using (var reader = ExecuteReader())
+                return !reader.Read()
+                    ? null
+                    : new PeriodoDto
+                    {
+                        Id = reader.ReadAttr<byte>("Id"),
+                        Descricao = reader.ReadAttr<string>("Descricao"),
+                        Quantidade = reader.ReadAttr<byte>("Quantidade"),
+                        IndicadorDiaMes = reader.ReadAttr<string>("IndicadorDiaMes")
+                    };
         }
     }
 }

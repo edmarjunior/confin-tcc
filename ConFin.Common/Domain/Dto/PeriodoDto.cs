@@ -3,7 +3,8 @@
     public class PeriodoDto
     {
         public byte Id { get; set; }
+        public byte Quantidade { get; set; }
         public string Descricao { get; set; }
-        public string IndicadorIncrementaDiaMes { get; set; }
+        public string IndicadorDiaMes { get; set; }
     }
 }

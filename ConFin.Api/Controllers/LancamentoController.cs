@@ -9,22 +9,31 @@ namespace ConFin.Api.Controllers
     public class LancamentoController: ApiController
     {
         private readonly ILancamentoRepository _lancamentoRepository;
+        private readonly ILancamentoService _lancamentoService;
         private readonly Notification _notification;
 
-        public LancamentoController(Notification notification, ILancamentoRepository lancamentoRepository)
+        public LancamentoController(Notification notification, ILancamentoRepository lancamentoRepository, ILancamentoService lancamentoService)
         {
             _notification = notification;
             _lancamentoRepository = lancamentoRepository;
+            _lancamentoService = lancamentoService;
         }
 
-        public IHttpActionResult GetAll(int idUsuario, int? idConta = null, int? idCategoria = null) 
-            => Ok(_lancamentoRepository.GetAll(idUsuario, idConta, idCategoria));
+        public IHttpActionResult GetAll(int idUsuario, byte? mes = null, short? ano = null, int? idConta = null, int? idCategoria = null)
+        {
+            var lancamentos = _lancamentoService.GetAll(idUsuario, mes, ano, idConta, idCategoria);
+            if(!_notification.Any)
+                return Ok(lancamentos);
+
+            return Content(HttpStatusCode.BadRequest, _notification.Get);
+
+        }
 
         public IHttpActionResult Get(int idLancamento) => Ok(_lancamentoRepository.Get(idLancamento));
 
         public IHttpActionResult Post(LancamentoDto lancamento)
         {
-            _lancamentoRepository.Post(lancamento);
+            _lancamentoService.Post(lancamento);
             if (!_notification.Any)
                 return Ok();
 
@@ -42,7 +51,7 @@ namespace ConFin.Api.Controllers
 
         public IHttpActionResult Delete(int idLancamento)
         {
-            _lancamentoRepository.Delete(idLancamento);
+            _lancamentoService.Delete(idLancamento);
             if (!_notification.Any)
                 return Ok();
 
@@ -58,7 +67,10 @@ namespace ConFin.Api.Controllers
             return Content(HttpStatusCode.BadRequest, _notification.Get);
         }
 
-        public IHttpActionResult GetResumo(int idUsuario, int? idConta = null, int? idCategoria = null) 
-            => Ok(_lancamentoRepository.GetResumo(idUsuario, idConta, idCategoria));
+        public IHttpActionResult GetResumo(int idUsuario, byte mes, short ano, int? idConta = null, int? idCategoria = null) 
+            => Ok(_lancamentoRepository.GetResumo(idUsuario, mes, ano, idConta, idCategoria));
+
+        public IHttpActionResult GetPeriodo() => Ok(_lancamentoRepository.GetPeriodo());
+
     }
 }
