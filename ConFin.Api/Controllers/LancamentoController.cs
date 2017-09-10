@@ -49,13 +49,20 @@ namespace ConFin.Api.Controllers
             return Content(HttpStatusCode.BadRequest, _notification.Get);
         }
 
-        public IHttpActionResult Delete(int idLancamento)
+        public IHttpActionResult Delete(int idLancamento, string indTipoDelete)
         {
-            _lancamentoService.Delete(idLancamento);
-            if (!_notification.Any)
-                return Ok();
+            _lancamentoService.Delete(idLancamento, indTipoDelete);
+            if (_notification.Any)
+                return Content(HttpStatusCode.BadRequest, _notification.Get);
 
-            return Content(HttpStatusCode.BadRequest, _notification.Get);
+            var msg = string.IsNullOrEmpty(indTipoDelete) || indTipoDelete == "U"
+                ? "Lançamento excluido com sucesso!"
+                : indTipoDelete == "P"
+                    ? "Foi excluido com sucesso este e os próximo lançamentos fixo/parcelado vínculados"
+                    : "Foi excluido com sucesso este e todos os lançamentos fixo/parcelado vínculados";
+
+            return Ok(msg);
+
         }
 
         public IHttpActionResult PutIndicadorPagoRecebido(LancamentoDto lancamento)

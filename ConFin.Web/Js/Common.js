@@ -150,6 +150,38 @@ function showModalConfirm(mensagem, fnc) {
     $("#modalConfirmacao").modal("open");
 }
 
+var fncDelLanc, fncDelProximosLanc, fncDelTodosLanc;
+
+function showModalMultipleDeleteLancamentoCompromisso(mensagem, fncDelLancamento, fncDelProximosLancamentos, fncDeleteTodosLancamento) {
+
+    fncDelLanc = fncDelLancamento;
+    fncDelProximosLanc = fncDelProximosLancamentos;
+    fncDelTodosLanc = fncDeleteTodosLancamento;
+
+    var htmlModal = '<div id="modalConfirmacao" class="modal">'
+                        + '<div class="modal-content">'
+                            + "<br/>"
+                            + "<h4>Atenção</h4>"
+                            + "<div class='divider'></div>"
+                            + "<a style='position: absolute; top: 10px; right: 50px;'>"
+                            + "<i class='large material-icons' style='color: gold;'>warning</i>"
+                            + "</a>"
+                            + "<p>" + mensagem + "</p>"
+                        + "</div>"
+                        + "<div class='modal-footer'>"
+                            + "<a href='javascript:void(0)' onclick='fncDelLanc()' style='color:green' class='modal-action modal-close waves-effect waves-green btn-flat'>Apenas este</a>"
+                            + "<a href='javascript:void(0)' onclick='fncDelProximosLanc()' style='color:blue' class='modal-action modal-close waves-effect waves-green btn-flat'>Este e os próximos</a>"
+                            + "<a href='javascript:void(0)' onclick='fncDelTodosLanc()' style='color:gold' class='modal-action modal-close waves-effect waves-green btn-flat'>Todos</a>"
+                            + "<a href='javascript:void(0)' style='color:red' class='modal-action modal-close waves-effect waves-red btn-flat'>Cancelar</a>"
+                        + "</div>"
+                    + " </div>";
+
+    $("#containerPrincipal").prepend(htmlModal);
+    $(".modal").modal();
+    $("#modalConfirmacao").modal("open");
+}
+
+
 function verifyLabelActive() {
     $("label").each(function (e, element) {
         var id = $(element).attr("for");

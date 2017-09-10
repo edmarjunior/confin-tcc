@@ -33,9 +33,9 @@ namespace ConFin.Application.AppService.Lancamento
 
         }
 
-        public HttpResponseMessage Delete(int idLancamento)
+        public HttpResponseMessage Delete(int idLancamento, string indTipoDelete)
         {
-            return DeleteRequest(new { idLancamento });
+            return DeleteRequest(new { idLancamento, indTipoDelete });
         }
 
         public HttpResponseMessage PutIndicadorPagoRecebido(LancamentoDto lancamento)

@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compromisso\ICompromissoRepository.cs" />
     <Compile Include="ContaFinanceiraTipo\IContaFinanceiraTipoRepository.cs" />
     <Compile Include="ContaFinanceira\ContaFinanceiraService.cs" />
     <Compile Include="ContaFinanceira\IContaFinanceiraRepository.cs" />

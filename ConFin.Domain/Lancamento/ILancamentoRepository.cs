@@ -12,12 +12,10 @@ namespace ConFin.Domain.Lancamento
         void Put(LancamentoDto lancamento);
         void Delete(int idLancamento);
         void PutIndicadorPagoRecebido(LancamentoDto lancamento);
-        LancamentoResumoGeralDto GetResumo(int idUsuario, byte mes, short ano, int? idConta = null, int? idCategoria = null);
 
-        int PostCompromisso(CompromissoDto compromisso);
-        int PostCompromissoLancamento(int idCompromisso, int idLancamento, int numeroLancamento);
-        void DeleteCompromissoLancamento(int idLancamento);
+        LancamentoResumoGeralDto GetResumo(int idUsuario, byte mes, short ano, int? idConta = null, int? idCategoria = null);
         IEnumerable<PeriodoDto> GetPeriodo();
         PeriodoDto GetPeriodo(byte id);
+
     }
 }

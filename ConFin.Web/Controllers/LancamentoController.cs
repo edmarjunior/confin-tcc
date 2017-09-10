@@ -164,12 +164,12 @@ namespace ConFin.Web.Controllers
             }
         }
 
-        public ActionResult Delete(int idLancamento)
+        public ActionResult Delete(int idLancamento, string indTipoDelete)
         {
             try
             {
-                var response = _lancamentoAppService.Delete(idLancamento);
-                return response.IsSuccessStatusCode ? Ok("Lançamento excluido com sucesso") : Error(response);
+                var response = _lancamentoAppService.Delete(idLancamento, indTipoDelete);
+                return response.IsSuccessStatusCode ? Ok(response.Content.ReadAsStringAsync().Result.Replace('"', ' ')) : Error(response);
             }
             catch (Exception ex)
             {

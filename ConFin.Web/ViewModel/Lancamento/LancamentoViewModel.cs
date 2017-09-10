@@ -27,14 +27,13 @@ namespace ConFin.Web.ViewModel.Lancamento
             NomeCategoria = model.NomeCategoria;
             CorCategoria = model.CorCategoria;
             IndicadorPagoRecebido = model.IndicadorPagoRecebido;
-
+            IdCompromisso = model.IdCompromisso;
             IdUsuarioCadastro = model.IdUsuarioCadastro;
             NomeUsuarioCadastro = model.NomeUsuarioCadastro;
             DataCadastro = model.DataCadastro;
             IdUsuarioUltimaAlteracao = model.IdUsuarioUltimaAlteracao;
             NomeUsuarioUltimaAlteracao = model.NomeUsuarioUltimaAlteracao;
             DataUltimaAlteracao = model.DataUltimaAlteracao;
-
         }
 
         public int? Id { get; set; }
@@ -50,6 +49,7 @@ namespace ConFin.Web.ViewModel.Lancamento
         public string NomeCategoria { get; set; }
         public string CorCategoria { get; set; }
         public string IndicadorPagoRecebido { get; set; }
+        public int? IdCompromisso { get; set; }
 
         public IEnumerable<ContaFinanceiraDto> ContasFinanceira{ get; set; }
         public IEnumerable<LancamentoCategoriaDto> Categorias { get; set; }

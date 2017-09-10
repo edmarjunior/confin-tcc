@@ -1,5 +1,6 @@
 ﻿using ConFin.Common.Domain;
 using ConFin.Common.Repository.Infra;
+using ConFin.Domain.Compromisso;
 using ConFin.Domain.ContaFinanceira;
 using ConFin.Domain.ContaFinanceiraTipo;
 using ConFin.Domain.Lancamento;
@@ -40,6 +41,7 @@ namespace ConFin.Api
             Container.Register<ILancamentoCategoriaRepository, LancamentoCategoriaRepository>();
             Container.Register<ILancamentoRepository, LancamentoRepository>();
             Container.Register<ITransferenciaRepository, TransferenciaRepository>();
+            Container.Register<ICompromissoRepository, CompromissoRepository>();
         }
 
         private static void RegisterServices()

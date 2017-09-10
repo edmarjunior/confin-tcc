@@ -9,7 +9,7 @@ namespace ConFin.Application.AppService.Lancamento
         HttpResponseMessage Get(int idLancamento);
         HttpResponseMessage Post(LancamentoDto lancamento);
         HttpResponseMessage Put(LancamentoDto lancamento);
-        HttpResponseMessage Delete(int idLancamento);
+        HttpResponseMessage Delete(int idLancamento, string indTipoDelete);
         HttpResponseMessage PutIndicadorPagoRecebido(LancamentoDto lancamento);
         HttpResponseMessage GetResumo(int idUsuario, byte mes, short ano, int? idConta = null, int? idCategoria = null);
         HttpResponseMessage GetPeriodo();

@@ -23,10 +23,7 @@ namespace ConFin.Repository
             SP_DelLancamento,
             SP_UpdLancamentoIndicadorPagoRecebido,
             SP_SelLancamentosResumo,
-            SP_InsCompromisso,
-            SP_InsCompromissoLancamento,
-            SP_SelPeriodo,
-            SP_DelCompromissoLancamento
+            SP_SelPeriodo
         }
 
         public IEnumerable<LancamentoDto> GetAll(int idUsuario, byte? mes = null, short? ano = null, int? idConta = null, int? idCategoria = null)
@@ -56,6 +53,7 @@ namespace ConFin.Repository
                         NomeCategoria = reader.ReadAttr<string>("NomeCategoria"),
                         CorCategoria = reader.ReadAttr<string>("CorCategoria"),
                         IndicadorPagoRecebido = reader.ReadAttr<string>("IndicadorPagoRecebido"),
+                        IdCompromisso = reader.ReadAttr<int?>("IdCompromisso"),
                         // manut
                         IdUsuarioCadastro = reader.ReadAttr<int>("IdUsuarioCadastro"),
                         NomeUsuarioCadastro = reader.ReadAttr<string>("NomeUsuarioCadastro"),
@@ -170,35 +168,6 @@ namespace ConFin.Repository
             }
         }
 
-        public int PostCompromisso(CompromissoDto compromisso)
-        {
-            ExecuteProcedure(Procedures.SP_InsCompromisso);
-            AddParameter("Descricao", compromisso.Descricao);
-            AddParameter("IdPeriodo", compromisso.IdPeriodo);
-            AddParameter("DataInicio", compromisso.DataInicio);
-            AddParameter("TotalParcelasOriginal", compromisso.TotalParcelasOriginal);
-            AddParameter("IdUsuarioCadastro", compromisso.IdUsuarioCadastro);
-            AddParameter("DataCadastro", compromisso.DataCadastro);
-            AddParameter("IdConta", compromisso.IdConta);
-            return ExecuteNonQueryWithReturn();
-        }
-
-        public int PostCompromissoLancamento(int idCompromisso, int idLancamento, int numeroLancamento)
-        {
-            ExecuteProcedure(Procedures.SP_InsCompromissoLancamento);
-            AddParameter("IdCompromisso", idCompromisso);
-            AddParameter("IdLancamento", idLancamento);
-            AddParameter("NumeroLancamento", numeroLancamento);
-            return ExecuteNonQueryWithReturn();
-        }
-
-        public void DeleteCompromissoLancamento(int idLancamento)
-        {
-            ExecuteProcedure(Procedures.SP_DelCompromissoLancamento);
-            AddParameter("IdLancamento", idLancamento);
-            ExecuteNonQuery();
-        }
-
         public IEnumerable<PeriodoDto> GetPeriodo()
         {
             ExecuteProcedure(Procedures.SP_SelPeriodo);
@@ -231,5 +200,7 @@ namespace ConFin.Repository
                         IndicadorDiaMes = reader.ReadAttr<string>("IndicadorDiaMes")
                     };
         }
+
+        
     }
 }
