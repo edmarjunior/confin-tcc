@@ -1,5 +1,6 @@
 ﻿using ConFin.Common.Application;
 using ConFin.Common.Domain.Dto;
+using System.Collections.Generic;
 using System.Net.Http;
 
 namespace ConFin.Application.AppService.Lancamento
@@ -23,8 +24,13 @@ namespace ConFin.Application.AppService.Lancamento
 
         public HttpResponseMessage Post(LancamentoDto lancamento)
         {
-            return PostRequest(lancamento);
+            return PostRequest("Post", lancamento);
 
+        }
+
+        public HttpResponseMessage Post(IEnumerable<LancamentoDto> lancamentos)
+        {
+            return PostRequest("PostLancamentos", lancamentos);
         }
 
         public HttpResponseMessage Put(LancamentoDto lancamento)

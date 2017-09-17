@@ -12,5 +12,6 @@ namespace ConFin.Domain.LancamentoCategoria
         void Delete(int idUsuario, int idCategoria);
         bool PossuiVinculos(int idConta);
         void PostCategoriasIniciaisUsuario(int idUsuario);
+        int GetPostId(string nomeCategoria, int idUsuario);
     }
 }

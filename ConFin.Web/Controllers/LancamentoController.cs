@@ -4,12 +4,15 @@ using ConFin.Application.AppService.LancamentoCategoria;
 using ConFin.Application.AppService.Transferencia;
 using ConFin.Common.Domain.Dto;
 using ConFin.Common.Web;
+using ConFin.Web.ViewModel;
 using ConFin.Web.ViewModel.Home;
 using ConFin.Web.ViewModel.Lancamento;
 using Newtonsoft.Json;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace ConFin.Web.Controllers
@@ -231,5 +234,73 @@ namespace ConFin.Web.Controllers
             }
         }
 
+        public ActionResult GetModalImportacao()
+        {
+            try
+            {
+                var response = _contaFinanceiraAppService.GetAll(UsuarioLogado.Id);
+                if (!response.IsSuccessStatusCode)
+                    return Error(response);
+
+                var contas = JsonConvert.DeserializeObject<IEnumerable<ContaFinanceiraDto>>(response.Content.ReadAsStringAsync().Result).ToList();
+                return !contas.Any() 
+                    ? Error("Não foi encontrada nenhuma Conta") 
+                    : View("_ModalImportacaoLancamento", contas.Select(x => new ContaFinanceiraViewModel(x)));
+            }
+            catch (Exception ex)
+            {
+                return Error(ex.Message);
+            }
+        }
+
+        public ActionResult PostImportarLancamentos(HttpPostedFileBase arquivoLancamentos, int idConta)
+        {
+            try
+            {
+                var lancamentos = new List<LancamentoDto>();
+                const string msgTitulo = "Erro ao fazer upload EXCEL";
+                const string msgErro = "EXCEL não contém registros";
+
+                using (var excelPackage = new ExcelPackage(arquivoLancamentos.InputStream))
+                {
+                    var wb = excelPackage.Workbook;
+                    if (wb == null || wb.Worksheets.Count == 0 || wb.Worksheets.First().Cells[2, 1].Value == null)
+                        return Error($"{msgTitulo} : {msgErro}");
+
+                    var wc = wb.Worksheets.First().Cells;
+                    var totLinhas = wc.Rows;
+                    for (var line = 2; line <= totLinhas; line++)
+                    {
+                        if (string.IsNullOrEmpty(wc[line, 1].Text) || wc[line, 1].Text == "#N/A")
+                            break;
+
+                        var valor = Convert.ToDecimal(wc[line, 4].Text);
+
+                        lancamentos.Add(new LancamentoDto
+                        {
+                            Data = Convert.ToDateTime(wc[line, 1].Text),
+                            Descricao = wc[line, 2].Text,
+                            NomeCategoria = wc[line, 3].Text,
+                            Valor = valor < 0 ? valor * -1 : valor,
+                            IndicadorPagoRecebido = wc[line, 5].Text == "Pago" ? "S" : "N",
+                            IndicadorReceitaDespesa = valor < 0 ? "D" : "R",
+                            IdUsuarioCadastro = UsuarioLogado.Id,
+                            IdConta = idConta
+                        });
+                    };
+
+                }
+
+                if (!lancamentos.Any())
+                    return Error($"{msgTitulo} : {msgErro}");
+
+                var response = _lancamentoAppService.Post(lancamentos);
+                return response.IsSuccessStatusCode ? Ok() : Error(response);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex.Message);
+            }
+        }
     }
 }

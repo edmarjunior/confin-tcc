@@ -1,6 +1,7 @@
 ﻿using ConFin.Common.Domain;
 using ConFin.Common.Domain.Dto;
 using ConFin.Domain.Lancamento;
+using System.Collections.Generic;
 using System.Net;
 using System.Web.Http;
 
@@ -34,6 +35,15 @@ namespace ConFin.Api.Controllers
         public IHttpActionResult Post(LancamentoDto lancamento)
         {
             _lancamentoService.Post(lancamento);
+            if (!_notification.Any)
+                return Ok();
+
+            return Content(HttpStatusCode.BadRequest, _notification.Get);
+        }
+
+        public IHttpActionResult PostLancamentos(IEnumerable<LancamentoDto> lancamentos)
+        {
+            _lancamentoService.Post(lancamentos);
             if (!_notification.Any)
                 return Ok();
 

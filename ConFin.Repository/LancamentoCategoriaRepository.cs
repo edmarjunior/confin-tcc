@@ -26,7 +26,8 @@ namespace ConFin.Repository
             SP_UpdLancamentoCategoria,
             SP_DelLancamentoCategoria,
             FNC_LancamentoCategoriaPossuiVinculos,
-            SP_InsCategoriasIniciaisUsuario
+            SP_InsCategoriasIniciaisUsuario,
+            SP_SelInsIdLancamentoCategoria
         }
 
         public IEnumerable<LancamentoCategoriaDto> Get(int idUsuario)
@@ -126,6 +127,22 @@ namespace ConFin.Repository
             ExecuteProcedure(Procedures.SP_InsCategoriasIniciaisUsuario);
             AddParameter("IdUsuario", idUsuario);
             ExecuteNonQuery();
+        }
+
+        public int GetPostId(string nomeCategoria, int idUsuario)
+        {
+            ExecuteProcedure(Procedures.SP_SelInsIdLancamentoCategoria);
+            AddParameter("Nome", nomeCategoria);
+            AddParameter("IdUsuario", idUsuario);
+
+            using (var reader = ExecuteReader())
+            {
+                if(reader.Read())
+                    return reader.ReadAttr<int>("Id");
+                
+                _notification.Add($"Erro ao buscar/cadastrar Id da categoria {nomeCategoria}");
+                return 0;
+            }
         }
     }
 }

@@ -1,0 +1,118 @@
+﻿@model IEnumerable<ConFin.Web.ViewModel.ContaFinanceiraViewModel>
+
+@{
+    Layout = null;
+}
+
+
+<div id="modalImportacaoLancamentos" class="modal" style="max-height: 80% !important;">
+
+    <div class="modal-content">
+        <div class="section" style="text-align: center">
+            <h1 style="color: gray; font-size: 20pt; margin-top: -5px;" class="caption">Importar lançamentos</h1>
+            <div class="divider" style="margin-top: -10px;"></div>
+        </div>
+        <div class="row">
+            @using (Ajax.BeginForm("PostImportarLancamentos", "Lancamento", null, null, new
+            {
+                @id = "formImportacaoLancamentos",
+                @enctype = "multipart/form-data",
+                @class = "col s12"
+            }))
+            {
+                <form id="" class="col s12">
+                    <div class="row">
+                        <div id="divComboConta" class="col s5">
+
+                            <label>Informe uma conta para importar os lançamentos</label>
+                            <select class="browser-default" name="idConta" id="comboConta">
+                                <option value="" disabled selected>Selecione</option>
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var conta in Model)
+                                    {
+                                        <option value="@conta.Id">@conta.Nome</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="file-field input-field col s7">
+                            <div class="btn">
+                                <span>File</span>
+                                <input type="file" name="arquivoLancamentos" id="fileImportacaoLancamentos">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" id="txtFileName">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            }
+        </div>
+        
+    </div>
+    <div class="modal-footer" style="margin-top: -40px;">
+        <a href="javascript:void(0)" onclick="downloadModeloArquivoLancamento()" style="color: blue" class="modal-action waves-effect waves-green btn-flat">Baixar modelo do arquivo</a>
+        <a href="javascript:void(0)" onclick="postImportacao()" style="color: green" class="modal-action waves-effect waves-green btn-flat">Confirmar</a>
+        <a href="javascript:void(0)" style="color: red" class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</a>
+    </div>
+</div>
+
+<script>
+
+    $('#comboConta').material_select();
+
+
+    function downloadModeloArquivoLancamento() {
+        alert("TODO");
+    }
+
+    function postImportacao() {
+        var txtFile = $("#txtFileName").val();
+        var extensaoFile = txtFile.substring(txtFile.length - 4);
+
+        $.toast({ condition: !$("#comboConta").val(), message: "Favor preencher o campo Conta" });
+        $.toast({ condition: extensaoFile != "xlsx" && extensaoFile != ".xls", message: "As extensões válidas são .xls e .xlsx, favor verifique!" });
+
+        if ($('.toast').length)
+            return false;
+
+        $("#formImportacaoLancamentos").trigger("submit");
+    }
+
+
+    $("#formImportacaoLancamentos").submit(function() {
+        
+    });
+
+
+</script>
+
+<script>
+
+    $('#formUploadExcel').submit(function (e) {
+
+        e.preventDefault();
+
+        if ($.toast({ condition: !$('#fileImportacaoLancamentos').val(), message: "Favor preencher o campo Conta" }))
+            return false;
+            
+        var nomeArquivoUpload = $("#txtFileName").val();
+        $(this).ajaxSubmit({
+            uploadProgress: function (event, position, total, percentComplete) {
+                $("#txtFileName").val(percentComplete + '% - ' + nomeArquivoUpload);
+            },
+            success: function() {
+                $.toast({ message: message, type: "success" });
+                atualizarLancamentos(0);
+            },
+            error: function (xhr) {
+                $("#txtFileName").val(nomeArquivoUpload);
+            },
+            complete: function() {
+            }
+        });
+        return false;
+    });
+
+</script>

@@ -7,6 +7,7 @@ namespace ConFin.Domain.Lancamento
     {
         IEnumerable<LancamentoDto> GetAll(int idUsuario, byte? mes = null, short? ano = null, int? idConta = null, int? idCategoria = null);
         void Post(LancamentoDto lancamento);
+        void Post(IEnumerable<LancamentoDto> lancamentos);
         void Delete(int idLancamento, string indTipoDelete);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using ConFin.Common.Domain;
 using ConFin.Common.Domain.Dto;
 using ConFin.Domain.Compromisso;
+using ConFin.Domain.LancamentoCategoria;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +12,15 @@ namespace ConFin.Domain.Lancamento
     {
         private readonly ILancamentoRepository _lancamentoRepository;
         private readonly ICompromissoRepository _compromissoRepository;
+        private readonly ILancamentoCategoriaRepository _lancamentoCategoriaRepository;
         private readonly Notification _notification;
 
-        public LancamentoService(Notification notification, ILancamentoRepository lancamentoRepository, ICompromissoRepository compromissoRepository)
+        public LancamentoService(Notification notification, ILancamentoRepository lancamentoRepository, ICompromissoRepository compromissoRepository, ILancamentoCategoriaRepository lancamentoCategoriaRepository)
         {
             _notification = notification;
             _lancamentoRepository = lancamentoRepository;
             _compromissoRepository = compromissoRepository;
+            _lancamentoCategoriaRepository = lancamentoCategoriaRepository;
         }
 
         public IEnumerable<LancamentoDto> GetAll(int idUsuario, byte? mes = null, short? ano = null, int? idConta = null, int? idCategoria = null)
@@ -96,6 +99,40 @@ namespace ConFin.Domain.Lancamento
 
             _lancamentoRepository.CommitTransaction();
 
+        }
+
+        public void Post(IEnumerable<LancamentoDto> lancamentos)
+        {
+            lancamentos = lancamentos.ToList();
+            if (!lancamentos.Any())
+            {
+                _notification.Add("Nenhum lançamento encontrado para cadastrar");
+                return;
+            }
+
+            var categorias = new Dictionary<string, int>();
+
+            _lancamentoRepository.OpenTransaction();
+
+            foreach (var nomeCategoria in lancamentos.GroupBy(x => x.NomeCategoria).Select(y => y.Key))
+            {
+                // busca o id da categoria, caso não exista é cadastrado uma nova.
+                categorias.Add(nomeCategoria,_lancamentoCategoriaRepository.GetPostId(nomeCategoria, lancamentos.First().IdUsuarioCadastro));
+
+                if (!_notification.Any)
+                    continue;
+
+                _lancamentoRepository.RollbackTransaction();
+                return;
+            }
+
+            foreach (var lancamento in lancamentos)
+            {
+                lancamento.IdCategoria = categorias[lancamento.NomeCategoria];
+                _lancamentoRepository.Post(lancamento);
+            }
+
+            _lancamentoRepository.CommitTransaction();
         }
 
         public void Delete(int idLancamento, string indTipoDelete)
