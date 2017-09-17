@@ -34,15 +34,15 @@
                             <label for="indReceitaDespesa_D">Despesa</label>
                         </p>
                     </div>
-                    <div class="input-field col s6">
-                        <select class="multiple" name="IdConta" id="comboConta">
+                    <div class=" col s6">
+                        <label>Conta</label>
+                        <select class="browser-default" name="IdConta" id="comboConta">
                             <option value="" disabled selected>Selecione</option>
                             @foreach (var conta in Model.ContasFinanceira)
                             {
                                 <option @(Model.IdConta == conta.Id ? "selected" : string.Empty) value="@conta.Id">@conta.Nome</option>
                             }
                         </select>
-                        <label>Conta</label>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -18px;">
@@ -50,15 +50,15 @@
                         <input id="txtDescricaoLancamento" type="text" class="validate" maxlength="50" name="Descricao" value="@Model.Descricao">
                         <label for="txtDescricaoLancamento">Descrição</label>
                     </div>
-                    <div class="input-field col s6">
-                        <select class="multiple" name="IdCategoria" id="comboCategorias">
+                    <div class="col s6">
+                        <label>Categoria</label>
+                        <select class="browser-default" name="IdCategoria" id="comboCategorias">
                             <option value="" disabled selected>Selecione</option>
                             @foreach (var categoria in Model.Categorias)
                             {
                                 <option @(Model.IdCategoria == categoria.Id ? "selected" : string.Empty) value="@categoria.Id">@categoria.Nome</option>
                             }
                         </select>
-                        <label>Categoria</label>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -18px;">

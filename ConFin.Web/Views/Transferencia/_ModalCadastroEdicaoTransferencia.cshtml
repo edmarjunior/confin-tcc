@@ -23,25 +23,25 @@
 
                 <div class="row">
 
-                    <div class="input-field col s6">
-                        <select class="multiple" name="IdContaOrigem" id="comboContaOrigem" onchange="filtraContasTransferencia(this, 'comboContaDestino')">
+                    <div class="col s6">
+                        <label>Conta de origem</label>
+                        <select class="browser-default" name="IdContaOrigem" id="comboContaOrigem" onchange="filtraContasTransferencia(this, 'comboContaDestino')">
                             <option data-selecione value="" disabled selected>Selecione</option>
                             @foreach (var conta in Model.ContasFinanceira)
                             {
                                 <option @(Model.IdContaOrigem == conta.Id ? "selected" : string.Empty) value="@conta.Id">@conta.Nome</option>
                             }
                         </select>
-                        <label>Conta de origem</label>
                     </div>
-                    <div class="input-field col s6">
-                        <select class="multiple" name="IdContaDestino" id="comboContaDestino" onchange="filtraContasTransferencia(this, 'comboContaOrigem')">
+                    <div class="col s6">
+                        <label>Conta de destino</label>
+                        <select class="browser-default" name="IdContaDestino" id="comboContaDestino" onchange="filtraContasTransferencia(this, 'comboContaOrigem')">
                             <option data-selecione value="" disabled selected>Selecione</option>
                             @foreach (var conta in Model.ContasFinanceira)
                             {
                                 <option @(Model.IdContaDestino == conta.Id ? "selected" : string.Empty) value="@conta.Id">@conta.Nome</option>
                             }
                         </select>
-                        <label>Conta de destino</label>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -15px;">
@@ -49,15 +49,15 @@
                         <input id="txtDescricaoTransferencia" type="text" class="validate" maxlength="50" name="Descricao" value="@Model.Descricao">
                         <label for="txtDescricaoTransferencia">Descrição</label>
                     </div>
-                    <div class="input-field col s6">
-                        <select class="multiple" name="IdCategoria" id="comboCategoriasTransferencia">
+                    <div class="col s6">
+                        <label>Categoria</label>
+                        <select class="browser-default" name="IdCategoria" id="comboCategoriasTransferencia">
                             <option value="" disabled selected>Selecione</option>
                             @foreach (var categoria in Model.Categorias)
                             {
                                 <option @(Model.IdCategoria == categoria.Id ? "selected" : string.Empty) value="@categoria.Id">@categoria.Nome</option>
                             }
                         </select>
-                        <label>Categoria</label>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -15px;">
