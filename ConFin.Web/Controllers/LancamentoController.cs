@@ -295,7 +295,7 @@ namespace ConFin.Web.Controllers
                     return Error($"{msgTitulo} : {msgErro}");
 
                 var response = _lancamentoAppService.Post(lancamentos);
-                return response.IsSuccessStatusCode ? Ok() : Error(response);
+                return response.IsSuccessStatusCode ? Ok("Importação realizada com sucesso, os lançamentos foram cadastrados") : Error(response);
             }
             catch (Exception ex)
             {

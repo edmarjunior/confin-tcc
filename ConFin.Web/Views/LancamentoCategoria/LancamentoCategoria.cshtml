@@ -67,9 +67,12 @@
             idCategoria: idCategoria
         }).success(function (data) {
             $("#containerPrincipal").append(data);
-            $('#modalCategoriaCadastroEdicao').modal({complete: function() {
-                $('#modalCategoriaCadastroEdicao').remove();
-            }});
+            $('#modalCategoriaCadastroEdicao').modal({
+                complete: function () {
+                    $('#modalCategoriaCadastroEdicao').remove();
+                    removeToastsError();
+                }
+            });
             $("#modalCategoriaCadastroEdicao").modal("open");
             verifyLabelActive();
         });

@@ -236,7 +236,8 @@
 			$("#containerPrincipal").append(data);
 			$('#modalLancamentoCadastroEdicao').modal({
 				complete: function () {
-					$('#modalLancamentoCadastroEdicao').remove();
+				    $('#modalLancamentoCadastroEdicao').remove();
+				    removeToastsError();
 				}
 			});
 			$("#modalLancamentoCadastroEdicao").modal("open");
@@ -252,7 +253,8 @@
 			$("#containerPrincipal").append(data);
 			$('#modalTransferenciaCadastroEdicao').modal({
 				complete: function () {
-					$('#modalTransferenciaCadastroEdicao').remove();
+				    $('#modalTransferenciaCadastroEdicao').remove();
+				    removeToastsError();
 				}
 			});
 			$("#modalTransferenciaCadastroEdicao").modal("open");
@@ -405,6 +407,7 @@
 	        $('#modalImportacaoLancamentos').modal({
 	            complete: function () {
 	                $('#modalImportacaoLancamentos').remove();
+	                removeToastsError();
 	            }
 	        });
 	        $("#modalImportacaoLancamentos").modal("open");

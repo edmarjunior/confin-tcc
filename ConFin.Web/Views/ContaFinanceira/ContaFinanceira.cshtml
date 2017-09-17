@@ -79,6 +79,7 @@
             $('#modalContaCadastroEdicao').modal({
                 complete: function () {
                     $('#modalContaCadastroEdicao').remove();
+                    removeToastsError();
                 }
             });
             $("#modalContaCadastroEdicao").modal("open");

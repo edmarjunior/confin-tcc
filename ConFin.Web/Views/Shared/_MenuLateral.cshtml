@@ -23,6 +23,9 @@
     $(document).on('click', '#menuLateral > li[data-url]', function () {
         $('.button-collapse').sideNav('hide');
 
+        if ($(".toast").length)
+            $(".toast").remove();
+
         $.get($(this).attr("data-url")).success(function(data) {
             $("#containerPrincipal").html(data);
         });

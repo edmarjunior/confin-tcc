@@ -106,6 +106,7 @@
             $('#modalTransferenciaCadastroEdicao').modal({
                 complete: function () {
                     $('#modalTransferenciaCadastroEdicao').remove();
+                    removeToastsError();
                 }
             });
             $("#modalTransferenciaCadastroEdicao").modal("open");

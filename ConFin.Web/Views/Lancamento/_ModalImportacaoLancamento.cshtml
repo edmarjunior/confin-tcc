@@ -62,12 +62,12 @@
 
     $('#comboConta').material_select();
 
-
     function downloadModeloArquivoLancamento() {
         alert("TODO");
     }
 
     function postImportacao() {
+        $('.toast').remove();
         var txtFile = $("#txtFileName").val();
         var extensaoFile = txtFile.substring(txtFile.length - 4);
 
@@ -80,36 +80,27 @@
         $("#formImportacaoLancamentos").trigger("submit");
     }
 
-
-    $("#formImportacaoLancamentos").submit(function() {
-        
-    });
-
-
-</script>
-
-<script>
-
-    $('#formUploadExcel').submit(function (e) {
+    $('#formImportacaoLancamentos').submit(function (e) {
 
         e.preventDefault();
 
         if ($.toast({ condition: !$('#fileImportacaoLancamentos').val(), message: "Favor preencher o campo Conta" }))
             return false;
-            
+
         var nomeArquivoUpload = $("#txtFileName").val();
         $(this).ajaxSubmit({
             uploadProgress: function (event, position, total, percentComplete) {
                 $("#txtFileName").val(percentComplete + '% - ' + nomeArquivoUpload);
             },
-            success: function() {
-                $.toast({ message: message, type: "success" });
+            success: function (message) {
+                $.toast({ message: message, type: "success", delay: 99999999999 });
+                $("#modalImportacaoLancamentos").modal("close");
                 atualizarLancamentos(0);
             },
             error: function (xhr) {
                 $("#txtFileName").val(nomeArquivoUpload);
             },
-            complete: function() {
+            complete: function () {
             }
         });
         return false;
