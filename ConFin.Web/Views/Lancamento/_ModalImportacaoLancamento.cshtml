@@ -38,7 +38,7 @@
                         </div>
                         <div class="file-field input-field col s7">
                             <div class="btn">
-                                <span>File</span>
+                                <span>Arquivo</span>
                                 <input type="file" name="arquivoLancamentos" id="fileImportacaoLancamentos">
                             </div>
                             <div class="file-path-wrapper">
@@ -63,7 +63,7 @@
     $('#comboConta').material_select();
 
     function downloadModeloArquivoLancamento() {
-        alert("TODO");
+        window.open('@Url.Action("GetArquivoModeloImportacao", "Lancamento")');
     }
 
     function postImportacao() {
@@ -93,7 +93,7 @@
                 $("#txtFileName").val(percentComplete + '% - ' + nomeArquivoUpload);
             },
             success: function (message) {
-                $.toast({ message: message, type: "success", delay: 99999999999 });
+                $.toast({ message: message, type: "success" });
                 $("#modalImportacaoLancamentos").modal("close");
                 atualizarLancamentos(0);
             },

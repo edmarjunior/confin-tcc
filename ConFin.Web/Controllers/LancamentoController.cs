@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -296,6 +297,45 @@ namespace ConFin.Web.Controllers
 
                 var response = _lancamentoAppService.Post(lancamentos);
                 return response.IsSuccessStatusCode ? Ok("Importação realizada com sucesso, os lançamentos foram cadastrados") : Error(response);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex.Message);
+            }
+        }
+        public ActionResult GetArquivoModeloImportacao()
+        {
+            try
+            {
+                using (var excelPackage = new ExcelPackage())
+                {
+                    var wb = excelPackage.Workbook;
+                    var ws = wb.Worksheets.Add("Lancamentos");
+
+                    // cabeçalho
+                    ws.Cells[1,1].Value = "Data";
+                    ws.Cells[1,2].Value = "Descrição";
+                    ws.Cells[1,3].Value = "Categoria";
+                    ws.Cells[1,4].Value = "Valor";
+
+                    //exemplos de preenchimento de despesa
+                    ws.Cells[2, 1].Value = $"{DateTime.Today:dd-MM-yyyy}";
+                    ws.Cells[2, 2].Value = "Camiseta Polo";
+                    ws.Cells[2, 3].Value = "Roupas";
+                    ws.Cells[2, 4].Value = "-100,90";
+
+                    //exemplos de preenchimento de receita
+                    ws.Cells[3, 1].Value = $"{DateTime.Today:dd-MM-yyyy}";
+                    ws.Cells[3, 2].Value = "Comissão";
+                    ws.Cells[3, 3].Value = "Salário";
+                    ws.Cells[3, 4].Value = "500";
+
+                    ws.Cells[ws.Dimension.Address].AutoFitColumns();
+
+                    return File(new MemoryStream(excelPackage.GetAsByteArray()), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        $"Modelo Lançamentos {DateTime.Now:yyMMddHHmmss}.xlsx");
+                }
+
             }
             catch (Exception ex)
             {

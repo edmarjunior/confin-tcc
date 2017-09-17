@@ -164,13 +164,13 @@
 		<i class="large material-icons">add</i>
 	</a>
 	<ul>
-        <li>
-            <a href="javascript:void(0)" onclick="showModalImportarLancamento()"
-               class="btn-floating modal-trigger tooltipped" data-position="left" data-delay="25" data-tooltip="Importar lançamentos">
-                <i class="material-icons">backup</i>
-            </a>
-        </li>
-        @if ((bool)ViewBag.PossuiOpcaoTransferencia)
+		<li>
+			<a href="javascript:void(0)" onclick="showModalImportarLancamento()"
+			   class="btn-floating modal-trigger tooltipped" data-position="left" data-delay="25" data-tooltip="Importar lançamentos">
+				<i class="material-icons">backup</i>
+			</a>
+		</li>
+		@if ((bool)ViewBag.PossuiOpcaoTransferencia)
 		{
 			<li>
 				<a href="javascript:void(0)" onclick="showModalCadastroEdicaoTransferencia()"
@@ -208,8 +208,8 @@
 		PutTransferenciaIndicadorPagoRecebido: '@Url.Action("PutIndicadorPagoRecebido", "Transferencia")',
 		GetTransferenciaModalCadastroEdicao: '@Url.Action("GetModalCadastroEdicao", "Transferencia")',
 		DeleteTransferencia: '@Url.Action("Delete", "Transferencia")',
-	    GetComboPeriodos: '@Url.Action("GetPeriodos", "Lancamento")',
-	    GetModalImportacao: '@Url.Action("GetModalImportacao", "Lancamento")'
+		GetComboPeriodos: '@Url.Action("GetPeriodos", "Lancamento")',
+		GetModalImportacao: '@Url.Action("GetModalImportacao", "Lancamento")'
 
 	};
 
@@ -236,8 +236,8 @@
 			$("#containerPrincipal").append(data);
 			$('#modalLancamentoCadastroEdicao').modal({
 				complete: function () {
-				    $('#modalLancamentoCadastroEdicao').remove();
-				    removeToastsError();
+					$('#modalLancamentoCadastroEdicao').remove();
+					removeToastsError();
 				}
 			});
 			$("#modalLancamentoCadastroEdicao").modal("open");
@@ -253,8 +253,8 @@
 			$("#containerPrincipal").append(data);
 			$('#modalTransferenciaCadastroEdicao').modal({
 				complete: function () {
-				    $('#modalTransferenciaCadastroEdicao').remove();
-				    removeToastsError();
+					$('#modalTransferenciaCadastroEdicao').remove();
+					removeToastsError();
 				}
 			});
 			$("#modalTransferenciaCadastroEdicao").modal("open");
@@ -402,17 +402,17 @@
 	}
 
 	function showModalImportarLancamento() {
-	    $.get(urlsLancamento.GetModalImportacao).success(function (data) {
-	        $("#containerPrincipal").append(data);
-	        $('#modalImportacaoLancamentos').modal({
-	            complete: function () {
-	                $('#modalImportacaoLancamentos').remove();
-	                removeToastsError();
-	            }
-	        });
-	        $("#modalImportacaoLancamentos").modal("open");
-	        verifyLabelActive();
-	    });
+		$.get(urlsLancamento.GetModalImportacao).success(function (data) {
+			$("#containerPrincipal").append(data);
+			$('#modalImportacaoLancamentos').modal({
+				complete: function () {
+					$('#modalImportacaoLancamentos').remove();
+					removeToastsError();
+				}
+			});
+			$("#modalImportacaoLancamentos").modal("open");
+			verifyLabelActive();
+		});
 	}
 
 </script>
