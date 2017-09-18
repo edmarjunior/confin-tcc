@@ -3,6 +3,7 @@ using ConFin.Common.Repository;
 using ConFin.Common.Repository.Extension;
 using ConFin.Common.Repository.Infra;
 using ConFin.Domain.Compromisso;
+using System;
 using System.Collections.Generic;
 
 namespace ConFin.Repository
@@ -67,7 +68,8 @@ namespace ConFin.Repository
                     {
                         IdCompromisso = reader.ReadAttr<int>("IdCompromisso"),
                         IdLancamento = reader.ReadAttr<int>("IdLancamento"),
-                        NumeroLancamento = reader.ReadAttr<short>("NumeroLancamento")
+                        NumeroLancamento = reader.ReadAttr<short>("NumeroLancamento"),
+                        DataLancamento = reader.ReadAttr<DateTime>("DataLancamento")
                     });
 
             return lancamentosCompromisso;

@@ -22,5 +22,6 @@ namespace ConFin.Common.Domain.Dto
         public byte? IdPeriodo { get; set; }
         public short? TotalParcelasOriginal { get; set; }
         public int? IdCompromisso { get; set; }
+        public string IndicadorAcaoCompromisso { get; set; }
     }
 }

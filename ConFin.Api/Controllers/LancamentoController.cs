@@ -52,7 +52,7 @@ namespace ConFin.Api.Controllers
 
         public IHttpActionResult Put(LancamentoDto lancamento)
         {
-            _lancamentoRepository.Put(lancamento);
+            _lancamentoService.Put(lancamento);
             if (!_notification.Any)
                 return Ok();
 

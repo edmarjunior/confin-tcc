@@ -85,6 +85,7 @@ namespace ConFin.Repository
                         IdConta = reader.ReadAttr<int>("IdConta"),
                         IdCategoria = reader.ReadAttr<int>("IdCategoria"),
                         IndicadorPagoRecebido = reader.ReadAttr<string>("IndicadorPagoRecebido"),
+                        IdCompromisso = reader.ReadAttr<int?>("IdCompromisso"),
 
                         // manut
                         IdUsuarioCadastro = reader.ReadAttr<int>("IdUsuarioCadastro"),

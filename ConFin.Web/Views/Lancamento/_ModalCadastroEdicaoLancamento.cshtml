@@ -21,6 +21,7 @@
                 <input type="hidden" id="hiddenIndicadorCadastroLancamento" value="@ViewBag.IndicadorCadastro" />
                 <input type="hidden" name="Id" value="@Model.Id" />
                 <input type="hidden" id="hiddenIndicadorPagoRecebido" name="IndicadorPagoRecebido" value="@Model.IndicadorPagamentoReceb" />
+                <input type="hidden" id="hiddenIdCompromisso" name="IdCompromisso" value="@Model.IdCompromisso" />
 
                 <div class="row">
                     <div class="col s6">
@@ -34,7 +35,7 @@
                             <label for="indReceitaDespesa_D">Despesa</label>
                         </p>
                     </div>
-                    <div class=" col s6">
+                    <div class="col s6">
                         <label>Conta</label>
                         <select class="browser-default" name="IdConta" id="comboConta">
                             <option value="" disabled selected>Selecione</option>
@@ -78,34 +79,59 @@
                         </a>
                     </div>
                 </div>
-                <div id="divRepetirLancamento" class="row" style="margin-top: -10px;">
-                    <div id="divCheckRepetir" class="col s6" style="display: none">
-                        <p>
-                            <input type="checkbox" name="IndicadorFixoParcelado" id="checkLancamentoParcelado" value="P" />
-                            <label style="margin-right: 93px" for="checkLancamentoParcelado">Parcelado</label>
-                            <input type="checkbox" name="IndicadorFixoParcelado" id="checkLancamentoFixo" value="F" />
-                            <label for="checkLancamentoFixo">Fixo</label>
-                        </p>
+                @if (!Model.IdCompromisso.HasValue)
+                {
+                    <div id="divRepetirLancamento" class="row" style="margin-top: -10px;">
+                        <div id="divCheckRepetir" class="col s6" style="display: none">
+                            <p>
+                                <input type="checkbox" name="IndicadorFixoParcelado" id="checkLancamentoParcelado" value="P"/>
+                                <label style="margin-right: 93px" for="checkLancamentoParcelado">Parcelado</label>
+                                <input type="checkbox" name="IndicadorFixoParcelado" id="checkLancamentoFixo" value="F"/>
+                                <label for="checkLancamentoFixo">Fixo</label>
+                            </p>
+                        </div>
+                        <div id="divQtdParcRepetir" class="input-field col s3" style="margin-top: -10px; display: none">
+                            <input id="txtQtdParcelas" type="number" max="240" maxlength="3" class="validate" name="TotalParcelasOriginal">
+                            <label for="txtQtdParcelas">Quantidade</label>
+                        </div>
+                        <div id="divComboPeriodoRepetir" class="col s3" style="display: none">
+                            <select class="browser-default" name="IdPeriodo" id="comboPeriodo">
+                                <option value="" disabled selected>Selecione periodo</option>
+                            </select>
+                        </div>
                     </div>
-                    <div id="divQtdParcRepetir" class="input-field col s3" style="margin-top: -10px; display: none">
-                        <input id="txtQtdParcelas" type="number" max="240" maxlength="3" class="validate" name="TotalParcelasOriginal">
-                        <label for="txtQtdParcelas">Quantidade</label>
+                }
+                else
+                {
+                    <div id="divRadiosCompromisso" class="row" style="background-color: lavender; margin-top: -15px">
+                        <div class="col s8">
+                            <p style="float: left;">
+                                <input class="with-gap" name="IndicadorAcaoCompromisso" type="radio" id="indAcaoCompromisso_S" value="S" checked/>
+                                <label style="margin-right: 25px" for="indAcaoCompromisso_S">Alterar somente este lançamento</label>
+                                
+                                <input class="with-gap" name="IndicadorAcaoCompromisso" type="radio" id="indAcaoCompromisso_P" value="P"/>
+                                <label for="indAcaoCompromisso_P">Alterar este e os próximos lançamentos vínculados</label>
+
+                                <input class="with-gap" name="IndicadorAcaoCompromisso" type="radio" id="indAcaoCompromisso_T" value="T"/>
+                                <label style="margin-bottom: 8px" for="indAcaoCompromisso_T">Alterar todos lançamentos vínculados</label>
+                            </p>
+                        </div>
                     </div>
-                    <div id="divComboPeriodoRepetir" class="col s3" style="display: none">
-                        <select class="browser-default" name="IdPeriodo" id="comboPeriodo">
-                            <option value="" disabled selected>Selecione periodo</option>
-                        </select>
-                    </div>
-                </div>
+                }
+
             </form>
         </div>
     </div>
     <div class="modal-footer" style="margin-top: -40px;">
-        <a href="javascript:void(0)" id="btnShowDivsRepetirLancamento" onclick="showDivsRepetirLancamento()" style="margin-left: 20px;"
-           class="btn-floating tooltipped left" data-position="top" data-delay="25"
-           data-tooltip="Repetir (Fixo/Parcelado)">
-            <i class="material-icons">repeat</i>
-        </a>
+        @if (!Model.IdCompromisso.HasValue)
+        {
+            <a href="javascript:void(0)" id="btnShowDivsRepetirLancamento" onclick="showDivsRepetirLancamento()" style="margin-left: 20px;"
+               class="btn-floating tooltipped left" data-position="top" data-delay="25"
+               data-tooltip="Repetir (Fixo/Parcelado)">
+                <i class="material-icons">repeat</i>
+            </a>
+        }
+        
         <a href="javascript:void(0)" onclick="cadastrarEditarLancamento()" style="color: green" class="modal-action waves-effect waves-green btn-flat">Confirmar</a>
         <a href="javascript:void(0)" style="color: red" class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</a>
     </div>

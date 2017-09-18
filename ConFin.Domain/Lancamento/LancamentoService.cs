@@ -179,6 +179,48 @@ namespace ConFin.Domain.Lancamento
                 _lancamentoRepository.CommitTransaction();
         }
 
+        public void Put(LancamentoDto lancamento)
+        {
+            if (!lancamento.IdCompromisso.HasValue || lancamento.IndicadorAcaoCompromisso == "S")
+            {
+                _lancamentoRepository.Put(lancamento);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(lancamento.IndicadorAcaoCompromisso))
+            {
+                _notification.Add("Não foi passado a forma que serão alterados os lançamentos fixo/parcelado que estão vínculados");
+                return;
+            }
+
+            if (!new List<string> {"P", "T"}.Contains(lancamento.IndicadorAcaoCompromisso))
+            {
+                _notification.Add("Foi passado uma forma de alteração de lançamentos fixo/parcelado inválida, ");
+                return;
+            }
+
+            // busca todos lançamentos vínvulados posteriores ao atual;
+            var lancamentos = _compromissoRepository.GetCompromissoLancamentos((int)lancamento.IdCompromisso).ToList();
+            var dataAnteriorLancamento = lancamentos.First(x => x.IdLancamento == lancamento.Id).DataLancamento;
+            var diferenciaDias = (lancamento.Data - dataAnteriorLancamento).TotalDays;
+
+            _lancamentoRepository.OpenTransaction();
+
+            // caso o IndicadorAcaoCompromisso == "P" altera somente este e os próximos lançamentos vínculados
+            if (lancamento.IndicadorAcaoCompromisso == "P")
+                lancamentos = lancamentos.Where(x => x.IdLancamento >= lancamento.Id).ToList();
+
+            foreach (var lanc in lancamentos)
+            {
+                lancamento.Data = lanc.DataLancamento.AddDays(diferenciaDias);
+                lancamento.Id = lanc.IdLancamento;
+                _lancamentoRepository.Put(lancamento);
+            }
+
+            _lancamentoRepository.CommitTransaction();
+
+        }
+
         private static DateTime AddDate(DateTime dataAtual, PeriodoDto periodo)
         {
             switch (periodo.IndicadorDiaMes)

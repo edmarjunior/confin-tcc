@@ -9,5 +9,6 @@ namespace ConFin.Domain.Lancamento
         void Post(LancamentoDto lancamento);
         void Post(IEnumerable<LancamentoDto> lancamentos);
         void Delete(int idLancamento, string indTipoDelete);
+        void Put(LancamentoDto lancamento);
     }
 }
