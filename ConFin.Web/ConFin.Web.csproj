@@ -224,6 +224,7 @@
     <None Include="Properties\PublishProfiles\confin - Web Deploy.pubxml" />
     <Content Include="Views\Chat\Index.cshtml" />
     <Content Include="Views\Lancamento\_ModalImportacaoLancamento.cshtml" />
+    <Content Include="Views\Usuario\_ModalDadosUsuario.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

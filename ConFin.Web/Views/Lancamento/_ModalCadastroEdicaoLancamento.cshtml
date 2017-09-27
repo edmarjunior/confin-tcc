@@ -141,7 +141,6 @@
 <script>
 
     $("#txtQtdParcelas").mask("000");
-
     $('#comboConta, #comboCategorias').material_select();
     $('#btnShowDivsRepetirLancamento').tooltip({ delay: 25 });
 
@@ -178,7 +177,6 @@
     $("input:radio[name=IndicadorReceitaDespesa]").change(function () {
         $("#spanMensagemIndicadorPgto").text("Já foi " + ($(this).val() == "R" ? "recebido" : "pago") + "?");
     });
-
 
     function showDivsRepetirLancamento() {
 

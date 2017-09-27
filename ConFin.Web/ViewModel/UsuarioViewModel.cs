@@ -1,10 +1,25 @@
 ﻿using ConFin.Common.Domain;
+using ConFin.Common.Domain.Dto;
 using System;
 
 namespace ConFin.Web.ViewModel
 {
     public class UsuarioViewModel
     {
+        public UsuarioViewModel()
+        {
+            
+        }
+
+        public UsuarioViewModel(UsuarioDto usuarioDto)
+        {
+            Id = usuarioDto.Id;
+            Nome = usuarioDto.Nome;
+            Email = usuarioDto.Email;
+            Senha = usuarioDto.Senha;
+            DataCadastro = usuarioDto.DataCadastro;
+        }
+
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
