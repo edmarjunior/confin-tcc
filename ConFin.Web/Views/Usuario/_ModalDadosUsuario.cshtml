@@ -1,4 +1,6 @@
-﻿@model ConFin.Web.ViewModel.UsuarioViewModel
+﻿@using System.Web.UI.WebControls
+@using ConFin.Common.Web.Extension
+@model ConFin.Web.ViewModel.UsuarioViewModel
 @{ Layout = null; }
 
 <div id="modalDadosUsuario" class="modal">
@@ -22,15 +24,15 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s4">
-                        <input id="txtSenhaAtual" type="text" class="validate" maxlength="50">
+                        <input id="txtSenhaAtual" name="Senha" type="password" class="validate" maxlength="50">
                         <label for="txtSenhaAtual">Senha atual</label>
                     </div>
                     <div class="input-field col s4">
-                        <input id="txtNovaSenha" type="text" class="validate" maxlength="50" name="Senha">
+                        <input id="txtNovaSenha" type="password" class="validate" maxlength="50" name="NovaSenha">
                         <label for="txtNovaSenha">Nova senha</label>
                     </div>
                     <div class="input-field col s4">
-                        <input id="txtConfirmarNovaSenha" type="text" class="validate" maxlength="50" name="ConfirmacaoSenha">
+                        <input id="txtConfirmarNovaSenha" type="password" class="validate" maxlength="50">
                         <label for="txtConfirmarNovaSenha">Confirmar nova senha</label>
                     </div>
                 </div>
@@ -40,16 +42,7 @@
     </div>
     
     <div class="modal-footer">
-        @*<a href="javascript:void(0)" id="btnShowDivsAlterarSenha" onclick="showDivsAlterarSenha()" style="margin-left: 20px;"
-           class="btn-floating tooltipped left" data-position="top" data-delay="25" data-tooltip="Alterar senha">
-            <i class="material-icons">vpn_key</i>
-        </a>
-        <a href="javascript:void(0)" id="btnDesativarUsuario" onclick="desativarUsuario()" style="margin-left: 20px;"
-           class="btn-floating tooltipped left red" data-position="top" data-delay="25" data-tooltip="Desativar perfil">
-            <i class="material-icons">block</i>
-        </a>*@
-        
-        <a href="javascript:void(0)" onclick="cadastrarEditarConta()" style="color: green" class="modal-action waves-effect waves-green btn-flat">Confirmar</a>
+        <a href="javascript:void(0)" onclick="editarPerfilUsuario()" style="color: green" class="modal-action waves-effect waves-green btn-flat">Confirmar</a>
         <a href="javascript:void(0)" style="color: red" class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</a>
     </div>
 </div>
@@ -58,22 +51,35 @@
 
     $('#btnShowDivsAlterarSenha, #btnDesativarUsuario').tooltip({ delay: 25 });
 
+    var urlPutPerfil = '@Url.Action("Put", "Usuario")';
 
+    function editarPerfilUsuario() {
+        $('.toast').remove();
 
-    //function cadastrarEditarConta() {
-    //    $('.toast').remove();
-    //    $.toast({ condition: !$("#comboTiposConta").val(), message: "Favor preencher o campo Tipo" });
-    //    isFieldEmpty($("#txtNomeConta, #txtSaldoInicialConta"));
+        isFieldEmpty($("#txtNomeUsuario, #txtEmailUsuario"));
 
-    //    if ($('.toast').length)
-    //        return false;
+        $.toast({
+            condition: !!$("#txtSenhaAtual").val() && !$("#txtNovaSenha").val() && !$("#txtConfirmarNovaSenha").val(),
+            message: "Caso deseje redefinir a senha, favor informar os nova senha e confirmar nova senha"
+        });
 
-    //    $.post(urlPostPut, $("#formContaCadastroEdicao").toObject()).success(function (message) {
-    //        $("#modalContaCadastroEdicao").modal("close");
-    //        $.toast({ message: message, type: "success" });
-    //        atualizarContas();
-    //        verificaOpcaoMenuTransferencia();
-    //    });
-    //}
+        if (!!$("#txtNovaSenha").val() || !!$("#txtConfirmarNovaSenha").val()) {
+            $.toast({ condition: !$("#txtSenhaAtual").val(), message: "Favor preencher o campo Senha atual caso queira redefini-la" });
+            $.toast({ condition: !$("#txtConfirmarNovaSenha").val(), message: "Favor preencher o campo Confirmar nova senha caso queira redefini-la" });
+            $.toast({ condition: !$("#txtNovaSenha").val(), message: "Favor preencher o campo Nova senha caso queira redefinir sua senha" });
+            $.toast({
+                condition: !!$("#txtNovaSenha").val() && !!$("#txtConfirmarNovaSenha").val() && $("#txtNovaSenha").val() != $("#txtConfirmarNovaSenha").val(),
+                message: "Os campos de Nova Senha estão diferentes"
+            });
+        }
+
+        if ($('.toast').length)
+            return false;
+
+        $.post(urlPutPerfil, $("#formDadosUsuario").toObject()).success(function (message) {
+            $("#modalDadosUsuario").modal("close");
+            $.toast({ message: message, type: "success" });
+        });
+    }
 
 </script>

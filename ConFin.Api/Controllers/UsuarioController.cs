@@ -1,4 +1,5 @@
 ﻿using ConFin.Common.Domain;
+using ConFin.Common.Domain.Dto;
 using ConFin.Domain.Usuario;
 using System.Net;
 using System.Web.Http;
@@ -35,5 +36,15 @@ namespace ConFin.Api.Controllers
 
             return Content(HttpStatusCode.BadRequest, _notification.Get);
         }
+
+        public IHttpActionResult Put(UsuarioDto usuario)
+        {
+            _usuarioService.Put(usuario);
+            if (!_notification.Any)
+                return Ok();
+
+            return Content(HttpStatusCode.BadRequest, _notification.Get);
+        }
+
     }
 }

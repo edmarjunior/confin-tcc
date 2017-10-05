@@ -37,10 +37,10 @@
 
     function showModalUsuario() {
 
-        $.get(urlModalUsuario).success(function (data) {
+        $.get(urlModalUsuario).success(function(data) {
             $("#containerPrincipal").append(data);
             $('#modalDadosUsuario').modal({
-                complete: function () {
+                complete: function() {
                     $('#modalDadosUsuario').remove();
                     removeToastsError();
                 }

@@ -7,5 +7,7 @@ namespace ConFin.Domain.Usuario
     {
         UsuarioDto Get(int id);
         void PutSenha(int id, string novaSenha);
+        void Put(UsuarioDto usuario);
+        bool SenhaCorreta(int idUsuario, string senha);
     }
 }

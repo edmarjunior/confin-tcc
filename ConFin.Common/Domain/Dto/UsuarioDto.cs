@@ -9,6 +9,7 @@ namespace ConFin.Common.Domain.Dto
         public string Email { get; set; }
         public string Senha { get; set; }
         public string ConfirmacaoSenha { get; set; }
+        public string NovaSenha { get; set; }
         public DateTime DataCadastro { get; set; }
 
         public DateTime? DataConfirmCadastro { get; set; }

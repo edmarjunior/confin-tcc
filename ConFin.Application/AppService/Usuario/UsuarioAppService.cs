@@ -1,4 +1,5 @@
 ﻿using ConFin.Common.Application;
+using ConFin.Common.Domain.Dto;
 using System.Net.Http;
 
 namespace ConFin.Application.AppService.Usuario
@@ -17,6 +18,11 @@ namespace ConFin.Application.AppService.Usuario
         public HttpResponseMessage PutSenha(int id, string token, string novaSenha)
         {
             return PutRequest("PutSenha", null, new { id, token, novaSenha });
+        }
+
+        public HttpResponseMessage Put(UsuarioDto usuario)
+        {
+            return PutRequest(usuario);
         }
     }
 }

@@ -20,7 +20,9 @@ namespace ConFin.Repository
         private enum Procedures
         {
             SP_SelUsuario,
-            SP_UpdUsuarioSenha
+            SP_UpdUsuarioSenha,
+            SP_UpdUsuario,
+            FNC_VerificaSenhaUsuarioCorreta
         }
 
         public UsuarioDto Get(int id)
@@ -55,6 +57,23 @@ namespace ConFin.Repository
             AddParameter("Id", id);
             AddParameter("NovaSenha", novaSenha);
             ExecuteNonQuery();
+        }
+
+        public void Put(UsuarioDto usuario)
+        {
+            ExecuteProcedure(Procedures.SP_UpdUsuario);
+            AddParameter("Id", usuario.Id);
+            AddParameter("Nome", usuario.Nome);
+            AddParameter("Email", usuario.Email);
+            ExecuteNonQuery();
+        }
+
+        public bool SenhaCorreta(int idUsuario, string senha)
+        {
+            ExecuteProcedure(Procedures.FNC_VerificaSenhaUsuarioCorreta);
+            AddParameter("Id", idUsuario);
+            AddParameter("Senha", senha);
+            return ExecuteNonQueryWithReturn<string>() == "S";
         }
     }
 }

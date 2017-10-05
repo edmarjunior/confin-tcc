@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace ConFin.Web.Controllers
 {
-    public class UsuarioController: BaseController
+    public class UsuarioController : BaseController
     {
         private readonly IUsuarioAppService _usuarioAppService;
 
@@ -34,5 +34,20 @@ namespace ConFin.Web.Controllers
                 return Error($"Erro ao abrir tela com os dados do usuário: {ex.Message}");
             }
         }
+
+        public ActionResult Put(UsuarioDto usuario)
+        {
+            try
+            {
+                usuario.Id = UsuarioLogado.Id;
+                var response = _usuarioAppService.Put(usuario);
+                return response.IsSuccessStatusCode ? Ok("Dados do Perfil alterado com sucesso!") : Error(response);
+            }
+            catch (Exception ex)
+            {
+                return Error($"Erro ao alterar os dados do perfil: {ex.Message}");
+            }
+        }
+
     }
 }

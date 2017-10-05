@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using ConFin.Common.Domain.Dto;
+using System.Net.Http;
 
 namespace ConFin.Application.AppService.Usuario
 {
@@ -6,5 +7,6 @@ namespace ConFin.Application.AppService.Usuario
     {
         HttpResponseMessage Get(int id);
         HttpResponseMessage PutSenha(int id, string token, string novaSenha);
+        HttpResponseMessage Put(UsuarioDto usuario);
     }
 }
