@@ -25,10 +25,11 @@ namespace ConFin.Repository
             FNC_VerificaSenhaUsuarioCorreta
         }
 
-        public UsuarioDto Get(int id)
+        public UsuarioDto Get(int? id = null, string email = null)
         {
             ExecuteProcedure(Procedures.SP_SelUsuario);
             AddParameter("Id", id);
+            AddParameter("Email", email);
 
             using (var reader = ExecuteReader())
             {

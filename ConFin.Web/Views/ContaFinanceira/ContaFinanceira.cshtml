@@ -30,6 +30,9 @@
                         <td>@conta.ValorSaldoInicialFormat</td>
                         <td>@conta.ValorSaldoAtual</td>
                         <td class="center-align">
+                            <a title="Compartilhar conta" style="color: blue" href="javascript:void(0)" onclick="getModalContaConjunta(@conta.Id)">
+                                <i class="material-icons">share</i>
+                            </a>
                             <a title="Excluir conta" style="color: crimson" href="javascript:void(0)" onclick="deleteConta(@conta.Id)">
                                 <i class="material-icons">delete_forever</i>
                             </a>
@@ -59,17 +62,20 @@
 
 <script>
 
-    // atualizando o resumo de lançamentos (previstos e realizados)
-    var urlResumoFinanceiro = '@Url.Action("GetResumoLancamento", "Lancamento")';
-    sendAjaxAtualizaResumoGeral(urlResumoFinanceiro);
-
     var urlsConta = {
         ContaFinanceira: '@Url.Action("ContaFinanceira", "ContaFinanceira")',
         GetModalCadastroEdicao: '@Url.Action("GetModalCadastroEdicao", "ContaFinanceira")',
         Post: '@Url.Action("Post", "ContaFinanceira")',
         Put: '@Url.Action("Put", "ContaFinanceira")',
-        Delete: '@Url.Action("Delete", "ContaFinanceira")'
+        Delete: '@Url.Action("Delete", "ContaFinanceira")',
+        ResumoFinanceiro: '@Url.Action("GetResumoLancamento", "Lancamento")',
+        PossuiOpcaoTransferencia: '@Url.Action("PossuiOpcaoTransferencia", "Transferencia")',
+        Transferencia: '@Url.Action("Transferencia", "Transferencia")',
+        GetModalContaConjunta: '@Url.Action("GetModalContaConjunta", "ContaFinanceira")'
     };
+
+    // atualizando o resumo de lançamentos (previstos e realizados)
+    sendAjaxAtualizaResumoGeral(urlsConta.ResumoFinanceiro);
 
     function showModalCadastroEdicao(idConta) {
         $.get(urlsConta.GetModalCadastroEdicao, {
@@ -88,8 +94,6 @@
     }
 
     function deleteConta(idConta) {
-
-
         showModalConfirm("Deseja realmente excluir esta conta?", function () {
             $.post(urlsConta.Delete, {
                 idConta: idConta
@@ -101,13 +105,15 @@
         });
     }
 
-    var urlPossuiOpcaoTransferencia = '@Url.Action("PossuiOpcaoTransferencia", "Transferencia")';
     function verificaOpcaoMenuTransferencia() {
-        $.get(urlPossuiOpcaoTransferencia).success(function (codigoRetorno) {
+        $.get(urlsConta.PossuiOpcaoTransferencia).success(function (codigoRetorno) {
             if (codigoRetorno == "1") {
 
                 if (!$("#opcaoTransferencia").length) {
-                    var opcao = '<li id="opcaoTransferencia" data-url="@Url.AbsoluteAction("Transferencia", "Transferencia")"><a class="waves-effect"><i class="material-icons">compare_arrows</i>Transferências</a></li>';
+                    var opcao = '<li id="opcaoTransferencia" data-url=' + urlsConta.Transferencia + '>' +
+                                    '<a class="waves-effect"><i class="material-icons">compare_arrows</i>Transferências</a>' +
+                                '</li>';
+
                     $("#menuLateral").append(opcao);
                 }
 
@@ -120,9 +126,6 @@
         });
     }
 
-
-
-
     function atualizarContas() {
         setTimeout(function () {
             $.get(urlsConta.ContaFinanceira).success(function (data) {
@@ -130,6 +133,22 @@
                 sendAjaxAtualizaResumoGeral(urlResumoFinanceiro);
             });
         }, 100);
+    }
+
+    function getModalContaConjunta(idConta) {
+        $.get(urlsConta.GetModalContaConjunta, {
+            idConta: idConta
+        }).success(function (data) {
+            $("#containerPrincipal").append(data);
+            $('#modalContaConjunta').modal({
+                complete: function () {
+                    $('#modalContaConjunta').remove();
+                    removeToastsError();
+                }
+            });
+            $("#modalContaConjunta").modal("open");
+            verifyLabelActive();
+        });
     }
 
 </script>

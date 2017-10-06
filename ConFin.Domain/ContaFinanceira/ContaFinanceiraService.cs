@@ -1,5 +1,6 @@
 ﻿using ConFin.Common.Domain;
 using ConFin.Common.Domain.Dto;
+using ConFin.Domain.Usuario;
 using System.Linq;
 
 namespace ConFin.Domain.ContaFinanceira
@@ -7,12 +8,14 @@ namespace ConFin.Domain.ContaFinanceira
     public class ContaFinanceiraService : IContaFinanceiraService
     {
         private readonly IContaFinanceiraRepository _contaFinanceiraRepository;
+        private readonly IUsuarioRepository _usuarioRepository;
         private readonly Notification _notification;
 
-        public ContaFinanceiraService(Notification notification, IContaFinanceiraRepository contaFinanceiraRepository)
+        public ContaFinanceiraService(Notification notification, IContaFinanceiraRepository contaFinanceiraRepository, IUsuarioRepository usuarioRepository)
         {
             _notification = notification;
             _contaFinanceiraRepository = contaFinanceiraRepository;
+            _usuarioRepository = usuarioRepository;
         }
 
         public void Post(ContaFinanceiraDto conta)
@@ -79,6 +82,38 @@ namespace ConFin.Domain.ContaFinanceira
         {
             if(!_contaFinanceiraRepository.PossuiVinculos(idConta))
                 _contaFinanceiraRepository.Delete(idUsuario, idConta);
+        }
+
+        public void PostConviteContaConjunta(int idConta, int idUsuarioEnvio, string emailUsuarioConvidado)
+        {
+            var usuario = _usuarioRepository.Get(null, emailUsuarioConvidado);
+
+            if (usuario == null)
+            {
+                _notification.Add("Não foi encontrado nenhum usuário com o e-mail informado.");
+                return;
+            }
+
+            var usuarioConvidado = _contaFinanceiraRepository.GetUsuarioContaConjunta(idConta, usuario.Id);
+
+            if (usuarioConvidado != null)
+            {
+                _notification.Add("O usuário já esta vinculado com esta conta");
+                return;
+            };
+            _contaFinanceiraRepository.PostConviteContaConjunta(idConta, idUsuarioEnvio, usuario.Id);
+        }
+
+        public void PutConviteContaConjunta(int idSolicitacao, int idUsuario, string indicadorAprovado)
+        {
+            _contaFinanceiraRepository.OpenTransaction();
+            _contaFinanceiraRepository.PutAprovaReprovaConviteContaConjunta(idSolicitacao, indicadorAprovado);
+
+            if (indicadorAprovado == "A")
+                _contaFinanceiraRepository.PostContaConjunta(idSolicitacao);
+
+            _contaFinanceiraRepository.CommitTransaction();
+
         }
     }
 }

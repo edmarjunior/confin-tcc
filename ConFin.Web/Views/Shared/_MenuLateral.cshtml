@@ -5,7 +5,9 @@
     <li><a class="waves-effect" href="@Url.AbsoluteAction("Home", "Home")"><i class="material-icons">home</i>Home</a></li>
     <li><div class="divider"></div></li>
     <li><a class="subheader">Opções Menu</a></li>
-    <li data-url="@Url.AbsoluteAction("ContaFinanceira", "ContaFinanceira")"><a class="waves-effect"><i class="material-icons">account_balance_wallet</i>Contas Financeira</a></li>
+    <li data-url="@Url.AbsoluteAction("ContaFinanceira", "ContaFinanceira")">
+        <a class="waves-effect"><i class="material-icons">account_balance_wallet</i>Contas Financeira</a>
+    </li>
     <li data-url="@Url.AbsoluteAction("Lancamento", "Lancamento")"><a class="waves-effect"><i class="material-icons">thumbs_up_down</i>Lançamentos</a></li>
     <li data-url="@Url.AbsoluteAction("LancamentoCategoria", "LancamentoCategoria")"><a class="waves-effect"><i class="material-icons">bookmark_border</i>Categorias Lançamento</a></li>
 
@@ -14,6 +16,7 @@
         <li id="opcaoTransferencia" data-url="@Url.AbsoluteAction("Transferencia", "Transferencia")"><a class="waves-effect"><i class="material-icons">compare_arrows</i>Transferências</a></li>
     }
 
+    <li data-url="@Url.AbsoluteAction("ContaFinanceira", "GetConviteContaConjunta")"><a class="waves-effect"><i class="material-icons">share</i>Convites Conta Conjunta</a></li>
 
 </ul>
 

@@ -173,6 +173,7 @@
     <Compile Include="Controllers\LancamentoController.cs" />
     <Compile Include="Controllers\TransferenciaController.cs" />
     <Compile Include="Hubs\Chat.cs" />
+    <Compile Include="ViewModel\ContaConjuntaSolicitacaoViewModel.cs" />
     <Compile Include="ViewModel\Home\HomeViewModel.cs" />
     <Compile Include="ViewModel\Home\LancamentoResumoGeralViewModel.cs" />
     <Compile Include="ViewModel\Lancamento\LancamentoMasterViewModel.cs" />
@@ -184,6 +185,7 @@
     <Compile Include="ViewModel\ContaFinanceiraViewModel.cs" />
     <Compile Include="ViewModel\Lancamento\LancamentoViewModel.cs" />
     <Compile Include="ViewModel\TransferenciaViewModel.cs" />
+    <Compile Include="ViewModel\UsuarioContaConjuntaViewModel.cs" />
     <Compile Include="ViewModel\UsuarioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -225,6 +227,8 @@
     <Content Include="Views\Chat\Index.cshtml" />
     <Content Include="Views\Lancamento\_ModalImportacaoLancamento.cshtml" />
     <Content Include="Views\Usuario\_ModalDadosUsuario.cshtml" />
+    <Content Include="Views\ContaFinanceira\_ModalContaConjunta.cshtml" />
+    <Content Include="Views\ContaFinanceira\ContaConjunta.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

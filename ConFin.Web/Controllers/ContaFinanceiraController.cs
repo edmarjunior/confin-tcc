@@ -131,5 +131,71 @@ namespace ConFin.Web.Controllers
                 return Error(ex.Message);
             }
         }
+
+        public ActionResult GetModalContaConjunta(int idConta)
+        {
+            try
+            {
+                var response = _contaFinanceiraAppService.GetUsuariosContaConjunta(idConta);
+                if (!response.IsSuccessStatusCode)
+                    return Error(response);
+
+                var usuariosContaConjunta = JsonConvert.DeserializeObject<IEnumerable<UsuarioContaConjuntaDto>>(response.Content.ReadAsStringAsync().Result);
+                ViewBag.IdConta = idConta;
+                return View("_ModalContaConjunta", usuariosContaConjunta.Select(x => new UsuarioContaConjuntaViewModel(x)));
+
+            }
+            catch (Exception ex)
+            {
+                return Error(ex.Message);
+            }
+        }
+
+        public ActionResult PostConviteContaConjunta(int idConta, string emailUsuarioConvidado)
+        {
+            try
+            {
+                var response = _contaFinanceiraAppService.PostConviteContaConjunta(idConta, UsuarioLogado.Id, emailUsuarioConvidado);
+                return response.IsSuccessStatusCode
+                    ? Ok("Convite enviado com sucesso! Assim que o usuário aceitar, a conta será compartilhada")
+                    : Error(response);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex.Message);
+            }
+        }
+
+        public ActionResult GetConviteContaConjunta()
+        {
+            try
+            {
+                var response = _contaFinanceiraAppService.GetConviteContaConjunta(UsuarioLogado.Id);
+                if (!response.IsSuccessStatusCode)
+                    return Error(response);
+
+                var solicitacoes = JsonConvert.DeserializeObject<IEnumerable<ContaConjuntaSolicitacaoDto>>(response.Content.ReadAsStringAsync().Result);
+                return View("ContaConjunta", solicitacoes.Select(x => new ContaConjuntaSolicitacaoViewModel(x)));
+            }
+            catch (Exception ex)
+            {
+                return Error(ex.Message);
+            }
+        }
+
+        public ActionResult PutConviteContaConjunta(int idSolicitacao, string indicadorAprovado)
+        {
+            try
+            {
+                var response = _contaFinanceiraAppService.PutConviteContaConjunta(idSolicitacao, UsuarioLogado.Id, indicadorAprovado);
+                return response.IsSuccessStatusCode
+                    ? Ok($"Convite {(indicadorAprovado == "A" ? "Aprovado" : "Rejeitado")} com sucesso")
+                    : Error(response);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex.Message);
+            }
+        }
     }
 }

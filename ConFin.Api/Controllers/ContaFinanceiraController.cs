@@ -49,5 +49,28 @@ namespace ConFin.Api.Controllers
 
             return Content(HttpStatusCode.BadRequest, _notification.Get);
         }
+
+        public IHttpActionResult PostConviteContaConjunta(int idConta, int idUsuarioEnvio, string emailUsuarioConvidado)
+        {
+            _contaFinanceiraService.PostConviteContaConjunta(idConta, idUsuarioEnvio, emailUsuarioConvidado);
+            if (!_notification.Any)
+                return Ok();
+
+            return Content(HttpStatusCode.BadRequest, _notification.Get);
+        }
+
+        public IHttpActionResult GetConviteContaConjunta(int idUsuario) => Ok(_contaFinanceiraRepository.GetConviteContaConjunta(idUsuario));
+
+        public IHttpActionResult GetUsuariosContaConjunta(int idConta) => Ok(_contaFinanceiraRepository.GetUsuariosContaConjunta(idConta));
+
+        public IHttpActionResult PutConviteContaConjunta(int idSolicitacao, int idUsuario, string indicadorAprovado)
+        {
+            _contaFinanceiraService.PutConviteContaConjunta(idSolicitacao, idUsuario, indicadorAprovado);
+            if (!_notification.Any)
+                return Ok();
+
+            return Content(HttpStatusCode.BadRequest, _notification.Get);
+        }
+
     }
 }
