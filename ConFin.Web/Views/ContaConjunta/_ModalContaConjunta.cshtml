@@ -12,20 +12,38 @@
             
         </div>
     </div>
-    <div class="modal-footer" style="margin-left:10px !important; width: 97% !important">
-        <div class="row">
-            <div class="input-field col s11">
-                <input id="txtEmailUsuarioContaConjunta" type="email" maxlength="150">
-                <label for="txtEmailUsuarioContaConjunta">Digite um e-mail abaixo para convidar um usuário a participar desta conta </label>
-            </div>
-            <div class="input-field col s1">
-                <a href="javascript:void(0)" id="btnEnviaConviteContaConjunta" onclick="enviarConviteContaConjunta()" class="btn-floating tooltipped left"
-                   data-position="top" data-delay="25" data-tooltip="Enviar convite para compartilhar conta">
-                    <i class="material-icons">send</i>
-                </a>
+    @if (ViewBag.IndicadorProprietarioConta == "S")
+    {
+        <div class="modal-footer" style="margin-left: 10px !important; width: 97% !important">
+            <div class="row">
+                <div class="input-field col s11">
+                    <input id="txtEmailUsuarioContaConjunta" type="email" maxlength="150">
+                    <label for="txtEmailUsuarioContaConjunta">Digite um e-mail abaixo para convidar um usuário a participar desta conta </label>
+                </div>
+                <div class="input-field col s1">
+                    <a href="javascript:void(0)" id="btnEnviaConviteContaConjunta" onclick="enviarConviteContaConjunta()" class="btn-floating tooltipped left"
+                       data-position="top" data-delay="25" data-tooltip="Enviar convite para compartilhar conta">
+                        <i class="material-icons">send</i>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
+    }
+    else
+    {
+        <div id="divRadiosCompromisso" class="modal-footer" >
+            <div class="row" style="background-color: lavender; text-align: center;">
+
+                <div class="col s12">
+                    <p>
+                        Somente o proprietário desta conta pode excluir ou cadastrar novos usuários,
+                        porém você pode visualizar todos os usuários que estão sendo compartilhados
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+
 </div>
 
 <script>
@@ -38,10 +56,13 @@
         deletar: '@Url.Action("Delete", "ContaConjunta")'
     }
 
+    var indicadorProprietarioConta = '@ViewBag.IndicadorProprietarioConta';
+
     var atualizaGridUsuarios = (function fn() {
 
         $.get(urlContaConjunta.getGridUsuarios, {
-            idConta: $("#hdnIdConta").val()
+            idConta: $("#hdnIdConta").val(),
+            indicadorProprietarioConta: indicadorProprietarioConta
         }).success(function(data) {
             $("#divTableUsuariosContaConjunta").html(data);
         });

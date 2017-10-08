@@ -55,11 +55,12 @@ namespace ConFin.Web.Controllers
 
         // métodos utilizados na tela de Contas Financeira
 
-        public ActionResult GetModalContaConjunta(int idConta)
+        public ActionResult GetModalContaConjunta(int idConta, string indicadorProprietarioConta)
         {
             try
             {
                 ViewBag.IdConta = idConta;
+                ViewBag.IndicadorProprietarioConta = indicadorProprietarioConta;
                 return View("_ModalContaConjunta");
 
             }
@@ -69,7 +70,7 @@ namespace ConFin.Web.Controllers
             }
         }
 
-        public ActionResult GetGridUsuarios(int idConta)
+        public ActionResult GetGridUsuarios(int idConta, string indicadorProprietarioConta)
         {
             try
             {
@@ -79,7 +80,7 @@ namespace ConFin.Web.Controllers
 
                 var usuariosContaConjunta = JsonConvert.DeserializeObject<IEnumerable<ContaConjuntaDto>>(response.Content.ReadAsStringAsync().Result);
                 ViewBag.IdConta = idConta;
-                return View("_GridUsuariosContaConjunta", usuariosContaConjunta.Select(x => new ContaConjuntaViewModel(x)));
+                return View("_GridUsuariosContaConjunta", usuariosContaConjunta.Select(x => new ContaConjuntaViewModel(x, indicadorProprietarioConta, UsuarioLogado.Id)));
 
             }
             catch (Exception ex)

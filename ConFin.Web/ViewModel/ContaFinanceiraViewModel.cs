@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ConFin.Web.ViewModel
 {
-    public class ContaFinanceiraViewModel: DataManut
+    public class ContaFinanceiraViewModel : DataManut
     {
         public ContaFinanceiraViewModel(IEnumerable<ContaFinanceiraTipoDto> tiposConta)
         {
@@ -28,6 +28,8 @@ namespace ConFin.Web.ViewModel
             IdUsuarioUltimaAlteracao = model.IdUsuarioUltimaAlteracao;
             NomeUsuarioUltimaAlteracao = model.NomeUsuarioUltimaAlteracao;
             DataUltimaAlteracao = model.DataUltimaAlteracao;
+            IndicadorContaConjunta = model.IndicadorContaConjunta;
+            IndicadorProprietarioConta = model.IndicadorProprietarioConta;
             TiposConta = tiposConta;
         }
 
@@ -38,10 +40,20 @@ namespace ConFin.Web.ViewModel
         public decimal? ValorSaldoInicial { get; set; }
         public string Descricao { get; set; }
         public decimal? Saldo { get; set; }
+        public string IndicadorContaConjunta { get; set; }
+        public string IndicadorProprietarioConta { get; set; }
 
         public string ValorSaldoInicialFormat => ValorSaldoInicial.ToMoney("0,00");
         public string ValorSaldoAtual => Saldo.ToMoney("0,00");
 
+
+        public string ColorContaConjunta => string.IsNullOrEmpty(IndicadorContaConjunta)
+                                                ? "gray"
+                                                : IndicadorContaConjunta == "A" ? "limegreen" : "orange";
+
+        public string TitleContaConjunta => string.IsNullOrEmpty(IndicadorContaConjunta)
+                                               ? "Compartilhar conta"
+                                               : IndicadorContaConjunta == "A" ? "Conta Compartilhada" : "Possui solicitação Pendente";
 
         public IEnumerable<ContaFinanceiraTipoDto> TiposConta { get; set; }
     }

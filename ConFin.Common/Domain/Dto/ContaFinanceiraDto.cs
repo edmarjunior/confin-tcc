@@ -10,9 +10,10 @@ namespace ConFin.Common.Domain.Dto
         public string NomeTipo { get; set; }
         public decimal ValorSaldoInicial { get; set; }
         public string Descricao { get; set; }
+        public string IndicadorContaConjunta { get; set; }
+        public string IndicadorProprietarioConta { get; set; }
 
         // atributos não mapeados
         public decimal Saldo { get; set; }
-
     }
 }

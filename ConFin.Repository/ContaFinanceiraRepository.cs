@@ -25,11 +25,7 @@ namespace ConFin.Repository
             SP_InsContaFinanceira,
             SP_UpdContaFinanceira,
             SP_DelContaFinanceira,
-            FNC_ContaPossuiVinculos,
-            SP_SelContaConjuntaUsuarios,
-            SP_SelContaConjuntaSolicitacao,
-            SP_UpdAprovaReprovaContaConjuntaSolicitacao,
-            SP_InsContaConjunta
+            FNC_ContaPossuiVinculos
         }
 
         public IEnumerable<ContaFinanceiraDto> GetAll(int idUsuario)
@@ -47,7 +43,9 @@ namespace ConFin.Repository
                         NomeTipo = reader.ReadAttr<string>("NomeTipo"),
                         ValorSaldoInicial = reader.ReadAttr<decimal>("ValorSaldoInicial"),
                         Descricao = reader.ReadAttr<string>("Descricao"),
-                        Saldo = reader.ReadAttr<decimal>("Saldo")
+                        Saldo = reader.ReadAttr<decimal>("Saldo"),
+                        IndicadorContaConjunta = reader.ReadAttr<string>("IndicadorContaConjunta"),
+                        IndicadorProprietarioConta = reader.ReadAttr<string>("IndicadorProprietarioConta")
                     });
 
             return contas;

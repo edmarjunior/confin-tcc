@@ -28,6 +28,12 @@ namespace ConFin.Domain.ContaConjunta
                 return;
             }
 
+            if (usuario.Id == idUsuarioEnvio)
+            {
+                _notification.Add("O e-mail informado não pode ser o mesmo do usuário desta conta");
+                return;
+            }
+
             if (_contaConjuntaRepository.Get(null, idConta).Any(x => x.IdUsuarioConvidado == usuario.Id))
             {
                 _notification.Add("O usuário já esta vinculado com esta conta");

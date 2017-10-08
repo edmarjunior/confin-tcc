@@ -9,6 +9,23 @@ namespace ConFin.Web.ViewModel
             
         }
 
+        public ContaConjuntaViewModel(ContaConjuntaDto dto, string indicadorProprietarioConta, int idUsuarioLogado)
+        {
+            Id = dto.Id;
+            IdConta = dto.IdConta;
+            DataAnalise = dto.DataAnalise.HasValue ? $"{dto.DataAnalise:d}" : "";
+            DataCadastro = dto.DataCadastro.ToShortDateString();
+            IdUsuarioEnvio = dto.IdUsuarioEnvio;
+            NomeUsuarioEnvio = dto.NomeUsuarioEnvio;
+            IdUsuarioConvidado = dto.IdUsuarioConvidado;
+            NomeUsuarioConvidado = dto.NomeUsuarioConvidado;
+            EmailUsuarioConvidado = dto.EmailUsuarioConvidado;
+            IndicadorAprovado = dto.IndicadorAprovado;
+            EmailUsuarioEnvio = dto.EmailUsuarioEnvio;
+            NomeConta = dto.NomeConta;
+            PodeRemoverContaConjunta = indicadorProprietarioConta == "S" || idUsuarioLogado == IdUsuarioConvidado;
+        }
+
         public ContaConjuntaViewModel(ContaConjuntaDto dto)
         {
             Id = dto.Id;
@@ -37,6 +54,7 @@ namespace ConFin.Web.ViewModel
         public string IndicadorAprovado { get; set; }
         public string EmailUsuarioEnvio { get; set; }
         public string NomeConta { get; set; }
+        public bool PodeRemoverContaConjunta { get; set; }
 
         public string Status => string.IsNullOrEmpty(IndicadorAprovado)
                                     ? "Pendente"

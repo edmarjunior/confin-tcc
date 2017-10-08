@@ -24,9 +24,13 @@
                 <td>@item.DataAnalise</td>
                 <td>@item.Status</td>
                 <td class="center-align">
-                    <a title="Excluir usuário" style="color: crimson" href="javascript:void(0)" onclick="removerUsuarioContaConjunta(@item.Id)">
-                        <i class="material-icons">delete_forever</i>
-                    </a>
+                    @if (item.PodeRemoverContaConjunta)
+                    {
+                        <a title="Excluir usuário" style="color: crimson" href="javascript:void(0)" onclick="removerUsuarioContaConjunta(@item.Id)">
+                            <i class="material-icons">delete_forever</i>
+                        </a>
+                    }
+                    
                 </td>
             </tr>
         }
