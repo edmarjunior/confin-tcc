@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ConFin.Web.ViewModel.ContaConjuntaViewModel>
+@{ Layout = null;}
+
+<table class="striped" id="tableUsuariosContaConjunta">
+    <thead>
+    <tr>
+        <th>Nome</th>
+        <th>E-mail</th>
+        <th>Convidado em</th>
+        <th>Analisou em</th>
+        <th>Status</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.NomeUsuarioConvidado</td>
+                <td>@item.EmailUsuarioConvidado</td>
+                <td>@item.DataCadastro</td>
+                <td>@item.DataAnalise</td>
+                <td>@item.Status</td>
+                <td class="center-align">
+                    <a title="Excluir usuário" style="color: crimson" href="javascript:void(0)" onclick="removerUsuarioContaConjunta(@item.Id)">
+                        <i class="material-icons">delete_forever</i>
+                    </a>
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr><td style="text-align: center" colspan="6">Nenhum registro encontrado.</td></tr>
+    }
+
+    </tbody>
+</table>
+
+<script>
+
+
+    function removerUsuarioContaConjunta(idContaConjunta) {
+
+        if (!confirm("Deseja realmente excluir o usuário da conta?"))
+            return false;
+
+        $.post(urlContaConjunta.deletar, {
+            idContaConjunta: idContaConjunta
+        }).success(function(message) {
+            $.toast({ message: message, type: "success" });
+            atualizaGridUsuarios();
+        });
+    }
+
+</script>

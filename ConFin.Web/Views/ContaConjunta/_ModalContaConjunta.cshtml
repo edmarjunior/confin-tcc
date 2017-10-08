@@ -1,0 +1,73 @@
+﻿@{ Layout = null; }
+
+
+<div id="modalContaConjunta" class="modal" style="max-height: 90% !important; height: 80% !important">
+    <input type="hidden" id="hdnIdConta" value="@ViewBag.IdConta" />
+    <div class="modal-content">
+        <div class="section" style="text-align: center">
+            <h1 style="color: gray; font-size: 20pt;" class="caption">Compartilhamento de Conta</h1>
+            <div class="divider"></div>
+        </div>
+        <div class="row" id="divTableUsuariosContaConjunta">
+            
+        </div>
+    </div>
+    <div class="modal-footer" style="margin-left:10px !important; width: 97% !important">
+        <div class="row">
+            <div class="input-field col s11">
+                <input id="txtEmailUsuarioContaConjunta" type="email" maxlength="150">
+                <label for="txtEmailUsuarioContaConjunta">Digite um e-mail abaixo para convidar um usuário a participar desta conta </label>
+            </div>
+            <div class="input-field col s1">
+                <a href="javascript:void(0)" id="btnEnviaConviteContaConjunta" onclick="enviarConviteContaConjunta()" class="btn-floating tooltipped left"
+                   data-position="top" data-delay="25" data-tooltip="Enviar convite para compartilhar conta">
+                    <i class="material-icons">send</i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('select').material_select();
+    $('#btnEnviaConviteContaConjunta').tooltip({ delay: 25 });
+
+    var urlContaConjunta = {
+        getGridUsuarios: '@Url.Action("GetGridUsuarios", "ContaConjunta")',
+        post: '@Url.Action("Post", "ContaConjunta")',
+        deletar: '@Url.Action("Delete", "ContaConjunta")'
+    }
+
+    var atualizaGridUsuarios = (function fn() {
+
+        $.get(urlContaConjunta.getGridUsuarios, {
+            idConta: $("#hdnIdConta").val()
+        }).success(function(data) {
+            $("#divTableUsuariosContaConjunta").html(data);
+        });
+        return fn;
+
+    })();
+
+    function enviarConviteContaConjunta() {
+        $('.toast').remove();
+
+        isFieldEmpty($("#txtEmailUsuarioContaConjunta"));
+
+        if ($('.toast').length)
+            return false;
+
+        $.post(urlContaConjunta.post, {
+            idConta: $("#hdnIdConta").val(),
+            emailUsuarioConvidado: $("#txtEmailUsuarioContaConjunta").val()
+        }).success(function (message) {
+            $.toast({ message: message, type: "success" });
+            $("#txtEmailUsuarioContaConjunta").val("");
+            atualizaGridUsuarios();
+        });
+
+        return true;
+    }
+
+
+</script>

@@ -36,34 +36,5 @@ namespace ConFin.Application.AppService.ContaFinanceira
         {
             return DeleteRequest(new { idUsuario, idConta });
         }
-
-        public HttpResponseMessage PostConviteContaConjunta(int idConta, int idUsuarioEnvio, string emailUsuarioConvidado)
-        {
-            return PostRequest("PostConviteContaConjunta", null, new
-            {
-                idConta,
-                idUsuarioEnvio,
-                emailUsuarioConvidado
-            });
-
-        }
-
-        public HttpResponseMessage GetConviteContaConjunta(int idUsuario)
-        {
-            return GetRequest("GetConviteContaConjunta", new { idUsuario });
-        }
-
-        public HttpResponseMessage PutConviteContaConjunta(int idSolicitacao, int idUsuario, string indicadorAprovado)
-        {
-            return PutRequest("PutConviteContaConjunta", null, new
-            {
-                idSolicitacao, idUsuario, indicadorAprovado
-            });
-        }
-
-        public HttpResponseMessage GetUsuariosContaConjunta(int idConta)
-        {
-            return GetRequest("GetUsuariosContaConjunta", new { idConta });
-        }
     }
 }

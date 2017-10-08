@@ -1,0 +1,80 @@
+﻿@model IEnumerable<ConFin.Web.ViewModel.ContaConjuntaViewModel>
+@{ Layout = null; }
+
+<div class="container">
+    <div class="section" style="text-align: center">
+        <h1 style="color: gray; font-size: 20pt;" class="caption">Convites Conta Conjunta</h1>
+        <div class="divider"></div>
+    </div>
+
+    <table class="striped" id="tabelaSolicitacoesContaConjunta">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Enviado por</th>
+                <th>Compartilhar a Conta</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (Model != null && Model.Any(x => string.IsNullOrEmpty(x.DataAnalise)))
+            {
+                foreach (var item in Model.Where(x => string.IsNullOrEmpty(x.DataAnalise)))
+                {
+                    <tr>
+                        <td>@item.DataCadastro</td>
+                        <td>@item.EmailUsuarioEnvio</td>
+                        <td>@item.NomeConta</td>
+                        <td class="center-align">
+                            <a title="Aceitar" style="color: limegreen" href="javascript:void(0)" onclick="putContaConjunta(@item.Id, 'A')">
+                                <i class="material-icons">thumb_up</i>
+                            </a>
+                            <a title="Rejeitar" style="color: red" href="javascript:void(0)" onclick="putContaConjunta(@item.Id, 'R')">
+                                <i class="material-icons">thumb_down</i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td style="text-align: center" colspan="4">Nenhum registro encontrado.</td></tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    var urlsConviteContaConjunta = {
+        put: '@Url.Action("Put", "ContaConjunta")',
+        contaConjunta: '@Url.Action("ContaConjunta", "ContaConjunta")'
+
+    };
+
+    function putContaConjunta(idContaConjunta, indicadorAprovado) {
+
+        var msg = "Deseja realmente " + (indicadorAprovado == "A" ? "aceitar" : "recusar") + " compartilhar esta conta?";
+
+        showModalConfirm(msg, function () {
+            $.get(urlsConviteContaConjunta.put, {
+                idContaConjunta: idContaConjunta,
+                indicadorAprovado: indicadorAprovado
+            }).success(function (message) {
+                $.toast({ message: message, type: "success" });
+                atualizarContaConjunta();
+            });
+        });
+
+
+    }
+
+    function atualizarContaConjunta() {
+        $.get(urlsConviteContaConjunta.contaConjunta).success(function (data) {
+            $("#containerPrincipal").html(data);
+        });
+    }
+
+</script>

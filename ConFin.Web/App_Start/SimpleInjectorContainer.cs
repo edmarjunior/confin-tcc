@@ -1,4 +1,5 @@
-﻿using ConFin.Application.AppService.ContaFinanceira;
+﻿using ConFin.Application.AppService.ContaConjunta;
+using ConFin.Application.AppService.ContaFinanceira;
 using ConFin.Application.AppService.ContaFinanceiraTipo;
 using ConFin.Application.AppService.Lancamento;
 using ConFin.Application.AppService.LancamentoCategoria;
@@ -22,6 +23,7 @@ namespace ConFin.Web
             container.Register<ILancamentoCategoriaAppService, LancamentoCategoriaAppService>();
             container.Register<ILancamentoAppService, LancamentoAppService>();
             container.Register<ITransferenciaAppService, TransferenciaAppService>();
+            container.Register<IContaConjuntaAppService, ContaConjuntaAppService>();
 
             container.Verify();
             return container;

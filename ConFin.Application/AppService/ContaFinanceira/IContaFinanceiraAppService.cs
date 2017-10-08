@@ -10,9 +10,5 @@ namespace ConFin.Application.AppService.ContaFinanceira
         HttpResponseMessage Post(ContaFinanceiraDto conta);
         HttpResponseMessage Put(ContaFinanceiraDto conta);
         HttpResponseMessage Delete(int idUsuario, int idConta);
-        HttpResponseMessage PostConviteContaConjunta(int idConta, int idUsuarioEnvio, string emailUsuarioConvidado);
-        HttpResponseMessage GetConviteContaConjunta(int idUsuario);
-        HttpResponseMessage PutConviteContaConjunta(int idSolicitacao, int idUsuario, string indicadorAprovado);
-        HttpResponseMessage GetUsuariosContaConjunta(int idConta);
     }
 }

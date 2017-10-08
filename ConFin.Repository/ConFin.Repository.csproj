@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompromissoRepository.cs" />
+    <Compile Include="ContaConjuntaRepository.cs" />
     <Compile Include="ContaFinanceiraRepository.cs" />
     <Compile Include="ContaFinanceiraTipoRepository.cs" />
     <Compile Include="LancamentoCategoriaRepository.cs" />

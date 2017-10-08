@@ -12,11 +12,5 @@ namespace ConFin.Domain.ContaFinanceira
         void Put(ContaFinanceiraDto conta);
         void Delete(int idUsuario, int idConta);
         bool PossuiVinculos(int idConta);
-        IEnumerable<UsuarioContaConjuntaDto> GetUsuariosContaConjunta(int idConta);
-        UsuarioContaConjuntaDto GetUsuarioContaConjunta(int idConta, int idUsuarioConvidado);
-        void PostConviteContaConjunta(int idConta, int idUsuarioEnvio, int idUsuarioConvidado);
-        IEnumerable<ContaConjuntaSolicitacaoDto> GetConviteContaConjunta(int idUsuario);
-        void PutAprovaReprovaConviteContaConjunta(int idSolicitacao, string indicadorAprovado);
-        void PostContaConjunta(int idSolicitacao);
     }
 }

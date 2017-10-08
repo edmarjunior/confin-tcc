@@ -47,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppService\ContaConjunta\ContaConjuntaAppService.cs" />
+    <Compile Include="AppService\ContaConjunta\IContaConjuntaAppService.cs" />
     <Compile Include="AppService\ContaFinanceiraTipo\ContaFinanceiraTipoAppService.cs" />
     <Compile Include="AppService\ContaFinanceiraTipo\IContaFinanceiraTipoAppService.cs" />
     <Compile Include="AppService\ContaFinanceira\ContaFinanceiraAppService.cs" />
