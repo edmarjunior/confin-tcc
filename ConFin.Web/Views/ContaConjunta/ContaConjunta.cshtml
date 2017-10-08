@@ -27,10 +27,10 @@
                         <td>@item.EmailUsuarioEnvio</td>
                         <td>@item.NomeConta</td>
                         <td class="center-align">
-                            <a title="Aceitar" style="color: limegreen" href="javascript:void(0)" onclick="putContaConjunta(@item.Id, 'A')">
+                            <a title="Aceitar" style="color: limegreen" href="javascript:void(0)" onclick="putContaConjunta(@item.Id, @item.IdConta, 'A')">
                                 <i class="material-icons">thumb_up</i>
                             </a>
-                            <a title="Rejeitar" style="color: red" href="javascript:void(0)" onclick="putContaConjunta(@item.Id, 'R')">
+                            <a title="Rejeitar" style="color: red" href="javascript:void(0)" onclick="putContaConjunta(@item.Id, @item.IdConta, 'R')">
                                 <i class="material-icons">thumb_down</i>
                             </a>
                         </td>
@@ -54,14 +54,15 @@
 
     };
 
-    function putContaConjunta(idContaConjunta, indicadorAprovado) {
+    function putContaConjunta(idContaConjunta, idConta, indicadorAprovado) {
 
         var msg = "Deseja realmente " + (indicadorAprovado == "A" ? "aceitar" : "recusar") + " compartilhar esta conta?";
 
         showModalConfirm(msg, function () {
             $.get(urlsConviteContaConjunta.put, {
-                idContaConjunta: idContaConjunta,
-                indicadorAprovado: indicadorAprovado
+                Id: idContaConjunta,
+                IdConta: idConta,
+                IndicadorAprovado: indicadorAprovado
             }).success(function (message) {
                 $.toast({ message: message, type: "success" });
                 atualizarContaConjunta();

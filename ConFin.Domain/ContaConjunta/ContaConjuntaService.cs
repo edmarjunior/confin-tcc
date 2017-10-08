@@ -1,4 +1,5 @@
 ﻿using ConFin.Common.Domain;
+using ConFin.Common.Domain.Dto;
 using ConFin.Domain.Usuario;
 using System.Linq;
 
@@ -10,7 +11,6 @@ namespace ConFin.Domain.ContaConjunta
         private readonly IUsuarioRepository _usuarioRepository;
         private readonly Notification _notification;
 
-
         public ContaConjuntaService(IContaConjuntaRepository contaConjuntaRepository, IUsuarioRepository usuarioRepository, Notification notification)
         {
             _contaConjuntaRepository = contaConjuntaRepository;
@@ -18,9 +18,9 @@ namespace ConFin.Domain.ContaConjunta
             _notification = notification;
         }
 
-        public void Post(int idConta, int idUsuarioEnvio, string emailUsuarioConvidado)
+        public void Post(ContaConjuntaDto contaConjunta)
         {
-            var usuario = _usuarioRepository.Get(null, emailUsuarioConvidado);
+            var usuario = _usuarioRepository.Get(null, contaConjunta.EmailUsuarioConvidado);
 
             if (usuario == null)
             {
@@ -28,19 +28,31 @@ namespace ConFin.Domain.ContaConjunta
                 return;
             }
 
-            if (usuario.Id == idUsuarioEnvio)
+            if (usuario.Id == contaConjunta.IdUsuarioEnvio)
             {
                 _notification.Add("O e-mail informado não pode ser o mesmo do usuário desta conta");
                 return;
             }
 
-            if (_contaConjuntaRepository.Get(null, idConta).Any(x => x.IdUsuarioConvidado == usuario.Id))
+            if (_contaConjuntaRepository.Get(null, contaConjunta.IdConta).Any(x => x.IdUsuarioConvidado == usuario.Id))
             {
                 _notification.Add("O usuário já esta vinculado com esta conta");
                 return;
             }
 
-            _contaConjuntaRepository.Post(idConta, idUsuarioEnvio, usuario.Id);
+            contaConjunta.IdUsuarioConvidado = usuario.Id;
+            _contaConjuntaRepository.Post(contaConjunta);
+        }
+
+        public void Put(ContaConjuntaDto contaConjunta)
+        {
+            _contaConjuntaRepository.OpenTransaction();
+            _contaConjuntaRepository.Put(contaConjunta);
+
+            if(contaConjunta.IndicadorAprovado == "A" && !_contaConjuntaRepository.GetCategoria(contaConjunta.IdConta).Any())
+                _contaConjuntaRepository.PostCategorias(contaConjunta.IdConta);
+
+            _contaConjuntaRepository.CommitTransaction();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ConFin.Common.Domain;
+using ConFin.Common.Domain.Dto;
 using ConFin.Domain.ContaConjunta;
 using System.Net;
 using System.Web.Http;
@@ -21,9 +22,9 @@ namespace ConFin.Api.Controllers
 
         public IHttpActionResult Get(int? idUsuario, int? idConta = null) => Ok(_contaConjuntaRepository.Get(idUsuario, idConta));
 
-        public IHttpActionResult Post(int idConta, int idUsuarioEnvio, string emailUsuarioConvidado)
+        public IHttpActionResult Post(ContaConjuntaDto contaConjunta)
         {
-            _contaConjuntaService.Post(idConta, idUsuarioEnvio, emailUsuarioConvidado);
+            _contaConjuntaService.Post(contaConjunta);
             if (!_notification.Any)
                 return Ok();
 
@@ -39,9 +40,9 @@ namespace ConFin.Api.Controllers
             return Content(HttpStatusCode.BadRequest, _notification.Get);
         }
 
-        public IHttpActionResult Put(int idContaConjunta, string indicadorAprovado)
+        public IHttpActionResult Put(ContaConjuntaDto contaConjunta)
         {
-            _contaConjuntaRepository.Put(idContaConjunta, indicadorAprovado);
+            _contaConjuntaService.Put(contaConjunta);
             if (!_notification.Any)
                 return Ok();
 

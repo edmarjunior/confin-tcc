@@ -79,8 +79,8 @@
             return false;
 
         $.post(urlContaConjunta.post, {
-            idConta: $("#hdnIdConta").val(),
-            emailUsuarioConvidado: $("#txtEmailUsuarioContaConjunta").val()
+            IdConta: $("#hdnIdConta").val(),
+            EmailUsuarioConvidado: $("#txtEmailUsuarioContaConjunta").val()
         }).success(function (message) {
             $.toast({ message: message, type: "success" });
             $("#txtEmailUsuarioContaConjunta").val("");

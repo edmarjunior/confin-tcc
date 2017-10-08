@@ -36,13 +36,13 @@ namespace ConFin.Web.Controllers
             }
         }
 
-        public ActionResult Put(int idContaConjunta, string indicadorAprovado)
+        public ActionResult Put(ContaConjuntaDto contaConjunta)
         {
             try
             {
-                var response = _contaConjuntaAppService.Put(idContaConjunta, indicadorAprovado);
+                var response = _contaConjuntaAppService.Put(contaConjunta);
                 return response.IsSuccessStatusCode
-                    ? Ok($"Convite {(indicadorAprovado == "A" ? "Aprovado" : "Recusado")} com sucesso")
+                    ? Ok($"Convite {(contaConjunta.IndicadorAprovado == "A" ? "Aprovado" : "Recusado")} com sucesso")
                     : Error(response);
             }
             catch (Exception ex)
@@ -50,8 +50,6 @@ namespace ConFin.Web.Controllers
                 return Error(ex.Message);
             }
         }
-
-
 
         // métodos utilizados na tela de Contas Financeira
 
@@ -89,11 +87,12 @@ namespace ConFin.Web.Controllers
             }
         }
 
-        public ActionResult Post(int idConta, string emailUsuarioConvidado)
+        public ActionResult Post(ContaConjuntaDto contaConjunta)
         {
             try
             {
-                var response = _contaConjuntaAppService.Post(idConta, UsuarioLogado.Id, emailUsuarioConvidado);
+                contaConjunta.IdUsuarioEnvio = UsuarioLogado.Id;
+                var response = _contaConjuntaAppService.Post(contaConjunta);
                 return response.IsSuccessStatusCode
                     ? Ok("Convite enviado com sucesso! Assim que o usuário aceitar, a conta será compartilhada")
                     : Error(response);

@@ -19,7 +19,9 @@ namespace ConFin.Repository
             SP_SelContaConjunta,
             SP_InsContaConjunta,
             SP_DelContaConjunta,
-            SP_UpdContaConjunta
+            SP_UpdContaConjunta,
+            SP_SelContaConjuntaCategoria,
+            SP_InsContaConjuntaCategoria
         }
 
         public IEnumerable<ContaConjuntaDto> Get(int? idUsuario, int? idConta = null)
@@ -44,7 +46,8 @@ namespace ConFin.Repository
                         DataAnalise = reader.ReadAttr<DateTime?>("DataAnalise"),
                         IndicadorAprovado = reader.ReadAttr<string>("IndicadorAprovado"),
                         IdUsuarioConvidado = reader.ReadAttr<int>("IdUsuarioConvidado"),
-                        NomeConta = reader.ReadAttr<string>("NomeConta")
+                        NomeConta = reader.ReadAttr<string>("NomeConta"),
+                        IdConta = reader.ReadAttr<int>("IdConta")
                     });
                 }
 
@@ -52,12 +55,12 @@ namespace ConFin.Repository
             }
         }
 
-        public void Post(int idConta, int idUsuarioEnvio, int idUsuarioConvidado)
+        public void Post(ContaConjuntaDto contaConjunta)
         {
             ExecuteProcedure(Procedures.SP_InsContaConjunta);
-            AddParameter("IdConta", idConta);
-            AddParameter("IdUsuarioEnvio", idUsuarioEnvio);
-            AddParameter("IdUsuarioConvidado", idUsuarioConvidado);
+            AddParameter("IdConta", contaConjunta.IdConta);
+            AddParameter("IdUsuarioEnvio", contaConjunta.IdUsuarioEnvio);
+            AddParameter("IdUsuarioConvidado", contaConjunta.IdUsuarioConvidado);
             ExecuteNonQuery();
         }
 
@@ -68,13 +71,39 @@ namespace ConFin.Repository
             ExecuteNonQuery();
         }
 
-        public void Put(int idContaConjunta, string indicadorAprovado)
+        public void Put(ContaConjuntaDto contaConjunta)
         {
             ExecuteProcedure(Procedures.SP_UpdContaConjunta);
-            AddParameter("Id", idContaConjunta);
-            AddParameter("IndicadorAprovado", indicadorAprovado);
+            AddParameter("Id", contaConjunta.Id);
+            AddParameter("IndicadorAprovado", contaConjunta.IndicadorAprovado);
             ExecuteNonQuery();
         }
 
+        public IEnumerable<LancamentoCategoriaDto> GetCategoria(int idConta)
+        {
+            ExecuteProcedure(Procedures.SP_SelContaConjuntaCategoria);
+            AddParameter("IdConta", idConta);
+            var categorias = new List<LancamentoCategoriaDto>();
+            using (var reader = ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    categorias.Add(new LancamentoCategoriaDto
+                    {
+                        Id = reader.ReadAttr<int>("Id"),
+                        Nome = reader.ReadAttr<string>("Nome")
+                    });
+                }
+
+                return categorias;
+            }
+        }
+
+        public void PostCategorias(int idConta)
+        {
+            ExecuteProcedure(Procedures.SP_InsContaConjuntaCategoria);
+            AddParameter("IdConta", idConta);
+            ExecuteNonQuery();
+        }
     }
 }

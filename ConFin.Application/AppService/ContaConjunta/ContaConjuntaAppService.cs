@@ -1,4 +1,5 @@
 ﻿using ConFin.Common.Application;
+using ConFin.Common.Domain.Dto;
 using System.Net.Http;
 
 namespace ConFin.Application.AppService.ContaConjunta
@@ -14,14 +15,9 @@ namespace ConFin.Application.AppService.ContaConjunta
             return GetRequest(new { idUsuario, idConta });
         }
 
-        public HttpResponseMessage Post(int idConta, int idUsuarioEnvio, string emailUsuarioConvidado)
+        public HttpResponseMessage Post(ContaConjuntaDto contaConjunta)
         {
-            return PostRequest("Post", null, new
-            {
-                idConta,
-                idUsuarioEnvio,
-                emailUsuarioConvidado
-            });
+            return PostRequest("Post", contaConjunta);
 
         }
 
@@ -30,13 +26,9 @@ namespace ConFin.Application.AppService.ContaConjunta
             return DeleteRequest(new { idContaConjunta });
         }
 
-        public HttpResponseMessage Put(int idContaConjunta, string indicadorAprovado)
+        public HttpResponseMessage Put(ContaConjuntaDto contaConjunta)
         {
-            return PutRequest("Put", null, new
-            {
-                idContaConjunta,
-                indicadorAprovado
-            });
+            return PutRequest("Put", contaConjunta);
         }
 
     }
