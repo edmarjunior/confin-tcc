@@ -1,5 +1,6 @@
 ﻿using ConFin.Common.Domain;
 using ConFin.Common.Domain.Dto;
+using ConFin.Domain.LancamentoCategoria;
 using ConFin.Domain.Usuario;
 using System.Linq;
 
@@ -9,13 +10,15 @@ namespace ConFin.Domain.ContaConjunta
     {
         private readonly IContaConjuntaRepository _contaConjuntaRepository;
         private readonly IUsuarioRepository _usuarioRepository;
+        private readonly ILancamentoCategoriaRepository _lancamentoCategoriaRepository;
         private readonly Notification _notification;
 
-        public ContaConjuntaService(IContaConjuntaRepository contaConjuntaRepository, IUsuarioRepository usuarioRepository, Notification notification)
+        public ContaConjuntaService(IContaConjuntaRepository contaConjuntaRepository, IUsuarioRepository usuarioRepository, Notification notification, ILancamentoCategoriaRepository lancamentoCategoriaRepository)
         {
             _contaConjuntaRepository = contaConjuntaRepository;
             _usuarioRepository = usuarioRepository;
             _notification = notification;
+            _lancamentoCategoriaRepository = lancamentoCategoriaRepository;
         }
 
         public void Post(ContaConjuntaDto contaConjunta)
@@ -49,8 +52,22 @@ namespace ConFin.Domain.ContaConjunta
             _contaConjuntaRepository.OpenTransaction();
             _contaConjuntaRepository.Put(contaConjunta);
 
-            if(contaConjunta.IndicadorAprovado == "A" && !_contaConjuntaRepository.GetCategoria(contaConjunta.IdConta).Any())
-                _contaConjuntaRepository.PostCategorias(contaConjunta.IdConta);
+            if (contaConjunta.IndicadorAprovado != "A")
+            {
+                _contaConjuntaRepository.CommitTransaction();
+                return;
+            }
+
+            var categoriasConta = _lancamentoCategoriaRepository.GetCategoriasConta(contaConjunta.IdConta).ToList();
+            var categoriasContaConjunta = _contaConjuntaRepository.GetCategoria(contaConjunta.IdConta).ToList();
+
+            // insere as categorias que estão faltando ir para a tabela de categorias da conta conjunta
+            foreach (var categoria in categoriasConta.Where(x => categoriasContaConjunta.All(y => y.Id != x.Id)))
+                _contaConjuntaRepository.PostCategoria(contaConjunta.IdConta, categoria.Id);
+
+            // exclui as categorias que estão na tabela de "contas conjuntas categorias" que não estão sendo utilizadas
+            foreach (var categoriaContaConjunta in categoriasContaConjunta.Where(x => categoriasConta.All(y => y.Id != x.Id)))
+                _contaConjuntaRepository.DeleteCategoria(contaConjunta.IdConta, categoriaContaConjunta.Id);
 
             _contaConjuntaRepository.CommitTransaction();
         }

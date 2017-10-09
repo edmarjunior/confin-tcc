@@ -27,7 +27,8 @@ namespace ConFin.Repository
             SP_DelLancamentoCategoria,
             FNC_LancamentoCategoriaPossuiVinculos,
             SP_InsCategoriasIniciaisUsuario,
-            SP_SelInsIdLancamentoCategoria
+            SP_SelInsIdLancamentoCategoria,
+            SP_SelLancamentoCategoriasConta
         }
 
         public IEnumerable<LancamentoCategoriaDto> Get(int idUsuario)
@@ -72,6 +73,23 @@ namespace ConFin.Repository
                         DataUltimaAlteracao = reader.ReadAttr<DateTime?>("DataUltimaAlteracao")
                     };
             }
+        }
+
+        public IEnumerable<LancamentoCategoriaDto> GetCategoriasConta(int idConta)
+        {
+            ExecuteProcedure(Procedures.SP_SelLancamentoCategoriasConta);
+            AddParameter("IdConta", idConta);
+            var categorias = new List<LancamentoCategoriaDto>();
+            using (var reader = ExecuteReader())
+                while (reader.Read())
+                    categorias.Add(new LancamentoCategoriaDto
+                    {
+                        Id = reader.ReadAttr<int>("Id"),
+                        Nome = reader.ReadAttr<string>("Nome"),
+                        Cor = reader.ReadAttr<string>("Cor")
+                    });
+
+            return categorias;
         }
 
         public void Post(LancamentoCategoriaDto categoria)

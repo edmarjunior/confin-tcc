@@ -21,7 +21,9 @@ namespace ConFin.Repository
             SP_DelContaConjunta,
             SP_UpdContaConjunta,
             SP_SelContaConjuntaCategoria,
-            SP_InsContaConjuntaCategoria
+            SP_InsContaConjuntaCategorias,
+            SP_InsContaConjuntaCategoria,
+            SP_DelContaConjuntaCategoria
         }
 
         public IEnumerable<ContaConjuntaDto> Get(int? idUsuario, int? idConta = null)
@@ -101,8 +103,24 @@ namespace ConFin.Repository
 
         public void PostCategorias(int idConta)
         {
+            ExecuteProcedure(Procedures.SP_InsContaConjuntaCategorias);
+            AddParameter("IdConta", idConta);
+            ExecuteNonQuery();
+        }
+
+        public void PostCategoria(int idConta, int idCategoria)
+        {
             ExecuteProcedure(Procedures.SP_InsContaConjuntaCategoria);
             AddParameter("IdConta", idConta);
+            AddParameter("IdCategoria", idCategoria);
+            ExecuteNonQuery();
+        }
+
+        public void DeleteCategoria(int idConta, int idCategoria)
+        {
+            ExecuteProcedure(Procedures.SP_DelContaConjuntaCategoria);
+            AddParameter("IdConta", idConta);
+            AddParameter("IdCategoria", idCategoria);
             ExecuteNonQuery();
         }
     }

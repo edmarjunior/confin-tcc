@@ -12,5 +12,7 @@ namespace ConFin.Domain.ContaConjunta
         void Put(ContaConjuntaDto contaConjunta);
         IEnumerable<LancamentoCategoriaDto> GetCategoria(int idConta);
         void PostCategorias(int idConta);
+        void PostCategoria(int idConta, int idCategoria);
+        void DeleteCategoria(int idConta, int idCategoria);
     }
 }

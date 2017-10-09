@@ -7,6 +7,8 @@ namespace ConFin.Domain.LancamentoCategoria
     {
         IEnumerable<LancamentoCategoriaDto> Get(int idUsuario);
         LancamentoCategoriaDto Get(int idUsuario, int idCategoria);
+        IEnumerable<LancamentoCategoriaDto> GetCategoriasConta(int idConta);
+
         void Post(LancamentoCategoriaDto categoria);
         void Put(LancamentoCategoriaDto categoria);
         void Delete(int idUsuario, int idCategoria);

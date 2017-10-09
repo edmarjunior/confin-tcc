@@ -1,6 +1,7 @@
 ﻿using ConFin.Common.Domain;
 using ConFin.Common.Domain.Dto;
 using ConFin.Domain.Compromisso;
+using ConFin.Domain.ContaConjunta;
 using ConFin.Domain.LancamentoCategoria;
 using System;
 using System.Collections.Generic;
@@ -13,14 +14,16 @@ namespace ConFin.Domain.Lancamento
         private readonly ILancamentoRepository _lancamentoRepository;
         private readonly ICompromissoRepository _compromissoRepository;
         private readonly ILancamentoCategoriaRepository _lancamentoCategoriaRepository;
+        private readonly IContaConjuntaRepository _contaConjuntaRepository;
         private readonly Notification _notification;
 
-        public LancamentoService(Notification notification, ILancamentoRepository lancamentoRepository, ICompromissoRepository compromissoRepository, ILancamentoCategoriaRepository lancamentoCategoriaRepository)
+        public LancamentoService(Notification notification, ILancamentoRepository lancamentoRepository, ICompromissoRepository compromissoRepository, ILancamentoCategoriaRepository lancamentoCategoriaRepository, IContaConjuntaRepository contaConjuntaRepository)
         {
             _notification = notification;
             _lancamentoRepository = lancamentoRepository;
             _compromissoRepository = compromissoRepository;
             _lancamentoCategoriaRepository = lancamentoCategoriaRepository;
+            _contaConjuntaRepository = contaConjuntaRepository;
         }
 
         public IEnumerable<LancamentoDto> GetAll(int idUsuario, byte? mes = null, short? ano = null, int? idConta = null, int? idCategoria = null)
@@ -30,9 +33,15 @@ namespace ConFin.Domain.Lancamento
 
         public void Post(LancamentoDto lancamento)
         {
+            _lancamentoRepository.OpenTransaction();
+
+            // caso seja conta conjunta aprovada
+            AtualizaCategoriasContaConjunta(lancamento.IdConta, lancamento.IdCategoria);
+
             if (string.IsNullOrEmpty(lancamento.IndicadorFixoParcelado))
             {
                 _lancamentoRepository.Post(lancamento);
+                _lancamentoRepository.CommitTransaction();
                 return;
             }
 
@@ -51,7 +60,6 @@ namespace ConFin.Domain.Lancamento
                 return;
             }
 
-            _lancamentoRepository.OpenTransaction();
 
             var idCompromisso = _compromissoRepository.Post(new CompromissoDto
             {
@@ -181,9 +189,15 @@ namespace ConFin.Domain.Lancamento
 
         public void Put(LancamentoDto lancamento)
         {
+            _lancamentoRepository.OpenTransaction();
+
+            // caso seja conta conjunta aprovada
+            AtualizaCategoriasContaConjunta(lancamento.IdConta, lancamento.IdCategoria);
+
             if (!lancamento.IdCompromisso.HasValue || lancamento.IndicadorAcaoCompromisso == "S")
             {
                 _lancamentoRepository.Put(lancamento);
+                _lancamentoRepository.CommitTransaction();
                 return;
             }
 
@@ -204,7 +218,6 @@ namespace ConFin.Domain.Lancamento
             var dataAnteriorLancamento = lancamentos.First(x => x.IdLancamento == lancamento.Id).DataLancamento;
             var diferenciaDias = (lancamento.Data - dataAnteriorLancamento).TotalDays;
 
-            _lancamentoRepository.OpenTransaction();
 
             // caso o IndicadorAcaoCompromisso == "P" altera somente este e os próximos lançamentos vínculados
             if (lancamento.IndicadorAcaoCompromisso == "P")
@@ -228,6 +241,15 @@ namespace ConFin.Domain.Lancamento
                 case "D": return dataAtual.AddDays(periodo.Quantidade);
                 case "M": return dataAtual.AddMonths(periodo.Quantidade);
                 default: return dataAtual.AddMonths(periodo.Quantidade);
+            }
+        }
+
+        private void AtualizaCategoriasContaConjunta(int idConta, int idCategoria)
+        {
+            if (_contaConjuntaRepository.Get(null, idConta).Any(x => x.IndicadorAprovado == "A")
+               && _contaConjuntaRepository.GetCategoria(idConta).All(x => x.Id != idCategoria))
+            {
+                _contaConjuntaRepository.PostCategoria(idConta, idCategoria);
             }
         }
     }
