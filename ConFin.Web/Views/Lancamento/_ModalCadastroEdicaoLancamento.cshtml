@@ -37,7 +37,7 @@
                     </div>
                     <div class="col s6">
                         <label>Conta</label>
-                        <select class="browser-default" name="IdConta" id="comboConta">
+                        <select class="browser-default" name="IdConta" id="comboConta" onchange="filtraCategoria(this)">
                             <option value="" disabled selected>Selecione</option>
                             @foreach (var conta in Model.ContasFinanceira)
                             {
@@ -54,11 +54,11 @@
                     <div class="col s6">
                         <label>Categoria</label>
                         <select class="browser-default" name="IdCategoria" id="comboCategorias">
-                            <option value="" disabled selected>Selecione</option>
-                            @foreach (var categoria in Model.Categorias)
+                            <option data-selecione value="" disabled selected>Selecione</option>
+                            @*@foreach (var categoria in Model.Categorias)
                             {
                                 <option @(Model.IdCategoria == categoria.Id ? "selected" : string.Empty) value="@categoria.Id">@categoria.Nome</option>
-                            }
+                            }*@
                         </select>
                     </div>
                 </div>
@@ -145,6 +145,41 @@
     $('#btnShowDivsRepetirLancamento').tooltip({ delay: 25 });
 
     var urlPostPutLancamento = $("#hiddenIndicadorCadastroLancamento").val() == "S" ? urlsLancamento.Post : urlsLancamento.Put;
+    var urlCategorias = '@Url.Action("GetCategorias", "LancamentoCategoria")';
+
+    function filtraCategoria(btn, idCategoria) {
+
+        var idContaSelecionada = $(btn).val();
+        var idCategoriaAnterior = $("#comboCategorias").val();
+
+        $.get(urlCategorias, {
+            idConta: idContaSelecionada
+        }).success(function (json) {
+            $("#comboCategorias > option:not(option[data-selecione])").remove();
+
+            json.map(function(categoria) {
+                $("#comboCategorias").append("<option value='" + categoria.Id + "'>" + categoria.Nome + "</option>");
+            });
+
+            console.log(json.filter(function(item) { return item.Id == idCategoriaAnterior }));
+
+            if (idCategoria != null) {
+                $("#comboCategorias").val(idCategoria);
+            } else if (json.filter(function(item) { return item.Id == idCategoriaAnterior }).length) {
+                $("#comboCategorias").val(idCategoriaAnterior);
+            } else {
+                $("#comboCategorias").val("");
+            }
+
+            console.log(json);
+        });
+    };
+
+    if (!!$("#comboConta").val()) {
+        filtraCategoria(document.getElementById("comboConta"), '@Model.IdCategoria');
+    }
+
+
 
     $("#btnIndicadorPago").click(function () {
         $(this).toggleClass("lanc-pago-recebido");
