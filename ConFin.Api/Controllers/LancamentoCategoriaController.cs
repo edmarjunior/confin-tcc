@@ -23,6 +23,9 @@ namespace ConFin.Api.Controllers
 
         public IHttpActionResult Get(int idUsuario, int idCategoria) => Ok(_lancamentoCategoriaRepository.Get(idUsuario, idCategoria));
 
+        public IHttpActionResult GetCategorias(int idUsuario, int idConta) => Ok(_lancamentoCategoriaService.GetCategorias(idUsuario, idConta));
+
+
         public IHttpActionResult Post(LancamentoCategoriaDto categoria)
         {
             _lancamentoCategoriaService.Post(categoria);

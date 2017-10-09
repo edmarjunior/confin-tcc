@@ -1,5 +1,8 @@
 ﻿using ConFin.Common.Domain;
 using ConFin.Common.Domain.Dto;
+using ConFin.Domain.ContaConjunta;
+using ConFin.Domain.ContaFinanceira;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ConFin.Domain.LancamentoCategoria
@@ -7,12 +10,23 @@ namespace ConFin.Domain.LancamentoCategoria
     public class LancamentoCategoriaService: ILancamentoCategoriaService
     {
         private readonly ILancamentoCategoriaRepository _lancamentoCategoriaRepository;
+        private readonly IContaFinanceiraRepository _contaFinanceiraRepository;
+        private readonly IContaConjuntaRepository _contaConjuntaRepository;
         private readonly Notification _notification;
 
-        public LancamentoCategoriaService(ILancamentoCategoriaRepository lancamentoCategoriaRepository, Notification notification)
+        public LancamentoCategoriaService(ILancamentoCategoriaRepository lancamentoCategoriaRepository, Notification notification, IContaFinanceiraRepository contaFinanceiraRepository, IContaConjuntaRepository contaConjuntaRepository)
         {
             _lancamentoCategoriaRepository = lancamentoCategoriaRepository;
             _notification = notification;
+            _contaFinanceiraRepository = contaFinanceiraRepository;
+            _contaConjuntaRepository = contaConjuntaRepository;
+        }
+
+        public IEnumerable<LancamentoCategoriaDto> GetCategorias(int idUsuario, int idConta)
+        {
+            return _contaFinanceiraRepository.Get(idConta).IdUsuarioCadastro == idUsuario 
+                ? _lancamentoCategoriaRepository.Get(idUsuario) 
+                : _contaConjuntaRepository.GetCategoria(idConta);
         }
 
         public void Post(LancamentoCategoriaDto categoria)

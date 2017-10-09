@@ -21,6 +21,11 @@ namespace ConFin.Application.AppService.LancamentoCategoria
 
         }
 
+        public HttpResponseMessage GetCategorias(int idUsuario, int idConta)
+        {
+            return GetRequest("GetCategorias", new { idUsuario, idConta });
+        }
+
         public HttpResponseMessage Post(LancamentoCategoriaDto categoria)
         {
             return PostRequest(categoria);

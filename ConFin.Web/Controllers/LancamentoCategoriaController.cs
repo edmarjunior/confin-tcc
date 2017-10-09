@@ -101,6 +101,22 @@ namespace ConFin.Web.Controllers
             {
                 return Error(ex.Message);
             }
-        }   
+        }
+
+        public ActionResult GetCategorias(int idConta)
+        {
+            try
+            {
+                var response = _lancamentoCategoriaAppService.GetCategorias(UsuarioLogado.Id, idConta);
+                return !response.IsSuccessStatusCode 
+                    ? Error(response) 
+                    : Json(JsonConvert.DeserializeObject<IEnumerable<LancamentoCategoriaDto>>(response.Content.ReadAsStringAsync().Result), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex.Message);
+            }
+        }
+
     }
 }
