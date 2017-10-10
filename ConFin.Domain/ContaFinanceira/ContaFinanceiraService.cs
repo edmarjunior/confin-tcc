@@ -1,5 +1,6 @@
 ﻿using ConFin.Common.Domain;
 using ConFin.Common.Domain.Dto;
+using ConFin.Domain.ContaConjunta;
 using ConFin.Domain.Usuario;
 using System.Linq;
 
@@ -8,12 +9,14 @@ namespace ConFin.Domain.ContaFinanceira
     public class ContaFinanceiraService : IContaFinanceiraService
     {
         private readonly IContaFinanceiraRepository _contaFinanceiraRepository;
+        private readonly IContaConjuntaRepository _contaConjuntaRepository;
         private readonly Notification _notification;
 
-        public ContaFinanceiraService(Notification notification, IContaFinanceiraRepository contaFinanceiraRepository, IUsuarioRepository usuarioRepository)
+        public ContaFinanceiraService(Notification notification, IContaFinanceiraRepository contaFinanceiraRepository, IUsuarioRepository usuarioRepository, IContaConjuntaRepository contaConjuntaRepository)
         {
             _notification = notification;
             _contaFinanceiraRepository = contaFinanceiraRepository;
+            _contaConjuntaRepository = contaConjuntaRepository;
         }
 
         public void Post(ContaFinanceiraDto conta)
@@ -78,8 +81,20 @@ namespace ConFin.Domain.ContaFinanceira
 
         public void Delete(int idUsuario, int idConta)
         {
-            if(!_contaFinanceiraRepository.PossuiVinculos(idConta))
-                _contaFinanceiraRepository.Delete(idUsuario, idConta);
+            if (_contaFinanceiraRepository.PossuiVinculos(idConta))
+                return;
+
+            _contaFinanceiraRepository.OpenTransaction();
+
+            // excluindo categorias vinculadas a conta conjunta (caso a conta à ser excluida for uma conta conjunta)
+            var categoriasContaConjunta = _contaConjuntaRepository.GetCategoria(idConta);
+            foreach (var categoria in categoriasContaConjunta)
+                _contaConjuntaRepository.DeleteCategoria(idConta, categoria.Id);
+
+            // excluindo a conta
+            _contaFinanceiraRepository.Delete(idUsuario, idConta);
+
+            _contaFinanceiraRepository.CommitTransaction();
         }
 
         
