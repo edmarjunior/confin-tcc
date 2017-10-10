@@ -105,7 +105,6 @@ namespace ConFin.Repository
         public void Delete(int idUsuario, int idConta)
         {
             ExecuteProcedure(Procedures.SP_DelContaFinanceira);
-            // AddParameter("IdUsuario", idUsuario);
             AddParameter("IdConta", idConta);
             ExecuteNonQuery();
         }
@@ -120,17 +119,10 @@ namespace ConFin.Repository
 
             switch (retorno)
             {
-                case 0:
-                    return false;
-                case 1:
-                    msg = "A conta não pode ser excluida por possuir vinculo com lançamentos";
-                    break;
-                case 2:
-                    msg = "A conta não pode ser excluida por possuir vinculo com transferências";
-                    break;
-                default:
-                    msg = "Erro não esperado durante verificação de vinculos da conta";
-                    break;
+                case 0: return false;
+                case 1: msg = "A conta não pode ser excluida por possuir vinculo com lançamentos"; break;
+                case 2: msg = "A conta não pode ser excluida por possuir vinculo com transferências"; break;
+                default: msg = "Erro não esperado durante verificação de vinculos da conta"; break;
             }
 
             _notification.Add(msg);
