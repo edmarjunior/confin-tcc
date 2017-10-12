@@ -16,6 +16,7 @@ namespace ConFin.Common.Application
     {
         private string _uri;
         private readonly HttpClient _client;
+        private readonly JsonMediaTypeFormatter _jsonMediaTypeFormatter;
 
         protected BaseAppService(string controllerApi)
         {
@@ -24,6 +25,16 @@ namespace ConFin.Common.Application
             _client = new HttpClient();
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            _jsonMediaTypeFormatter = new JsonMediaTypeFormatter
+            {
+                SerializerSettings = new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Include,
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                    ContractResolver = new DefaultContractResolver { IgnoreSerializableAttribute = false }
+                }
+            };
         }
 
         protected HttpResponseMessage GetRequest(object parametros = null)
@@ -43,16 +54,7 @@ namespace ConFin.Common.Application
         {
             AddParametersUri(parametros);
             _client.BaseAddress = new Uri($"{_uri}");
-
-            return _client.PostAsync(_uri, objeto, new JsonMediaTypeFormatter
-            {
-                SerializerSettings = new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Include,
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                    ContractResolver = new DefaultContractResolver { IgnoreSerializableAttribute = false }
-                }
-            }).Result;
+            return _client.PostAsync(_uri, objeto, _jsonMediaTypeFormatter).Result;
         }
 
         protected HttpResponseMessage PostRequest(string action, object objeto = null, object parametros = null)
@@ -65,16 +67,7 @@ namespace ConFin.Common.Application
         {
             AddParametersUri(parametros);
             _client.BaseAddress = new Uri($"{_uri}");
-
-            return _client.PutAsync(_uri, objeto, new JsonMediaTypeFormatter
-            {
-                SerializerSettings = new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Include,
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                    ContractResolver = new DefaultContractResolver { IgnoreSerializableAttribute = false }
-                }
-            }).Result;
+            return _client.PutAsync(_uri, objeto, _jsonMediaTypeFormatter).Result;
         }
 
         protected HttpResponseMessage PutRequest(string action, object objeto = null, object parametros = null)
@@ -125,5 +118,6 @@ namespace ConFin.Common.Application
 
             _uri = param.ToString();
         }
+
     }
 }
