@@ -6,7 +6,7 @@ namespace ConFin.Application.AppService.ContaFinanceira
     public interface IContaFinanceiraAppService
     {
         HttpResponseMessage GetAll(int idUsuario);
-        HttpResponseMessage Get(int idConta);
+        HttpResponseMessage Get(int idConta, int? idUsuario = null);
         HttpResponseMessage Post(ContaFinanceiraDto conta);
         HttpResponseMessage Put(ContaFinanceiraDto conta);
         HttpResponseMessage Delete(int idUsuario, int idConta);

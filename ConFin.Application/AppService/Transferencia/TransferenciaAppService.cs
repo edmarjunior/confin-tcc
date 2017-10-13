@@ -22,7 +22,7 @@ namespace ConFin.Application.AppService.Transferencia
 
         public HttpResponseMessage Post(TransferenciaDto transferencia)
         {
-            return PostRequest(transferencia);
+            return PostRequest("Post", transferencia);
         }
 
         public HttpResponseMessage Put(TransferenciaDto transferencia)
@@ -32,7 +32,7 @@ namespace ConFin.Application.AppService.Transferencia
 
         public HttpResponseMessage Delete(int idTransferencia)
         {
-            return DeleteRequest(new { idTransferencia });
+            return DeleteRequest("Delete", new { idTransferencia });
         }
 
         public HttpResponseMessage PutIndicadorPagoRecebido(TransferenciaDto transferencia)

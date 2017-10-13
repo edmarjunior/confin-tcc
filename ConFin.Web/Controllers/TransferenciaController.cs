@@ -75,10 +75,11 @@ namespace ConFin.Web.Controllers
                 {
                     ViewBag.IndicadorCadastro = "S";
 
-                    return View("_ModalCadastroEdicaoTransferencia", new TransferenciaViewModel()
+                    return View("_ModalCadastroEdicaoTransferencia", new TransferenciaViewModel
                     {
                         ContasFinanceira = contas,
-                        Categorias = categorias
+                        Categorias = categorias,
+                        IndicadorCadastro = "S"
                     });
                 }
 
@@ -90,8 +91,29 @@ namespace ConFin.Web.Controllers
                     return Error(response);
 
                 var transferenciaDto = JsonConvert.DeserializeObject<TransferenciaDto>(response.Content.ReadAsStringAsync().Result);
+
+                if (contas.All(x => x.Id != transferenciaDto.IdContaOrigem))
+                {
+                    var responseContaOrigem = _contaFinanceiraAppService.Get(transferenciaDto.IdContaOrigem, UsuarioLogado.Id);
+                    if (!responseContaOrigem.IsSuccessStatusCode)
+                        return Error(responseContaOrigem);
+
+                    contas.Add(JsonConvert.DeserializeObject<ContaFinanceiraDto>(responseContaOrigem.Content.ReadAsStringAsync().Result));
+                }
+
+                if (contas.All(x => x.Id != transferenciaDto.IdContaDestino))
+                {
+                    var responseContaDestino = _contaFinanceiraAppService.Get(transferenciaDto.IdContaDestino, UsuarioLogado.Id);
+                    if (!responseContaDestino.IsSuccessStatusCode)
+                        return Error(responseContaDestino);
+
+                    contas.Add(JsonConvert.DeserializeObject<ContaFinanceiraDto>(responseContaDestino.Content.ReadAsStringAsync().Result));
+                }
+
                 return View("_ModalCadastroEdicaoTransferencia", new TransferenciaViewModel(transferenciaDto)
                 {
+                    UsuarioPodeEditarTransferencia = transferenciaDto.IdUsuarioCadastro == UsuarioLogado.Id,
+                    IndicadorCadastro = "N",
                     ContasFinanceira = contas,
                     Categorias = categorias
                 });

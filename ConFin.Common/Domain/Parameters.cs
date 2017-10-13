@@ -9,8 +9,8 @@
                 Ambiente = "D";
                 UriWeb = "http://localhost:5001/Home/";
                 UriApi = "http://localhost:5002/api/";
-                //ConnectionString = "Data Source=confinserver.database.windows.net, 1433;Initial Catalog=confin;User ID=Edmar;Password=ju1790!*";
-                ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=ConFin;Integrated Security=True";
+                ConnectionString = "Data Source=EDMAR-PC;Initial Catalog=ConFin;Integrated Security=True";
+                //ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=ConFin;Integrated Security=True";
             }
             else
             {

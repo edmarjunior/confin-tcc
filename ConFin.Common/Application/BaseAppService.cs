@@ -14,14 +14,15 @@ namespace ConFin.Common.Application
 {
     public class BaseAppService
     {
+        private readonly string _baseUri;
         private string _uri;
-        private readonly HttpClient _client;
+        private HttpClient _client;
         private readonly JsonMediaTypeFormatter _jsonMediaTypeFormatter;
 
         protected BaseAppService(string controllerApi)
         {
             var parameters = new Parameters();
-            _uri = $"{parameters.UriApi}{controllerApi}";
+            _baseUri = _uri  = $"{parameters.UriApi}{controllerApi}";
             _client = new HttpClient();
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -37,56 +38,28 @@ namespace ConFin.Common.Application
             };
         }
 
-        protected HttpResponseMessage GetRequest(object parametros = null)
-        {
-            AddParametersUri(parametros);
-            _client.BaseAddress = new Uri($"{_uri}");
-            return _client.GetAsync(_client.BaseAddress).Result;
-        }
-
         protected HttpResponseMessage GetRequest(string action, object parametros = null)
         {
-            _uri += $"/{action}";
-            return GetRequest(parametros);
-        }
-
-        protected HttpResponseMessage PostRequest(object objeto = null, object parametros = null)
-        {
-            AddParametersUri(parametros);
-            _client.BaseAddress = new Uri($"{_uri}");
-            return _client.PostAsync(_uri, objeto, _jsonMediaTypeFormatter).Result;
+            ConfigureRequest(action, parametros);
+            return _client.GetAsync(_client.BaseAddress).Result;
         }
 
         protected HttpResponseMessage PostRequest(string action, object objeto = null, object parametros = null)
         {
-            _uri += $"/{action}";
-            return PostRequest(objeto, parametros);
-        }
-
-        protected HttpResponseMessage PutRequest(object objeto = null, object parametros = null)
-        {
-            AddParametersUri(parametros);
-            _client.BaseAddress = new Uri($"{_uri}");
-            return _client.PutAsync(_uri, objeto, _jsonMediaTypeFormatter).Result;
+            ConfigureRequest(action, parametros);
+            return _client.PostAsync(_uri, objeto, _jsonMediaTypeFormatter).Result;
         }
 
         protected HttpResponseMessage PutRequest(string action, object objeto = null, object parametros = null)
         {
-            _uri += $"/{action}";
-            return PutRequest(objeto, parametros);
-        }
-
-        protected HttpResponseMessage DeleteRequest(object parametros = null)
-        {
-            AddParametersUri(parametros);
-            _client.BaseAddress = new Uri($"{_uri}");
-            return _client.DeleteAsync(_client.BaseAddress).Result;
+            ConfigureRequest(action, parametros);
+            return _client.PutAsync(_uri, objeto, _jsonMediaTypeFormatter).Result;
         }
 
         protected HttpResponseMessage DeleteRequest(string action, object parametros = null)
         {
-            _uri += $"/{action}";
-            return DeleteRequest(parametros);
+            ConfigureRequest(action, parametros);
+            return _client.DeleteAsync(_client.BaseAddress).Result;
         }
 
         private void AddParametersUri(object parametros)
@@ -117,6 +90,21 @@ namespace ConFin.Common.Application
             }
 
             _uri = param.ToString();
+        }
+
+        private void SetInstanceClient()
+        {
+            _client = new HttpClient();
+            _client.DefaultRequestHeaders.Accept.Clear();
+            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
+        private void ConfigureRequest(string action, object parametros = null)
+        {
+            SetInstanceClient();
+            _uri = $"{_baseUri}/{action}";
+            AddParametersUri(parametros);
+            _client.BaseAddress = new Uri($"{_uri}");
         }
 
     }

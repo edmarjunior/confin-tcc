@@ -17,15 +17,15 @@
         </div>
         <div class="row">
             <form id="formTransferenciaCadastroEdicao" class="col s12">
-                <input type="hidden" id="hiddenIndicadorCadastroTransferencia" value="@ViewBag.IndicadorCadastro" />
-                <input type="hidden" name="Id" value="@Model.Id" />
-                <input type="hidden" id="hiddenIndicadorPagoRecebido" name="IndicadorPagoRecebido" value="@Model.IndicadorPagamentoReceb" />
+                <input type="hidden" id="hiddenIndicadorCadastroTransferencia" value="@ViewBag.IndicadorCadastro"/>
+                <input type="hidden" name="Id" value="@Model.Id"/>
+                <input type="hidden" id="hiddenIndicadorPagoRecebido" name="IndicadorPagoRecebido" value="@Model.IndicadorPagamentoReceb"/>
 
                 <div class="row">
 
                     <div class="col s6">
                         <label>Conta de origem</label>
-                        <select class="browser-default" name="IdContaOrigem" id="comboContaOrigem" onchange="filtraContasTransferencia(this, 'comboContaDestino')">
+                        <select @(Model.DesabilitaAlteracao ? "disabled" : "") class="browser-default" name="IdContaOrigem" id="comboContaOrigem" onchange="filtraContasTransferencia(this, 'comboContaDestino')">
                             <option data-selecione value="" disabled selected>Selecione</option>
                             @foreach (var conta in Model.ContasFinanceira)
                             {
@@ -35,7 +35,7 @@
                     </div>
                     <div class="col s6">
                         <label>Conta de destino</label>
-                        <select class="browser-default" name="IdContaDestino" id="comboContaDestino" onchange="filtraContasTransferencia(this, 'comboContaOrigem')">
+                        <select @(Model.DesabilitaAlteracao ? "disabled" : "") class="browser-default" name="IdContaDestino" id="comboContaDestino" onchange="filtraContasTransferencia(this, 'comboContaOrigem')">
                             <option data-selecione value="" disabled selected>Selecione</option>
                             @foreach (var conta in Model.ContasFinanceira)
                             {
@@ -46,12 +46,12 @@
                 </div>
                 <div class="row" style="margin-top: -15px;">
                     <div class="input-field col s6">
-                        <input id="txtDescricaoTransferencia" type="text" class="validate" maxlength="50" name="Descricao" value="@Model.Descricao">
+                        <input @(Model.DesabilitaAlteracao ? "disabled" : "") id="txtDescricaoTransferencia" type="text" class="validate" maxlength="50" name="Descricao" value="@Model.Descricao">
                         <label for="txtDescricaoTransferencia">Descrição</label>
                     </div>
                     <div class="col s6">
                         <label>Categoria</label>
-                        <select class="browser-default" name="IdCategoria" id="comboCategoriasTransferencia">
+                        <select @(Model.DesabilitaAlteracao ? "disabled" : "") class="browser-default" name="IdCategoria" id="comboCategoriasTransferencia">
                             <option value="" disabled selected>Selecione</option>
                             @foreach (var categoria in Model.Categorias)
                             {
@@ -62,16 +62,16 @@
                 </div>
                 <div class="row" style="margin-top: -15px;">
                     <div class="input-field col s3">
-                        <input class="money" id="txtValorTransferencia" type="text" name="Valor" maxlength="14" value="@Model.Valor.ToMoney()">
+                        <input @(Model.DesabilitaAlteracao ? "disabled" : "") class="money" id="txtValorTransferencia" type="text" name="Valor" maxlength="14" value="@Model.Valor.ToMoney()">
                         <label for="txtValorTransferencia">Valor</label>
                     </div>
                     <div class="input-field col s3">
-                        <input id="txtDataTransferencia" type="text" class="date" name="Data" value="@Model.DataTransferencia">
+                        <input @(Model.DesabilitaAlteracao ? "disabled" : "") id="txtDataTransferencia" type="text" class="date" name="Data" value="@Model.DataTransferencia">
                         <label for="txtDataTransferencia" class="active">Data</label>
                     </div>
                     <div class="input-field col s6" style="text-align: center">
                         <span id="spanMensagemIndicadorPgto">Já foi realizada?</span>
-                        <a href="javascript:void(0)" id="btnIndicadorTransferenciaPago" style="background-color: gray"
+                        <a href="javascript:void(0)" onclick="@(Model.DesabilitaAlteracao ? "" : "alteraIndicadorTransferenciaPago(this)")" style="background-color: gray"
                            class="btn-floating @(Model.IndicadorPagoRecebido == "S" ? "trans-pago-recebido" : string.Empty)">
                             <i class="material-icons">thumb_up</i>
                         </a>
@@ -80,10 +80,23 @@
             </form>
         </div>
     </div>
-    <div class="modal-footer" style="margin-top: -25px;">
-        <a href="javascript:void(0)" onclick="cadastrarEditarTransferencia()" style="color: green" class="modal-action waves-effect waves-green btn-flat">Confirmar</a>
-        <a href="javascript:void(0)" style="color: red" class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</a>
-    </div>
+
+    @if (ViewBag.IndicadorCadastro == "N" && !Model.UsuarioPodeEditarTransferencia)
+    {
+        <div class="modal-footer" style="margin-top: -25px; margin-bottom: 25px; margin-left: 28px !important; width: 95% !important; background-color: lavender; text-align: center;">
+            <p>Somente o usuário que cadastrou esta transferência pode realizar as alterações.</p>
+        </div>
+
+    }
+    else
+    {
+        <div class="modal-footer" style="margin-top: -25px;">
+            <a href="javascript:void(0)" onclick="cadastrarEditarTransferencia()" style="color: green" class="modal-action waves-effect waves-green btn-flat">Confirmar</a>
+            <a href="javascript:void(0)" style="color: red" class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</a>
+        </div>
+        
+    }
+
 </div>
 
 
@@ -97,10 +110,11 @@
 
     var urlGetContas = '@Url.Action("GetFilter","ContaFinanceira")';
 
-    $("#btnIndicadorTransferenciaPago").click(function () {
-        $(this).toggleClass("trans-pago-recebido");
-        $("#hiddenIndicadorPagoRecebido").val($(this).hasClass("trans-pago-recebido") ? "S" : "N");
-    });
+
+    function alteraIndicadorTransferenciaPago(btn) {
+        $(btn).toggleClass("trans-pago-recebido");
+        $("#hiddenIndicadorPagoRecebido").val($(btn).hasClass("trans-pago-recebido") ? "S" : "N");
+    }
 
     function filtraContasTransferencia(btn, idSelectFiltrado) {
 

@@ -83,7 +83,10 @@
 			{
 				foreach (var lancamento in Model.Lancamentos.OrderBy(x => x.Data))
 				{
-					<tr data-valor="@lancamento.Valor" data-transferencia="@(lancamento.IsTransferencia ? "S" : "N")" data-conta-destino="@lancamento.IdContaDestino">
+				    <tr data-valor="@lancamento.Valor"
+				        data-transferencia="@(lancamento.IsTransferencia ? "S" : "N")"
+				        data-conta-destino="@lancamento.IdContaDestino"
+                        data-bloqueado="@(lancamento.UsuarioBloqueadoAlterar ? "S" : "N")">
 						<td>
 
 							<a style="color: @(lancamento.IsReceita ? "#008000" : lancamento.IsDespesa ? "#ff0000" : "#0000cd" )"
@@ -264,11 +267,16 @@
 
 	function deleteLancamento(button, idLancamento, idCompromisso) {
 
-		var btn = $(button);
+	    var btn = $(button);
+
+	    if (btn.closest("tr").attr("data-bloqueado") == "S") {
+	        $.toast({ message: "Este lançamento só pode ser excluido pelo usuário que o cadastrou" });
+	        return;
+	    }
 
 		if (btn.closest("tr").attr("data-transferencia") == "S") {
-			deleteTransferencia(idLancamento);
-			return;
+		    deleteTransferencia(idLancamento);
+		    return;
 		}
 
 		if (idCompromisso != null) {

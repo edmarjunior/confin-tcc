@@ -11,7 +11,7 @@ namespace ConFin.Application.AppService.ContaFinanceiraTipo
 
         public HttpResponseMessage Get()
         {
-            return GetRequest();
+            return GetRequest("Get");
         }
     }
 }

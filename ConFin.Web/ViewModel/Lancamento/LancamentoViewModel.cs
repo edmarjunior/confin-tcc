@@ -50,6 +50,7 @@ namespace ConFin.Web.ViewModel.Lancamento
         public string CorCategoria { get; set; }
         public string IndicadorPagoRecebido { get; set; }
         public int? IdCompromisso { get; set; }
+        public bool UsuarioPodeManipularLancamento { get; set; }
 
         public IEnumerable<ContaFinanceiraDto> ContasFinanceira{ get; set; }
         public IEnumerable<LancamentoCategoriaDto> Categorias { get; set; }
@@ -75,6 +76,6 @@ namespace ConFin.Web.ViewModel.Lancamento
         public bool DataLancamentoMenorHoje => DateTime.Today > Data;
 
         public bool IsTransferencia => IndicadorReceitaDespesa == "T";
-
+        public bool UsuarioBloqueadoAlterar => IsTransferencia && !UsuarioPodeManipularLancamento;
     }
 }

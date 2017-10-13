@@ -12,7 +12,7 @@ namespace ConFin.Application.AppService.ContaConjunta
 
         public HttpResponseMessage Get(int? idUsuario, int? idConta = null)
         {
-            return GetRequest(new { idUsuario, idConta });
+            return GetRequest("Get", new { idUsuario, idConta });
         }
 
         public HttpResponseMessage Post(ContaConjuntaDto contaConjunta)
@@ -23,7 +23,7 @@ namespace ConFin.Application.AppService.ContaConjunta
 
         public HttpResponseMessage Delete(int idContaConjunta)
         {
-            return DeleteRequest(new { idContaConjunta });
+            return DeleteRequest("Delete", new { idContaConjunta });
         }
 
         public HttpResponseMessage Put(ContaConjuntaDto contaConjunta)

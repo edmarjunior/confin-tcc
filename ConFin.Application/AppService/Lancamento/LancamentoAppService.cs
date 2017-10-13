@@ -18,7 +18,7 @@ namespace ConFin.Application.AppService.Lancamento
 
         public HttpResponseMessage Get(int idLancamento)
         {
-            return GetRequest(new { idLancamento });
+            return GetRequest("Get", new { idLancamento });
 
         }
 
@@ -41,7 +41,7 @@ namespace ConFin.Application.AppService.Lancamento
 
         public HttpResponseMessage Delete(int idLancamento, string indTipoDelete)
         {
-            return DeleteRequest(new { idLancamento, indTipoDelete });
+            return DeleteRequest("Delete", new { idLancamento, indTipoDelete });
         }
 
         public HttpResponseMessage PutIndicadorPagoRecebido(LancamentoDto lancamento)

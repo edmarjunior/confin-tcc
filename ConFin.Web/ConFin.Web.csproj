@@ -227,7 +227,6 @@
     <Content Include="Views\Chat\Index.cshtml" />
     <Content Include="Views\Lancamento\_ModalImportacaoLancamento.cshtml" />
     <Content Include="Views\Usuario\_ModalDadosUsuario.cshtml" />
-    <Content Include="Views\ContaFinanceira\_ModalContaConjunta.cshtml" />
     <Content Include="Views\ContaConjunta\_ModalContaConjunta.cshtml" />
     <Content Include="Views\ContaConjunta\ContaConjunta.cshtml" />
     <Content Include="Views\ContaConjunta\_GridUsuariosContaConjunta.cshtml" />

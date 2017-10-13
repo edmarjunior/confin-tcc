@@ -47,17 +47,15 @@ namespace ConFin.Web.ViewModel
         public string NomeCategoria { get; set; }
         public string CorCategoria { get; set; }
         public string IndicadorPagoRecebido { get; set; }
-
+        public string IndicadorCadastro { get; set; }
+        public bool UsuarioPodeEditarTransferencia { get; set; }
         public IEnumerable<ContaFinanceiraDto> ContasFinanceira { get; set; }
         public IEnumerable<LancamentoCategoriaDto> Categorias { get; set; }
-
         public string DataTransferencia => Data?.ToShortDateString();
         public string ValorTransferencia => Valor.ToMoney();
-
         public string IndicadorPagamentoReceb => IndicadorPagoRecebido ?? "N";
         public bool IsPagoRecebido => IndicadorPagamentoReceb != "N";
         public bool IsVencido => !IsPagoRecebido && DateTime.Today > Data;
-
-
+        public bool DesabilitaAlteracao => IndicadorCadastro == "N" && !UsuarioPodeEditarTransferencia;
     }
 }

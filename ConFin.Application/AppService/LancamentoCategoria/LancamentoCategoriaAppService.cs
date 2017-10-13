@@ -12,12 +12,12 @@ namespace ConFin.Application.AppService.LancamentoCategoria
 
         public HttpResponseMessage Get(int idUsuario)
         {
-            return GetRequest(new {idUsuario});
+            return GetRequest("Get", new {idUsuario});
         }
 
         public HttpResponseMessage Get(int idUsuario, int idCategoria)
         {
-            return GetRequest(new { idUsuario, idCategoria });
+            return GetRequest("Get", new { idUsuario, idCategoria });
 
         }
 
@@ -28,17 +28,17 @@ namespace ConFin.Application.AppService.LancamentoCategoria
 
         public HttpResponseMessage Post(LancamentoCategoriaDto categoria)
         {
-            return PostRequest(categoria);
+            return PostRequest("Post", categoria);
         }
 
         public HttpResponseMessage Put(LancamentoCategoriaDto categoria)
         {
-            return PutRequest(categoria);
+            return PutRequest("Put", categoria);
         }
 
         public HttpResponseMessage Delete(int idUsuario, int idCategoria)
         {
-            return DeleteRequest(new { idUsuario, idCategoria });
+            return DeleteRequest("Delete", new { idUsuario, idCategoria });
 
         }
     }

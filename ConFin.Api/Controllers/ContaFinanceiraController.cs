@@ -22,7 +22,7 @@ namespace ConFin.Api.Controllers
 
         public IHttpActionResult GetAll(int idUsuario) => Ok(_contaFinanceiraRepository.GetAll(idUsuario));
 
-        public IHttpActionResult Get(int idConta) => Ok(_contaFinanceiraRepository.Get(idConta));
+        public IHttpActionResult Get(int idConta, int? idUsuario = null) => Ok(_contaFinanceiraRepository.Get(idConta, idUsuario));
 
         public IHttpActionResult Post(ContaFinanceiraDto conta)
         {

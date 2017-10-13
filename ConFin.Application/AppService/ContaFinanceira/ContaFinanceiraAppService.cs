@@ -15,26 +15,24 @@ namespace ConFin.Application.AppService.ContaFinanceira
             return GetRequest("GetAll", new { idUsuario });
         }
 
-        public HttpResponseMessage Get(int idConta)
+        public HttpResponseMessage Get(int idConta, int? idUsuario = null)
         {
-            return GetRequest("Get", new { idConta });
+            return GetRequest("Get", new { idConta, idUsuario });
         }
 
         public HttpResponseMessage Post(ContaFinanceiraDto conta)
         {
-            return PostRequest(conta);
-
+            return PostRequest("Post", conta);
         }
 
         public HttpResponseMessage Put(ContaFinanceiraDto conta)
         {
-            return PutRequest(conta);
-
+            return PutRequest("Put", conta);
         }
 
         public HttpResponseMessage Delete(int idUsuario, int idConta)
         {
-            return DeleteRequest(new { idUsuario, idConta });
+            return DeleteRequest("Delete", new { idUsuario, idConta });
         }
     }
 }

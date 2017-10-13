@@ -51,10 +51,11 @@ namespace ConFin.Repository
             return contas;
         }
 
-        public ContaFinanceiraDto Get(int idConta)
+        public ContaFinanceiraDto Get(int idConta, int? idUsuario = null)
         {
             ExecuteProcedure(Procedures.SP_SelContaFinanceira);
             AddParameter("IdConta", idConta);
+            AddParameter("IdUsuario", idUsuario);
 
             using (var reader = ExecuteReader())
             {

@@ -12,7 +12,7 @@ namespace ConFin.Application.AppService.Usuario
 
         public HttpResponseMessage Get(int id)
         {
-            return GetRequest(new { id });
+            return GetRequest("Get", new { id });
         }
 
         public HttpResponseMessage PutSenha(int id, string token, string novaSenha)
@@ -22,7 +22,7 @@ namespace ConFin.Application.AppService.Usuario
 
         public HttpResponseMessage Put(UsuarioDto usuario)
         {
-            return PutRequest(usuario);
+            return PutRequest("Put", usuario);
         }
     }
 }

@@ -25,5 +25,6 @@ namespace ConFin.Web.ViewModel.Lancamento
         public string NomeMesDataPesquisa => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(DataPesquisa.ToString("MMMM", CultureInfo.CurrentCulture).ToLower());
         public string MesDataPesquisa => DataPesquisa.Month.ToString();
         public string AnoDataPesquisa => DataPesquisa.Year.ToString();
+
     }
 }

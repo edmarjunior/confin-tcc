@@ -12,12 +12,12 @@ namespace ConFin.Application.AppService.Login
 
         public HttpResponseMessage Get(string email, string senha)
         {
-            return GetRequest(new { email, senha });
+            return GetRequest("Get", new { email, senha });
         }
 
         public HttpResponseMessage Post(UsuarioDto usuario)
         {
-            return PostRequest(usuario);
+            return PostRequest("Post", usuario);
         }
 
         public HttpResponseMessage PutConfirmacaoCadastro(int idUsuario)

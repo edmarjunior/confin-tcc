@@ -66,7 +66,7 @@ namespace ConFin.Web.Controllers
                     return Error(response);
 
                 var lancamentos = JsonConvert.DeserializeObject<IEnumerable<LancamentoDto>>(response.Content.ReadAsStringAsync().Result)
-                    .Select(x => new LancamentoViewModel(x)).ToList();
+                    .Select(x => new LancamentoViewModel(x) { UsuarioPodeManipularLancamento = UsuarioLogado.Id == x.IdUsuarioCadastro}).ToList();
 
                 var responsePossuiOpcaoTransferencia = _transferenciaAppService.GetVerificaClientePossuiTransferenciaHabilitada(UsuarioLogado.Id);
                 ViewBag.PossuiOpcaoTransferencia = responsePossuiOpcaoTransferencia.IsSuccessStatusCode;
