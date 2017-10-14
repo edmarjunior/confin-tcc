@@ -39,7 +39,8 @@
 			{
 				foreach (var transferencia in Model)
 				{
-					<tr data-valor="@transferencia.Valor">
+				    <tr data-valor="@transferencia.Valor"
+                        data-bloqueado="@(transferencia.DesabilitaAlteracao ? "S" : "N")">
 						<td>@transferencia.DataTransferencia</td>
 						<td>@transferencia.Descricao</td>
 						<td>@transferencia.ValorTransferencia</td>
@@ -58,7 +59,7 @@
 							</a>
 						</td>
 						<td class="center-align">
-							<a style="color: crimson" href="javascript:void(0)" onclick="deleteTransferencia(@transferencia.Id)"
+							<a style="color: crimson" href="javascript:void(0)" onclick="deleteTransferencia(this, @transferencia.Id)"
 							   class="tooltipped" data-position="top" data-delay="25" data-tooltip="Excluir">
 								<i class="material-icons">delete_forever</i>
 							</a>
@@ -102,7 +103,9 @@
 		PutIndicadorPagoRecebido: '@Url.Action("PutIndicadorPagoRecebido", "Transferencia")'
 	};
 
-	function showModalCadastroEdicaoTransferencia(idTransferencia) {
+    function showModalCadastroEdicaoTransferencia(idTransferencia) {
+        $('.toast').remove();
+
 		$.get(urlsTransferencia.GetModalCadastroEdicao, {
 			idTransferencia: idTransferencia
 		}).success(function (data) {
@@ -118,7 +121,16 @@
 		});
 	}
 
-	function deleteTransferencia(idTransferencia) {
+	function deleteTransferencia(button, idTransferencia) {
+	    $('.toast').remove();
+
+	    var btn = $(button);
+
+	    if (btn.closest("tr").attr("data-bloqueado") == "S") {
+	        $.toast({ message: "Esta transferência só pode ser excluida pelo usuário que a cadastrou, pois envolve contas que não é sua" });
+	        return;
+	    }
+
 		showModalConfirm("Deseja realmente excluir esta transferência?", function () {
 			$.post(urlsTransferencia.Delete, {
 				idTransferencia: idTransferencia
@@ -141,8 +153,14 @@
 	var isPagoRecebido, isVencido, isVincendo;
 
 	function alteraStatusTransferencia(button, idTransferencia) {
+	    $('.toast').remove();
 
 		var btn = $(button);
+
+		if (btn.closest("tr").attr("data-bloqueado") == "S") {
+		    $.toast({ message: "Esta transferência só pode ser alterada pelo usuário que a cadastrou, pois envolve contas que não é sua" });
+		    return;
+		}
 
 		isPagoRecebido = btn.hasClass("pago-recebido");
 		isVencido = btn.hasClass("vencido");

@@ -56,6 +56,6 @@ namespace ConFin.Web.ViewModel
         public string IndicadorPagamentoReceb => IndicadorPagoRecebido ?? "N";
         public bool IsPagoRecebido => IndicadorPagamentoReceb != "N";
         public bool IsVencido => !IsPagoRecebido && DateTime.Today > Data;
-        public bool DesabilitaAlteracao => IndicadorCadastro == "N" && !UsuarioPodeEditarTransferencia;
+        public bool DesabilitaAlteracao => IndicadorCadastro != "S" && !UsuarioPodeEditarTransferencia;
     }
 }

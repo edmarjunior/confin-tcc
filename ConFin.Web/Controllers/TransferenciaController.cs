@@ -36,7 +36,7 @@ namespace ConFin.Web.Controllers
                     return Error(response);
 
                 var transferencias = JsonConvert.DeserializeObject<IEnumerable<TransferenciaDto>>(response.Content.ReadAsStringAsync().Result);
-                return View("Transferencia", transferencias.Select(x => new TransferenciaViewModel(x)));
+                return View("Transferencia", transferencias.Select(x => new TransferenciaViewModel(x) { UsuarioPodeEditarTransferencia = x.IdUsuarioCadastro == UsuarioLogado.Id}));
             }
             catch (Exception ex)
             {
