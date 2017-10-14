@@ -25,7 +25,7 @@ namespace ConFin.Domain.LancamentoCategoria
         public IEnumerable<LancamentoCategoriaDto> GetCategorias(int idUsuario, int idConta)
         {
             return _contaFinanceiraRepository.Get(idConta).IdUsuarioCadastro == idUsuario 
-                ? _lancamentoCategoriaRepository.Get(idUsuario) 
+                ? _lancamentoCategoriaRepository.GetAll(idUsuario) 
                 : _contaConjuntaRepository.GetCategoria(idConta);
         }
 
@@ -38,7 +38,7 @@ namespace ConFin.Domain.LancamentoCategoria
             }
 
             categoria.Nome = categoria.Nome.Trim();
-            var categoriasAtual = _lancamentoCategoriaRepository.Get(categoria.IdUsuarioCadastro).ToList();
+            var categoriasAtual = _lancamentoCategoriaRepository.GetAll(categoria.IdUsuarioCadastro).ToList();
             if (categoriasAtual.Any(x => x.Nome.Trim().ToLower().Equals(categoria.Nome.ToLower())))
             {
                 _notification.Add($"Já existe uma categoria com o Nome: {categoria.Nome}");
@@ -63,7 +63,7 @@ namespace ConFin.Domain.LancamentoCategoria
             }
 
             categoria.Nome = categoria.Nome.Trim();
-            var categoriasAtual = _lancamentoCategoriaRepository.Get((int)categoria.IdUsuarioUltimaAlteracao).Where(x => x.Id != categoria.Id).ToList();
+            var categoriasAtual = _lancamentoCategoriaRepository.GetAll((int)categoria.IdUsuarioUltimaAlteracao).Where(x => x.Id != categoria.Id).ToList();
             if (categoriasAtual.Any(x => x.Nome.Trim().ToLower().Equals(categoria.Nome.ToLower())))
             {
                 _notification.Add($"Já existe uma categoria com o Nome: {categoria.Nome}");

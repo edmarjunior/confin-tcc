@@ -1,5 +1,4 @@
 ﻿using ConFin.Application.AppService.ContaFinanceira;
-using ConFin.Application.AppService.Lancamento;
 using ConFin.Application.AppService.LancamentoCategoria;
 using ConFin.Application.AppService.Transferencia;
 using ConFin.Common.Domain.Dto;
@@ -18,17 +17,14 @@ namespace ConFin.Web.Controllers
         private readonly ITransferenciaAppService _transferenciaAppService;
         private readonly ILancamentoCategoriaAppService _lancamentoCategoriaAppService;
         private readonly IContaFinanceiraAppService _contaFinanceiraAppService;
-        private readonly ILancamentoAppService _lancamentoAppService;
 
 
         public TransferenciaController(ITransferenciaAppService transferenciaAppService, 
-            IContaFinanceiraAppService contaFinanceiraAppService, ILancamentoCategoriaAppService lancamentoCategoriaAppService, 
-            ILancamentoAppService lancamentoAppService)
+            IContaFinanceiraAppService contaFinanceiraAppService, ILancamentoCategoriaAppService lancamentoCategoriaAppService)
         {
             _transferenciaAppService = transferenciaAppService;
             _contaFinanceiraAppService = contaFinanceiraAppService;
             _lancamentoCategoriaAppService = lancamentoCategoriaAppService;
-            _lancamentoAppService = lancamentoAppService;
         }
 
         public ActionResult Transferencia()
@@ -53,22 +49,22 @@ namespace ConFin.Web.Controllers
             try
             {
                 // combo de Contas
-                var responseConta = _contaFinanceiraAppService.GetAll(UsuarioLogado.Id);
-                if (!responseConta.IsSuccessStatusCode)
-                    return Error(responseConta);
+                var responseContas = _contaFinanceiraAppService.GetAll(UsuarioLogado.Id);
+                if (!responseContas.IsSuccessStatusCode)
+                    return Error(responseContas);
 
-                var contas = JsonConvert.DeserializeObject<IEnumerable<ContaFinanceiraDto>>(responseConta.Content.ReadAsStringAsync().Result).ToList();
+                var contas = JsonConvert.DeserializeObject<IEnumerable<ContaFinanceiraDto>>(responseContas.Content.ReadAsStringAsync().Result).ToList();
                 if (!contas.Any())
-                    return Error("Não foi encontrada nenhuma Conta para cadastrar o lançamento");
+                    return Error("Não foi encontrada nenhuma Conta para cadastrar a transferência");
 
                 // combo de Categorias de lançamento
-                var responseCategoria = _lancamentoCategoriaAppService.Get(UsuarioLogado.Id);
-                if (!responseCategoria.IsSuccessStatusCode)
-                    return Error(responseCategoria);
+                var responseCategorias = _lancamentoCategoriaAppService.GetAll(UsuarioLogado.Id);
+                if (!responseCategorias.IsSuccessStatusCode)
+                    return Error(responseCategorias);
 
-                var categorias = JsonConvert.DeserializeObject<IEnumerable<LancamentoCategoriaDto>>(responseCategoria.Content.ReadAsStringAsync().Result).ToList();
+                var categorias = JsonConvert.DeserializeObject<IEnumerable<LancamentoCategoriaDto>>(responseCategorias.Content.ReadAsStringAsync().Result).ToList();
                 if (!categorias.Any())
-                    return Error("Não foi encontrada nenhuma Categoria para cadastrar o lançamento");
+                    return Error("Não foi encontrada nenhuma Categoria para cadastrar a transferência");
 
                 // cadastro
                 if (!idTransferencia.HasValue)
@@ -90,29 +86,41 @@ namespace ConFin.Web.Controllers
                 if (!response.IsSuccessStatusCode)
                     return Error(response);
 
-                var transferenciaDto = JsonConvert.DeserializeObject<TransferenciaDto>(response.Content.ReadAsStringAsync().Result);
+                var transferencia = JsonConvert.DeserializeObject<TransferenciaDto>(response.Content.ReadAsStringAsync().Result);
 
-                if (contas.All(x => x.Id != transferenciaDto.IdContaOrigem))
+                // buscando conta de Origem (caso não esteja no combo de contas)
+                if (contas.All(x => x.Id != transferencia.IdContaOrigem))
                 {
-                    var responseContaOrigem = _contaFinanceiraAppService.Get(transferenciaDto.IdContaOrigem, UsuarioLogado.Id);
+                    var responseContaOrigem = _contaFinanceiraAppService.Get(transferencia.IdContaOrigem, UsuarioLogado.Id);
                     if (!responseContaOrigem.IsSuccessStatusCode)
                         return Error(responseContaOrigem);
 
                     contas.Add(JsonConvert.DeserializeObject<ContaFinanceiraDto>(responseContaOrigem.Content.ReadAsStringAsync().Result));
                 }
 
-                if (contas.All(x => x.Id != transferenciaDto.IdContaDestino))
+                // buscando conta de Destino (caso não esteja no combo de contas)
+                if (contas.All(x => x.Id != transferencia.IdContaDestino))
                 {
-                    var responseContaDestino = _contaFinanceiraAppService.Get(transferenciaDto.IdContaDestino, UsuarioLogado.Id);
+                    var responseContaDestino = _contaFinanceiraAppService.Get(transferencia.IdContaDestino, UsuarioLogado.Id);
                     if (!responseContaDestino.IsSuccessStatusCode)
                         return Error(responseContaDestino);
 
                     contas.Add(JsonConvert.DeserializeObject<ContaFinanceiraDto>(responseContaDestino.Content.ReadAsStringAsync().Result));
                 }
 
-                return View("_ModalCadastroEdicaoTransferencia", new TransferenciaViewModel(transferenciaDto)
+                // buscando categoria da conta (caso não esteja no combo de categorias)
+                if (categorias.All(x => x.Id != transferencia.IdCategoria))
                 {
-                    UsuarioPodeEditarTransferencia = transferenciaDto.IdUsuarioCadastro == UsuarioLogado.Id,
+                    var responseCategoria = _lancamentoCategoriaAppService.Get(transferencia.IdCategoria, UsuarioLogado.Id);
+                    if (!responseCategoria.IsSuccessStatusCode)
+                        return Error(responseCategoria);
+
+                    categorias.Add(JsonConvert.DeserializeObject<LancamentoCategoriaDto>(responseCategoria.Content.ReadAsStringAsync().Result));
+                }
+
+                return View("_ModalCadastroEdicaoTransferencia", new TransferenciaViewModel(transferencia)
+                {
+                    UsuarioPodeEditarTransferencia = transferencia.IdUsuarioCadastro == UsuarioLogado.Id,
                     IndicadorCadastro = "N",
                     ContasFinanceira = contas,
                     Categorias = categorias

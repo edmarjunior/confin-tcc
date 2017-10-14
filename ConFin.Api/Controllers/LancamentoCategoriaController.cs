@@ -19,9 +19,9 @@ namespace ConFin.Api.Controllers
             _lancamentoCategoriaService = lancamentoCategoriaService;
         }
 
-        public IHttpActionResult Get(int idUsuario) => Ok(_lancamentoCategoriaRepository.Get(idUsuario));
+        public IHttpActionResult GetAll(int idUsuario) => Ok(_lancamentoCategoriaRepository.GetAll(idUsuario));
 
-        public IHttpActionResult Get(int idUsuario, int idCategoria) => Ok(_lancamentoCategoriaRepository.Get(idUsuario, idCategoria));
+        public IHttpActionResult Get(int idCategoria, int? idUsuario = null) => Ok(_lancamentoCategoriaRepository.Get(idCategoria, idUsuario));
 
         public IHttpActionResult GetCategorias(int idUsuario, int idConta) => Ok(_lancamentoCategoriaService.GetCategorias(idUsuario, idConta));
 

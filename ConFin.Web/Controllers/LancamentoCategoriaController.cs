@@ -22,7 +22,7 @@ namespace ConFin.Web.Controllers
         {
             try
             {
-                var response = _lancamentoCategoriaAppService.Get(UsuarioLogado.Id);
+                var response = _lancamentoCategoriaAppService.GetAll(UsuarioLogado.Id);
                 if (!response.IsSuccessStatusCode)
                     return Error(response);
 
@@ -49,7 +49,7 @@ namespace ConFin.Web.Controllers
                 // alteração
                 ViewBag.IndicadorCadastro = "N";
 
-                var response = _lancamentoCategoriaAppService.Get(UsuarioLogado.Id, (int) idCategoria);
+                var response = _lancamentoCategoriaAppService.Get((int)idCategoria);
                 if (!response.IsSuccessStatusCode)
                     return Error(response);
 

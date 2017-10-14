@@ -10,14 +10,14 @@ namespace ConFin.Application.AppService.LancamentoCategoria
         {
         }
 
-        public HttpResponseMessage Get(int idUsuario)
+        public HttpResponseMessage GetAll(int idUsuario)
         {
-            return GetRequest("Get", new {idUsuario});
+            return GetRequest("GetAll", new {idUsuario});
         }
 
-        public HttpResponseMessage Get(int idUsuario, int idCategoria)
+        public HttpResponseMessage Get(int idCategoria, int? idUsuario = null)
         {
-            return GetRequest("Get", new { idUsuario, idCategoria });
+            return GetRequest("Get", new { idCategoria, idUsuario });
 
         }
 

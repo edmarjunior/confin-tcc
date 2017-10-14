@@ -5,8 +5,8 @@ namespace ConFin.Domain.LancamentoCategoria
 {
     public interface ILancamentoCategoriaRepository
     {
-        IEnumerable<LancamentoCategoriaDto> Get(int idUsuario);
-        LancamentoCategoriaDto Get(int idUsuario, int idCategoria);
+        IEnumerable<LancamentoCategoriaDto> GetAll(int idUsuario);
+        LancamentoCategoriaDto Get(int idCategoria, int? idUsuario = null);
         IEnumerable<LancamentoCategoriaDto> GetCategoriasConta(int idConta);
 
         void Post(LancamentoCategoriaDto categoria);

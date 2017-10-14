@@ -31,7 +31,7 @@ namespace ConFin.Repository
             SP_SelLancamentoCategoriasConta
         }
 
-        public IEnumerable<LancamentoCategoriaDto> Get(int idUsuario)
+        public IEnumerable<LancamentoCategoriaDto> GetAll(int idUsuario)
         {
             ExecuteProcedure(Procedures.SP_SelLancamentoCategorias);
             AddParameter("IdUsuario", idUsuario);
@@ -48,11 +48,11 @@ namespace ConFin.Repository
             return categorias;
         }
 
-        public LancamentoCategoriaDto Get(int idUsuario, int idCategoria)
+        public LancamentoCategoriaDto Get(int idCategoria, int? idUsuario = null)
         {
             ExecuteProcedure(Procedures.SP_SelLancamentoCategoria);
-            AddParameter("IdUsuario", idUsuario);
             AddParameter("IdCategoria", idCategoria);
+            AddParameter("IdUsuario", idUsuario);
 
             using (var reader = ExecuteReader())
             {

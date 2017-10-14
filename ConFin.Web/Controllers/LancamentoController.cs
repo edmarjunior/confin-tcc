@@ -49,7 +49,7 @@ namespace ConFin.Web.Controllers
                 #endregion
 
                 #region combo categoria
-                var responseCategoria = _lancamentoCategoriaAppService.Get(UsuarioLogado.Id);
+                var responseCategoria = _lancamentoCategoriaAppService.GetAll(UsuarioLogado.Id);
                 if (!responseCategoria.IsSuccessStatusCode)
                     return Error(responseCategoria);
 
@@ -98,7 +98,7 @@ namespace ConFin.Web.Controllers
                 #endregion
 
                 #region combo categoria
-                var responseCategoria = _lancamentoCategoriaAppService.Get(UsuarioLogado.Id);
+                var responseCategoria = _lancamentoCategoriaAppService.GetAll(UsuarioLogado.Id);
                 if (!responseCategoria.IsSuccessStatusCode)
                     return Error(responseCategoria);
 
