@@ -23,16 +23,16 @@
 </style>
 
 <div class="container" style="width: 75%">
-	<div class="section" style="text-align: center">
+	<div class="section" style="text-align: center; margin-top: -15px">
 		<h1 style="color: gray; font-size: 20pt;" class="caption">Lançamentos</h1>
-		<div class="divider"></div>
+		<div style="margin: -10px 0 -20px 0" class="divider"></div>
 	</div>
 
 	<div class="section" style="text-align: center; vertical-align: middle">
 		<a href="javascript:void(0)" onclick="atualizarLancamentos(-1)" class="tooltipped" data-position="top" data-delay="25" data-tooltip="Mês anterior">
 			<i class="material-icons small">keyboard_arrow_left</i>
 		</a>
-		<a>@Model.NomeMesDataPesquisa de @Model.AnoDataPesquisa</a>
+		<a style="font-size: 15pt; vertical-align: 8px">@Model.NomeMesDataPesquisa de @Model.AnoDataPesquisa</a>
 		<a href="javascript:void(0)" onclick="atualizarLancamentos(+1)" class="tooltipped" data-position="top" data-delay="25" data-tooltip="Próximo mês">
 			<i class="material-icons small">keyboard_arrow_right</i>
 		</a>
@@ -224,6 +224,7 @@
 	})();
 
 	function showModalCadastroEdicaoLancamento(button, idLancamento, indicadorReceitaDespesa) {
+	    $('.toast').remove();
 
 		var btn = $(button);
 
@@ -249,6 +250,7 @@
 	}
 
 	function showModalCadastroEdicaoTransferencia(idTransferencia) {
+	    $('.toast').remove();
 
 		$.get(urlsLancamento.GetTransferenciaModalCadastroEdicao, {
 			idTransferencia: idTransferencia
@@ -266,11 +268,12 @@
 	}
 
 	function deleteLancamento(button, idLancamento, idCompromisso) {
+	    $('.toast').remove();
 
 	    var btn = $(button);
 
 	    if (btn.closest("tr").attr("data-bloqueado") == "S") {
-	        $.toast({ message: "Este lançamento só pode ser excluido pelo usuário que o cadastrou" });
+	        $.toast({ message: "Este lançamento só pode ser excluido pelo usuário que o cadastrou, pois envolve contas que não é sua" });
 	        return;
 	    }
 
@@ -345,8 +348,14 @@
 	var isPagoRecebido, isVencido, isVincendo, isReceita;
 
 	function alteraStatusLancamento(button, idLancamento) {
+	    $('.toast').remove();
 
-		var btn = $(button);
+	    var btn = $(button);
+
+	    if (btn.closest("tr").attr("data-bloqueado") == "S") {
+	        $.toast({ message: "Este lançamento só pode ser editado pelo usuário que o cadastrou, pois envolve contas que não é sua" });
+	        return;
+	    }
 
 		isPagoRecebido = btn.hasClass("pago-recebido");
 		isVencido = btn.hasClass("vencido");
@@ -410,6 +419,8 @@
 	}
 
 	function showModalImportarLancamento() {
+	    $('.toast').remove();
+
 		$.get(urlsLancamento.GetModalImportacao).success(function (data) {
 			$("#containerPrincipal").append(data);
 			$('#modalImportacaoLancamentos').modal({
