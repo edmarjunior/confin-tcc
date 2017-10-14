@@ -95,6 +95,8 @@
     <Compile Include="Domain\Dto\LancamentoCategoriaDto.cs" />
     <Compile Include="Domain\Dto\LancamentoDto.cs" />
     <Compile Include="Domain\Dto\LancamentoResumoGeralDto.cs" />
+    <Compile Include="Domain\Dto\NotificacaoDto.cs" />
+    <Compile Include="Domain\Dto\NotificacaoTipoDto.cs" />
     <Compile Include="Domain\Dto\PeriodoDto.cs" />
     <Compile Include="Domain\Dto\TransferenciaDto.cs" />
     <Compile Include="Domain\Notification.cs" />

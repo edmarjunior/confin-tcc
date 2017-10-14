@@ -7,6 +7,7 @@ using ConFin.Domain.ContaFinanceiraTipo;
 using ConFin.Domain.Lancamento;
 using ConFin.Domain.LancamentoCategoria;
 using ConFin.Domain.Login;
+using ConFin.Domain.Notificacao;
 using ConFin.Domain.Transferencia;
 using ConFin.Domain.Usuario;
 using ConFin.Repository;
@@ -44,6 +45,7 @@ namespace ConFin.Api
             Container.Register<ITransferenciaRepository, TransferenciaRepository>();
             Container.Register<ICompromissoRepository, CompromissoRepository>();
             Container.Register<IContaConjuntaRepository, ContaConjuntaRepository>();
+            Container.Register<INotificacaoRepository, NotificacaoRepository>();
         }
 
         private static void RegisterServices()
@@ -54,6 +56,7 @@ namespace ConFin.Api
             Container.Register<ILancamentoCategoriaService, LancamentoCategoriaService>();
             Container.Register<ILancamentoService, LancamentoService>();
             Container.Register<IContaConjuntaService, ContaConjuntaService>();
+            Container.Register<INotificacaoService, NotificacaoService>();
         }
     }
 }

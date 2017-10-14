@@ -46,6 +46,7 @@
     <Compile Include="ContaFinanceiraTipoRepository.cs" />
     <Compile Include="LancamentoCategoriaRepository.cs" />
     <Compile Include="LancamentoRepository.cs" />
+    <Compile Include="NotificacaoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LoginRepository.cs" />
     <Compile Include="TransferenciaRepository.cs" />
