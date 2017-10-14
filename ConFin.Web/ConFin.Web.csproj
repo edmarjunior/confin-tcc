@@ -155,6 +155,7 @@
     <Content Include="js\common.js" />
     <Content Include="js\jquery-2.1.0.min.js" />
     <Content Include="js\jquery.mask.min.js" />
+    <Content Include="js\malsup-form.js" />
     <Content Include="js\materialize.js" />
     <Content Include="js\materialize.min.js" />
     <Content Include="js\wNumb.js" />

@@ -17,7 +17,8 @@
     <script type="text/javascript" src="~/js/jquery.mask.min.js"></script>
     <script type="text/javascript" src="~/js/nouislider.min.js"></script>
     <script type="text/javascript" src="~/js/wNumb.js"></script>
-    <script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>
+    @*<script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>*@
+    <script type="text/javascript" src="~/js/malsup-form.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -39,6 +40,13 @@
 
             $('.selectonfocus').mask("00/00/0000", { selectOnFocus: true });
         });
+
+        // função para esconder as notificações
+        $(document).on("click", function (e) {
+            if (!$(e.target).hasClass("notificacao") && !$(e.target).closest("#ulNotificacao").length)
+                $("#ulNotificacao").slideUp();
+        });
+
     </script>
 
     <style>

@@ -11,7 +11,7 @@
     bottom: 0;
 }
 
-table:not(.highlight) tbody tr, .collection-item:hover {
+table:not(.highlight) tbody tr:hover, .collection-item:hover {
     background-color: lightblue !important;
 }
 
