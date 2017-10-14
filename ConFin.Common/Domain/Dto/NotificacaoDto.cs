@@ -8,9 +8,11 @@ namespace ConFin.Common.Domain.Dto
         public short IdTipo { get; set; }
         public string DescricaoTipo { get; set; }
         public int IdUsuarioEnvio { get; set; }
+        public string NomeUsuarioEnvio { get; set; }
         public int IdUsuarioDestino { get; set; }
         public DateTime DataCadastro { get; set; }
         public DateTime? DataLeitura { get; set; }
         public string ParametrosUrl { get; set; }
+        public string Mensagem { get; set; }
     }
 }

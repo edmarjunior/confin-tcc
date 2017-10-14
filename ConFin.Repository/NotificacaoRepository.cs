@@ -17,7 +17,8 @@ namespace ConFin.Repository
         private enum Procedures
         {
             SP_SelNotificacao,
-            SP_InsNotificacao
+            FNC_PegaTotalNotificacaoNaoLida,
+            SP_UpdDataLeituraNotificacao
         }
 
         public IEnumerable<NotificacaoDto> Get(int idUsuario)
@@ -35,15 +36,31 @@ namespace ConFin.Repository
                         IdTipo = reader.ReadAttr<short>("IdTipo"),
                         DescricaoTipo = reader.ReadAttr<string>("DescricaoTipo"),
                         IdUsuarioEnvio = reader.ReadAttr<int>("IdUsuarioEnvio"),
+                        NomeUsuarioEnvio = reader.ReadAttr<string>("NomeUsuarioEnvio"),
                         IdUsuarioDestino = reader.ReadAttr<int>("IdUsuarioDestino"),
                         DataCadastro = reader.ReadAttr<DateTime>("DataCadastro"),
                         DataLeitura = reader.ReadAttr<DateTime?>("DataLeitura"),
+                        Mensagem = reader.ReadAttr<string>("Mensagem"),
                         ParametrosUrl = reader.ReadAttr<string>("ParametrosUrl")
                     });
                 }
 
                 return notificacoes;
             }
+        }
+
+        public int GetTotalNaoLidas(int idUsuario)
+        {
+            ExecuteProcedure(Procedures.FNC_PegaTotalNotificacaoNaoLida);
+            AddParameter("IdUsuario", idUsuario);
+            return ExecuteNonQueryWithReturn();
+        }
+
+        public void PutDataLeitura(int idNotificacao)
+        {
+            ExecuteProcedure(Procedures.SP_UpdDataLeituraNotificacao);
+            AddParameter("Id", idNotificacao);
+            ExecuteNonQuery();
         }
     }
 }

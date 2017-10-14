@@ -175,6 +175,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LancamentoCategoriaController.cs" />
     <Compile Include="Controllers\LancamentoController.cs" />
+    <Compile Include="Controllers\NotificacaoController.cs" />
     <Compile Include="Controllers\TransferenciaController.cs" />
     <Compile Include="Hubs\Chat.cs" />
     <Compile Include="ViewModel\Home\HomeViewModel.cs" />

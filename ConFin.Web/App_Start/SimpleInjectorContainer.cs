@@ -4,6 +4,7 @@ using ConFin.Application.AppService.ContaFinanceiraTipo;
 using ConFin.Application.AppService.Lancamento;
 using ConFin.Application.AppService.LancamentoCategoria;
 using ConFin.Application.AppService.Login;
+using ConFin.Application.AppService.Notificacao;
 using ConFin.Application.AppService.Transferencia;
 using ConFin.Application.AppService.Usuario;
 using SimpleInjector;
@@ -24,6 +25,7 @@ namespace ConFin.Web
             container.Register<ILancamentoAppService, LancamentoAppService>();
             container.Register<ITransferenciaAppService, TransferenciaAppService>();
             container.Register<IContaConjuntaAppService, ContaConjuntaAppService>();
+            container.Register<INotificacaoAppService, NotificacaoAppService>();
 
             container.Verify();
             return container;

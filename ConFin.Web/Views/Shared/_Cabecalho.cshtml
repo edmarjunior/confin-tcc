@@ -8,9 +8,9 @@
             <ul class="right hide-on-med-and-down">
                 <li class="darkBackground notificacao" onclick="exibeNotificacoes()">
                     <a class="fa fa-globe notificacao">
-                        <div id="divSpansNotificacao">
+                        <div id="divSpansNotificacao" style="display: none">
                             <span class="fa fa-comment"></span>
-                            <span class="num">5</span>
+                            <span class="num" id="spanTotNotificacaoNaoLida">0</span>
                         </div>
                        
                     </a>
@@ -27,21 +27,13 @@
 </div>
 
 <ul id="ulNotificacao" class="collection" style="display: none; width: 30%; position: absolute; right: 0; z-index: 3">
-    <li class="collection-item avatar">
+    <li id="liEmptyNotificacao" class="collection-item avatar" style="display: none">
         <i class="material-icons">tag_faces</i>
         <span class="title">Uau!</span>
-        <p> Todas notificações já foram lidas
+        <p> Nenhuma notificação não lida
         </p>
         <a href="javascript:void(0)" class="secondary-content">Exibir lidas</a>
     </li>
-
-    <li class="collection-item avatar">
-        <img src="~/Content/Imagens/user.png" alt="usuário" class="circle">
-        <span class="title">Edmar Costa</span>
-        <p> Deseja compartilhar uma conta com você</p>
-        <a title="Exibir" href="javascript:void(0)" class="secondary-content"><i class="material-icons">call_made</i></a>
-    </li>
-
 </ul>
 
 
@@ -61,6 +53,8 @@
 <script>
 
     var urlModalUsuario = '@Url.Action("ModalDadosUsuario", "Usuario")';
+    var urlGetNotificacao = '@Url.Action("Get", "Notificacao")';
+    var urlGetTotalNaoLidas = '@Url.Action("GetTotalNaoLidas", "Notificacao")';
 
     function showModalUsuario() {
 
@@ -77,10 +71,54 @@
         });
     }
 
+    var atualizaTotalNotificacaoNaoLida = (function fnc() {
+
+        $.get(urlGetTotalNaoLidas).success(function (total) {
+
+            if (parseInt(total) > 0) {
+                $("#spanTotNotificacaoNaoLida").text(total);
+                $("#divSpansNotificacao").fadeIn();
+            }
+        });
+
+        return fnc;
+    })();
+
 
     function exibeNotificacoes() {
+        var notificacoesIsVisible = $("#ulNotificacao").is(":visible");
+
         $("#ulNotificacao").slideToggle();
         $("#divSpansNotificacao").fadeOut("slow");
+
+        if (notificacoesIsVisible)
+            return false;
+
+        $.get(urlGetNotificacao).success(function (notificacoes) {
+
+            $("#ulNotificacao li.collection-item:not(#liEmptyNotificacao)").remove();
+
+            if (notificacoes.length) {
+                $("#liEmptyNotificacao").hide();
+            } else {
+                $("#liEmptyNotificacao").show();
+                return false;
+            }
+
+            notificacoes.forEach(function (item) {
+
+                var itemNotificacao = 
+                    "<li class='collection-item avatar'>"
+                   +         "<img src='/Home/Content/Imagens/user.png' alt='usuário' class='circle'>"
+                   +         "<span class='title'>" + item.NomeUsuarioEnvio + "</span>"
+                   +         "<p>"+item.Mensagem+"</p>"
+                   +         "<a title='Exibir' href='javascript:void(0)' class='secondary-content'>"
+                   +         "<i class='material-icons'>call_made</i></a>"
+                   + "</li>";
+
+                $("#ulNotificacao").append(itemNotificacao);
+            });
+        });
     }
 
 </script>

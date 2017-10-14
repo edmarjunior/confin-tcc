@@ -59,6 +59,8 @@
     <Compile Include="AppService\Lancamento\LancamentoAppService.cs" />
     <Compile Include="AppService\Login\LoginAppService.cs" />
     <Compile Include="AppService\Login\ILoginAppService.cs" />
+    <Compile Include="AppService\Notificacao\INotificacaoAppService.cs" />
+    <Compile Include="AppService\Notificacao\NotificacaoAppService.cs" />
     <Compile Include="AppService\Transferencia\ITransferenciaAppService.cs" />
     <Compile Include="AppService\Transferencia\TransferenciaAppService.cs" />
     <Compile Include="AppService\Usuario\IUsuarioAppService.cs" />

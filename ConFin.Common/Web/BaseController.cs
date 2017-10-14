@@ -1,5 +1,6 @@
 ﻿using ConFin.Common.Domain;
 using ConFin.Common.Domain.Dto;
+using Newtonsoft.Json;
 using System.Net;
 using System.Net.Http;
 using System.Web.Mvc;
@@ -39,6 +40,11 @@ namespace ConFin.Common.Web
         {
             if(UsuarioLogado == null)
                 filterContext.Result = new RedirectResult(new Parameters().UriWeb + "Home");
+        }
+
+        protected T Deserialize<T>(HttpResponseMessage response)
+        {
+            return JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync().Result);
         }
     }
 }

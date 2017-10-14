@@ -17,6 +17,7 @@ namespace ConFin.Api.Controllers
             _notification = notification;
         }
 
-        public IHttpActionResult Get(int idUsuario) => Ok(_notificacaoRepository.Get(idUsuario));
+        public IHttpActionResult Get(int idUsuario) => Ok(_notificacaoService.Get(idUsuario));
+        public IHttpActionResult GetTotalNaoLidas(int idUsuario) => Ok(_notificacaoRepository.GetTotalNaoLidas(idUsuario));
     }
 }
