@@ -145,6 +145,7 @@
   <ItemGroup>
     <Content Include="Content\Imagens\logo2.png" />
     <Content Include="Content\Imagens\user.png" />
+    <Content Include="css\font-awesome.min.css" />
     <Content Include="css\nouislider.min.css" />
     <Content Include="css\common.css" />
     <Content Include="css\login.css" />
