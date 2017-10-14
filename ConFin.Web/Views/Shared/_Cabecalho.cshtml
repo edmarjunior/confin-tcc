@@ -6,9 +6,14 @@
     <nav style="background-color: #00BFFF">
         <div class="nav-wrapper">
             <ul class="right hide-on-med-and-down">
-                <li>
-                    <a class="dropdown-button" href="javascript:void(0)">
-                        <i class="material-icons">language</i>
+                <li class="darkBackground" onclick="exibeNotificacoes()">
+                    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
+                    <a class="fa fa-globe" >
+                        <div id="divSpansNotificacao">
+                            <span class="fa fa-comment"></span>
+                            <span class="num">5</span>
+                        </div>
+                       
                     </a>
                 </li>
                 <li>
@@ -21,6 +26,24 @@
         </div>
     </nav>
 </div>
+
+<ul id="ulNotificacao" class="collection" style="display: none; width: 30%; position: absolute; right: 0; z-index: 3">
+    <li class="collection-item avatar">
+        <i class="material-icons">tag_faces</i>
+        <span class="title">Uau!</span>
+        <p> Todas notificações já foram lidas
+        </p>
+        <a href="#!" class="secondary-content">Exibir lidas</a>
+    </li>
+
+    <li class="collection-item avatar">
+        <img src="~/Content/Imagens/user.png" alt="usuário" class="circle">
+        <span class="title">Edmar Costa</span>
+        <p> Deseja compartilhar uma conta com você</p>
+        <a title="Exibir" href="javascript:void(0)" class="secondary-content"><i class="material-icons">call_made</i></a>
+    </li>
+
+</ul>
 
 
 <ul id="comboOpcoesUsuario" class="dropdown-content">
@@ -53,6 +76,12 @@
             $("#modalDadosUsuario").modal("open");
             verifyLabelActive();
         });
+    }
+
+
+    function exibeNotificacoes() {
+        $("#ulNotificacao").slideToggle();
+        $("#divSpansNotificacao").fadeOut("slow");
     }
 
 </script>

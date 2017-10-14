@@ -11,7 +11,7 @@
     bottom: 0;
 }
 
-table:not(.highlight) tbody tr:hover {
+table:not(.highlight) tbody tr, .collection-item:hover {
     background-color: lightblue !important;
 }
 
@@ -30,4 +30,34 @@ table tbody td {
 .btnAdd {
     right: 10%;
     bottom: 30%
+}
+
+ /*Icone de Notificação do cabeçalho*/
+
+a.fa-globe {
+    position: relative;
+    font-size: 2em;
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+span.fa-comment {
+   position: absolute;
+    font-size: 0.75em;
+    top: -9px;
+    color: darkblue;
+    right: 0;
+}
+span.num {
+    position: absolute;
+    font-size: 0.5em;
+    top: -7px;
+    color: #fff;
+    right: 7px;
+}
+
+
+li.darkBackground:hover, a.fa-globe:hover {
+    background-color: rgb(49, 159, 196);
+    cursor: pointer;
 }
