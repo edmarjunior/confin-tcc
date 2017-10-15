@@ -61,3 +61,10 @@ li.darkBackground:hover, a.fa-globe:hover {
     background-color: rgb(49, 159, 196);
     cursor: pointer;
 }
+
+
+i.scale { transition: all .2s ease-in-out}
+
+i.scale:hover {
+    transform: scale(1.8);
+}

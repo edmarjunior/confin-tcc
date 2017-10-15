@@ -6,7 +6,7 @@
     <nav style="background-color: #00BFFF">
         <div class="nav-wrapper">
             <ul class="right hide-on-med-and-down">
-                <li class="darkBackground notificacao" onclick="exibeNotificacoes()">
+                <li class="darkBackground notificacao" onclick="exibeNotificacoes('N')">
                     <a class="fa fa-globe notificacao">
                         <div id="divSpansNotificacao" style="display: none">
                             <span class="fa fa-comment"></span>
@@ -26,23 +26,25 @@
     </nav>
 </div>
 
-<ul id="ulNotificacao" class="collection" style="display: none; width: 30%; position: absolute; right: 0; z-index: 3">
-    <li id="liEmptyNotificacao" class="collection-item avatar" style="display: none">
+<ul id="ulNotificacao" class="collection" style="display: none; width: 37%; position: absolute; right: 0; z-index: 1000; max-height: 80%; overflow-y: auto">
+    <li id="liEmptyNotificacaoNaoLida" class="collection-item avatar" style="display: none">
         <i class="material-icons">tag_faces</i>
         <span class="title">Uau!</span>
-        <p> Nenhuma notificação não lida
-        </p>
-        <a href="javascript:void(0)" class="secondary-content">Exibir lidas</a>
+        <p>Nenhuma notificação não lida</p>
+        <a href="javascript:void(0)" onclick="exibeNotificacoes('S')" class="secondary-content">Exibir lidas</a>
+    </li>
+    <li id="liEmptyNotificacaoLida" class="collection-item avatar" style="display: none">
+        <i class="material-icons">tag_faces</i>
+        <span class="title">Uau!</span>
+        <p>Você não possui nenhuma notificação</p>
     </li>
 </ul>
-
 
 <ul id="comboOpcoesUsuario" class="dropdown-content">
     <li><a href="javascript:void(0)" onclick="showModalUsuario()"><i class="material-icons">build</i>Perfil</a></li>
     <li class="divider"></li>
     <li><a href="@Url.AbsoluteAction("Home", "Logout")"><i class="material-icons">exit_to_app</i>Sair</a></li>
 </ul>
-
 
 <a href="javascript:void(0)" style="position: fixed; z-index: 101; top: 16px; left: 16px; color: #eeeeee" data-activates="menuLateral"
    class="button-collapse tooltipped" data-position="right" data-delay="25" data-tooltip="Menu">
@@ -84,40 +86,63 @@
         return fnc;
     })();
 
+    function exibeNotificacoes(indicadorLida) {
 
-    function exibeNotificacoes() {
-        var notificacoesIsVisible = $("#ulNotificacao").is(":visible");
+        $("#ulNotificacao li.collection-item:not(#liEmptyNotificacaoNaoLida, #liEmptyNotificacaoLida)").remove();
 
-        $("#ulNotificacao").slideToggle();
-        $("#divSpansNotificacao").fadeOut("slow");
+        if (indicadorLida == "N") {
+            var notificacoesIsVisible = $("#ulNotificacao").is(":visible");
 
-        if (notificacoesIsVisible)
-            return false;
+            $("#ulNotificacao").slideToggle();
+            $("#divSpansNotificacao").fadeOut("slow");
 
-        $.get(urlGetNotificacao).success(function (notificacoes) {
+            if (notificacoesIsVisible)
+                return false;
+        }
 
-            $("#ulNotificacao li.collection-item:not(#liEmptyNotificacao)").remove();
+        $.get(urlGetNotificacao, {
+            indicadorNotificacaoLida: indicadorLida
+        }).success(function (notificacoes) {
+            $("#liEmptyNotificacaoNaoLida, #liEmptyNotificacaoLida").hide();
 
-            if (notificacoes.length) {
-                $("#liEmptyNotificacao").hide();
-            } else {
-                $("#liEmptyNotificacao").show();
+            // independente se a pesquisa for por notificações lidas ou não lidas (caso não tenha registros algum)
+            if (notificacoes.noContent) {
+                $("#liEmptyNotificacaoLida").show();
+                return false;
+            }
+
+            if (!notificacoes.length) {
+
+                if (indicadorLida == "S") {
+                    $("#liEmptyNotificacaoLida").show();
+                } else {
+                    $("#liEmptyNotificacaoNaoLida").show();
+                }
+
                 return false;
             }
 
             notificacoes.forEach(function (item) {
 
-                var itemNotificacao = 
+                var itemNotificacao =
                     "<li class='collection-item avatar'>"
-                   +         "<img src='/Home/Content/Imagens/user.png' alt='usuário' class='circle'>"
-                   +         "<span class='title'>" + item.NomeUsuarioEnvio + "</span>"
-                   +         "<p>"+item.Mensagem+"</p>"
-                   +         "<a title='Exibir' href='javascript:void(0)' class='secondary-content'>"
-                   +         "<i class='material-icons'>call_made</i></a>"
+                   + "<img src='/Home/Content/Imagens/user.png' alt='usuário' class='circle'>"
+                   + "<span class='title' style='color:darkblue'>" + item.NomeUsuarioEnvio + "</span>"
+                   + "<p>" + item.Mensagem + " <br> <span style='color:gray'>" + item.DataCadastro + "</span></p>"
+                   + "<a title='Exibir' href='javascript:void(0)' onclick=\"redirectUrlNotificacao('" + item.Url + "')\" class='secondary-content'>"
+                   + "<i class='material-icons scale'>call_made</i></a>"
                    + "</li>";
 
                 $("#ulNotificacao").append(itemNotificacao);
             });
+        });
+
+    }
+
+    function redirectUrlNotificacao(url) {
+        $.get(decodeURIComponent(url)).success(function (data) {
+            $("#containerPrincipal").html(data);
+            $("#ulNotificacao").slideUp();
         });
     }
 

@@ -9,9 +9,9 @@ namespace ConFin.Application.AppService.Notificacao
         {
         }
 
-        public HttpResponseMessage Get(int idUsuario)
+        public HttpResponseMessage Get(int idUsuario, bool notificacaoLida)
         {
-            return GetRequest("Get", new {idUsuario});
+            return GetRequest("Get", new {idUsuario, notificacaoLida });
         }
 
         public HttpResponseMessage GetTotalNaoLidas(int idUsuario)

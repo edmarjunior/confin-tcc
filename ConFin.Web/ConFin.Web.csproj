@@ -188,6 +188,7 @@
     </Compile>
     <Compile Include="ViewModel\ContaFinanceiraViewModel.cs" />
     <Compile Include="ViewModel\Lancamento\LancamentoViewModel.cs" />
+    <Compile Include="ViewModel\NotificacaoViewModel.cs" />
     <Compile Include="ViewModel\TransferenciaViewModel.cs" />
     <Compile Include="ViewModel\ContaConjuntaViewModel.cs" />
     <Compile Include="ViewModel\UsuarioViewModel.cs" />

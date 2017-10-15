@@ -1,8 +1,11 @@
 ﻿using ConFin.Application.AppService.Notificacao;
 using ConFin.Common.Domain.Dto;
 using ConFin.Common.Web;
+using ConFin.Web.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 
 namespace ConFin.Web.Controllers
@@ -16,14 +19,17 @@ namespace ConFin.Web.Controllers
             _notificacaoAppService = notificacaoAppService;
         }
 
-        public ActionResult Get()
+        public ActionResult Get(string indicadorNotificacaoLida)
         {
             try
             {
-                var response = _notificacaoAppService.Get(UsuarioLogado.Id);
-                return !response.IsSuccessStatusCode 
+                var response = _notificacaoAppService.Get(UsuarioLogado.Id, indicadorNotificacaoLida == "S");
+                if (HttpStatusCode.NoContent == response.StatusCode)
+                    return Json(new {noContent = true}, JsonRequestBehavior.AllowGet);
+
+                return !response.IsSuccessStatusCode
                     ? Error(response) 
-                    : Json(Deserialize<IEnumerable<NotificacaoDto>>(response), JsonRequestBehavior.AllowGet);
+                    : Json(Deserialize<IEnumerable<NotificacaoDto>>(response).Select(x => new NotificacaoViewModel(x)), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -45,5 +51,6 @@ namespace ConFin.Web.Controllers
                 return Error(ex.Message);
             }
         }
+
     }
 }

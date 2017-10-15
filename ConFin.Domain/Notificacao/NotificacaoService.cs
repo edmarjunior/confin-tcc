@@ -16,10 +16,23 @@ namespace ConFin.Domain.Notificacao
             _notification = notification;
         }
 
-        public IEnumerable<NotificacaoDto> Get(int idUsuario)
+        public IEnumerable<NotificacaoDto> Get(int idUsuario, bool notificacaoLida, out bool nenhumaNotificacao)
         {
+            nenhumaNotificacao = false;
             var notificacoes = _notificacaoRepository.Get(idUsuario).ToList();
-            if(notificacoes.All(x => x.DataLeitura != null))
+
+            if (!notificacoes.Any())
+            {
+                nenhumaNotificacao = true;
+                return notificacoes;
+            }
+
+            if (notificacaoLida)
+                return notificacoes.Where(x => x.DataLeitura != null);
+
+            notificacoes = notificacoes.Where(x => x.DataLeitura == null).ToList();
+
+            if (!notificacoes.Any())
                 return notificacoes;
 
             _notificacaoRepository.OpenTransaction();
