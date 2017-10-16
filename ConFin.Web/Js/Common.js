@@ -27,7 +27,6 @@ function noLoading() {
 
     if (cancelLoading) {
         cancelLoading = false;
-        return;
     }
 
     $('.preloader-background, .preloader-wrapper').fadeOut('slow');

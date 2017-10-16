@@ -66,6 +66,7 @@
                 IdUsuarioEnvio: idUsuarioEnvio
             }).success(function (message) {
                 $.toast({ message: message, type: "success" });
+                $("#btnHiddenAtualizaTotalNotificacoes").trigger("click");
                 atualizarContaConjunta();
             });
         });

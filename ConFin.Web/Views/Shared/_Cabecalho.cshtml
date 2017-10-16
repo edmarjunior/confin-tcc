@@ -51,20 +51,20 @@
     <i class="small material-icons">menu</i>
 </a>
 
-<script src="/signalr/hubs" type="text/javascript"></script>
+<script src="~/signalr/hubs" type="text/javascript"></script>
 
 <script>
     
     $(function () {
-        var chat = $.connection.chat;
-        chat.client.atualizaNotificacoes = function () {
-            $("#linkEmail").text("Vai la hub");
+        var notificacaoHub = $.connection.notificacaoHub;
+        notificacaoHub.client.atualizaNotificacoes = function () {
+            atualizaTotalNotificacaoNaoLida();
         };
 
         $.connection.hub.start().done(function () {
             $.connection.hub.start();
             $("#btnHiddenAtualizaTotalNotificacoes").click(function (e) {
-                chat.server.atualizarNotificacoes();
+                notificacaoHub.server.atualizarNotificacoes();
             });
         });
 
@@ -90,7 +90,7 @@
     }
 
     var atualizaTotalNotificacaoNaoLida = (function fnc() {
-
+        desableLoading();
         $.get(urlGetTotalNaoLidas).success(function (total) {
 
             if (parseInt(total) > 0) {
@@ -116,9 +116,12 @@
                 return false;
         }
 
+        desableLoading();
+
         $.get(urlGetNotificacao, {
             indicadorNotificacaoLida: indicadorLida
         }).success(function (notificacoes) {
+
             $("#liEmptyNotificacaoNaoLida, #liEmptyNotificacaoLida").hide();
 
             // independente se a pesquisa for por notificações lidas ou não lidas (caso não tenha registros algum)

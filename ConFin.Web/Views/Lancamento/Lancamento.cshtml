@@ -300,7 +300,8 @@
 			idLancamento: idLancamento,
 			indTipoDelete: indTipoDelete
 		}).success(function (message) {
-			$.toast({ message: message, type: "success" });
+		    $.toast({ message: message, type: "success" });
+		    $("#btnHiddenAtualizaTotalNotificacoes").trigger("click");
 			atualizarLancamentos(0);
 		});
 	}
@@ -311,7 +312,8 @@
 			$.post(urlsLancamento.DeleteTransferencia, {
 				idTransferencia: idTransferencia
 			}).success(function (message) {
-				$.toast({ message: message, type: "success" });
+			    $.toast({ message: message, type: "success" });
+			    $("#btnHiddenAtualizaTotalNotificacoes").trigger("click");
 				atualizarLancamentos(0);
 			});
 		});

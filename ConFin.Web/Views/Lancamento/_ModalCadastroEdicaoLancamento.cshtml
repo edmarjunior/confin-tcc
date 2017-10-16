@@ -248,6 +248,7 @@
         $.post(urlPostPutLancamento, $("#formLancamentoCadastroEdicao").toObject()).success(function (message) {
             $("#modalLancamentoCadastroEdicao").modal("close");
             $.toast({ message: message, type: "success" });
+            $("#btnHiddenAtualizaTotalNotificacoes").trigger("click");
             atualizarLancamentos(0);
         });
     }

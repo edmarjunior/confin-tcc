@@ -55,6 +55,7 @@
             idContaConjunta: idContaConjunta
         }).success(function(message) {
             $.toast({ message: message, type: "success" });
+            $("#btnHiddenAtualizaTotalNotificacoes").trigger("click");
             atualizaGridUsuarios();
         });
     }

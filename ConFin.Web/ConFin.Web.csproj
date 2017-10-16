@@ -177,7 +177,7 @@
     <Compile Include="Controllers\LancamentoController.cs" />
     <Compile Include="Controllers\NotificacaoController.cs" />
     <Compile Include="Controllers\TransferenciaController.cs" />
-    <Compile Include="Hubs\Chat.cs" />
+    <Compile Include="Hubs\NotificacaoHub.cs" />
     <Compile Include="ViewModel\Home\HomeViewModel.cs" />
     <Compile Include="ViewModel\Home\LancamentoResumoGeralViewModel.cs" />
     <Compile Include="ViewModel\Lancamento\LancamentoMasterViewModel.cs" />
