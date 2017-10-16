@@ -150,6 +150,7 @@
         $.post(urlPostPutTransferencia, $("#formTransferenciaCadastroEdicao").toObject()).success(function (message) {
             $("#modalTransferenciaCadastroEdicao").modal("close");
             $.toast({ message: message, type: "success" });
+            $("#btnHiddenAtualizaTotalNotificacoes").trigger("click");
             atualizarTransferencias();
         });
     }

@@ -135,7 +135,8 @@
 			$.post(urlsTransferencia.Delete, {
 				idTransferencia: idTransferencia
 			}).success(function (message) {
-				$.toast({ message: message, type: "success" });
+			    $.toast({ message: message, type: "success" });
+			    $("#btnHiddenAtualizaTotalNotificacoes").trigger("click");
 				atualizarTransferencias();
 			});
 		});
