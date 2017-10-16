@@ -63,6 +63,8 @@
     <Compile Include="Login\ILoginService.cs" />
     <Compile Include="Login\LoginService.cs" />
     <Compile Include="Transferencia\ITransferenciaRepository.cs" />
+    <Compile Include="Transferencia\ITransferenciaService.cs" />
+    <Compile Include="Transferencia\TransferenciaService.cs" />
     <Compile Include="Usuario\IUsuarioRepository.cs" />
     <Compile Include="Usuario\IUsuarioService.cs" />
     <Compile Include="Usuario\UsuarioService.cs" />

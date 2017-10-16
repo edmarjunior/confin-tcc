@@ -10,12 +10,14 @@ namespace ConFin.Api.Controllers
     {
 
         private readonly ITransferenciaRepository _transferenciaRepository;
+        private readonly ITransferenciaService _transferenciaService;
         private readonly Notification _notification;
 
-        public TransferenciaController(ITransferenciaRepository transferenciaRepository, Notification notification)
+        public TransferenciaController(ITransferenciaRepository transferenciaRepository, Notification notification, ITransferenciaService transferenciaService)
         {
             _transferenciaRepository = transferenciaRepository;
             _notification = notification;
+            _transferenciaService = transferenciaService;
         }
 
         public IHttpActionResult GetAll(int idUsuario) => Ok(_transferenciaRepository.GetAll(idUsuario));
@@ -24,7 +26,7 @@ namespace ConFin.Api.Controllers
 
         public IHttpActionResult Post(TransferenciaDto transferencia)
         {
-            _transferenciaRepository.Post(transferencia);
+            _transferenciaService.Post(transferencia);
             if (!_notification.Any)
                 return Ok();
 
@@ -33,7 +35,7 @@ namespace ConFin.Api.Controllers
 
         public IHttpActionResult Put(TransferenciaDto transferencia)
         {
-            _transferenciaRepository.Put(transferencia);
+            _transferenciaService.Put(transferencia);
             if (!_notification.Any)
                 return Ok();
 
@@ -42,7 +44,7 @@ namespace ConFin.Api.Controllers
 
         public IHttpActionResult Delete(int idTransferencia)
         {
-            _transferenciaRepository.Delete(idTransferencia);
+            _transferenciaService.Delete(idTransferencia);
             if (!_notification.Any)
                 return Ok();
 

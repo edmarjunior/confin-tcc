@@ -187,7 +187,6 @@ namespace ConFin.Web.Controllers
             }
         }
 
-
         public ActionResult PossuiOpcaoTransferencia()
         {
             try

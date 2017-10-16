@@ -1,9 +1,10 @@
 ﻿using ConFin.Common.Domain.Dto;
+using ConFin.Common.Repository.Infra;
 using System.Collections.Generic;
 
 namespace ConFin.Domain.Transferencia
 {
-    public interface ITransferenciaRepository
+    public interface ITransferenciaRepository: IBaseRepository
     {
         IEnumerable<TransferenciaDto> GetAll(int idUsuario);
         TransferenciaDto Get(int idTransferencia);

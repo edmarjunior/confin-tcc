@@ -48,7 +48,8 @@ namespace ConFin.Repository
                         IdCategoria = reader.ReadAttr<int>("IdCategoria"),
                         NomeCategoria = reader.ReadAttr<string>("NomeCategoria"),
                         CorCategoria = reader.ReadAttr<string>("CorCategoria"),
-                        IndicadorPagoRecebido = reader.ReadAttr<string>("IndicadorPagoRecebido")
+                        IndicadorPagoRecebido = reader.ReadAttr<string>("IndicadorPagoRecebido"),
+                        IdUsuarioCadastro = reader.ReadAttr<int>("IdUsuarioCadastro")
                     });
                 }
             }

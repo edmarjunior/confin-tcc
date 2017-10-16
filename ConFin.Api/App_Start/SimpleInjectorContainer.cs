@@ -57,6 +57,7 @@ namespace ConFin.Api
             Container.Register<ILancamentoService, LancamentoService>();
             Container.Register<IContaConjuntaService, ContaConjuntaService>();
             Container.Register<INotificacaoService, NotificacaoService>();
+            Container.Register<ITransferenciaService, TransferenciaService>();
         }
     }
 }
