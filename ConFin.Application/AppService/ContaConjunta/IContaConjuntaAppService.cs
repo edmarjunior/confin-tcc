@@ -7,7 +7,7 @@ namespace ConFin.Application.AppService.ContaConjunta
     {
         HttpResponseMessage Get(int? idUsuario, int? idConta = null);
         HttpResponseMessage Post(ContaConjuntaDto contaConjunta);
-        HttpResponseMessage Delete(int idContaConjunta);
+        HttpResponseMessage Delete(int idContaConjunta, int idUsuario);
         HttpResponseMessage Put(ContaConjuntaDto contaConjunta);
     }
 }

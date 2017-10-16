@@ -172,7 +172,7 @@ namespace ConFin.Web.Controllers
         {
             try
             {
-                var response = _lancamentoAppService.Delete(idLancamento, indTipoDelete);
+                var response = _lancamentoAppService.Delete(idLancamento, indTipoDelete, UsuarioLogado.Id);
                 return response.IsSuccessStatusCode ? Ok(response.Content.ReadAsStringAsync().Result.Replace('"', ' ')) : Error(response);
             }
             catch (Exception ex)

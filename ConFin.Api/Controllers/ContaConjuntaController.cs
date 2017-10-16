@@ -31,9 +31,9 @@ namespace ConFin.Api.Controllers
             return Content(HttpStatusCode.BadRequest, _notification.Get);
         }
 
-        public IHttpActionResult Delete(int idContaConjunta)
+        public IHttpActionResult Delete(int idContaConjunta, int idUsuario)
         {
-            _contaConjuntaRepository.Delete(idContaConjunta);
+            _contaConjuntaService.Delete(idContaConjunta, idUsuario);
             if (!_notification.Any)
                 return Ok();
 

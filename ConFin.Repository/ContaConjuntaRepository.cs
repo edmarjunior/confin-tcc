@@ -26,20 +26,21 @@ namespace ConFin.Repository
             SP_DelContaConjuntaCategoria
         }
 
-        public IEnumerable<ContaConjuntaDto> Get(int? idUsuario, int? idConta = null)
+        public IEnumerable<ContaConjuntaDto> Get(int? idUsuario, int? idConta = null, int? idContaConjunta = null)
         {
             ExecuteProcedure(Procedures.SP_SelContaConjunta);
             AddParameter("IdUsuario", idUsuario);
             AddParameter("IdConta", idConta);
+            AddParameter("Id", idContaConjunta);
             var usuariosContaConjunta = new List<ContaConjuntaDto>();
             using (var reader = ExecuteReader())
             {
                 while (reader.Read())
                 {
-
                     usuariosContaConjunta.Add(new ContaConjuntaDto
                     {
                         Id = reader.ReadAttr<int>("Id"),
+                        IdUsuarioEnvio = reader.ReadAttr<int>("IdUsuarioEnvio"),
                         NomeUsuarioEnvio = reader.ReadAttr<string>("NomeUsuarioEnvio"),
                         EmailUsuarioEnvio = reader.ReadAttr<string>("EmailUsuarioEnvio"),
                         NomeUsuarioConvidado = reader.ReadAttr<string>("NomeUsuarioConvidado"),

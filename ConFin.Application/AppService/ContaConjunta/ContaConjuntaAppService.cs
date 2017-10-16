@@ -21,9 +21,9 @@ namespace ConFin.Application.AppService.ContaConjunta
 
         }
 
-        public HttpResponseMessage Delete(int idContaConjunta)
+        public HttpResponseMessage Delete(int idContaConjunta, int idUsuario)
         {
-            return DeleteRequest("Delete", new { idContaConjunta });
+            return DeleteRequest("Delete", new { idContaConjunta, idUsuario });
         }
 
         public HttpResponseMessage Put(ContaConjuntaDto contaConjunta)

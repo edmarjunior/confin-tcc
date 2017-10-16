@@ -11,7 +11,7 @@ namespace ConFin.Application.AppService.Lancamento
         HttpResponseMessage Post(LancamentoDto lancamento);
         HttpResponseMessage Post(IEnumerable<LancamentoDto> lancamentos);
         HttpResponseMessage Put(LancamentoDto lancamento);
-        HttpResponseMessage Delete(int idLancamento, string indTipoDelete);
+        HttpResponseMessage Delete(int idLancamento, string indTipoDelete, int idUsuario);
         HttpResponseMessage PutIndicadorPagoRecebido(LancamentoDto lancamento);
         HttpResponseMessage GetResumo(int idUsuario, byte mes, short ano, int? idConta = null, int? idCategoria = null);
         HttpResponseMessage GetPeriodo();

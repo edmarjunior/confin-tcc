@@ -27,10 +27,10 @@
                         <td>@item.EmailUsuarioEnvio</td>
                         <td>@item.NomeConta</td>
                         <td class="center-align">
-                            <a title="Aceitar" style="color: limegreen" href="javascript:void(0)" onclick="putContaConjunta(@item.Id, @item.IdConta, 'A')">
+                            <a title="Aceitar" style="color: limegreen" href="javascript:void(0)" onclick="putContaConjunta(@item.Id, @item.IdConta, 'A', @item.IdUsuarioEnvio)">
                                 <i class="material-icons">thumb_up</i>
                             </a>
-                            <a title="Rejeitar" style="color: red" href="javascript:void(0)" onclick="putContaConjunta(@item.Id, @item.IdConta, 'R')">
+                            <a title="Rejeitar" style="color: red" href="javascript:void(0)" onclick="putContaConjunta(@item.Id, @item.IdConta, 'R', @item.IdUsuarioEnvio)">
                                 <i class="material-icons">thumb_down</i>
                             </a>
                         </td>
@@ -54,7 +54,7 @@
 
     };
 
-    function putContaConjunta(idContaConjunta, idConta, indicadorAprovado) {
+    function putContaConjunta(idContaConjunta, idConta, indicadorAprovado, idUsuarioEnvio) {
 
         var msg = "Deseja realmente " + (indicadorAprovado == "A" ? "aceitar" : "recusar") + " compartilhar esta conta?";
 
@@ -62,7 +62,8 @@
             $.get(urlsConviteContaConjunta.put, {
                 Id: idContaConjunta,
                 IdConta: idConta,
-                IndicadorAprovado: indicadorAprovado
+                IndicadorAprovado: indicadorAprovado,
+                IdUsuarioEnvio: idUsuarioEnvio
             }).success(function (message) {
                 $.toast({ message: message, type: "success" });
                 atualizarContaConjunta();

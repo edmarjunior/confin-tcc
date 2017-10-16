@@ -59,9 +59,9 @@ namespace ConFin.Api.Controllers
             return Content(HttpStatusCode.BadRequest, _notification.Get);
         }
 
-        public IHttpActionResult Delete(int idLancamento, string indTipoDelete)
+        public IHttpActionResult Delete(int idLancamento, string indTipoDelete, int idUsuario)
         {
-            _lancamentoService.Delete(idLancamento, indTipoDelete);
+            _lancamentoService.Delete(idLancamento, indTipoDelete, idUsuario);
             if (_notification.Any)
                 return Content(HttpStatusCode.BadRequest, _notification.Get);
 

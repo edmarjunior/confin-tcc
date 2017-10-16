@@ -19,13 +19,11 @@ namespace ConFin.Application.AppService.Lancamento
         public HttpResponseMessage Get(int idLancamento)
         {
             return GetRequest("Get", new { idLancamento });
-
         }
 
         public HttpResponseMessage Post(LancamentoDto lancamento)
         {
             return PostRequest("Post", lancamento);
-
         }
 
         public HttpResponseMessage Post(IEnumerable<LancamentoDto> lancamentos)
@@ -36,12 +34,11 @@ namespace ConFin.Application.AppService.Lancamento
         public HttpResponseMessage Put(LancamentoDto lancamento)
         {
             return PutRequest("Put", lancamento);
-
         }
 
-        public HttpResponseMessage Delete(int idLancamento, string indTipoDelete)
+        public HttpResponseMessage Delete(int idLancamento, string indTipoDelete, int idUsuario)
         {
-            return DeleteRequest("Delete", new { idLancamento, indTipoDelete });
+            return DeleteRequest("Delete", new { idLancamento, indTipoDelete, idUsuario });
         }
 
         public HttpResponseMessage PutIndicadorPagoRecebido(LancamentoDto lancamento)

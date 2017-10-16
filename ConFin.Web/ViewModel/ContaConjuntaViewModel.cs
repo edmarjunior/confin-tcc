@@ -13,8 +13,8 @@ namespace ConFin.Web.ViewModel
         {
             Id = dto.Id;
             IdConta = dto.IdConta;
-            DataAnalise = dto.DataAnalise.HasValue ? $"{dto.DataAnalise:d}" : "";
-            DataCadastro = dto.DataCadastro.ToShortDateString();
+            DataAnalise = dto.DataAnalise.HasValue ? $"{dto.DataAnalise:G}" : "";
+            DataCadastro = $"{dto.DataCadastro:G}";
             IdUsuarioEnvio = dto.IdUsuarioEnvio;
             NomeUsuarioEnvio = dto.NomeUsuarioEnvio;
             IdUsuarioConvidado = dto.IdUsuarioConvidado;

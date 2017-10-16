@@ -40,6 +40,7 @@ namespace ConFin.Web.Controllers
         {
             try
             {
+                contaConjunta.IdUsuarioConvidado = UsuarioLogado.Id;
                 var response = _contaConjuntaAppService.Put(contaConjunta);
                 return response.IsSuccessStatusCode
                     ? Ok($"Convite {(contaConjunta.IndicadorAprovado == "A" ? "Aprovado" : "Recusado")} com sucesso")
@@ -76,8 +77,8 @@ namespace ConFin.Web.Controllers
                 if (!response.IsSuccessStatusCode)
                     return Error(response);
 
-                var usuariosContaConjunta = JsonConvert.DeserializeObject<IEnumerable<ContaConjuntaDto>>(response.Content.ReadAsStringAsync().Result);
                 ViewBag.IdConta = idConta;
+                var usuariosContaConjunta = Deserialize<IEnumerable<ContaConjuntaDto>>(response).OrderByDescending(x => x.DataAnalise).ThenByDescending(x => x.DataCadastro);
                 return View("_GridUsuariosContaConjunta", usuariosContaConjunta.Select(x => new ContaConjuntaViewModel(x, indicadorProprietarioConta, UsuarioLogado.Id)));
 
             }
@@ -107,7 +108,7 @@ namespace ConFin.Web.Controllers
         {
             try
             {
-                var response = _contaConjuntaAppService.Delete(idContaConjunta);
+                var response = _contaConjuntaAppService.Delete(idContaConjunta, UsuarioLogado.Id);
                 return response.IsSuccessStatusCode
                     ? Ok("Compartilhamento excluído com sucesso!")
                     : Error(response);

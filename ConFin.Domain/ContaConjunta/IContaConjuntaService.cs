@@ -6,5 +6,6 @@ namespace ConFin.Domain.ContaConjunta
     {
         void Post(ContaConjuntaDto contaConjunta);
         void Put(ContaConjuntaDto contaConjunta);
+        void Delete(int idContaConjunta, int idUsuario);
     }
 }

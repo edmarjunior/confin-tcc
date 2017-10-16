@@ -9,5 +9,6 @@ namespace ConFin.Domain.Notificacao
         IEnumerable<NotificacaoDto> Get(int idUsuario);
         int GetTotalNaoLidas(int idUsuario);
         void PutDataLeitura(int idNotificacao);
+        void Post(NotificacaoDto notificacao);
     }
 }

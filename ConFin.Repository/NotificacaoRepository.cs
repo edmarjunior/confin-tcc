@@ -18,7 +18,8 @@ namespace ConFin.Repository
         {
             SP_SelNotificacao,
             FNC_PegaTotalNotificacaoNaoLida,
-            SP_UpdDataLeituraNotificacao
+            SP_UpdDataLeituraNotificacao,
+            SP_InsNotificacao
         }
 
         public IEnumerable<NotificacaoDto> Get(int idUsuario)
@@ -60,6 +61,17 @@ namespace ConFin.Repository
         {
             ExecuteProcedure(Procedures.SP_UpdDataLeituraNotificacao);
             AddParameter("Id", idNotificacao);
+            ExecuteNonQuery();
+        }
+
+        public void Post(NotificacaoDto notificacao)
+        {
+            ExecuteProcedure(Procedures.SP_InsNotificacao);
+            AddParameter("IdTipo", notificacao.IdTipo);
+            AddParameter("IdUsuarioEnvio", notificacao.IdUsuarioEnvio);
+            AddParameter("IdUsuarioDestino", notificacao.IdUsuarioDestino);
+            AddParameter("Mensagem", notificacao.Mensagem);
+            AddParameter("ParametrosUrl", notificacao.ParametrosUrl);
             ExecuteNonQuery();
         }
     }

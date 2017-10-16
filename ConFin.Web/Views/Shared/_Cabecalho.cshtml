@@ -122,6 +122,8 @@
                 return false;
             }
 
+            console.log(notificacoes);
+
             notificacoes.forEach(function (item) {
 
                 var itemNotificacao =
@@ -129,7 +131,7 @@
                    + "<img src='/Home/Content/Imagens/user.png' alt='usuário' class='circle'>"
                    + "<span class='title' style='color:darkblue'>" + item.NomeUsuarioEnvio + "</span>"
                    + "<p>" + item.Mensagem + " <br> <span style='color:gray'>" + item.DataCadastro + "</span></p>"
-                   + "<a title='Exibir' href='javascript:void(0)' onclick=\"redirectUrlNotificacao('" + item.Url + "')\" class='secondary-content'>"
+                   + "<a title='Exibir' href='javascript:void(0)' onclick=\"redirectUrlNotificacao('" + item.Url + "', '" + item.UrlIsDefinida + "')\" class='secondary-content'>"
                    + "<i class='material-icons scale'>call_made</i></a>"
                    + "</li>";
 
@@ -139,11 +141,20 @@
 
     }
 
-    function redirectUrlNotificacao(url) {
+    function redirectUrlNotificacao(url, urlIsDefinida) {
+
+        $('.toast').remove();
+
+        if (urlIsDefinida == "N") {
+            $.toast({ message: "Link não definido" });
+            return false;
+        } 
+
         $.get(decodeURIComponent(url)).success(function (data) {
             $("#containerPrincipal").html(data);
             $("#ulNotificacao").slideUp();
         });
+       
     }
 
 </script>

@@ -6,7 +6,7 @@ namespace ConFin.Domain.ContaConjunta
 {
     public interface IContaConjuntaRepository : IBaseRepository
     {
-        IEnumerable<ContaConjuntaDto> Get(int? idUsuario, int? idConta = null);
+        IEnumerable<ContaConjuntaDto> Get(int? idUsuario, int? idConta = null, int? idContaConjunta = null);
         void Post(ContaConjuntaDto contaConjunta);
         void Delete(int idContaConjunta);
         void Put(ContaConjuntaDto contaConjunta);

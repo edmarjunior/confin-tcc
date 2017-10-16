@@ -1,6 +1,7 @@
 ﻿using ConFin.Common.Domain;
 using ConFin.Common.Domain.Dto;
 using System;
+using System.Collections.Generic;
 using System.Web;
 
 namespace ConFin.Web.ViewModel
@@ -19,6 +20,7 @@ namespace ConFin.Web.ViewModel
             DataLeitura = dto.DataLeitura;
             ParametrosUrl = dto.ParametrosUrl;
             Mensagem = dto.Mensagem;
+            UrlIsDefinida = new List<short> {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}.Contains(dto.IdTipo) ? "S" : "N";
         }
 
         public int Id { get; set; }
@@ -30,6 +32,7 @@ namespace ConFin.Web.ViewModel
         public string DataCadastro { get; set; }
         public DateTime? DataLeitura { get; set; }
         public string ParametrosUrl { get; set; }
+        public string UrlIsDefinida { get; set; }
         public string Mensagem { get; set; }
 
         public string Url
@@ -49,6 +52,7 @@ namespace ConFin.Web.ViewModel
                     case 7: controllerAction = "Transferencia/Transferencia"; break;
                     case 8: controllerAction = "Transferencia/Transferencia"; break;
                     case 9: controllerAction = "Transferencia/Transferencia"; break;
+                    case 10: controllerAction = "ContaFinanceira/ContaFinanceira"; break;
                 }
 
                 return HttpContext.Current.Server.UrlEncode($"{new Parameters().UriWeb}{controllerAction}");
