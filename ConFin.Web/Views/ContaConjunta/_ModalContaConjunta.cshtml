@@ -46,7 +46,9 @@
 
 </div>
 
-<script>
+
+<script type="text/javascript">
+
     $('select').material_select();
     $('#btnEnviaConviteContaConjunta').tooltip({ delay: 25 });
 
@@ -81,14 +83,36 @@
         $.post(urlContaConjunta.post, {
             IdConta: $("#hdnIdConta").val(),
             EmailUsuarioConvidado: $("#txtEmailUsuarioContaConjunta").val()
-        }).success(function (message) {
-            $.toast({ message: message, type: "success" });
-            $("#txtEmailUsuarioContaConjunta").val("");
+        }).success(function(message) {
+            //$.toast({ message: message, type: "success" });
+            //$("#txtEmailUsuarioContaConjunta").val("");
+
+            //$(function () {
+            //    var idUsuario = $("#containerPrincipal").attr("data-id-usuario");
+            //    var chat = $.connection.chat;
+
+            //    chat.client.atualizaNotificacoes = function () {
+            //        $("#linkEmail").text("Vai la hub");
+            //        alert("Voltou do hub");
+            //        //console.log(idsUsuario);
+            //        //if (idsUsuario.some(function (item) { return item == idUsuario })) {
+            //        //    alert("Usuario encontrado");
+            //        //    atualizaTotalNotificacaoNaoLida();
+            //        //}
+            //    };
+
+            //    $.connection.hub.start().done(function() {
+            //        $.connection.hub.start();
+            //        chat.server.atualizarNotificacoes();
+            //    });
+            //});
+
+            $("#btnHiddenAtualizaTotalNotificacoes").trigger("click");
+
             atualizaGridUsuarios();
         });
 
         return true;
     }
-
 
 </script>

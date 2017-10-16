@@ -19,6 +19,7 @@
     <script type="text/javascript" src="~/js/wNumb.js"></script>
     @*<script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>*@
     <script type="text/javascript" src="~/js/malsup-form.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.signalR-2.2.2.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -125,7 +126,7 @@
         </div>
     </footer>
 
-    <div class="container" id="containerPrincipal">
+    <div data-id-usuario="@ViewBag.Id" class="container" id="containerPrincipal">
         @RenderBody()
     </div>
 

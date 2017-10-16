@@ -16,5 +16,10 @@ namespace ConFin.Web.Hubs
                 Clients.All.NaoExecutaNada(apelido);
             }
         }
+
+        public void AtualizarNotificacoes()
+        {
+            Clients.All.AtualizaNotificacoes();
+        }
     }
 }

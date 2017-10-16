@@ -6,17 +6,17 @@
     <nav style="background-color: #00BFFF">
         <div class="nav-wrapper">
             <ul class="right hide-on-med-and-down">
+                <input type="hidden" id="btnHiddenAtualizaTotalNotificacoes" />
                 <li class="darkBackground notificacao" onclick="exibeNotificacoes('N')">
                     <a class="fa fa-globe notificacao">
                         <div id="divSpansNotificacao" style="display: none">
                             <span class="fa fa-comment"></span>
                             <span class="num" id="spanTotNotificacaoNaoLida">0</span>
                         </div>
-                       
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-button" href="javascript:void(0)" data-activates="comboOpcoesUsuario">
+                    <a id="linkEmail" class="dropdown-button" href="javascript:void(0)" data-activates="comboOpcoesUsuario">
                         @ViewBag.Email
                         <i class="material-icons right">account_circle</i>
                     </a>
@@ -51,8 +51,24 @@
     <i class="small material-icons">menu</i>
 </a>
 
+<script src="/signalr/hubs" type="text/javascript"></script>
 
 <script>
+    
+    $(function () {
+        var chat = $.connection.chat;
+        chat.client.atualizaNotificacoes = function () {
+            $("#linkEmail").text("Vai la hub");
+        };
+
+        $.connection.hub.start().done(function () {
+            $.connection.hub.start();
+            $("#btnHiddenAtualizaTotalNotificacoes").click(function (e) {
+                chat.server.atualizarNotificacoes();
+            });
+        });
+
+    });
 
     var urlModalUsuario = '@Url.Action("ModalDadosUsuario", "Usuario")';
     var urlGetNotificacao = '@Url.Action("Get", "Notificacao")';
@@ -128,12 +144,12 @@
 
                 var itemNotificacao =
                     "<li class='collection-item avatar'>"
-                   + "<img src='/Home/Content/Imagens/user.png' alt='usuário' class='circle'>"
-                   + "<span class='title' style='color:darkblue'>" + item.NomeUsuarioEnvio + "</span>"
-                   + "<p>" + item.Mensagem + " <br> <span style='color:gray'>" + item.DataCadastro + "</span></p>"
-                   + "<a title='Exibir' href='javascript:void(0)' onclick=\"redirectUrlNotificacao('" + item.Url + "', '" + item.UrlIsDefinida + "')\" class='secondary-content'>"
-                   + "<i class='material-icons scale'>call_made</i></a>"
-                   + "</li>";
+                        + "<img src='/Home/Content/Imagens/user.png' alt='usuário' class='circle'>"
+                        + "<span class='title' style='color:darkblue'>" + item.NomeUsuarioEnvio + "</span>"
+                        + "<p>" + item.Mensagem + " <br> <span style='color:gray'>" + item.DataCadastro + "</span></p>"
+                        + "<a title='Exibir' href='javascript:void(0)' onclick=\"redirectUrlNotificacao('" + item.Url + "', '" + item.UrlIsDefinida + "')\" class='secondary-content'>"
+                        + "<i class='material-icons scale'>call_made</i></a>"
+                        + "</li>";
 
                 $("#ulNotificacao").append(itemNotificacao);
             });

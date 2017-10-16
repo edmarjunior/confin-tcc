@@ -42,6 +42,7 @@ namespace ConFin.Web.Controllers
                 ViewBag.PossuiOpcaoTransferencia = responsePossuiOpcaoTransferencia.IsSuccessStatusCode;
 
                 ViewBag.Email = UsuarioLogado.Email;
+                ViewBag.Id = UsuarioLogado.Id;
                 return View("Home", new HomeViewModel { Lancamentos = lancamentos });
             }
             catch (Exception ex)
