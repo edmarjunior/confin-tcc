@@ -8,7 +8,7 @@
             {
                 Ambiente = "D";
                 UriWeb = "http://localhost:5001/Home/";
-                UriApi = "http://localhost:5002/api/";
+                UriApi = "http://localhost:5002/";
                 //ConnectionString = "Data Source=EDMAR-PC;Initial Catalog=ConFin;Integrated Security=True";
                 ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=ConFin;Integrated Security=True";
             }

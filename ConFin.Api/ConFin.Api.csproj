@@ -111,7 +111,6 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\api-confin - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\confinapi - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

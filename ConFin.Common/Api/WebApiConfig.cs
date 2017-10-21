@@ -11,7 +11,7 @@ namespace ConFin.Common.Api
         public static void Register(this HttpConfiguration config, IDependencyResolver dependencyResolver)
         {
             config.MapHttpAttributeRoutes();
-            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{action}", new { controller = "Ping", action = RouteParameter.Optional });
+            config.Routes.MapHttpRoute("DefaultApi", "{controller}/{action}", new { controller = "Ping", action = RouteParameter.Optional });
             config.Formatters.Clear();
             config.Formatters.Add(new JsonMediaTypeFormatter
             {
