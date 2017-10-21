@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Common", "0 - Common", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConFin.Common", "ConFin.Common\ConFin.Common.csproj", "{58997FA3-74B8-4D3B-BEC0-AB5CCF6ACDD0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Web", "1 - Web", "{FFEEB850-B6B8-446C-A83C-445DD55084CD}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Presentation", "1 - Presentation", "{FFEEB850-B6B8-446C-A83C-445DD55084CD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Application", "2 - Application", "{1C4E2DAA-A530-4E8A-8DCF-73A32E40F64B}"
 EndProject
