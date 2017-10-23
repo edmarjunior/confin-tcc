@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\SimpleInjectorContainer.cs" />
+    <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\ContaConjuntaController.cs" />
     <Compile Include="Controllers\ContaFinanceiraController.cs" />
     <Compile Include="Controllers\ContaFinanceiraTipoController.cs" />
