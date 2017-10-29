@@ -5,7 +5,6 @@ using ConFin.Common.Domain.Dto;
 using ConFin.Common.Web;
 using ConFin.Web.ViewModel;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -25,113 +24,70 @@ namespace ConFin.Web.Controllers
 
         public ActionResult ContaFinanceira()
         {
-            try
-            {
-                var response = _contaFinanceiraAppService.GetAll(UsuarioLogado.Id);
-                if (!response.IsSuccessStatusCode)
-                    return Error(response);
+            var response = _contaFinanceiraAppService.GetAll(UsuarioLogado.Id);
+            if (!response.IsSuccessStatusCode)
+                return Error(response);
 
-                var contas = JsonConvert.DeserializeObject<IEnumerable<ContaFinanceiraDto>>(response.Content.ReadAsStringAsync().Result);
-                return View("ContaFinanceira", contas.Select(x => new ContaFinanceiraViewModel(x)));
-            }
-            catch (Exception ex)
-            {
-                return Error(ex.Message);
-            }
+            var contas = JsonConvert.DeserializeObject<IEnumerable<ContaFinanceiraDto>>(response.Content.ReadAsStringAsync().Result);
+            return View("ContaFinanceira", contas.Select(x => new ContaFinanceiraViewModel(x)));
         }
 
         public ActionResult GetModalCadastroEdicao(int? idConta)
         {
-            try
-            {
-                var tiposContaResponse = _contaFinanceiraTipoAppService.Get();
-                if (!tiposContaResponse.IsSuccessStatusCode)
-                    return Error(tiposContaResponse);
+            var tiposContaResponse = _contaFinanceiraTipoAppService.Get();
+            if (!tiposContaResponse.IsSuccessStatusCode)
+                return Error(tiposContaResponse);
 
-                var tiposConta = JsonConvert.DeserializeObject<IEnumerable<ContaFinanceiraTipoDto>>(tiposContaResponse.Content.ReadAsStringAsync().Result);
+            var tiposConta = JsonConvert.DeserializeObject<IEnumerable<ContaFinanceiraTipoDto>>(tiposContaResponse.Content.ReadAsStringAsync().Result);
                 
-                // cadastro
-                if (!idConta.HasValue)
-                {
-                    ViewBag.IndicadorCadastro = "S";
-                    return View("_ModalCadastroEdicao", new ContaFinanceiraViewModel(tiposConta));
-                }
-
-                // alteração
-                ViewBag.IndicadorCadastro = "N";
-
-                var response = _contaFinanceiraAppService.Get((int)idConta);
-                if (!response.IsSuccessStatusCode)
-                    return Error(response);
-
-                var conta = JsonConvert.DeserializeObject<ContaFinanceiraDto>(response.Content.ReadAsStringAsync().Result);
-                return View("_ModalCadastroEdicao", new ContaFinanceiraViewModel(conta, tiposConta));
-            }
-            catch (Exception ex)
+            // cadastro
+            if (!idConta.HasValue)
             {
-                return Error(ex.Message);
+                ViewBag.IndicadorCadastro = "S";
+                return View("_ModalCadastroEdicao", new ContaFinanceiraViewModel(tiposConta));
             }
+
+            // alteração
+            ViewBag.IndicadorCadastro = "N";
+
+            var response = _contaFinanceiraAppService.Get((int)idConta);
+            if (!response.IsSuccessStatusCode)
+                return Error(response);
+
+            var conta = JsonConvert.DeserializeObject<ContaFinanceiraDto>(response.Content.ReadAsStringAsync().Result);
+            return View("_ModalCadastroEdicao", new ContaFinanceiraViewModel(conta, tiposConta));
         }
 
         public ActionResult Post(ContaFinanceiraDto conta)
         {
-            try
-            {
-                conta.IdUsuarioCadastro = UsuarioLogado.Id;
-                var response = _contaFinanceiraAppService.Post(conta);
-                return response.IsSuccessStatusCode ? Ok("Conta cadastrada com sucesso") : Error(response);
-            }
-            catch (Exception ex)
-            {
-                return Error(ex.Message);
-            }
+            conta.IdUsuarioCadastro = UsuarioLogado.Id;
+            var response = _contaFinanceiraAppService.Post(conta);
+            return response.IsSuccessStatusCode ? Ok("Conta cadastrada com sucesso") : Error(response);
         }
 
         public ActionResult Put(ContaFinanceiraDto conta)
         {
-            try
-            {
-                conta.IdUsuarioUltimaAlteracao = UsuarioLogado.Id;
-                var response = _contaFinanceiraAppService.Put(conta);
-                return response.IsSuccessStatusCode ? Ok("Conta editada com sucesso") : Error(response);
-            }
-            catch (Exception ex)
-            {
-                return Error(ex.Message);
-            }
+            conta.IdUsuarioUltimaAlteracao = UsuarioLogado.Id;
+            var response = _contaFinanceiraAppService.Put(conta);
+            return response.IsSuccessStatusCode ? Ok("Conta editada com sucesso") : Error(response);
         }
 
         public ActionResult Delete(int idConta)
         {
-            try
-            {
-                var response = _contaFinanceiraAppService.Delete(UsuarioLogado.Id, idConta);
-                return response.IsSuccessStatusCode ? Ok("Conta excluida com sucesso") : Error(response);
-            }
-            catch (Exception ex)
-            {
-                return Error(ex.Message);
-            }
+            var response = _contaFinanceiraAppService.Delete(UsuarioLogado.Id, idConta);
+            return response.IsSuccessStatusCode ? Ok("Conta excluida com sucesso") : Error(response);
         }
 
         public ActionResult GetFilter(int idConta)
         {
-            try
-            {
-                var response = _contaFinanceiraAppService.GetAll(UsuarioLogado.Id);
-                if (!response.IsSuccessStatusCode)
-                    return Error(response);
+            var response = _contaFinanceiraAppService.GetAll(UsuarioLogado.Id);
+            if (!response.IsSuccessStatusCode)
+                return Error(response);
 
-                var contas = JsonConvert.DeserializeObject<IEnumerable<ContaFinanceiraDto>>(response.Content.ReadAsStringAsync().Result).ToList();
-                return !contas.Any() 
-                    ? Error("A transferência não poderá ser realizada, você possui somente uma conta.") 
-                    : Json(contas.Where(x => x.Id != idConta), JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Error(ex.Message);
-            }
+            var contas = JsonConvert.DeserializeObject<IEnumerable<ContaFinanceiraDto>>(response.Content.ReadAsStringAsync().Result).ToList();
+            return !contas.Any() 
+                ? Error("A transferência não poderá ser realizada, você possui somente uma conta.") 
+                : Json(contas.Where(x => x.Id != idConta), JsonRequestBehavior.AllowGet);
         }
-
     }
 }

@@ -3,7 +3,6 @@ using ConFin.Application.AppService.Transferencia;
 using ConFin.Common.Domain.Dto;
 using ConFin.Common.Web;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -20,103 +19,58 @@ namespace ConFin.Web.Controllers
 
         public ActionResult LancamentoCategoria()
         {
-            try
-            {
-                var response = _lancamentoCategoriaAppService.GetAll(UsuarioLogado.Id);
-                if (!response.IsSuccessStatusCode)
-                    return Error(response);
+            var response = _lancamentoCategoriaAppService.GetAll(UsuarioLogado.Id);
+            if (!response.IsSuccessStatusCode)
+                return Error(response);
 
-                var categorias = JsonConvert.DeserializeObject<IEnumerable<LancamentoCategoriaDto>>(response.Content.ReadAsStringAsync().Result);
-                return View("LancamentoCategoria", categorias);
-            }
-            catch (Exception ex)
-            {
-                return Error(ex.Message);
-            }
+            var categorias = JsonConvert.DeserializeObject<IEnumerable<LancamentoCategoriaDto>>(response.Content.ReadAsStringAsync().Result);
+            return View("LancamentoCategoria", categorias);
         }
 
         public ActionResult GetModalCadastroEdicao(int? idCategoria)
         {
-            try
+            if (!idCategoria.HasValue)
             {
-                // cadastro
-                if (!idCategoria.HasValue)
-                {
-                    ViewBag.IndicadorCadastro = "S";
-                    return View("_ModalCadastroEdicaoLancamentoCategoria", new LancamentoCategoriaDto());
-                }
-
-                // alteração
-                ViewBag.IndicadorCadastro = "N";
-
-                var response = _lancamentoCategoriaAppService.Get((int)idCategoria);
-                if (!response.IsSuccessStatusCode)
-                    return Error(response);
-
-                var categoria = JsonConvert.DeserializeObject<LancamentoCategoriaDto>(response.Content.ReadAsStringAsync().Result);
-                return View("_ModalCadastroEdicaoLancamentoCategoria", categoria);
+                ViewBag.IndicadorCadastro = "S";
+                return View("_ModalCadastroEdicaoLancamentoCategoria", new LancamentoCategoriaDto());
             }
-            catch (Exception ex)
-            {
-                return Error(ex.Message);
-            }
+
+            ViewBag.IndicadorCadastro = "N";
+
+            var response = _lancamentoCategoriaAppService.Get((int)idCategoria);
+            if (!response.IsSuccessStatusCode)
+                return Error(response);
+
+            var categoria = JsonConvert.DeserializeObject<LancamentoCategoriaDto>(response.Content.ReadAsStringAsync().Result);
+            return View("_ModalCadastroEdicaoLancamentoCategoria", categoria);
         }
 
         public ActionResult Post(LancamentoCategoriaDto categoria)
         {
-            try
-            {
-                categoria.IdUsuarioCadastro = UsuarioLogado.Id;
-                var response = _lancamentoCategoriaAppService.Post(categoria);
-                return response.IsSuccessStatusCode ? Ok("Categoria cadastrada com sucesso") : Error(response);
-            }
-            catch (Exception ex)
-            {
-                return Error(ex.Message);
-            }
+            categoria.IdUsuarioCadastro = UsuarioLogado.Id;
+            var response = _lancamentoCategoriaAppService.Post(categoria);
+            return response.IsSuccessStatusCode ? Ok("Categoria cadastrada com sucesso") : Error(response);
         }
 
         public ActionResult Put(LancamentoCategoriaDto categoria)
         {
-            try
-            {
-                categoria.IdUsuarioUltimaAlteracao = UsuarioLogado.Id;
-                var response = _lancamentoCategoriaAppService.Put(categoria);
-                return response.IsSuccessStatusCode ? Ok("Categoria editada com sucesso") : Error(response);
-            }
-            catch (Exception ex)
-            {
-                return Error(ex.Message);
-            }
+            categoria.IdUsuarioUltimaAlteracao = UsuarioLogado.Id;
+            var response = _lancamentoCategoriaAppService.Put(categoria);
+            return response.IsSuccessStatusCode ? Ok("Categoria editada com sucesso") : Error(response);
         }
 
         public ActionResult Delete(int idCategoria)
         {
-            try
-            {
-                var response = _lancamentoCategoriaAppService.Delete(UsuarioLogado.Id, idCategoria);
-                return response.IsSuccessStatusCode ? Ok("Categoria excluida com sucesso") : Error(response);
-            }
-            catch (Exception ex)
-            {
-                return Error(ex.Message);
-            }
+            var response = _lancamentoCategoriaAppService.Delete(UsuarioLogado.Id, idCategoria);
+            return response.IsSuccessStatusCode ? Ok("Categoria excluida com sucesso") : Error(response);
         }
 
         public ActionResult GetCategorias(int idConta)
         {
-            try
-            {
-                var response = _lancamentoCategoriaAppService.GetCategorias(UsuarioLogado.Id, idConta);
-                return !response.IsSuccessStatusCode 
-                    ? Error(response) 
-                    : Json(JsonConvert.DeserializeObject<IEnumerable<LancamentoCategoriaDto>>(response.Content.ReadAsStringAsync().Result), JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Error(ex.Message);
-            }
+            var response = _lancamentoCategoriaAppService.GetCategorias(UsuarioLogado.Id, idConta);
+            return !response.IsSuccessStatusCode 
+                ? Error(response) 
+                : Json(JsonConvert.DeserializeObject<IEnumerable<LancamentoCategoriaDto>>(response.Content.ReadAsStringAsync().Result), JsonRequestBehavior.AllowGet);
         }
-
     }
 }
