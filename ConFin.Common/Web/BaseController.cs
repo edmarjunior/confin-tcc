@@ -15,6 +15,18 @@ namespace ConFin.Common.Web
             set { SessionManagement.Update("UsuarioLogado", value); }
         }
 
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            if (UsuarioLogado == null)
+                filterContext.Result = new RedirectResult(new Parameters().UriWeb + "Home");
+        }
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            filterContext.ExceptionHandled = true;
+            filterContext.Result = Error("Ocorreu um erro ao realizar a operação. Já estamos trabalhando para corrigir.");
+            base.OnException(filterContext);
+        }
 
         protected ActionResult Ok(string mensagem = null)
         {
@@ -34,12 +46,6 @@ namespace ConFin.Common.Web
             Response.StatusCode = (int) HttpStatusCode.BadRequest;
             Response.TrySkipIisCustomErrors = true;
             return Content(mensagem);
-        }
-
-        protected override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            if(UsuarioLogado == null)
-                filterContext.Result = new RedirectResult(new Parameters().UriWeb + "Home");
         }
 
         protected T Deserialize<T>(HttpResponseMessage response)
