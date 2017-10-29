@@ -169,7 +169,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SimpleInjectorContainer.cs" />
     <Compile Include="App_Start\Startup.cs" />
-    <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\ContaConjuntaController.cs" />
     <Compile Include="Controllers\ContaFinanceiraController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -228,7 +227,6 @@
     <Content Include="Views\Transferencia\_ModalCadastroEdicaoTransferencia.cshtml" />
     <None Include="Properties\PublishProfiles\confin - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\confin - Web Deploy.pubxml" />
-    <Content Include="Views\Chat\Index.cshtml" />
     <Content Include="Views\Lancamento\_ModalImportacaoLancamento.cshtml" />
     <Content Include="Views\Usuario\_ModalDadosUsuario.cshtml" />
     <Content Include="Views\ContaConjunta\_ModalContaConjunta.cshtml" />
