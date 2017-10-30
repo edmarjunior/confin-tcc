@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace ConFin.Web.Controllers
 {
+    [OutputCache(Duration = 0)]
     public class ContaConjuntaController: BaseController
     {
         private readonly IContaConjuntaAppService _contaConjuntaAppService;

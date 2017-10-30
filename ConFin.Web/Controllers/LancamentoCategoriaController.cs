@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace ConFin.Web.Controllers
 {
+    [OutputCache(Duration = 0)]
     public class LancamentoCategoriaController: BaseController
     {
         private readonly ILancamentoCategoriaAppService _lancamentoCategoriaAppService;

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace ConFin.Web.Controllers
 {
+    [OutputCache(Duration = 0)]
     public class UsuarioController : BaseController
     {
         private readonly IUsuarioAppService _usuarioAppService;

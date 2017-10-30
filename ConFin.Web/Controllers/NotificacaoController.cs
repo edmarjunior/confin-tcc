@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace ConFin.Web.Controllers
 {
+    [OutputCache(Duration = 0)]
     public class NotificacaoController: BaseController
     {
         private readonly INotificacaoAppService _notificacaoAppService;

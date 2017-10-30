@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace ConFin.Web.Controllers
 {
+    [OutputCache(Duration = 0)]
     public class HomeController: BaseHomeController
     {
         private readonly ILancamentoAppService _lancamentoAppService;
