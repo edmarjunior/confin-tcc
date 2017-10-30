@@ -41,19 +41,22 @@ a.fa-globe {
     cursor: pointer;
 }
 
-span.fa-comment {
-   position: absolute;
-    font-size: 0.75em;
-    top: -9px;
-    color: darkblue;
-    right: 0;
-}
-span.num {
+span.notification {
     position: absolute;
-    font-size: 0.5em;
-    top: -7px;
-    color: #fff;
-    right: 7px;
+    font-size: 0.75em;
+    top: 15px;
+    color: white;
+    right: -6px;
+    background-color: red;
+    height: 17px;
+    width: 19px;
+    border-radius: 5px;
+}
+
+span.count-notification {
+    position: absolute;
+    top: -23px;
+    right: 5px;
 }
 
 
