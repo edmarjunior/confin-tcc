@@ -17,13 +17,26 @@
     }
 
     <li data-url="@Url.AbsoluteAction("ContaConjunta", "ContaConjunta")"><a class="waves-effect"><i class="material-icons">share</i>Convites Conta Conjunta</a></li>
-
+    <li data-url="@Url.AbsoluteAction("ContaConjunta", "ContaConjunta")"><a class="waves-effect"><i class="material-icons">share</i>Relatórios</a></li>
+    <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+            <li>
+                <a class="collapsible-header">Relatórios<i class="material-icons">arrow_drop_down</i></a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li data-url="@Url.AbsoluteAction("RelLancamento", "RelLancamento")"><a class="waves-effect">Lançamentos</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
 </ul>
+
 
 
 <script>
     
-    $(document).on('click', '#menuLateral > li[data-url]', function () {
+    $(document).on('click', 'li[data-url]', function () {
         $('.button-collapse').sideNav('hide');
 
         if ($(".toast").length)

@@ -7,13 +7,13 @@
         <div class="nav-wrapper">
             <ul class="right hide-on-med-and-down">
                 <input type="hidden" id="btnHiddenAtualizaTotalNotificacoes" />
-                <li class="darkBackground notificacao" onclick="exibeNotificacoes('N')">
-                    <a class="fa fa-globe notificacao">
-                        <div id="divSpansNotificacao" style="display: none">
-                            <span class="fa fa-comment"></span>
-                            <span class="num" id="spanTotNotificacaoNaoLida">0</span>
-                        </div>
-                    </a>
+                <li class="darkBackground notificacao" onclick="exibeNotificacoes('N')" style="padding: 0 15px 0 15px">
+                    <div id="divSpansNotificacao" style="position: relative; display: none">
+                        <span class="notification">
+                            <span class="count-notification" id="spanTotNotificacaoNaoLida">0</span>
+                        </span>
+                    </div>
+                    <i class="material-icons">notifications</i>
                 </li>
                 <li>
                     <a id="linkEmail" class="dropdown-button" href="javascript:void(0)" data-activates="comboOpcoesUsuario">
@@ -103,45 +103,34 @@
     })();
 
     function exibeNotificacoes(indicadorLida) {
-
         $("#ulNotificacao li.collection-item:not(#liEmptyNotificacaoNaoLida, #liEmptyNotificacaoLida)").remove();
-
-        if (indicadorLida == "N") {
-            var notificacoesIsVisible = $("#ulNotificacao").is(":visible");
-
-            $("#ulNotificacao").slideToggle();
-            $("#divSpansNotificacao").fadeOut("slow");
-
-            if (notificacoesIsVisible)
-                return false;
-        }
+        $("#divSpansNotificacao").fadeOut(3000);
 
         desableLoading();
 
         $.get(urlGetNotificacao, {
             indicadorNotificacaoLida: indicadorLida
         }).success(function (notificacoes) {
-
+            console.log(notificacoes);
             $("#liEmptyNotificacaoNaoLida, #liEmptyNotificacaoLida").hide();
 
             // independente se a pesquisa for por notificações lidas ou não lidas (caso não tenha registros algum)
             if (notificacoes.noContent) {
                 $("#liEmptyNotificacaoLida").show();
+                $("#ulNotificacao").slideDown();
                 return false;
             }
 
             if (!notificacoes.length) {
 
-                if (indicadorLida == "S") {
+                if (indicadorLida == "S")
                     $("#liEmptyNotificacaoLida").show();
-                } else {
+                else
                     $("#liEmptyNotificacaoNaoLida").show();
-                }
 
+                $("#ulNotificacao").slideDown();
                 return false;
             }
-
-            console.log(notificacoes);
 
             notificacoes.forEach(function (item) {
 
@@ -156,6 +145,8 @@
 
                 $("#ulNotificacao").append(itemNotificacao);
             });
+
+            $("#ulNotificacao").fadeIn();
         });
 
     }

@@ -175,6 +175,7 @@
     <Compile Include="Controllers\LancamentoCategoriaController.cs" />
     <Compile Include="Controllers\LancamentoController.cs" />
     <Compile Include="Controllers\NotificacaoController.cs" />
+    <Compile Include="Controllers\Relatorios\RelLancamentoController.cs" />
     <Compile Include="Controllers\TransferenciaController.cs" />
     <Compile Include="Hubs\NotificacaoHub.cs" />
     <Compile Include="ViewModel\Home\HomeViewModel.cs" />
@@ -232,6 +233,7 @@
     <Content Include="Views\ContaConjunta\_ModalContaConjunta.cshtml" />
     <Content Include="Views\ContaConjunta\ContaConjunta.cshtml" />
     <Content Include="Views\ContaConjunta\_GridUsuariosContaConjunta.cshtml" />
+    <Content Include="Views\RelLancamento\RelLancamento.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

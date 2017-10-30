@@ -1,0 +1,39 @@
+﻿
+@{ Layout = null; }
+
+<div class="modal-content">
+    <div class="section" style="text-align: center">
+        <h1 style="color: gray; font-size: 20pt;" class="caption">Relatório de Lançamentos</h1>
+        <div class="divider" style="margin-top: -5px;"></div>
+    </div>
+    <div class="row">
+        <form id="formRelLancamentos" class= "col s12">
+            <div class="row">
+                <div class="input-field col s3"></div>
+                <div class="input-field col s3">
+                    <input id="txtDataInicial" type="text" class="date" name="dataInicial">
+                    <label for="txtDataInicial" class="active">Data Inicial</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="txtDataFinal" type="text" class="date" name="dataFinal">
+                    <label for="txtDataFinal" class="active">Data Final</label>
+                </div>
+                <div class="input-field col s3">
+                    <button onclick="gerarRelLancamento()" class="btn waves-effect waves-light" type="button" name="action">Gerar
+                        <i class="material-icons">file_download</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+
+    var urlGerarRelLancamento = '@Url.Action("Gerar", "RelLancamento")';
+
+    function gerarRelLancamento() {
+        window.open(urlGerarRelLancamento + "?" + $("#formRelLancamentos").serialize());
+    }
+
+</script>
