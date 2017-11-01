@@ -34,6 +34,9 @@ namespace ConFin.Web.Controllers.Relatorios
 
             var lancamentos = Deserialize<IEnumerable<LancamentoDto>>(response).Select(x => new LancamentoViewModel(x)).ToList();
 
+            if(!lancamentos.Any())
+                return Error("Você não possui movimentações para este mês");
+
             var excel = LancamentoReport.GetExcel(lancamentos);
 
             return File(new MemoryStream(excel.GetAsByteArray()), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
