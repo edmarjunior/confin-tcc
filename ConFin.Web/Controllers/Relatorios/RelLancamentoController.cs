@@ -1,7 +1,12 @@
-﻿using ConFin.Common.Web;
-using OfficeOpenXml;
+﻿using ConFin.Application.AppService.Lancamento;
+using ConFin.Common.Domain.Dto;
+using ConFin.Common.Web;
+using ConFin.Web.Reports.Lancamento;
+using ConFin.Web.ViewModel.Lancamento;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace ConFin.Web.Controllers.Relatorios
@@ -9,26 +14,30 @@ namespace ConFin.Web.Controllers.Relatorios
     [OutputCache(Duration = 0)]
     public class RelLancamentoController: BaseController
     {
+        private readonly ILancamentoAppService _lancamentoAppService;
+
+        public RelLancamentoController(ILancamentoAppService lancamentoAppService)
+        {
+            _lancamentoAppService = lancamentoAppService;
+        }
+
         public ActionResult RelLancamento()
         {
             return View();
         }
 
-        public ActionResult Gerar(DateTime dataInicial, DateTime dataFinal)
+        public ActionResult Gerar(byte mes, short ano)
         {
-            using (var excelPackage = new ExcelPackage())
-            {
-                var wb = excelPackage.Workbook;
-                var ws = wb.Worksheets.Add("Lancamentos");
+            var response = _lancamentoAppService.GetAll(UsuarioLogado.Id, mes, ano);
+            if(!response.IsSuccessStatusCode)
+                return Error(response);
 
-                ws.Cells[1, 1].Value = "Data";
-                ws.Cells[1, 2].Value = "Descrição";
-                ws.Cells[1, 3].Value = "Categoria";
-                ws.Cells[1, 4].Value = "Valor";
+            var lancamentos = Deserialize<IEnumerable<LancamentoDto>>(response).Select(x => new LancamentoViewModel(x)).ToList();
 
-                return File(new MemoryStream(excelPackage.GetAsByteArray()), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                    $"Lancamentos {DateTime.Now:yyMMddHHmmss}.xlsx");
-            }
+            var excel = LancamentoReport.GetExcel(lancamentos);
+
+            return File(new MemoryStream(excel.GetAsByteArray()), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                $"Lancamentos {DateTime.Now:yyyyMMddHHmmss}.xlsx");
         }
     }
 }

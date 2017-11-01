@@ -178,6 +178,7 @@
     <Compile Include="Controllers\Relatorios\RelLancamentoController.cs" />
     <Compile Include="Controllers\TransferenciaController.cs" />
     <Compile Include="Hubs\NotificacaoHub.cs" />
+    <Compile Include="Reports\Lancamento\LancamentoReport.cs" />
     <Compile Include="ViewModel\Home\HomeViewModel.cs" />
     <Compile Include="ViewModel\Home\LancamentoResumoGeralViewModel.cs" />
     <Compile Include="ViewModel\Lancamento\LancamentoMasterViewModel.cs" />
@@ -234,6 +235,7 @@
     <Content Include="Views\ContaConjunta\ContaConjunta.cshtml" />
     <Content Include="Views\ContaConjunta\_GridUsuariosContaConjunta.cshtml" />
     <Content Include="Views\RelLancamento\RelLancamento.cshtml" />
+    <Content Include="Reports\Lancamento\Lancamento_Mensal.xlsx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

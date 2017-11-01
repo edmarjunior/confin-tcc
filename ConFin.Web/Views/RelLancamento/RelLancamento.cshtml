@@ -11,12 +11,8 @@
             <div class="row">
                 <div class="input-field col s3"></div>
                 <div class="input-field col s3">
-                    <input id="txtDataInicial" type="text" class="date" name="dataInicial">
-                    <label for="txtDataInicial" class="active">Data Inicial</label>
-                </div>
-                <div class="input-field col s3">
-                    <input id="txtDataFinal" type="text" class="date" name="dataFinal">
-                    <label for="txtDataFinal" class="active">Data Final</label>
+                    <input id="txtDataRelatorio" type="text" class="month-year">
+                    <label for="txtDataRelatorio" class="active">Mês/Ano</label>
                 </div>
                 <div class="input-field col s3">
                     <button onclick="gerarRelLancamento()" class="btn waves-effect waves-light" type="button" name="action">Gerar
@@ -33,7 +29,15 @@
     var urlGerarRelLancamento = '@Url.Action("Gerar", "RelLancamento")';
 
     function gerarRelLancamento() {
-        window.open(urlGerarRelLancamento + "?" + $("#formRelLancamentos").serialize());
+        $('.toast').remove();
+
+        $.toast({ condition: !$("#txtDataRelatorio").val(), message: "Favor preencher o campo Mês/Ano" });
+
+        if ($('.toast').length)
+            return false;
+
+        var data = $("#txtDataRelatorio").val().split("/");
+        window.open(urlGerarRelLancamento + "?mes=" + data[0] + "&ano=" + data[1]);
     }
 
 </script>
