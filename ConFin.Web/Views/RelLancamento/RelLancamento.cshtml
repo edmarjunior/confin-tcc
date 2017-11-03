@@ -11,13 +11,13 @@
             <div class="row">
                 <div class="input-field col s3"></div>
                 <div class="input-field col s3">
-                    <input id="txtDataRelatorio" type="text" class="month-year">
+                    <input id="txtDataRelatorio" type="text" class="validate month-year">
                     <label for="txtDataRelatorio" class="active">Mês/Ano</label>
                 </div>
                 <div class="input-field col s3">
-                    <button onclick="gerarRelLancamento()" class="btn waves-effect waves-light" type="button" name="action">Gerar
+                    <a onclick="gerarRelLancamento()" href="javascript:void()" class="btn waves-effect waves-light">Gerar
                         <i class="material-icons">file_download</i>
-                    </button>
+                    </a>
                 </div>
             </div>
         </form>
@@ -28,12 +28,28 @@
 
     var urlGerarRelLancamento = '@Url.Action("Gerar", "RelLancamento")';
 
+    $("#formRelLancamentos").submit(function(e) {
+        e.preventDefault();
+        gerarRelLancamento();
+        return false;
+    });
+
     function gerarRelLancamento() {
         $('.toast').remove();
 
-        $.toast({ condition: !$("#txtDataRelatorio").val(), message: "Favor preencher o campo Mês/Ano" });
+        if ($.toast({ condition: !$("#txtDataRelatorio").val(), message: "Favor preencher o campo Mês/Ano" }))
+            return false;
 
-        if ($('.toast').length)
+        var mes = parseInt($("#txtDataRelatorio").val().split("/")[0]);
+        var ano = parseInt($("#txtDataRelatorio").val().split("/")[1]);
+
+        if ($.toast({ condition: mes < 1 || mes > 12, message: "Favor preencher Mês corretamente" }))
+            return false;
+
+        if ($.toast({ condition: isNaN(ano), message: "Favor preencher Ano" }))
+            return false;
+
+        if ($.toast({ condition: ano < 1900 || ano > 2099, message: "O Ano deve estar entre 1900 e 2099" }))
             return false;
 
         var data = $("#txtDataRelatorio").val().split("/");
