@@ -1,7 +1,10 @@
 ﻿using ConFin.Web.ViewModel.Lancamento;
 using OfficeOpenXml;
+using OfficeOpenXml.Drawing;
+using OfficeOpenXml.Drawing.Chart;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 
@@ -9,48 +12,91 @@ namespace ConFin.Web.Reports.Lancamento
 {
     public static class LancamentoReport
     {
+        private const double HeightDefault = 26;
+
         public static ExcelPackage GetExcel(List<LancamentoViewModel> lancamentos)
         {
-            var ep = new ExcelPackage();
+            var excel = new ExcelPackage();
             using (var modelo = File.OpenRead($@"{AppDomain.CurrentDomain.BaseDirectory}Reports\Lancamento\Lancamento_Mensal.xlsx"))
-                ep.Load(modelo);
+                excel.Load(modelo);
 
-            var ws = ep.Workbook.Worksheets["Orçamento mensal simples"];
-            const double heightDefault = 26;
-            ws.Row(4).Height = heightDefault;
-            ws.Row(6).Height = heightDefault;
-            ws.Row(7).Height = heightDefault;
-            ws.Row(9).Height = heightDefault;
-            ws.Row(10).Height = heightDefault;
+            var wss = excel.Workbook.Worksheets;
 
+            // colocando o mes e ano nas planilhas
+            SetAnoMes(wss, lancamentos);
+
+            // montando as planilhas de Despesas e Receitas (percorrendo os lançamentos)
+            MontaLancamentos(wss["Despesas"], lancamentos.Where(x => x.IndicadorReceitaDespesa == "D"));
+            MontaLancamentos(wss["Receitas"], lancamentos.Where(x => x.IndicadorReceitaDespesa == "R"));
+
+            // montando total por despesas agrupadas em aba oculta
+            var ws = wss["Despesa_Categoria"];
+            var linha = 3;
+            foreach (var categoria in lancamentos.Where(x => x.IndicadorReceitaDespesa == "D").GroupBy(x => x.IdCategoria))
+            {
+                ws.InsertRow(linha, 1, linha - 1);
+                ws.Cells[linha, 1].Value = $"{categoria.First().NomeCategoria}";
+                ws.Cells[linha, 2].Value = categoria.Sum(x => x.Valor);
+                linha++;
+            }
+            ws.DeleteRow(2);
+            ws.DeleteRow(linha - 1);
+
+            // atualizando grafico de despesas por categoria
+            AtualizaGraficoCategorias(wss, linha - 2, lancamentos.All(x => x.IndicadorReceitaDespesa != "D"));
+
+            return excel;
+        }
+
+        private static void SetAnoMes(ExcelWorksheets wss, List<LancamentoViewModel> lancamentos)
+        {
+            var mes = $"{(DateTime)lancamentos.First().Data:MMM}".ToUpper();
+            var ano = $"{(DateTime)lancamentos.First().Data:yyyy}";
+
+            (wss["Resumo"].Drawings["Ano do Orçamento"] as ExcelShape).Text = $"{mes} {ano}";
+            (wss["Despesas"].Drawings["Ano do Orçamento"] as ExcelShape).Text = $"{mes} {ano}";
+            (wss["Receitas"].Drawings["Ano do Orçamento"] as ExcelShape).Text = $"{mes} {ano}";
+        }
+
+        private static void MontaLancamentos(ExcelWorksheet ws, IEnumerable<LancamentoViewModel> lancamentos)
+        {
+            var lancamentoViewModels = lancamentos as IList<LancamentoViewModel> ?? lancamentos.ToList();
+            if (!lancamentoViewModels.Any())
+                return;
 
             var linha = 11;
-            foreach (var receita in lancamentos.Where(x => x.IndicadorReceitaDespesa == "R"))
+
+            foreach (var lancamento in lancamentoViewModels)
             {
-                ws.InsertRow(linha, 1, linha + 1);
-                ws.Row(linha).Height = heightDefault;
-                ws.Cells[linha, 2].Value = receita.Descricao;
-                ws.Cells[linha, 3].Value = receita.Valor;
+                ws.InsertRow(linha, 1, linha - 1);
+                ws.Row(linha).Height = HeightDefault;
+                ws.Cells[linha, 2].Value = $"{lancamento.DataLancamento}";
+                ws.Cells[linha, 3].Value = lancamento.Descricao;
+                ws.Cells[linha, 4].Value = lancamento.Valor;
+                ws.Cells[linha, 5].Value = lancamento.NomeContaOrigem;
+                ws.Cells[linha, 6].Value = lancamento.NomeCategoria;
                 linha++;
             }
-            ws.DeleteRow(linha);
+            ws.DeleteRow(10);
+            ws.DeleteRow(linha - 1);
+            ws.Row(linha - 1).Height = 4.5;
+        }
 
-            ws.Row(linha).Height = heightDefault;
-            ws.Row(linha + 1).Height = heightDefault;
-            ws.Row(linha + 2).Height = heightDefault;
+        private static void AtualizaGraficoCategorias(ExcelWorksheets wss, int linhaFinalDespesa, bool removeGrafico)
+        {
+            var grafico = wss["Resumo"].Drawings.FirstOrDefault(x => x.Name == "Gráfico 2") as ExcelPieChart;
+            if (grafico == null)
+                return;
 
-            linha += 3;
-            foreach (var despesa in lancamentos.Where(x => x.IndicadorReceitaDespesa == "D"))
+            if (removeGrafico)
             {
-                ws.InsertRow(linha, 1, linha + 1);
-                ws.Row(linha).Height = heightDefault;
-                ws.Cells[linha, 2].Value = despesa.Descricao;
-                ws.Cells[linha, 3].Value = despesa.Valor;
-                linha++;
+                wss["Resumo"].Drawings.Remove("Gráfico 2");
+                return;
             }
-            ws.DeleteRow(linha);
 
-            return ep;
+            grafico.Series.Delete(0);
+            grafico.Series.Add(wss["Despesa_Categoria"].Cells[2, 2, linhaFinalDespesa, 2], wss["Despesa_Categoria"].Cells[2, 1, linhaFinalDespesa, 1]);
+            grafico.DataLabel.Font.Color = Color.White;
         }
     }
 }
