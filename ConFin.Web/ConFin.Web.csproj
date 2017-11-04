@@ -227,6 +227,7 @@
     <Content Include="Views\Lancamento\_ModalCadastroEdicaoLancamento.cshtml" />
     <Content Include="Views\Transferencia\Transferencia.cshtml" />
     <Content Include="Views\Transferencia\_ModalCadastroEdicaoTransferencia.cshtml" />
+    <Content Include="ClassDiagramWeb.cd" />
     <None Include="Properties\PublishProfiles\confin - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\confin - Web Deploy.pubxml" />
     <Content Include="Views\Lancamento\_ModalImportacaoLancamento.cshtml" />

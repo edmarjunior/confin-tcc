@@ -1,0 +1,614 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="ConFin.Web.Controllers.ContaConjuntaController">
+    <Position X="1" Y="14.25" Width="5.5" />
+    <InheritanceLine Type="ConFin.Common.Web.BaseController" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="0.5" Y="1.808" />
+        <Point X="0.26" Y="1.808" />
+        <Point X="0.26" Y="15.459" />
+        <Point X="1" Y="15.459" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="_contaConjuntaAppService" Type="ConFin.Application.AppService.ContaConjunta.IContaConjuntaAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.5" Y="15.443" />
+        <Point X="14.354" Y="15.443" Type="JumpStart" />
+        <Point X="14.521" Y="15.443" Type="JumpEnd" />
+        <Point X="14.917" Y="15.443" Type="JumpStart" />
+        <Point X="15.083" Y="15.443" Type="JumpEnd" />
+        <Point X="15.848" Y="15.443" Type="JumpStart" />
+        <Point X="16.015" Y="15.443" Type="JumpEnd" />
+        <Point X="16.838" Y="15.443" Type="JumpStart" />
+        <Point X="17.005" Y="15.443" Type="JumpEnd" />
+        <Point X="17.493" Y="15.443" />
+        <Point X="17.493" Y="5.375" />
+        <Point X="20.25" Y="5.375" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AQABAAAAAAAAAAAAAAQAAAAACAEAAAAAAAAAAAAAACg=</HashCode>
+      <FileName>Controllers\ContaConjuntaController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_contaConjuntaAppService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ConFin.Web.Controllers.ContaFinanceiraController">
+    <Position X="1" Y="11.75" Width="9" />
+    <InheritanceLine Type="ConFin.Common.Web.BaseController" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="0.5" Y="1.808" />
+        <Point X="0.26" Y="1.808" />
+        <Point X="0.26" Y="12.882" />
+        <Point X="1" Y="12.882" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="_contaFinanceiraTipoAppService" Type="ConFin.Application.AppService.ContaFinanceiraTipo.IContaFinanceiraTipoAppService" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10" Y="12.943" />
+        <Point X="10.375" Y="12.943" />
+        <Point X="10.375" Y="9.625" />
+        <Point X="14.354" Y="9.625" Type="JumpStart" />
+        <Point X="14.521" Y="9.625" Type="JumpEnd" />
+        <Point X="15.848" Y="9.625" Type="JumpStart" />
+        <Point X="16.015" Y="9.625" Type="JumpEnd" />
+        <Point X="16.33" Y="9.625" Type="JumpStart" />
+        <Point X="16.497" Y="9.625" Type="JumpEnd" />
+        <Point X="17.409" Y="9.625" Type="JumpStart" />
+        <Point X="17.576" Y="9.625" Type="JumpEnd" />
+        <Point X="17.825" Y="9.625" Type="JumpStart" />
+        <Point X="17.992" Y="9.625" Type="JumpEnd" />
+        <Point X="19.792" Y="9.625" Type="JumpStart" />
+        <Point X="19.958" Y="9.625" Type="JumpEnd" />
+        <Point X="20.25" Y="9.625" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAgBAAAAAACAEBAAAAAAAAAAAAAAo=</HashCode>
+      <FileName>Controllers\ContaFinanceiraController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_contaFinanceiraAppService" />
+      <Field Name="_contaFinanceiraTipoAppService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ConFin.Web.Controllers.LancamentoCategoriaController">
+    <Position X="1" Y="20.25" Width="9.25" />
+    <InheritanceLine Type="ConFin.Common.Web.BaseController" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="0.5" Y="1.808" />
+        <Point X="0.26" Y="1.808" />
+        <Point X="0.26" Y="21.459" />
+        <Point X="1" Y="21.459" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="_lancamentoCategoriaAppService" Type="ConFin.Application.AppService.LancamentoCategoria.ILancamentoCategoriaAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.25" Y="21.758" />
+        <Point X="13.917" Y="21.758" Type="JumpStart" />
+        <Point X="14.083" Y="21.758" Type="JumpEnd" />
+        <Point X="15.848" Y="21.758" Type="JumpStart" />
+        <Point X="16.015" Y="21.758" Type="JumpEnd" />
+        <Point X="16.838" Y="21.758" Type="JumpStart" />
+        <Point X="17.005" Y="21.758" Type="JumpEnd" />
+        <Point X="17.404" Y="21.758" />
+        <Point X="17.404" Y="18.938" />
+        <Point X="17.825" Y="18.938" Type="JumpStart" />
+        <Point X="17.992" Y="18.938" Type="JumpEnd" />
+        <Point X="19.792" Y="18.938" Type="JumpStart" />
+        <Point X="19.958" Y="18.938" Type="JumpEnd" />
+        <Point X="20.25" Y="18.938" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAIAAAAAAAAAAAAAAACQEAAAAAIAAAAAAAAAg=</HashCode>
+      <FileName>Controllers\LancamentoCategoriaController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_lancamentoCategoriaAppService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ConFin.Web.Controllers.LancamentoController">
+    <Position X="1" Y="16.75" Width="14.5" />
+    <InheritanceLine Type="ConFin.Common.Web.BaseController" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="0.5" Y="1.808" />
+        <Point X="0.26" Y="1.808" />
+        <Point X="0.26" Y="18.041" />
+        <Point X="1" Y="18.041" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="_contaFinanceiraAppService" Type="ConFin.Application.AppService.ContaFinanceira.IContaFinanceiraAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="14.438" Y="16.75" />
+        <Point X="14.438" Y="6.938" />
+        <Point X="17.409" Y="6.938" Type="JumpStart" />
+        <Point X="17.576" Y="6.938" Type="JumpEnd" />
+        <Point X="19.792" Y="6.938" Type="JumpStart" />
+        <Point X="19.958" Y="6.938" Type="JumpEnd" />
+        <Point X="20.25" Y="6.938" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.091" Y="0.069" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_lancamentoAppService" Type="ConFin.Application.AppService.Lancamento.ILancamentoAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="15" Y="16.75" />
+        <Point X="15" Y="11.485" />
+        <Point X="15.848" Y="11.485" Type="JumpStart" />
+        <Point X="16.015" Y="11.485" Type="JumpEnd" />
+        <Point X="17.409" Y="11.485" Type="JumpStart" />
+        <Point X="17.576" Y="11.485" Type="JumpEnd" />
+        <Point X="17.825" Y="11.485" Type="JumpStart" />
+        <Point X="17.992" Y="11.485" Type="JumpEnd" />
+        <Point X="18.518" Y="11.485" />
+        <Point X="18.518" Y="11.5" />
+        <Point X="19.792" Y="11.5" Type="JumpStart" />
+        <Point X="19.958" Y="11.5" Type="JumpEnd" />
+        <Point X="20.25" Y="11.5" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_lancamentoCategoriaAppService" Type="ConFin.Application.AppService.LancamentoCategoria.ILancamentoCategoriaAppService" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="15.5" Y="18.25" />
+        <Point X="15.75" Y="18.25" />
+        <Point X="15.75" Y="18.25" />
+        <Point X="15.848" Y="18.25" Type="JumpStart" />
+        <Point X="16.015" Y="18.25" Type="JumpEnd" />
+        <Point X="16.838" Y="18.25" Type="JumpStart" />
+        <Point X="17.005" Y="18.25" Type="JumpEnd" />
+        <Point X="17.825" Y="18.25" Type="JumpStart" />
+        <Point X="17.992" Y="18.25" Type="JumpEnd" />
+        <Point X="19.792" Y="18.25" Type="JumpStart" />
+        <Point X="19.958" Y="18.25" Type="JumpEnd" />
+        <Point X="20.25" Y="18.25" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.053" Y="0.093" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_transferenciaAppService" Type="ConFin.Application.AppService.Transferencia.ITransferenciaAppService" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="14" Y="20.098" />
+        <Point X="14" Y="25.75" />
+        <Point X="16.378" Y="25.75" Type="JumpStart" />
+        <Point X="16.545" Y="25.75" Type="JumpEnd" />
+        <Point X="16.838" Y="25.75" Type="JumpStart" />
+        <Point X="17.005" Y="25.75" Type="JumpEnd" />
+        <Point X="19.366" Y="25.75" Type="JumpStart" />
+        <Point X="19.533" Y="25.75" Type="JumpEnd" />
+        <Point X="19.792" Y="25.75" Type="JumpStart" />
+        <Point X="19.958" Y="25.75" Type="JumpEnd" />
+        <Point X="20.25" Y="25.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAgAAAAEAgABAQBAACAEAAAEAIIIAAAAAAEg=</HashCode>
+      <FileName>Controllers\LancamentoController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_contaFinanceiraAppService" />
+      <Field Name="_lancamentoAppService" />
+      <Field Name="_lancamentoCategoriaAppService" />
+      <Field Name="_transferenciaAppService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ConFin.Web.Controllers.LoginController">
+    <Position X="1" Y="5.25" Width="5.75" />
+    <InheritanceLine Type="ConFin.Common.Web.BaseHomeController" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="0.795" Y="4.925" />
+        <Point X="0.795" Y="6.721" />
+        <Point X="1" Y="6.721" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="_loginAppService" Type="ConFin.Application.AppService.Login.ILoginAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="6.312" />
+        <Point X="17.409" Y="6.312" Type="JumpStart" />
+        <Point X="17.576" Y="6.312" Type="JumpEnd" />
+        <Point X="19.875" Y="6.312" />
+        <Point X="19.875" Y="20.438" />
+        <Point X="20.25" Y="20.438" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_usuarioAppService" Type="ConFin.Application.AppService.Usuario.IUsuarioAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="6.625" />
+        <Point X="17.409" Y="6.625" Type="JumpStart" />
+        <Point X="17.576" Y="6.625" Type="JumpEnd" />
+        <Point X="19.875" Y="6.625" />
+        <Point X="19.875" Y="27.75" />
+        <Point X="20.25" Y="27.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAABAAAAgAAAhCAAACABAAAAQAAAAQAA=</HashCode>
+      <FileName>Controllers\LoginController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_loginAppService" />
+      <Field Name="_usuarioAppService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ConFin.Web.Controllers.NotificacaoController">
+    <Position X="1" Y="25.5" Width="4.5" />
+    <InheritanceLine Type="ConFin.Common.Web.BaseController" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="0.5" Y="1.808" />
+        <Point X="0.26" Y="1.808" />
+        <Point X="0.26" Y="26.331" />
+        <Point X="1" Y="26.331" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="_notificacaoAppService" Type="ConFin.Application.AppService.Notificacao.INotificacaoAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.5" Y="26.688" />
+        <Point X="16.838" Y="26.688" Type="JumpStart" />
+        <Point X="17.005" Y="26.688" Type="JumpEnd" />
+        <Point X="19.45" Y="26.688" />
+        <Point X="19.45" Y="23.375" />
+        <Point X="19.792" Y="23.375" Type="JumpStart" />
+        <Point X="19.958" Y="23.375" Type="JumpEnd" />
+        <Point X="20.25" Y="23.375" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAACAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Controllers\NotificacaoController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_notificacaoAppService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ConFin.Web.Controllers.TransferenciaController">
+    <Position X="1" Y="22.75" Width="12" />
+    <InheritanceLine Type="ConFin.Common.Web.BaseController" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="0.5" Y="1.808" />
+        <Point X="0.26" Y="1.808" />
+        <Point X="0.26" Y="24.166" />
+        <Point X="1" Y="24.166" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="_lancamentoCategoriaAppService" Type="ConFin.Application.AppService.LancamentoCategoria.ILancamentoCategoriaAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13" Y="24.562" />
+        <Point X="13.917" Y="24.562" Type="JumpStart" />
+        <Point X="14.083" Y="24.562" Type="JumpEnd" />
+        <Point X="15.848" Y="24.562" Type="JumpStart" />
+        <Point X="16.015" Y="24.562" Type="JumpEnd" />
+        <Point X="16.378" Y="24.562" Type="JumpStart" />
+        <Point X="16.545" Y="24.562" Type="JumpEnd" />
+        <Point X="16.838" Y="24.562" Type="JumpStart" />
+        <Point X="17.005" Y="24.562" Type="JumpEnd" />
+        <Point X="18.595" Y="24.562" />
+        <Point X="18.595" Y="19.562" />
+        <Point X="19.792" Y="19.562" Type="JumpStart" />
+        <Point X="19.958" Y="19.562" Type="JumpEnd" />
+        <Point X="20.25" Y="19.562" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_transferenciaAppService" Type="ConFin.Application.AppService.Transferencia.ITransferenciaAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13" Y="23.25" />
+        <Point X="13.917" Y="23.25" Type="JumpStart" />
+        <Point X="14.083" Y="23.25" Type="JumpEnd" />
+        <Point X="15.848" Y="23.25" Type="JumpStart" />
+        <Point X="16.015" Y="23.25" Type="JumpEnd" />
+        <Point X="16.461" Y="23.25" />
+        <Point X="16.461" Y="26.312" />
+        <Point X="16.838" Y="26.312" Type="JumpStart" />
+        <Point X="17.005" Y="26.312" Type="JumpEnd" />
+        <Point X="19.366" Y="26.312" Type="JumpStart" />
+        <Point X="19.533" Y="26.312" Type="JumpEnd" />
+        <Point X="19.792" Y="26.312" Type="JumpStart" />
+        <Point X="19.958" Y="26.312" Type="JumpEnd" />
+        <Point X="20.25" Y="26.312" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.098" Y="0.072" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_contaFinanceiraAppService" Type="ConFin.Application.AppService.ContaFinanceira.IContaFinanceiraAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13" Y="23.875" />
+        <Point X="13.917" Y="23.875" Type="JumpStart" />
+        <Point X="14.083" Y="23.875" Type="JumpEnd" />
+        <Point X="15.848" Y="23.875" Type="JumpStart" />
+        <Point X="16.015" Y="23.875" Type="JumpEnd" />
+        <Point X="16.378" Y="23.875" Type="JumpStart" />
+        <Point X="16.545" Y="23.875" Type="JumpEnd" />
+        <Point X="16.838" Y="23.875" Type="JumpStart" />
+        <Point X="17.005" Y="23.875" Type="JumpEnd" />
+        <Point X="17.909" Y="23.875" />
+        <Point X="17.909" Y="7.5" />
+        <Point X="19.792" Y="7.5" Type="JumpStart" />
+        <Point X="19.958" Y="7.5" Type="JumpEnd" />
+        <Point X="20.25" Y="7.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.08" Y="0.069" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAIAgAAAABAACAEAAABAIIAAAAAAAAg=</HashCode>
+      <FileName>Controllers\TransferenciaController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_lancamentoCategoriaAppService" />
+      <Field Name="_transferenciaAppService" />
+      <Field Name="_contaFinanceiraAppService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ConFin.Web.Controllers.UsuarioController">
+    <Position X="1" Y="10" Width="4" />
+    <InheritanceLine Type="ConFin.Common.Web.BaseController" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="0.5" Y="1.808" />
+        <Point X="0.26" Y="1.808" />
+        <Point X="0.26" Y="10.782" />
+        <Point X="1" Y="10.782" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="_usuarioAppService" Type="ConFin.Application.AppService.Usuario.IUsuarioAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5" Y="10.75" />
+        <Point X="9.073" Y="10.75" Type="JumpStart" />
+        <Point X="9.24" Y="10.75" Type="JumpEnd" />
+        <Point X="10.292" Y="10.75" Type="JumpStart" />
+        <Point X="10.458" Y="10.75" Type="JumpEnd" />
+        <Point X="11.546" Y="10.75" />
+        <Point X="11.546" Y="12.525" />
+        <Point X="14.354" Y="12.525" Type="JumpStart" />
+        <Point X="14.521" Y="12.525" Type="JumpEnd" />
+        <Point X="14.917" Y="12.525" Type="JumpStart" />
+        <Point X="15.083" Y="12.525" Type="JumpEnd" />
+        <Point X="15.848" Y="12.525" Type="JumpStart" />
+        <Point X="16.015" Y="12.525" Type="JumpEnd" />
+        <Point X="16.922" Y="12.525" />
+        <Point X="16.922" Y="28.688" />
+        <Point X="20.25" Y="28.688" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAACAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Controllers\UsuarioController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_usuarioAppService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ConFin.Web.Controllers.HomeController">
+    <Position X="1" Y="8.25" Width="7.25" />
+    <InheritanceLine Type="ConFin.Common.Web.BaseHomeController" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="0.795" Y="4.925" />
+        <Point X="0.795" Y="9.144" />
+        <Point X="1" Y="9.144" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="_lancamentoAppService" Type="ConFin.Application.AppService.Lancamento.ILancamentoAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.25" Y="8.75" />
+        <Point X="9.073" Y="8.75" Type="JumpStart" />
+        <Point X="9.24" Y="8.75" Type="JumpEnd" />
+        <Point X="14.354" Y="8.75" Type="JumpStart" />
+        <Point X="14.521" Y="8.75" Type="JumpEnd" />
+        <Point X="16.414" Y="8.75" />
+        <Point X="16.414" Y="10.938" />
+        <Point X="17.409" Y="10.938" Type="JumpStart" />
+        <Point X="17.576" Y="10.938" Type="JumpEnd" />
+        <Point X="17.825" Y="10.938" Type="JumpStart" />
+        <Point X="17.992" Y="10.938" Type="JumpEnd" />
+        <Point X="19.792" Y="10.938" Type="JumpStart" />
+        <Point X="19.958" Y="10.938" Type="JumpEnd" />
+        <Point X="20.25" Y="10.938" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_transferenciaAppService" Type="ConFin.Application.AppService.Transferencia.ITransferenciaAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.25" Y="9.187" />
+        <Point X="9.073" Y="9.187" Type="JumpStart" />
+        <Point X="9.24" Y="9.187" Type="JumpEnd" />
+        <Point X="14.354" Y="9.187" Type="JumpStart" />
+        <Point X="14.521" Y="9.187" Type="JumpEnd" />
+        <Point X="15.931" Y="9.187" />
+        <Point X="15.931" Y="25.125" />
+        <Point X="16.378" Y="25.125" Type="JumpStart" />
+        <Point X="16.545" Y="25.125" Type="JumpEnd" />
+        <Point X="16.838" Y="25.125" Type="JumpStart" />
+        <Point X="17.005" Y="25.125" Type="JumpEnd" />
+        <Point X="19.366" Y="25.125" Type="JumpStart" />
+        <Point X="19.533" Y="25.125" Type="JumpEnd" />
+        <Point X="19.792" Y="25.125" Type="JumpStart" />
+        <Point X="19.958" Y="25.125" Type="JumpEnd" />
+        <Point X="20.25" Y="25.125" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAIAAAQAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_lancamentoAppService" />
+      <Field Name="_transferenciaAppService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ConFin.Common.Web.BaseHomeController">
+    <Position X="0.5" Y="3.5" Width="4.25" />
+    <InheritanceLine Type="ConFin.Common.Web.BaseController" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="0.5" Y="1.813" />
+        <Point X="0.26" Y="1.813" />
+        <Point X="0.26" Y="4.188" />
+        <Point X="0.5" Y="4.188" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ConFin.Common.Web.BaseController">
+    <Position X="0.5" Y="0.5" Width="4.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ConFin.Application.AppService.ContaConjunta.ContaConjuntaAppService">
+    <Position X="26" Y="4.25" Width="4.5" />
+    <InheritanceLine Type="ConFin.Common.Application.BaseAppService" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="31.75" Y="2.938" />
+        <Point X="32.877" Y="2.938" />
+        <Point X="32.877" Y="5.251" />
+        <Point X="30.5" Y="5.251" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+    <Lollipop Orientation="Left" Position="0.772" />
+  </Class>
+  <Class Name="ConFin.Application.AppService.ContaFinanceira.ContaFinanceiraAppService">
+    <Position X="26" Y="6.5" Width="4.5" />
+    <InheritanceLine Type="ConFin.Common.Application.BaseAppService" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="31.75" Y="2.938" />
+        <Point X="32.878" Y="2.938" />
+        <Point X="32.878" Y="7.597" />
+        <Point X="30.5" Y="7.597" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+    <Lollipop Orientation="Left" Position="0.687" />
+  </Class>
+  <Class Name="ConFin.Application.AppService.ContaFinanceiraTipo.ContaFinanceiraTipoAppService">
+    <Position X="24.5" Y="9" Width="2.5" />
+    <InheritanceLine Type="ConFin.Common.Application.BaseAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="31.75" Y="2.938" />
+        <Point X="32.87" Y="2.938" />
+        <Point X="32.87" Y="9.688" />
+        <Point X="27" Y="9.688" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+    <Lollipop Orientation="Left" Position="0.476" />
+  </Class>
+  <Class Name="ConFin.Application.AppService.Lancamento.LancamentoAppService">
+    <Position X="23.5" Y="13.75" Width="9" />
+    <InheritanceLine Type="ConFin.Common.Application.BaseAppService" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="31.75" Y="2.938" />
+        <Point X="32.877" Y="2.938" />
+        <Point X="32.877" Y="15.188" />
+        <Point X="32.5" Y="15.188" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+    <Lollipop Position="5.086" />
+  </Class>
+  <Class Name="ConFin.Application.AppService.LancamentoCategoria.LancamentoCategoriaAppService">
+    <Position X="26.25" Y="17.5" Width="4.75" />
+    <InheritanceLine Type="ConFin.Common.Application.BaseAppService" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="31.75" Y="2.938" />
+        <Point X="32.87" Y="2.938" />
+        <Point X="32.87" Y="18.812" />
+        <Point X="31" Y="18.812" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+    <Lollipop Orientation="Left" Position="0.414" />
+  </Class>
+  <Class Name="ConFin.Application.AppService.Login.LoginAppService">
+    <Position X="26.75" Y="20.25" Width="5.75" />
+    <InheritanceLine Type="ConFin.Common.Application.BaseAppService" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="31.75" Y="2.938" />
+        <Point X="32.877" Y="2.938" />
+        <Point X="32.877" Y="21.375" />
+        <Point X="32.5" Y="21.375" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+    <Lollipop Orientation="Left" Position="0.39" />
+  </Class>
+  <Class Name="ConFin.Application.AppService.Notificacao.NotificacaoAppService">
+    <Position X="25.5" Y="22.75" Width="4.25" />
+    <InheritanceLine Type="ConFin.Common.Application.BaseAppService" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="31.75" Y="2.938" />
+        <Point X="32.87" Y="2.938" />
+        <Point X="32.87" Y="23.5" />
+        <Point X="29.75" Y="23.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+    <Lollipop Orientation="Left" Position="0.365" />
+  </Class>
+  <Class Name="ConFin.Application.AppService.Transferencia.TransferenciaAppService">
+    <Position X="26.5" Y="24.75" Width="5.5" />
+    <InheritanceLine Type="ConFin.Common.Application.BaseAppService" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="31.75" Y="2.938" />
+        <Point X="32.87" Y="2.938" />
+        <Point X="32.87" Y="26.125" />
+        <Point X="32" Y="26.125" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+    <Lollipop Orientation="Left" Position="0.438" />
+  </Class>
+  <Class Name="ConFin.Application.AppService.Usuario.UsuarioAppService">
+    <Position X="25.75" Y="27.5" Width="4.75" />
+    <InheritanceLine Type="ConFin.Common.Application.BaseAppService" FixedFromPoint="true">
+      <Path>
+        <Point X="31.75" Y="2.938" />
+        <Point X="32.87" Y="2.938" />
+        <Point X="32.87" Y="28.405" />
+        <Point X="30.5" Y="28.405" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+    <Lollipop Orientation="Left" Position="0.244" />
+  </Class>
+  <Class Name="ConFin.Common.Application.BaseAppService">
+    <Position X="25" Y="2" Width="6.75" />
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="ConFin.Application.AppService.ContaConjunta.IContaConjuntaAppService">
+    <Position X="20.25" Y="4.5" Width="4.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Application.AppService.ContaFinanceira.IContaFinanceiraAppService">
+    <Position X="20.25" Y="6.5" Width="4.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Application.AppService.ContaFinanceiraTipo.IContaFinanceiraTipoAppService">
+    <Position X="20.25" Y="9.25" Width="2.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Application.AppService.Lancamento.ILancamentoAppService">
+    <Position X="20.25" Y="10.75" Width="9" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Application.AppService.LancamentoCategoria.ILancamentoCategoriaAppService">
+    <Position X="20.25" Y="17.75" Width="4.75" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Application.AppService.Login.ILoginAppService">
+    <Position X="20.25" Y="20.25" Width="5.75" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Application.AppService.Notificacao.INotificacaoAppService">
+    <Position X="20.25" Y="22.75" Width="4.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Application.AppService.Transferencia.ITransferenciaAppService">
+    <Position X="20.25" Y="24.75" Width="5.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Application.AppService.Usuario.IUsuarioAppService">
+    <Position X="20.25" Y="27.5" Width="4.75" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
