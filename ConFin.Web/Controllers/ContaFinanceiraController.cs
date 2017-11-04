@@ -1,5 +1,4 @@
-﻿using ConFin.Application.AppService.ContaConjunta;
-using ConFin.Application.AppService.ContaFinanceira;
+﻿using ConFin.Application.AppService.ContaFinanceira;
 using ConFin.Application.AppService.ContaFinanceiraTipo;
 using ConFin.Common.Domain.Dto;
 using ConFin.Common.Web;
@@ -17,7 +16,7 @@ namespace ConFin.Web.Controllers
         private readonly IContaFinanceiraAppService _contaFinanceiraAppService;
         private readonly IContaFinanceiraTipoAppService _contaFinanceiraTipoAppService;
 
-        public ContaFinanceiraController(IContaFinanceiraAppService contaFinanceiraAppService, IContaFinanceiraTipoAppService contaFinanceiraTipoAppService, IContaConjuntaAppService contaConjuntaAppService)
+        public ContaFinanceiraController(IContaFinanceiraAppService contaFinanceiraAppService, IContaFinanceiraTipoAppService contaFinanceiraTipoAppService)
         {
             _contaFinanceiraAppService = contaFinanceiraAppService;
             _contaFinanceiraTipoAppService = contaFinanceiraTipoAppService;
