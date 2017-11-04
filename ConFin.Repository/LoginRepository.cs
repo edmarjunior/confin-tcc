@@ -4,7 +4,6 @@ using ConFin.Common.Repository;
 using ConFin.Common.Repository.Extension;
 using ConFin.Common.Repository.Infra;
 using ConFin.Domain.Login;
-using ConFin.Domain.Login.Dto;
 using System;
 
 namespace ConFin.Repository

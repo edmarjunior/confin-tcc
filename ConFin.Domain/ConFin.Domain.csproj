@@ -54,7 +54,6 @@
     <Compile Include="Lancamento\ILancamentoRepository.cs" />
     <Compile Include="Lancamento\ILancamentoService.cs" />
     <Compile Include="Lancamento\LancamentoService.cs" />
-    <Compile Include="Login\Dto\SolicitacaoTrocaSenhaLoginDto.cs" />
     <Compile Include="Notificacao\INotificacaoRepository.cs" />
     <Compile Include="Notificacao\INotificacaoService.cs" />
     <Compile Include="Notificacao\NotificacaoService.cs" />

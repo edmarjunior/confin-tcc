@@ -18,7 +18,6 @@
                 UriWeb = "http://confin.azurewebsites.net/";
                 UriApi = "http://api-confin.azurewebsites.net/";
                 ConnectionString = "Data Source=serverconfin.database.windows.net;Initial Catalog=confin;User ID=confin;Password=ju1790!*";
-                //ConnectionString = "c:/projetos/confin/connectionstring";
             }
         }
 

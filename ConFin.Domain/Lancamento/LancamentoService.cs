@@ -13,49 +13,49 @@ namespace ConFin.Domain.Lancamento
 {
     public class LancamentoService : ILancamentoService
     {
-        private readonly ILancamentoRepository _lancamentoRepository;
-        private readonly ICompromissoRepository _compromissoRepository;
-        private readonly ILancamentoCategoriaRepository _lancamentoCategoriaRepository;
-        private readonly IContaConjuntaRepository _contaConjuntaRepository;
-        private readonly INotificacaoService _notificacaoService;
-        private readonly IContaFinanceiraRepository _contaFinanceiraRepository;
-        private readonly Notification _notification;
+        public readonly ILancamentoRepository LancamentoRepository;
+        public readonly ICompromissoRepository CompromissoRepository;
+        public readonly ILancamentoCategoriaRepository LancamentoCategoriaRepository;
+        public readonly IContaConjuntaRepository ContaConjuntaRepository;
+        public readonly INotificacaoService NotificacaoService;
+        public readonly IContaFinanceiraRepository ContaFinanceiraRepository;
+        public readonly Notification Notification;
 
         public LancamentoService(Notification notification, ILancamentoRepository lancamentoRepository,
             ICompromissoRepository compromissoRepository, ILancamentoCategoriaRepository lancamentoCategoriaRepository, 
             IContaConjuntaRepository contaConjuntaRepository, INotificacaoService notificacaoService, IContaFinanceiraRepository contaFinanceiraRepository)
         {
-            _notification = notification;
-            _lancamentoRepository = lancamentoRepository;
-            _compromissoRepository = compromissoRepository;
-            _lancamentoCategoriaRepository = lancamentoCategoriaRepository;
-            _contaConjuntaRepository = contaConjuntaRepository;
-            _notificacaoService = notificacaoService;
-            _contaFinanceiraRepository = contaFinanceiraRepository;
+            Notification = notification;
+            LancamentoRepository = lancamentoRepository;
+            CompromissoRepository = compromissoRepository;
+            LancamentoCategoriaRepository = lancamentoCategoriaRepository;
+            ContaConjuntaRepository = contaConjuntaRepository;
+            NotificacaoService = notificacaoService;
+            ContaFinanceiraRepository = contaFinanceiraRepository;
         }
 
         public IEnumerable<LancamentoDto> GetAll(int idUsuario, byte? mes = null, short? ano = null, int? idConta = null, int? idCategoria = null)
         {
-            return _lancamentoRepository.GetAll(idUsuario, mes, ano, idConta, idCategoria);
+            return LancamentoRepository.GetAll(idUsuario, mes, ano, idConta, idCategoria);
         }
 
         public void Post(LancamentoDto lancamento)
         {
-            _lancamentoRepository.OpenTransaction();
+            LancamentoRepository.OpenTransaction();
 
             // caso seja conta conjunta aprovada
             AtualizaCategoriasContaConjunta(lancamento.IdConta, lancamento.IdCategoria);
 
-            var conta = _contaFinanceiraRepository.Get(lancamento.IdConta);
+            var conta = ContaFinanceiraRepository.Get(lancamento.IdConta);
             var msg = $"Cadastrou uma nova {(lancamento.IndicadorReceitaDespesa == "R" ? "receita" : "despesa")} ({lancamento.Descricao}) na conta {conta.Nome.ToUpper()}";
 
             // Cadastra notificações para todos os usuarios (caso seja conta conjunta)
-            _notificacaoService.Post(lancamento.IdUsuarioCadastro, lancamento.IdConta, 4, msg); // 4: Cadastro de lançamento em conta conjunta
+            NotificacaoService.Post(lancamento.IdUsuarioCadastro, lancamento.IdConta, 4, msg); // 4: Cadastro de lançamento em conta conjunta
 
             if (string.IsNullOrEmpty(lancamento.IndicadorFixoParcelado))
             {
-                _lancamentoRepository.Post(lancamento);
-                _lancamentoRepository.CommitTransaction();
+                LancamentoRepository.Post(lancamento);
+                LancamentoRepository.CommitTransaction();
                 return;
             }
 
@@ -63,18 +63,18 @@ namespace ConFin.Domain.Lancamento
 
             if (!lancamento.IdPeriodo.HasValue)
             {
-                _notification.Add("Favor informar o periodo para lançamentos fixo/parcelado");
+                Notification.Add("Favor informar o periodo para lançamentos fixo/parcelado");
                 return;
             }
 
-            var periodo = _lancamentoRepository.GetPeriodo((byte)lancamento.IdPeriodo);
+            var periodo = LancamentoRepository.GetPeriodo((byte)lancamento.IdPeriodo);
             if (periodo == null)
             {
-                _notification.Add("Os dados do periodo informado não foram encontrados");
+                Notification.Add("Os dados do periodo informado não foram encontrados");
                 return;
             }
 
-            var idCompromisso = _compromissoRepository.Post(new CompromissoDto
+            var idCompromisso = CompromissoRepository.Post(new CompromissoDto
             {
                 Descricao = lancamento.Descricao,
                 IdPeriodo = (byte)lancamento.IdPeriodo,
@@ -85,7 +85,7 @@ namespace ConFin.Domain.Lancamento
                 IdConta = lancamento.IdConta
             });
 
-            if (_notification.Any)
+            if (Notification.Any)
                 return;
 
             var cont = 1;
@@ -94,12 +94,12 @@ namespace ConFin.Domain.Lancamento
                 var dataLimite = DateTime.Today.AddYears(2);
                 while (lancamento.Data <= dataLimite)
                 {
-                    var idLancamento = _lancamentoRepository.Post(lancamento);
-                    _compromissoRepository.PostCompromissoLancamento(idCompromisso, idLancamento, cont++);
+                    var idLancamento = LancamentoRepository.Post(lancamento);
+                    CompromissoRepository.PostCompromissoLancamento(idCompromisso, idLancamento, cont++);
                     lancamento.Data = AddDate(lancamento.Data, periodo);
                 }
 
-                _lancamentoRepository.CommitTransaction();
+                LancamentoRepository.CommitTransaction();
                 return;
             }
 
@@ -107,18 +107,18 @@ namespace ConFin.Domain.Lancamento
 
             if (!lancamento.TotalParcelasOriginal.HasValue || lancamento.TotalParcelasOriginal < 2)
             {
-                _notification.Add("Favor informar mais que 1(uma) parcela");
+                Notification.Add("Favor informar mais que 1(uma) parcela");
                 return;
             }
 
             for (; cont <= lancamento.TotalParcelasOriginal; cont++)
             {
-                var idLancamento = _lancamentoRepository.Post(lancamento);
-                _compromissoRepository.PostCompromissoLancamento(idCompromisso, idLancamento, cont);
+                var idLancamento = LancamentoRepository.Post(lancamento);
+                CompromissoRepository.PostCompromissoLancamento(idCompromisso, idLancamento, cont);
                 lancamento.Data = AddDate(lancamento.Data, periodo);
             }
 
-            _lancamentoRepository.CommitTransaction();
+            LancamentoRepository.CommitTransaction();
 
         }
 
@@ -127,64 +127,64 @@ namespace ConFin.Domain.Lancamento
             lancamentos = lancamentos.ToList();
             if (!lancamentos.Any())
             {
-                _notification.Add("Nenhum lançamento encontrado para cadastrar");
+                Notification.Add("Nenhum lançamento encontrado para cadastrar");
                 return;
             }
 
             var categorias = new Dictionary<string, int>();
 
-            _lancamentoRepository.OpenTransaction();
+            LancamentoRepository.OpenTransaction();
 
             foreach (var nomeCategoria in lancamentos.GroupBy(x => x.NomeCategoria).Select(y => y.Key))
             {
                 // busca o id da categoria, caso não exista é cadastrado uma nova.
-                categorias.Add(nomeCategoria,_lancamentoCategoriaRepository.GetPostId(nomeCategoria, lancamentos.First().IdUsuarioCadastro));
+                categorias.Add(nomeCategoria,LancamentoCategoriaRepository.GetPostId(nomeCategoria, lancamentos.First().IdUsuarioCadastro));
 
-                if (!_notification.Any)
+                if (!Notification.Any)
                     continue;
 
-                _lancamentoRepository.RollbackTransaction();
+                LancamentoRepository.RollbackTransaction();
                 return;
             }
 
             foreach (var lancamento in lancamentos)
             {
                 lancamento.IdCategoria = categorias[lancamento.NomeCategoria];
-                _lancamentoRepository.Post(lancamento);
+                LancamentoRepository.Post(lancamento);
             }
 
-            _lancamentoRepository.CommitTransaction();
+            LancamentoRepository.CommitTransaction();
         }
 
         public void Delete(int idLancamento, string indTipoDelete, int idUsuario)
         {
 
-            _lancamentoRepository.OpenTransaction();
+            LancamentoRepository.OpenTransaction();
 
-            var dadosLancamento = _lancamentoRepository.Get(idLancamento);
+            var dadosLancamento = LancamentoRepository.Get(idLancamento);
 
-            var conta = _contaFinanceiraRepository.Get(dadosLancamento.IdConta);
+            var conta = ContaFinanceiraRepository.Get(dadosLancamento.IdConta);
             var msg = $"Excluiu uma {(dadosLancamento.IndicadorReceitaDespesa == "R" ? "receita" : "despesa")} ({dadosLancamento.Descricao}) da conta {conta.Nome.ToUpper()}";
 
             // Cadastra notificações para todos os usuarios (caso seja conta conjunta)
-            _notificacaoService.Post(idUsuario, dadosLancamento.IdConta, 6, msg); // 6: Remoção de lançamento em conta conjunta
+            NotificacaoService.Post(idUsuario, dadosLancamento.IdConta, 6, msg); // 6: Remoção de lançamento em conta conjunta
 
-            var compromisso = _compromissoRepository.GetCompromissoLancamento(idLancamento);
+            var compromisso = CompromissoRepository.GetCompromissoLancamento(idLancamento);
 
             if (compromisso == null)
             {
-                _lancamentoRepository.Delete(idLancamento);
-                _lancamentoRepository.CommitTransaction();
+                LancamentoRepository.Delete(idLancamento);
+                LancamentoRepository.CommitTransaction();
                 return;
             }
 
             if (string.IsNullOrEmpty(indTipoDelete) || !new List<string>() { "U", "P", "T" }.Contains(indTipoDelete))
             {
-                _notification.Add("Falha ao excluir lançamento fixo/parcelado, o tipo de remoção não foi enviado ou esta inválido");
+                Notification.Add("Falha ao excluir lançamento fixo/parcelado, o tipo de remoção não foi enviado ou esta inválido");
                 return;
             }
 
-            var lancamentosVinculados = _compromissoRepository.GetCompromissoLancamentos(compromisso.Id).ToList();
+            var lancamentosVinculados = CompromissoRepository.GetCompromissoLancamentos(compromisso.Id).ToList();
             List<CompromissoLancamentoDto> lancamentosVinculadosAux;
 
             switch (indTipoDelete)
@@ -196,60 +196,60 @@ namespace ConFin.Domain.Lancamento
 
             foreach (var lancamento in lancamentosVinculadosAux)
             {
-                _compromissoRepository.DeleteCompromissoLancamento(lancamento.IdLancamento);
-                _lancamentoRepository.Delete(lancamento.IdLancamento);
+                CompromissoRepository.DeleteCompromissoLancamento(lancamento.IdLancamento);
+                LancamentoRepository.Delete(lancamento.IdLancamento);
                 lancamentosVinculados.RemoveAll(x => x.IdLancamento == lancamento.IdLancamento);
             }
 
             if(!lancamentosVinculados.Any())
-                _compromissoRepository.Delete(compromisso.Id);
+                CompromissoRepository.Delete(compromisso.Id);
 
-            if (_notification.Any)
-                _lancamentoRepository.RollbackTransaction();
+            if (Notification.Any)
+                LancamentoRepository.RollbackTransaction();
             else
-                _lancamentoRepository.CommitTransaction();
+                LancamentoRepository.CommitTransaction();
         }
 
         public void Put(LancamentoDto lancamento)
         {
-            _lancamentoRepository.OpenTransaction();
+            LancamentoRepository.OpenTransaction();
 
             // caso seja conta conjunta aprovada
             AtualizaCategoriasContaConjunta(lancamento.IdConta, lancamento.IdCategoria);
 
-            var conta = _contaFinanceiraRepository.Get(lancamento.IdConta);
+            var conta = ContaFinanceiraRepository.Get(lancamento.IdConta);
             var msg = $"Editou o lançamento ({lancamento.Descricao}) da conta {conta.Nome.ToUpper()}";
 
             if (lancamento.IdUsuarioUltimaAlteracao == null)
             {
-                _notification.Add("Não foi passado o usuário que esta realizando a edição no lançamento");
+                Notification.Add("Não foi passado o usuário que esta realizando a edição no lançamento");
                 return;
             }
 
             // Cadastra notificações para todos os usuarios (caso seja conta conjunta)
-            _notificacaoService.Post((int)lancamento.IdUsuarioUltimaAlteracao, lancamento.IdConta, 5, msg); // 5: Edição de lançamento em conta conjunta
+            NotificacaoService.Post((int)lancamento.IdUsuarioUltimaAlteracao, lancamento.IdConta, 5, msg); // 5: Edição de lançamento em conta conjunta
 
             if (!lancamento.IdCompromisso.HasValue || lancamento.IndicadorAcaoCompromisso == "S")
             {
-                _lancamentoRepository.Put(lancamento);
-                _lancamentoRepository.CommitTransaction();
+                LancamentoRepository.Put(lancamento);
+                LancamentoRepository.CommitTransaction();
                 return;
             }
 
             if (string.IsNullOrEmpty(lancamento.IndicadorAcaoCompromisso))
             {
-                _notification.Add("Não foi passado a forma que serão alterados os lançamentos fixo/parcelado que estão vínculados");
+                Notification.Add("Não foi passado a forma que serão alterados os lançamentos fixo/parcelado que estão vínculados");
                 return;
             }
 
             if (!new List<string> {"P", "T"}.Contains(lancamento.IndicadorAcaoCompromisso))
             {
-                _notification.Add("Foi passado uma forma de alteração de lançamentos fixo/parcelado inválida, ");
+                Notification.Add("Foi passado uma forma de alteração de lançamentos fixo/parcelado inválida, ");
                 return;
             }
 
             // busca todos lançamentos vínvulados posteriores ao atual;
-            var lancamentos = _compromissoRepository.GetCompromissoLancamentos((int)lancamento.IdCompromisso).ToList();
+            var lancamentos = CompromissoRepository.GetCompromissoLancamentos((int)lancamento.IdCompromisso).ToList();
             var dataAnteriorLancamento = lancamentos.First(x => x.IdLancamento == lancamento.Id).DataLancamento;
             var diferenciaDias = (lancamento.Data - dataAnteriorLancamento).TotalDays;
 
@@ -261,10 +261,10 @@ namespace ConFin.Domain.Lancamento
             {
                 lancamento.Data = lanc.DataLancamento.AddDays(diferenciaDias);
                 lancamento.Id = lanc.IdLancamento;
-                _lancamentoRepository.Put(lancamento);
+                LancamentoRepository.Put(lancamento);
             }
 
-            _lancamentoRepository.CommitTransaction();
+            LancamentoRepository.CommitTransaction();
         }
 
         private static DateTime AddDate(DateTime dataAtual, PeriodoDto periodo)
@@ -279,10 +279,10 @@ namespace ConFin.Domain.Lancamento
 
         private void AtualizaCategoriasContaConjunta(int idConta, int idCategoria)
         {
-            if (_contaConjuntaRepository.Get(null, idConta).Any(x => x.IndicadorAprovado == "A")
-               && _contaConjuntaRepository.GetCategoria(idConta).All(x => x.Id != idCategoria))
+            if (ContaConjuntaRepository.Get(null, idConta).Any(x => x.IndicadorAprovado == "A")
+               && ContaConjuntaRepository.GetCategoria(idConta).All(x => x.Id != idCategoria))
             {
-                _contaConjuntaRepository.PostCategoria(idConta, idCategoria);
+                ContaConjuntaRepository.PostCategoria(idConta, idCategoria);
             }
         }
     }

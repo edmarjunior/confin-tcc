@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ConFin.Domain.Login.Dto
+namespace ConFin.Common.Domain.Dto
 {
     public class SolicitacaoTrocaSenhaLoginDto
     {

@@ -98,6 +98,7 @@
     <Compile Include="Domain\Dto\NotificacaoDto.cs" />
     <Compile Include="Domain\Dto\NotificacaoTipoDto.cs" />
     <Compile Include="Domain\Dto\PeriodoDto.cs" />
+    <Compile Include="Domain\Dto\SolicitacaoTrocaSenhaLoginDto.cs" />
     <Compile Include="Domain\Dto\TransferenciaDto.cs" />
     <Compile Include="Domain\Notification.cs" />
     <Compile Include="Domain\Parameters.cs" />

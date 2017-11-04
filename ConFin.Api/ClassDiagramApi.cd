@@ -1,0 +1,1468 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="ConFin.Api.Controllers.ContaConjuntaController">
+    <Position X="9" Y="8.25" Width="9" />
+    <AssociationLine Name="_contaConjuntaRepository" Type="ConFin.Domain.ContaConjunta.IContaConjuntaRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="18" Y="9.066" />
+        <Point X="19.059" Y="9.066" Type="JumpStart" />
+        <Point X="19.226" Y="9.066" Type="JumpEnd" />
+        <Point X="22.178" Y="9.066" Type="JumpStart" />
+        <Point X="22.344" Y="9.066" Type="JumpEnd" />
+        <Point X="24.349" Y="9.066" />
+        <Point X="24.349" Y="23.539" />
+        <Point X="25.5" Y="23.539" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_notification" Type="ConFin.Common.Domain.Notification" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="9" Y="9.256" />
+        <Point X="5.312" Y="9.256" />
+        <Point X="5.312" Y="19.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.401" Y="0.911" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>KAAAAAAAAAAAAABAAAAABAAACAEAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Controllers\ContaConjuntaController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_contaConjuntaRepository" />
+      <Field Name="_contaConjuntaService" />
+      <Field Name="_notification" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ConFin.Api.Controllers.ContaFinanceiraController">
+    <Position X="9" Y="11.75" Width="12.5" />
+    <AssociationLine Name="_contaFinanceiraRepository" Type="ConFin.Domain.ContaFinanceira.IContaFinanceiraRepository" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.562" Y="13.944" />
+        <Point X="20.562" Y="26.938" />
+        <Point X="20.716" Y="26.938" Type="JumpStart" />
+        <Point X="20.883" Y="26.938" Type="JumpEnd" />
+        <Point X="21.107" Y="26.938" Type="JumpStart" />
+        <Point X="21.273" Y="26.938" Type="JumpEnd" />
+        <Point X="21.77" Y="26.938" Type="JumpStart" />
+        <Point X="21.936" Y="26.938" Type="JumpEnd" />
+        <Point X="22.357" Y="26.938" Type="JumpStart" />
+        <Point X="22.523" Y="26.938" Type="JumpEnd" />
+        <Point X="22.894" Y="26.938" Type="JumpStart" />
+        <Point X="23.061" Y="26.938" Type="JumpEnd" />
+        <Point X="25.5" Y="26.938" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_notification" Type="ConFin.Common.Domain.Notification" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="9" Y="13" />
+        <Point X="5.75" Y="13" />
+        <Point X="5.75" Y="19.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.435" Y="0.503" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>IAAEAAAAAAAAAABAAAAAAAAACAEAAAAAAgAAAAABAAg=</HashCode>
+      <FileName>Controllers\ContaFinanceiraController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_contaFinanceiraRepository" />
+      <Field Name="_contaFinanceiraService" />
+      <Field Name="_notification" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ConFin.Api.Controllers.ContaFinanceiraTipoController">
+    <Position X="9" Y="15" Width="7.5" />
+    <AssociationLine Name="_contaFinanceiraTipoRepository" Type="ConFin.Domain.ContaFinanceiraTipo.IContaFinanceiraTipoRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="16.5" Y="15.75" />
+        <Point X="20.479" Y="15.75" Type="JumpStart" />
+        <Point X="20.646" Y="15.75" Type="JumpEnd" />
+        <Point X="21.77" Y="15.75" Type="JumpStart" />
+        <Point X="21.936" Y="15.75" Type="JumpEnd" />
+        <Point X="22.178" Y="15.75" Type="JumpStart" />
+        <Point X="22.344" Y="15.75" Type="JumpEnd" />
+        <Point X="22.978" Y="15.75" />
+        <Point X="22.978" Y="28.302" />
+        <Point X="25.5" Y="28.302" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_notification" Type="ConFin.Common.Domain.Notification" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="9" Y="15.713" />
+        <Point X="6.125" Y="15.713" />
+        <Point X="6.125" Y="19.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.7" Y="0.217" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\ContaFinanceiraTipoController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_contaFinanceiraTipoRepository" />
+      <Field Name="_notification" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ConFin.Api.Controllers.LancamentoCategoriaController">
+    <Position X="9" Y="17.25" Width="11" />
+    <AssociationLine Name="_lancamentoCategoriaService" Type="ConFin.Domain.LancamentoCategoria.ILancamentoCategoriaService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20" Y="18.375" />
+        <Point X="20.479" Y="18.375" Type="JumpStart" />
+        <Point X="20.646" Y="18.375" Type="JumpEnd" />
+        <Point X="20.716" Y="18.375" Type="JumpStart" />
+        <Point X="20.883" Y="18.375" Type="JumpEnd" />
+        <Point X="21.77" Y="18.375" Type="JumpStart" />
+        <Point X="21.936" Y="18.375" Type="JumpEnd" />
+        <Point X="22.178" Y="18.375" Type="JumpStart" />
+        <Point X="22.344" Y="18.375" Type="JumpEnd" />
+        <Point X="22.894" Y="18.375" Type="JumpStart" />
+        <Point X="23.061" Y="18.375" Type="JumpEnd" />
+        <Point X="23.346" Y="18.375" Type="JumpStart" />
+        <Point X="23.513" Y="18.375" Type="JumpEnd" />
+        <Point X="24.266" Y="18.375" Type="JumpStart" />
+        <Point X="24.433" Y="18.375" Type="JumpEnd" />
+        <Point X="25.125" Y="18.375" />
+        <Point X="25.125" Y="10.59" />
+        <Point X="25.5" Y="10.59" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_notification" Type="ConFin.Common.Domain.Notification" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="9" Y="18.443" />
+        <Point X="8.625" Y="18.443" />
+        <Point X="8.625" Y="20" />
+        <Point X="6.25" Y="20" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>IAABAAAAAAAAAABAIAAAAAAACQEAAAAAAgAAAAAAAAg=</HashCode>
+      <FileName>Controllers\LancamentoCategoriaController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_lancamentoCategoriaRepository" />
+      <Field Name="_lancamentoCategoriaService" />
+      <Field Name="_notification" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ConFin.Api.Controllers.LancamentoController">
+    <Position X="9" Y="20.75" Width="8.25" />
+    <AssociationLine Name="_lancamentoRepository" Type="ConFin.Domain.Lancamento.ILancamentoRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="17.25" Y="22.5" />
+        <Point X="18.287" Y="22.5" Type="JumpStart" />
+        <Point X="18.454" Y="22.5" Type="JumpEnd" />
+        <Point X="19.386" Y="22.5" />
+        <Point X="19.386" Y="30.812" />
+        <Point X="20.716" Y="30.812" Type="JumpStart" />
+        <Point X="20.883" Y="30.812" Type="JumpEnd" />
+        <Point X="21.107" Y="30.812" Type="JumpStart" />
+        <Point X="21.273" Y="30.812" Type="JumpEnd" />
+        <Point X="21.783" Y="30.812" Type="JumpStart" />
+        <Point X="21.949" Y="30.812" Type="JumpEnd" />
+        <Point X="22.357" Y="30.812" Type="JumpStart" />
+        <Point X="22.523" Y="30.812" Type="JumpEnd" />
+        <Point X="25.5" Y="30.812" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_lancamentoService" Type="ConFin.Domain.Lancamento.ILancamentoService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="17.25" Y="21.736" />
+        <Point X="18.287" Y="21.736" Type="JumpStart" />
+        <Point X="18.454" Y="21.736" Type="JumpEnd" />
+        <Point X="20.479" Y="21.736" Type="JumpStart" />
+        <Point X="20.646" Y="21.736" Type="JumpEnd" />
+        <Point X="20.716" Y="21.736" Type="JumpStart" />
+        <Point X="20.883" Y="21.736" Type="JumpEnd" />
+        <Point X="21.107" Y="21.736" Type="JumpStart" />
+        <Point X="21.273" Y="21.736" Type="JumpEnd" />
+        <Point X="21.77" Y="21.736" Type="JumpStart" />
+        <Point X="21.936" Y="21.736" Type="JumpEnd" />
+        <Point X="22.261" Y="21.736" />
+        <Point X="22.261" Y="8.188" />
+        <Point X="25.5" Y="8.188" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_notification" Type="ConFin.Common.Domain.Notification" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="9" Y="22.232" />
+        <Point X="8.875" Y="22.232" />
+        <Point X="8.875" Y="20.625" />
+        <Point X="6.25" Y="20.625" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>IggAAAAAAAAAAABAAAAAABAACAEAAAAAAiAAAEAEAAg=</HashCode>
+      <FileName>Controllers\LancamentoController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_lancamentoRepository" />
+      <Field Name="_lancamentoService" />
+      <Field Name="_notification" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ConFin.Api.Controllers.LoginController">
+    <Position X="9" Y="24.75" Width="6.5" />
+    <AssociationLine Name="_loginService" Type="ConFin.Domain.Login.ILoginService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="15.5" Y="25.312" />
+        <Point X="18.287" Y="25.312" Type="JumpStart" />
+        <Point X="18.454" Y="25.312" Type="JumpEnd" />
+        <Point X="19.303" Y="25.312" Type="JumpStart" />
+        <Point X="19.469" Y="25.312" Type="JumpEnd" />
+        <Point X="20.479" Y="25.312" Type="JumpStart" />
+        <Point X="20.646" Y="25.312" Type="JumpEnd" />
+        <Point X="20.716" Y="25.312" Type="JumpStart" />
+        <Point X="20.883" Y="25.312" Type="JumpEnd" />
+        <Point X="21.107" Y="25.312" Type="JumpStart" />
+        <Point X="21.273" Y="25.312" Type="JumpEnd" />
+        <Point X="21.77" Y="25.312" Type="JumpStart" />
+        <Point X="21.936" Y="25.312" Type="JumpEnd" />
+        <Point X="22.894" Y="25.312" Type="JumpStart" />
+        <Point X="23.061" Y="25.312" Type="JumpEnd" />
+        <Point X="23.429" Y="25.312" />
+        <Point X="23.429" Y="12.54" />
+        <Point X="24.266" Y="12.54" Type="JumpStart" />
+        <Point X="24.433" Y="12.54" Type="JumpEnd" />
+        <Point X="25.042" Y="12.54" Type="JumpStart" />
+        <Point X="25.208" Y="12.54" Type="JumpEnd" />
+        <Point X="25.5" Y="12.54" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_loginRepository" Type="ConFin.Domain.Login.ILoginRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="15.5" Y="26.188" />
+        <Point X="18.287" Y="26.188" Type="JumpStart" />
+        <Point X="18.454" Y="26.188" Type="JumpEnd" />
+        <Point X="19.303" Y="26.188" Type="JumpStart" />
+        <Point X="19.469" Y="26.188" Type="JumpEnd" />
+        <Point X="20.479" Y="26.188" Type="JumpStart" />
+        <Point X="20.646" Y="26.188" Type="JumpEnd" />
+        <Point X="20.716" Y="26.188" Type="JumpStart" />
+        <Point X="20.883" Y="26.188" Type="JumpEnd" />
+        <Point X="21.107" Y="26.188" Type="JumpStart" />
+        <Point X="21.273" Y="26.188" Type="JumpEnd" />
+        <Point X="21.77" Y="26.188" Type="JumpStart" />
+        <Point X="21.936" Y="26.188" Type="JumpEnd" />
+        <Point X="22.44" Y="26.188" />
+        <Point X="22.44" Y="36.347" />
+        <Point X="25.5" Y="36.347" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_notification" Type="ConFin.Common.Domain.Notification" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="9" Y="25.847" />
+        <Point X="8.625" Y="25.847" />
+        <Point X="8.625" Y="21.375" />
+        <Point X="6.25" Y="21.375" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAABAgAAgAAAACgAAAAAAAAAAAAACQAA=</HashCode>
+      <FileName>Controllers\LoginController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_loginService" />
+      <Field Name="_loginRepository" />
+      <Field Name="_notification" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ConFin.Api.Controllers.NotificacaoController">
+    <Position X="9" Y="28" Width="8" />
+    <AssociationLine Name="_notificacaoRepository" Type="ConFin.Domain.Notificacao.INotificacaoRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="17" Y="29.312" />
+        <Point X="18.287" Y="29.312" Type="JumpStart" />
+        <Point X="18.454" Y="29.312" Type="JumpEnd" />
+        <Point X="19.303" Y="29.312" Type="JumpStart" />
+        <Point X="19.469" Y="29.312" Type="JumpEnd" />
+        <Point X="20.716" Y="29.312" Type="JumpStart" />
+        <Point X="20.883" Y="29.312" Type="JumpEnd" />
+        <Point X="21.107" Y="29.312" Type="JumpStart" />
+        <Point X="21.273" Y="29.312" Type="JumpEnd" />
+        <Point X="21.866" Y="29.312" />
+        <Point X="21.866" Y="38.655" />
+        <Point X="25.5" Y="38.655" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_notificacaoService" Type="ConFin.Domain.Notificacao.INotificacaoService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="17" Y="28.938" />
+        <Point X="18.287" Y="28.938" Type="JumpStart" />
+        <Point X="18.454" Y="28.938" Type="JumpEnd" />
+        <Point X="19.303" Y="28.938" Type="JumpStart" />
+        <Point X="19.469" Y="28.938" Type="JumpEnd" />
+        <Point X="20.716" Y="28.938" Type="JumpStart" />
+        <Point X="20.883" Y="28.938" Type="JumpEnd" />
+        <Point X="21.107" Y="28.938" Type="JumpStart" />
+        <Point X="21.273" Y="28.938" Type="JumpEnd" />
+        <Point X="21.853" Y="28.938" />
+        <Point X="21.853" Y="14.648" />
+        <Point X="22.178" Y="14.648" Type="JumpStart" />
+        <Point X="22.344" Y="14.648" Type="JumpEnd" />
+        <Point X="23.346" Y="14.648" Type="JumpStart" />
+        <Point X="23.513" Y="14.648" Type="JumpEnd" />
+        <Point X="24.266" Y="14.648" Type="JumpStart" />
+        <Point X="24.433" Y="14.648" Type="JumpEnd" />
+        <Point X="25.042" Y="14.648" Type="JumpStart" />
+        <Point X="25.208" Y="14.648" Type="JumpEnd" />
+        <Point X="25.5" Y="14.648" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_notification" Type="ConFin.Common.Domain.Notification" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="9" Y="28.809" />
+        <Point X="5.562" Y="28.809" />
+        <Point X="5.562" Y="21.882" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.435" Y="0.503" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>IAAAAAEAAAAAAABAAIAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Controllers\NotificacaoController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_notificacaoRepository" />
+      <Field Name="_notificacaoService" />
+      <Field Name="_notification" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ConFin.Api.Controllers.TransferenciaController">
+    <Position X="9" Y="30.75" Width="8.5" />
+    <AssociationLine Name="_transferenciaService" Type="ConFin.Domain.Transferencia.ITransferenciaService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="17.5" Y="31.75" />
+        <Point X="18.287" Y="31.75" Type="JumpStart" />
+        <Point X="18.454" Y="31.75" Type="JumpEnd" />
+        <Point X="20.799" Y="31.75" />
+        <Point X="20.799" Y="16.14" />
+        <Point X="21.77" Y="16.14" Type="JumpStart" />
+        <Point X="21.936" Y="16.14" Type="JumpEnd" />
+        <Point X="22.178" Y="16.14" Type="JumpStart" />
+        <Point X="22.344" Y="16.14" Type="JumpEnd" />
+        <Point X="22.894" Y="16.14" Type="JumpStart" />
+        <Point X="23.061" Y="16.14" Type="JumpEnd" />
+        <Point X="23.346" Y="16.14" Type="JumpStart" />
+        <Point X="23.513" Y="16.14" Type="JumpEnd" />
+        <Point X="24.266" Y="16.14" Type="JumpStart" />
+        <Point X="24.433" Y="16.14" Type="JumpEnd" />
+        <Point X="25.042" Y="16.14" Type="JumpStart" />
+        <Point X="25.208" Y="16.14" Type="JumpEnd" />
+        <Point X="25.5" Y="16.14" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_notification" Type="ConFin.Common.Domain.Notification" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="9" Y="32.25" />
+        <Point X="4.438" Y="32.25" />
+        <Point X="4.438" Y="21.882" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.503" Y="0.809" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>JAAAAAAAAgAAAABAAAAAABAACAEAAAAIAgAAAAAAAAg=</HashCode>
+      <FileName>Controllers\TransferenciaController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_transferenciaRepository" />
+      <Field Name="_transferenciaService" />
+      <Field Name="_notification" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ConFin.Api.Controllers.UsuarioController">
+    <Position X="9" Y="36.75" Width="7" />
+    <AssociationLine Name="_usuarioService" Type="ConFin.Domain.Usuario.IUsuarioService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="16" Y="37.562" />
+        <Point X="16.698" Y="37.562" Type="JumpStart" />
+        <Point X="16.865" Y="37.562" Type="JumpEnd" />
+        <Point X="21.19" Y="37.562" />
+        <Point X="21.19" Y="18.812" />
+        <Point X="21.77" Y="18.812" Type="JumpStart" />
+        <Point X="21.936" Y="18.812" Type="JumpEnd" />
+        <Point X="22.178" Y="18.812" Type="JumpStart" />
+        <Point X="22.344" Y="18.812" Type="JumpEnd" />
+        <Point X="22.894" Y="18.812" Type="JumpStart" />
+        <Point X="23.061" Y="18.812" Type="JumpEnd" />
+        <Point X="23.346" Y="18.812" Type="JumpStart" />
+        <Point X="23.513" Y="18.812" Type="JumpEnd" />
+        <Point X="24.266" Y="18.812" Type="JumpStart" />
+        <Point X="24.433" Y="18.812" Type="JumpEnd" />
+        <Point X="25.5" Y="18.812" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_notification" Type="ConFin.Common.Domain.Notification" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="9" Y="37.655" />
+        <Point X="3.312" Y="37.655" />
+        <Point X="3.312" Y="21.882" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.571" Y="0.469" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAABAAAAEAQAAAAAAAAAAAAAAAAAAIAg=</HashCode>
+      <FileName>Controllers\UsuarioController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_usuarioService" />
+      <Field Name="_usuarioRepository" />
+      <Field Name="_notification" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ConFin.Domain.LancamentoCategoria.LancamentoCategoriaService">
+    <Position X="39.75" Y="10.5" Width="13.75" />
+    <AssociationLine Name="Notification" Type="ConFin.Common.Domain.Notification" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="53.5" Y="11.407" />
+        <Point X="60.541" Y="11.407" />
+        <Point X="60.541" Y="1.96" />
+        <Point X="3.812" Y="1.96" />
+        <Point X="3.812" Y="19.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.36" Y="0.297" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="ContaConjuntaRepository" Type="ConFin.Domain.ContaConjunta.IContaConjuntaRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="39.75" Y="10.688" />
+        <Point X="38.908" Y="10.688" />
+        <Point X="38.908" Y="23.875" />
+        <Point X="38.649" Y="23.875" Type="JumpStart" />
+        <Point X="38.482" Y="23.875" Type="JumpEnd" />
+        <Point X="38.383" Y="23.875" Type="JumpStart" />
+        <Point X="38.216" Y="23.875" Type="JumpEnd" />
+        <Point X="38.15" Y="23.875" Type="JumpStart" />
+        <Point X="37.983" Y="23.875" Type="JumpEnd" />
+        <Point X="37.111" Y="23.875" Type="JumpStart" />
+        <Point X="36.945" Y="23.875" Type="JumpEnd" />
+        <Point X="36.326" Y="23.875" Type="JumpStart" />
+        <Point X="36.159" Y="23.875" Type="JumpEnd" />
+        <Point X="35.499" Y="23.875" Type="JumpStart" />
+        <Point X="35.333" Y="23.875" Type="JumpEnd" />
+        <Point X="35.253" Y="23.875" Type="JumpStart" />
+        <Point X="35.087" Y="23.875" Type="JumpEnd" />
+        <Point X="35.034" Y="23.875" Type="JumpStart" />
+        <Point X="34.868" Y="23.875" Type="JumpEnd" />
+        <Point X="32.75" Y="23.875" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="ContaFinanceiraRepository" Type="ConFin.Domain.ContaFinanceira.IContaFinanceiraRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="39.75" Y="11.125" />
+        <Point X="39.236" Y="11.125" />
+        <Point X="39.236" Y="26.313" />
+        <Point X="38.649" Y="26.313" Type="JumpStart" />
+        <Point X="38.482" Y="26.313" Type="JumpEnd" />
+        <Point X="38.15" Y="26.313" Type="JumpStart" />
+        <Point X="37.983" Y="26.313" Type="JumpEnd" />
+        <Point X="36.326" Y="26.313" Type="JumpStart" />
+        <Point X="36.159" Y="26.313" Type="JumpEnd" />
+        <Point X="35.958" Y="26.313" Type="JumpStart" />
+        <Point X="35.792" Y="26.313" Type="JumpEnd" />
+        <Point X="35.499" Y="26.313" Type="JumpStart" />
+        <Point X="35.333" Y="26.313" Type="JumpEnd" />
+        <Point X="35.034" Y="26.313" Type="JumpStart" />
+        <Point X="34.868" Y="26.313" Type="JumpEnd" />
+        <Point X="29.75" Y="26.313" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.188" Y="-0.064" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="LancamentoCategoriaRepository" Type="ConFin.Domain.LancamentoCategoria.ILancamentoCategoriaRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="39.75" Y="11.625" />
+        <Point X="39.553" Y="11.625" />
+        <Point X="39.553" Y="32.79" />
+        <Point X="38.15" Y="32.79" Type="JumpStart" />
+        <Point X="37.983" Y="32.79" Type="JumpEnd" />
+        <Point X="36.326" Y="32.79" Type="JumpStart" />
+        <Point X="36.159" Y="32.79" Type="JumpEnd" />
+        <Point X="35.958" Y="32.79" Type="JumpStart" />
+        <Point X="35.792" Y="32.79" Type="JumpEnd" />
+        <Point X="35.499" Y="32.79" Type="JumpStart" />
+        <Point X="35.333" Y="32.79" Type="JumpEnd" />
+        <Point X="35.034" Y="32.79" Type="JumpStart" />
+        <Point X="34.868" Y="32.79" Type="JumpEnd" />
+        <Point X="30.5" Y="32.79" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.212" Y="-0.066" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Field Name="Notification" />
+      <Field Name="ContaConjuntaRepository" />
+      <Field Name="ContaFinanceiraRepository" />
+      <Field Name="LancamentoCategoriaRepository" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="ConFin.Domain.Login.LoginService">
+    <Position X="40.75" Y="12.75" Width="13" />
+    <AssociationLine Name="Notification" Type="ConFin.Common.Domain.Notification" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="53.75" Y="13.684" />
+        <Point X="60.954" Y="13.684" />
+        <Point X="60.954" Y="1.566" />
+        <Point X="3.438" Y="1.566" />
+        <Point X="3.438" Y="19.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.383" Y="0.598" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="ContaFinanceiraRepository" Type="ConFin.Domain.ContaFinanceira.IContaFinanceiraRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="40.75" Y="13" />
+        <Point X="39.799" Y="13" />
+        <Point X="39.799" Y="26.875" />
+        <Point X="39.637" Y="26.875" Type="JumpStart" />
+        <Point X="39.47" Y="26.875" Type="JumpEnd" />
+        <Point X="38.649" Y="26.875" Type="JumpStart" />
+        <Point X="38.482" Y="26.875" Type="JumpEnd" />
+        <Point X="38.15" Y="26.875" Type="JumpStart" />
+        <Point X="37.983" Y="26.875" Type="JumpEnd" />
+        <Point X="36.326" Y="26.875" Type="JumpStart" />
+        <Point X="36.159" Y="26.875" Type="JumpEnd" />
+        <Point X="35.958" Y="26.875" Type="JumpStart" />
+        <Point X="35.792" Y="26.875" Type="JumpEnd" />
+        <Point X="35.499" Y="26.875" Type="JumpStart" />
+        <Point X="35.333" Y="26.875" Type="JumpEnd" />
+        <Point X="35.034" Y="26.875" Type="JumpStart" />
+        <Point X="34.868" Y="26.875" Type="JumpEnd" />
+        <Point X="29.75" Y="26.875" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.092" Y="-0.067" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="LancamentoCategoriaRepository" Type="ConFin.Domain.LancamentoCategoria.ILancamentoCategoriaRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="40.75" Y="13.438" />
+        <Point X="40.03" Y="13.438" />
+        <Point X="40.03" Y="32.957" />
+        <Point X="38.15" Y="32.957" Type="JumpStart" />
+        <Point X="37.983" Y="32.957" Type="JumpEnd" />
+        <Point X="36.326" Y="32.957" Type="JumpStart" />
+        <Point X="36.159" Y="32.957" Type="JumpEnd" />
+        <Point X="35.958" Y="32.957" Type="JumpStart" />
+        <Point X="35.792" Y="32.957" Type="JumpEnd" />
+        <Point X="35.499" Y="32.957" Type="JumpStart" />
+        <Point X="35.333" Y="32.957" Type="JumpEnd" />
+        <Point X="35.034" Y="32.957" Type="JumpStart" />
+        <Point X="34.868" Y="32.957" Type="JumpEnd" />
+        <Point X="30.5" Y="32.957" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.212" Y="-0.066" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="LoginRepository" Type="ConFin.Domain.Login.ILoginRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="40.75" Y="13.938" />
+        <Point X="40.316" Y="13.938" />
+        <Point X="40.316" Y="36.878" />
+        <Point X="35.958" Y="36.878" Type="JumpStart" />
+        <Point X="35.792" Y="36.878" Type="JumpEnd" />
+        <Point X="35.499" Y="36.878" Type="JumpStart" />
+        <Point X="35.333" Y="36.878" Type="JumpEnd" />
+        <Point X="35.034" Y="36.878" Type="JumpStart" />
+        <Point X="34.868" Y="36.878" Type="JumpEnd" />
+        <Point X="31.25" Y="36.878" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Field Name="Notification" />
+      <Field Name="ContaFinanceiraRepository" />
+      <Field Name="LancamentoCategoriaRepository" />
+      <Field Name="LoginRepository" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.248" />
+  </Class>
+  <Class Name="ConFin.Domain.Notificacao.NotificacaoService">
+    <Position X="41.25" Y="15.25" Width="8.75" />
+    <AssociationLine Name="ContaConjuntaRepository" Type="ConFin.Domain.ContaConjunta.IContaConjuntaRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="41.25" Y="15.5" />
+        <Point X="40.623" Y="15.5" />
+        <Point X="40.623" Y="24.25" />
+        <Point X="40.399" Y="24.25" Type="JumpStart" />
+        <Point X="40.232" Y="24.25" Type="JumpEnd" />
+        <Point X="40.113" Y="24.25" Type="JumpStart" />
+        <Point X="39.947" Y="24.25" Type="JumpEnd" />
+        <Point X="39.882" Y="24.25" Type="JumpStart" />
+        <Point X="39.715" Y="24.25" Type="JumpEnd" />
+        <Point X="39.637" Y="24.25" Type="JumpStart" />
+        <Point X="39.47" Y="24.25" Type="JumpEnd" />
+        <Point X="39.32" Y="24.25" Type="JumpStart" />
+        <Point X="39.153" Y="24.25" Type="JumpEnd" />
+        <Point X="38.649" Y="24.25" Type="JumpStart" />
+        <Point X="38.482" Y="24.25" Type="JumpEnd" />
+        <Point X="38.383" Y="24.25" Type="JumpStart" />
+        <Point X="38.216" Y="24.25" Type="JumpEnd" />
+        <Point X="38.15" Y="24.25" Type="JumpStart" />
+        <Point X="37.983" Y="24.25" Type="JumpEnd" />
+        <Point X="37.111" Y="24.25" Type="JumpStart" />
+        <Point X="36.945" Y="24.25" Type="JumpEnd" />
+        <Point X="36.326" Y="24.25" Type="JumpStart" />
+        <Point X="36.159" Y="24.25" Type="JumpEnd" />
+        <Point X="35.499" Y="24.25" Type="JumpStart" />
+        <Point X="35.333" Y="24.25" Type="JumpEnd" />
+        <Point X="35.253" Y="24.25" Type="JumpStart" />
+        <Point X="35.087" Y="24.25" Type="JumpEnd" />
+        <Point X="35.034" Y="24.25" Type="JumpStart" />
+        <Point X="34.868" Y="24.25" Type="JumpEnd" />
+        <Point X="32.75" Y="24.25" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="NotificacaoRepository" Type="ConFin.Domain.Notificacao.INotificacaoRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="41.25" Y="16.063" />
+        <Point X="40.938" Y="16.063" />
+        <Point X="40.938" Y="38.076" />
+        <Point X="35.958" Y="38.076" Type="JumpStart" />
+        <Point X="35.792" Y="38.076" Type="JumpEnd" />
+        <Point X="35.499" Y="38.076" Type="JumpStart" />
+        <Point X="35.333" Y="38.076" Type="JumpEnd" />
+        <Point X="29" Y="38.076" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Field Name="ContaConjuntaRepository" />
+      <Field Name="NotificacaoRepository" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.356" />
+  </Class>
+  <Class Name="ConFin.Domain.Transferencia.TransferenciaService">
+    <Position X="42" Y="17.25" Width="11.5" />
+    <AssociationLine Name="Notification" Type="ConFin.Common.Domain.Notification" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="53.5" Y="18.001" />
+        <Point X="61.487" Y="18.001" />
+        <Point X="61.487" Y="1.292" />
+        <Point X="3.125" Y="1.292" />
+        <Point X="3.125" Y="19.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.353" Y="0.914" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="ContaFinanceiraRepository" Type="ConFin.Domain.ContaFinanceira.IContaFinanceiraRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="42" Y="17.75" />
+        <Point X="41.239" Y="17.75" />
+        <Point X="41.239" Y="26.625" />
+        <Point X="41.022" Y="26.625" Type="JumpStart" />
+        <Point X="40.855" Y="26.625" Type="JumpEnd" />
+        <Point X="40.399" Y="26.625" Type="JumpStart" />
+        <Point X="40.232" Y="26.625" Type="JumpEnd" />
+        <Point X="40.113" Y="26.625" Type="JumpStart" />
+        <Point X="39.947" Y="26.625" Type="JumpEnd" />
+        <Point X="39.882" Y="26.625" Type="JumpStart" />
+        <Point X="39.715" Y="26.625" Type="JumpEnd" />
+        <Point X="39.637" Y="26.625" Type="JumpStart" />
+        <Point X="39.47" Y="26.625" Type="JumpEnd" />
+        <Point X="38.649" Y="26.625" Type="JumpStart" />
+        <Point X="38.482" Y="26.625" Type="JumpEnd" />
+        <Point X="38.15" Y="26.625" Type="JumpStart" />
+        <Point X="37.983" Y="26.625" Type="JumpEnd" />
+        <Point X="36.326" Y="26.625" Type="JumpStart" />
+        <Point X="36.159" Y="26.625" Type="JumpEnd" />
+        <Point X="35.958" Y="26.625" Type="JumpStart" />
+        <Point X="35.792" Y="26.625" Type="JumpEnd" />
+        <Point X="35.499" Y="26.625" Type="JumpStart" />
+        <Point X="35.333" Y="26.625" Type="JumpEnd" />
+        <Point X="35.034" Y="26.625" Type="JumpStart" />
+        <Point X="34.868" Y="26.625" Type="JumpEnd" />
+        <Point X="29.75" Y="26.625" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.096" Y="-0.035" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="NotificacaoService" Type="ConFin.Domain.Notificacao.INotificacaoService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="42" Y="17.5" />
+        <Point X="41.022" Y="17.5" Type="JumpStart" />
+        <Point X="40.855" Y="17.5" Type="JumpEnd" />
+        <Point X="40.706" Y="17.5" Type="JumpStart" />
+        <Point X="40.54" Y="17.5" Type="JumpEnd" />
+        <Point X="40.399" Y="17.5" Type="JumpStart" />
+        <Point X="40.232" Y="17.5" Type="JumpEnd" />
+        <Point X="40.113" Y="17.5" Type="JumpStart" />
+        <Point X="39.947" Y="17.5" Type="JumpEnd" />
+        <Point X="39.882" Y="17.5" Type="JumpStart" />
+        <Point X="39.715" Y="17.5" Type="JumpEnd" />
+        <Point X="39.637" Y="17.5" Type="JumpStart" />
+        <Point X="39.47" Y="17.5" Type="JumpEnd" />
+        <Point X="39.32" Y="17.5" Type="JumpStart" />
+        <Point X="39.153" Y="17.5" Type="JumpEnd" />
+        <Point X="38.991" Y="17.5" Type="JumpStart" />
+        <Point X="38.825" Y="17.5" Type="JumpEnd" />
+        <Point X="38.649" Y="17.5" Type="JumpStart" />
+        <Point X="38.482" Y="17.5" Type="JumpEnd" />
+        <Point X="38.383" Y="17.5" Type="JumpStart" />
+        <Point X="38.216" Y="17.5" Type="JumpEnd" />
+        <Point X="38.15" Y="17.5" Type="JumpStart" />
+        <Point X="37.983" Y="17.5" Type="JumpEnd" />
+        <Point X="37.876" Y="17.5" Type="JumpStart" />
+        <Point X="37.709" Y="17.5" Type="JumpEnd" />
+        <Point X="37.401" Y="17.5" Type="JumpStart" />
+        <Point X="37.234" Y="17.5" Type="JumpEnd" />
+        <Point X="37.111" Y="17.5" Type="JumpStart" />
+        <Point X="36.945" Y="17.5" Type="JumpEnd" />
+        <Point X="36.79" Y="17.5" Type="JumpStart" />
+        <Point X="36.624" Y="17.5" Type="JumpEnd" />
+        <Point X="36.326" Y="17.5" Type="JumpStart" />
+        <Point X="36.159" Y="17.5" Type="JumpEnd" />
+        <Point X="35.813" Y="17.5" Type="JumpStart" />
+        <Point X="35.647" Y="17.5" Type="JumpEnd" />
+        <Point X="35.499" Y="17.5" Type="JumpStart" />
+        <Point X="35.333" Y="17.5" Type="JumpEnd" />
+        <Point X="35.253" Y="17.5" Type="JumpStart" />
+        <Point X="35.087" Y="17.5" Type="JumpEnd" />
+        <Point X="35.034" Y="17.5" Type="JumpStart" />
+        <Point X="34.868" Y="17.5" Type="JumpEnd" />
+        <Point X="34.263" Y="17.5" />
+        <Point X="34.263" Y="15.032" />
+        <Point X="33.658" Y="15.032" Type="JumpStart" />
+        <Point X="33.491" Y="15.032" Type="JumpEnd" />
+        <Point X="32.75" Y="15.032" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="TransferenciaRepository" Type="ConFin.Domain.Transferencia.ITransferenciaRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="42" Y="18.125" />
+        <Point X="41.503" Y="18.125" />
+        <Point X="41.503" Y="41.357" />
+        <Point X="35.958" Y="41.357" Type="JumpStart" />
+        <Point X="35.792" Y="41.357" Type="JumpEnd" />
+        <Point X="35.499" Y="41.357" Type="JumpStart" />
+        <Point X="35.333" Y="41.357" Type="JumpEnd" />
+        <Point X="30" Y="41.357" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.149" Y="-0.097" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Field Name="Notification" />
+      <Field Name="ContaFinanceiraRepository" />
+      <Field Name="NotificacaoService" />
+      <Field Name="TransferenciaRepository" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.382" />
+  </Class>
+  <Class Name="ConFin.Domain.Usuario.UsuarioService">
+    <Position X="43" Y="19.5" Width="8.5" />
+    <AssociationLine Name="Notification" Type="ConFin.Common.Domain.Notification" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="51.5" Y="19.98" />
+        <Point X="62.005" Y="19.98" />
+        <Point X="62.005" Y="1.101" />
+        <Point X="2.812" Y="1.101" />
+        <Point X="2.812" Y="19.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.295" Y="0.267" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="LoginRepository" Type="ConFin.Domain.Login.ILoginRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="43" Y="20.062" />
+        <Point X="42.044" Y="20.062" />
+        <Point X="42.044" Y="35.719" />
+        <Point X="41.586" Y="35.719" Type="JumpStart" />
+        <Point X="41.42" Y="35.719" Type="JumpEnd" />
+        <Point X="41.022" Y="35.719" Type="JumpStart" />
+        <Point X="40.855" Y="35.719" Type="JumpEnd" />
+        <Point X="40.399" Y="35.719" Type="JumpStart" />
+        <Point X="40.232" Y="35.719" Type="JumpEnd" />
+        <Point X="35.958" Y="35.719" Type="JumpStart" />
+        <Point X="35.792" Y="35.719" Type="JumpEnd" />
+        <Point X="35.499" Y="35.719" Type="JumpStart" />
+        <Point X="35.333" Y="35.719" Type="JumpEnd" />
+        <Point X="35.034" Y="35.719" Type="JumpStart" />
+        <Point X="34.868" Y="35.719" Type="JumpEnd" />
+        <Point X="31.25" Y="35.719" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="LoginService" Type="ConFin.Domain.Login.ILoginService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="43" Y="19.812" />
+        <Point X="41.586" Y="19.812" Type="JumpStart" />
+        <Point X="41.42" Y="19.812" Type="JumpEnd" />
+        <Point X="41.322" Y="19.812" Type="JumpStart" />
+        <Point X="41.156" Y="19.812" Type="JumpEnd" />
+        <Point X="41.022" Y="19.812" Type="JumpStart" />
+        <Point X="40.855" Y="19.812" Type="JumpEnd" />
+        <Point X="40.706" Y="19.812" Type="JumpStart" />
+        <Point X="40.54" Y="19.812" Type="JumpEnd" />
+        <Point X="40.399" Y="19.812" Type="JumpStart" />
+        <Point X="40.232" Y="19.812" Type="JumpEnd" />
+        <Point X="40.113" Y="19.812" Type="JumpStart" />
+        <Point X="39.947" Y="19.812" Type="JumpEnd" />
+        <Point X="39.882" Y="19.812" Type="JumpStart" />
+        <Point X="39.715" Y="19.812" Type="JumpEnd" />
+        <Point X="39.637" Y="19.812" Type="JumpStart" />
+        <Point X="39.47" Y="19.812" Type="JumpEnd" />
+        <Point X="39.32" Y="19.812" Type="JumpStart" />
+        <Point X="39.153" Y="19.812" Type="JumpEnd" />
+        <Point X="38.991" Y="19.812" Type="JumpStart" />
+        <Point X="38.825" Y="19.812" Type="JumpEnd" />
+        <Point X="38.649" Y="19.812" Type="JumpStart" />
+        <Point X="38.482" Y="19.812" Type="JumpEnd" />
+        <Point X="38.383" Y="19.812" Type="JumpStart" />
+        <Point X="38.216" Y="19.812" Type="JumpEnd" />
+        <Point X="38.15" Y="19.812" Type="JumpStart" />
+        <Point X="37.983" Y="19.812" Type="JumpEnd" />
+        <Point X="37.876" Y="19.812" Type="JumpStart" />
+        <Point X="37.709" Y="19.812" Type="JumpEnd" />
+        <Point X="37.401" Y="19.812" Type="JumpStart" />
+        <Point X="37.234" Y="19.812" Type="JumpEnd" />
+        <Point X="37.111" Y="19.812" Type="JumpStart" />
+        <Point X="36.945" Y="19.812" Type="JumpEnd" />
+        <Point X="36.79" Y="19.812" Type="JumpStart" />
+        <Point X="36.624" Y="19.812" Type="JumpEnd" />
+        <Point X="36.326" Y="19.812" Type="JumpStart" />
+        <Point X="36.159" Y="19.812" Type="JumpEnd" />
+        <Point X="35.813" Y="19.812" Type="JumpStart" />
+        <Point X="35.647" Y="19.812" Type="JumpEnd" />
+        <Point X="35.499" Y="19.812" Type="JumpStart" />
+        <Point X="35.333" Y="19.812" Type="JumpEnd" />
+        <Point X="35.253" Y="19.812" Type="JumpStart" />
+        <Point X="35.087" Y="19.812" Type="JumpEnd" />
+        <Point X="35.034" Y="19.812" Type="JumpStart" />
+        <Point X="34.868" Y="19.812" Type="JumpEnd" />
+        <Point X="33.574" Y="19.812" />
+        <Point X="33.574" Y="12.686" />
+        <Point X="30.25" Y="12.686" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="UsuarioRepository" Type="ConFin.Domain.Usuario.IUsuarioRepository" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="43" Y="20.375" />
+        <Point X="42.625" Y="20.375" />
+        <Point X="42.625" Y="43.125" />
+        <Point X="35.958" Y="43.125" Type="JumpStart" />
+        <Point X="35.792" Y="43.125" Type="JumpEnd" />
+        <Point X="29.75" Y="43.125" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Field Name="Notification" />
+      <Field Name="LoginRepository" />
+      <Field Name="LoginService" />
+      <Field Name="UsuarioRepository" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="ConFin.Repository.CompromissoRepository" BaseTypeListCollapsed="true">
+    <Position X="43.75" Y="21.75" Width="6.25" />
+    <InheritanceLine Type="ConFin.Common.Repository.BaseRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="50.562" Y="38.5" />
+        <Point X="50.562" Y="23" />
+        <Point X="50" Y="23" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="ConFin.Repository.ContaConjuntaRepository" BaseTypeListCollapsed="true">
+    <Position X="51.5" Y="21.5" Width="7.25" />
+    <InheritanceLine Type="ConFin.Common.Repository.BaseRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="50.562" Y="38.5" />
+        <Point X="50.562" Y="23.438" />
+        <Point X="51.5" Y="23.438" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="ConFin.Repository.ContaFinanceiraRepository" BaseTypeListCollapsed="true">
+    <Position X="44" Y="24.75" Width="5.5" />
+    <InheritanceLine Type="ConFin.Common.Repository.BaseRepository" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="50.562" Y="38.5" />
+        <Point X="50.562" Y="25.75" />
+        <Point X="49.5" Y="25.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="ConFin.Repository.ContaFinanceiraTipoRepository" BaseTypeListCollapsed="true">
+    <Position X="51.25" Y="25" Width="4.25" />
+    <InheritanceLine Type="ConFin.Common.Repository.BaseRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="50.562" Y="38.5" />
+        <Point X="50.562" Y="25.75" />
+        <Point X="51.25" Y="25.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="ConFin.Repository.LancamentoCategoriaRepository" BaseTypeListCollapsed="true">
+    <Position X="43.75" Y="27.75" Width="5.75" />
+    <InheritanceLine Type="ConFin.Common.Repository.BaseRepository" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="50.562" Y="38.5" />
+        <Point X="50.562" Y="28.688" />
+        <Point X="49.5" Y="28.688" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="ConFin.Repository.LancamentoRepository" BaseTypeListCollapsed="true">
+    <Position X="51.25" Y="28" Width="9.5" />
+    <InheritanceLine Type="ConFin.Common.Repository.BaseRepository" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="50.562" Y="38.5" />
+        <Point X="50.562" Y="29.313" />
+        <Point X="51.25" Y="29.313" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+    <Lollipop Position="0.548" />
+  </Class>
+  <Class Name="ConFin.Repository.LoginRepository" BaseTypeListCollapsed="true">
+    <Position X="44.25" Y="31.75" Width="5.75" />
+    <InheritanceLine Type="ConFin.Common.Repository.BaseRepository" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="50.562" Y="38.5" />
+        <Point X="50.562" Y="32.938" />
+        <Point X="50" Y="32.938" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="ConFin.Repository.NotificacaoRepository" BaseTypeListCollapsed="true">
+    <Position X="51.25" Y="31.75" Width="3.75" />
+    <InheritanceLine Type="ConFin.Common.Repository.BaseRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="50.562" Y="38.5" />
+        <Point X="50.562" Y="32.938" />
+        <Point X="51.25" Y="32.938" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="ConFin.Repository.TransferenciaRepository" BaseTypeListCollapsed="true">
+    <Position X="44.25" Y="35.25" Width="4.5" />
+    <InheritanceLine Type="ConFin.Common.Repository.BaseRepository" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="50.562" Y="38.5" />
+        <Point X="50.562" Y="36.625" />
+        <Point X="48.75" Y="36.625" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="ConFin.Repository.UsuarioRepository" BaseTypeListCollapsed="true">
+    <Position X="51.25" Y="35.5" Width="5" />
+    <InheritanceLine Type="ConFin.Common.Repository.BaseRepository" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="50.562" Y="38.5" />
+        <Point X="50.562" Y="36.938" />
+        <Point X="51.25" Y="36.938" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="ConFin.Common.Domain.Notification">
+    <Position X="2.75" Y="19.75" Width="3.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ConFin.Domain.Lancamento.LancamentoService">
+    <Position X="38.75" Y="8" Width="21" />
+    <AssociationLine Name="NotificacaoService" Type="ConFin.Domain.Notificacao.INotificacaoService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="38.75" Y="8.359" />
+        <Point X="37.605" Y="8.359" />
+        <Point X="37.605" Y="14.293" />
+        <Point X="37.401" Y="14.293" Type="JumpStart" />
+        <Point X="37.234" Y="14.293" Type="JumpEnd" />
+        <Point X="37.111" Y="14.293" Type="JumpStart" />
+        <Point X="36.945" Y="14.293" Type="JumpEnd" />
+        <Point X="36.79" Y="14.293" Type="JumpStart" />
+        <Point X="36.624" Y="14.293" Type="JumpEnd" />
+        <Point X="36.326" Y="14.293" Type="JumpStart" />
+        <Point X="36.159" Y="14.293" Type="JumpEnd" />
+        <Point X="35.813" Y="14.293" Type="JumpStart" />
+        <Point X="35.647" Y="14.293" Type="JumpEnd" />
+        <Point X="35.499" Y="14.293" Type="JumpStart" />
+        <Point X="35.333" Y="14.293" Type="JumpEnd" />
+        <Point X="35.253" Y="14.293" Type="JumpStart" />
+        <Point X="35.087" Y="14.293" Type="JumpEnd" />
+        <Point X="35.034" Y="14.293" Type="JumpStart" />
+        <Point X="34.868" Y="14.293" Type="JumpEnd" />
+        <Point X="34.745" Y="14.293" Type="JumpStart" />
+        <Point X="34.579" Y="14.293" Type="JumpEnd" />
+        <Point X="33.658" Y="14.293" Type="JumpStart" />
+        <Point X="33.491" Y="14.293" Type="JumpEnd" />
+        <Point X="32.75" Y="14.293" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="CompromissoRepository" Type="ConFin.Domain.Compromisso.ICompromissoRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="38.75" Y="8.564" />
+        <Point X="37.792" Y="8.564" />
+        <Point X="37.792" Y="20.532" />
+        <Point X="37.401" Y="20.532" Type="JumpStart" />
+        <Point X="37.234" Y="20.532" Type="JumpEnd" />
+        <Point X="37.111" Y="20.532" Type="JumpStart" />
+        <Point X="36.945" Y="20.532" Type="JumpEnd" />
+        <Point X="36.79" Y="20.532" Type="JumpStart" />
+        <Point X="36.624" Y="20.532" Type="JumpEnd" />
+        <Point X="36.326" Y="20.532" Type="JumpStart" />
+        <Point X="36.159" Y="20.532" Type="JumpEnd" />
+        <Point X="35.813" Y="20.532" Type="JumpStart" />
+        <Point X="35.647" Y="20.532" Type="JumpEnd" />
+        <Point X="35.499" Y="20.532" Type="JumpStart" />
+        <Point X="35.333" Y="20.532" Type="JumpEnd" />
+        <Point X="35.253" Y="20.532" Type="JumpStart" />
+        <Point X="35.087" Y="20.532" Type="JumpEnd" />
+        <Point X="35.034" Y="20.532" Type="JumpStart" />
+        <Point X="34.868" Y="20.532" Type="JumpEnd" />
+        <Point X="31.75" Y="20.532" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="ContaConjuntaRepository" Type="ConFin.Domain.ContaConjunta.IContaConjuntaRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="38.75" Y="8.154" />
+        <Point X="37.318" Y="8.154" />
+        <Point X="37.318" Y="22.781" />
+        <Point X="37.111" Y="22.781" Type="JumpStart" />
+        <Point X="36.945" Y="22.781" Type="JumpEnd" />
+        <Point X="36.79" Y="22.781" Type="JumpStart" />
+        <Point X="36.624" Y="22.781" Type="JumpEnd" />
+        <Point X="36.326" Y="22.781" Type="JumpStart" />
+        <Point X="36.159" Y="22.781" Type="JumpEnd" />
+        <Point X="35.813" Y="22.781" Type="JumpStart" />
+        <Point X="35.647" Y="22.781" Type="JumpEnd" />
+        <Point X="35.499" Y="22.781" Type="JumpStart" />
+        <Point X="35.333" Y="22.781" Type="JumpEnd" />
+        <Point X="35.253" Y="22.781" Type="JumpStart" />
+        <Point X="35.087" Y="22.781" Type="JumpEnd" />
+        <Point X="35.034" Y="22.781" Type="JumpStart" />
+        <Point X="34.868" Y="22.781" Type="JumpEnd" />
+        <Point X="32.75" Y="22.781" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="ContaFinanceiraRepository" Type="ConFin.Domain.ContaFinanceira.IContaFinanceiraRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="38.75" Y="9.077" />
+        <Point X="38.3" Y="9.077" />
+        <Point X="38.3" Y="26" />
+        <Point X="38.15" Y="26" Type="JumpStart" />
+        <Point X="37.983" Y="26" Type="JumpEnd" />
+        <Point X="36.326" Y="26" Type="JumpStart" />
+        <Point X="36.159" Y="26" Type="JumpEnd" />
+        <Point X="35.958" Y="26" Type="JumpStart" />
+        <Point X="35.792" Y="26" Type="JumpEnd" />
+        <Point X="35.499" Y="26" Type="JumpStart" />
+        <Point X="35.333" Y="26" Type="JumpEnd" />
+        <Point X="35.034" Y="26" Type="JumpStart" />
+        <Point X="34.868" Y="26" Type="JumpEnd" />
+        <Point X="29.75" Y="26" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.156" Y="-0.044" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="LancamentoCategoriaRepository" Type="ConFin.Domain.LancamentoCategoria.ILancamentoCategoriaRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="38.75" Y="8.769" />
+        <Point X="38.066" Y="8.769" />
+        <Point X="38.066" Y="33.438" />
+        <Point X="35.958" Y="33.438" Type="JumpStart" />
+        <Point X="35.792" Y="33.438" Type="JumpEnd" />
+        <Point X="35.499" Y="33.438" Type="JumpStart" />
+        <Point X="35.333" Y="33.438" Type="JumpEnd" />
+        <Point X="35.034" Y="33.438" Type="JumpStart" />
+        <Point X="34.868" Y="33.438" Type="JumpEnd" />
+        <Point X="30.5" Y="33.438" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.214" Y="-0.093" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="LancamentoRepository" Type="ConFin.Domain.Lancamento.ILancamentoRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="38.75" Y="9.625" />
+        <Point X="38.566" Y="9.625" />
+        <Point X="38.566" Y="30.011" />
+        <Point X="38.15" Y="30.011" Type="JumpStart" />
+        <Point X="37.983" Y="30.011" Type="JumpEnd" />
+        <Point X="36.326" Y="30.011" Type="JumpStart" />
+        <Point X="36.159" Y="30.011" Type="JumpEnd" />
+        <Point X="35.958" Y="30.011" Type="JumpStart" />
+        <Point X="35.792" Y="30.011" Type="JumpEnd" />
+        <Point X="35.499" Y="30.011" Type="JumpStart" />
+        <Point X="35.333" Y="30.011" Type="JumpEnd" />
+        <Point X="35" Y="30.011" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Notification" Type="ConFin.Common.Domain.Notification" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="59.75" Y="8.938" />
+        <Point X="60.203" Y="8.938" />
+        <Point X="60.203" Y="2.248" />
+        <Point X="4.125" Y="2.248" />
+        <Point X="4.125" Y="19.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.364" Y="0.925" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Field Name="NotificacaoService" />
+      <Field Name="CompromissoRepository" />
+      <Field Name="ContaConjuntaRepository" />
+      <Field Name="ContaFinanceiraRepository" />
+      <Field Name="LancamentoCategoriaRepository" />
+      <Field Name="LancamentoRepository" />
+      <Field Name="Notification" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ConFin.Domain.ContaConjunta.ContaConjuntaService">
+    <Position X="38.75" Y="4" Width="20.25" />
+    <AssociationLine Name="ContaConjuntaRepository" Type="ConFin.Domain.ContaConjunta.IContaConjuntaRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="38.75" Y="5.125" />
+        <Point X="35.73" Y="5.125" />
+        <Point X="35.73" Y="23.125" />
+        <Point X="35.499" Y="23.125" Type="JumpStart" />
+        <Point X="35.333" Y="23.125" Type="JumpEnd" />
+        <Point X="35.253" Y="23.125" Type="JumpStart" />
+        <Point X="35.087" Y="23.125" Type="JumpEnd" />
+        <Point X="35.034" Y="23.125" Type="JumpStart" />
+        <Point X="34.868" Y="23.125" Type="JumpEnd" />
+        <Point X="32.75" Y="23.125" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="UsuarioRepository" Type="ConFin.Domain.Usuario.IUsuarioRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="38.75" Y="4.875" />
+        <Point X="35.416" Y="4.875" />
+        <Point X="35.416" Y="42.75" />
+        <Point X="29.75" Y="42.75" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="LancamentoCategoriaRepository" Type="ConFin.Domain.LancamentoCategoria.ILancamentoCategoriaRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="38.75" Y="5.375" />
+        <Point X="36.243" Y="5.375" />
+        <Point X="36.243" Y="33.125" />
+        <Point X="35.958" Y="33.125" Type="JumpStart" />
+        <Point X="35.792" Y="33.125" Type="JumpEnd" />
+        <Point X="35.499" Y="33.125" Type="JumpStart" />
+        <Point X="35.333" Y="33.125" Type="JumpEnd" />
+        <Point X="35.034" Y="33.125" Type="JumpStart" />
+        <Point X="34.868" Y="33.125" Type="JumpEnd" />
+        <Point X="30.5" Y="33.125" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.212" Y="-0.081" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="NotificacaoRepository" Type="ConFin.Domain.Notificacao.INotificacaoRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="38.75" Y="4.5" />
+        <Point X="34.951" Y="4.5" />
+        <Point X="34.951" Y="38.107" />
+        <Point X="29" Y="38.107" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="NotificacaoService" Type="ConFin.Domain.Notificacao.INotificacaoService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="38.75" Y="4.312" />
+        <Point X="34.662" Y="4.312" />
+        <Point X="34.662" Y="14.648" />
+        <Point X="33.658" Y="14.648" Type="JumpStart" />
+        <Point X="33.491" Y="14.648" Type="JumpEnd" />
+        <Point X="32.75" Y="14.648" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="ContaFinanceiraRepository" Type="ConFin.Domain.ContaFinanceira.IContaFinanceiraRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="38.75" Y="4.687" />
+        <Point X="35.17" Y="4.687" />
+        <Point X="35.17" Y="25.375" />
+        <Point X="35.034" Y="25.375" Type="JumpStart" />
+        <Point X="34.868" Y="25.375" Type="JumpEnd" />
+        <Point X="29.75" Y="25.375" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.162" Y="-0.07" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Notification" Type="ConFin.Common.Domain.Notification" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="40.75" Y="4" />
+        <Point X="40.75" Y="2.923" />
+        <Point X="4.938" Y="2.923" />
+        <Point X="4.938" Y="19.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.367" Y="0.231" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Field Name="ContaConjuntaRepository" />
+      <Field Name="UsuarioRepository" />
+      <Field Name="LancamentoCategoriaRepository" />
+      <Field Name="NotificacaoRepository" />
+      <Field Name="NotificacaoService" />
+      <Field Name="ContaFinanceiraRepository" />
+      <Field Name="Notification" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ConFin.Domain.ContaFinanceira.ContaFinanceiraService">
+    <Position X="38.75" Y="6" Width="11.75" />
+    <AssociationLine Name="ContaConjuntaRepository" Type="ConFin.Domain.ContaConjunta.IContaConjuntaRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="38.75" Y="6.125" />
+        <Point X="36.707" Y="6.125" />
+        <Point X="36.707" Y="23.438" />
+        <Point X="36.326" Y="23.438" Type="JumpStart" />
+        <Point X="36.159" Y="23.438" Type="JumpEnd" />
+        <Point X="35.499" Y="23.438" Type="JumpStart" />
+        <Point X="35.333" Y="23.438" Type="JumpEnd" />
+        <Point X="35.253" Y="23.438" Type="JumpStart" />
+        <Point X="35.087" Y="23.438" Type="JumpEnd" />
+        <Point X="35.034" Y="23.438" Type="JumpStart" />
+        <Point X="34.868" Y="23.438" Type="JumpEnd" />
+        <Point X="32.75" Y="23.438" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="ContaFinanceiraRepository" Type="ConFin.Domain.ContaFinanceira.IContaFinanceiraRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="38.75" Y="6.375" />
+        <Point X="37.028" Y="6.375" />
+        <Point X="37.028" Y="25.688" />
+        <Point X="36.326" Y="25.688" Type="JumpStart" />
+        <Point X="36.159" Y="25.688" Type="JumpEnd" />
+        <Point X="35.958" Y="25.688" Type="JumpStart" />
+        <Point X="35.792" Y="25.688" Type="JumpEnd" />
+        <Point X="35.499" Y="25.688" Type="JumpStart" />
+        <Point X="35.333" Y="25.688" Type="JumpEnd" />
+        <Point X="35.034" Y="25.688" Type="JumpStart" />
+        <Point X="34.868" Y="25.688" Type="JumpEnd" />
+        <Point X="29.75" Y="25.688" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.195" Y="-0.07" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Notification" Type="ConFin.Common.Domain.Notification" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="50.5" Y="6.813" />
+        <Point X="59.96" Y="6.813" />
+        <Point X="59.96" Y="2.527" />
+        <Point X="4.5" Y="2.527" />
+        <Point X="4.5" Y="19.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.432" Y="0.596" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Field Name="ContaConjuntaRepository" />
+      <Field Name="ContaFinanceiraRepository" />
+      <Field Name="Notification" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ConFin.Common.Repository.BaseRepository">
+    <Position X="46.75" Y="38.5" Width="6.75" />
+    <AssociationLine Name="Connection" Type="ConFin.Common.Repository.Infra.IDatabaseConnection" FixedToPoint="true">
+      <Path>
+        <Point X="46.75" Y="40.72" />
+        <Point X="45.5" Y="40.72" />
+        <Point X="45.5" Y="44.25" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Field Name="Connection" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ConFin.Common.Repository.Infra.DatabaseConnection">
+    <Position X="39.75" Y="44" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="2.79" />
+  </Class>
+  <Interface Name="ConFin.Domain.ContaConjunta.IContaConjuntaService">
+    <Position X="25.5" Y="4" Width="3.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Domain.ContaFinanceira.IContaFinanceiraService">
+    <Position X="25.5" Y="5.75" Width="2.75" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Domain.LancamentoCategoria.ILancamentoCategoriaService">
+    <Position X="25.5" Y="9.75" Width="5.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Domain.Login.ILoginService">
+    <Position X="25.5" Y="11.75" Width="4.75" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Domain.Notificacao.INotificacaoService">
+    <Position X="25.5" Y="14" Width="7.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Domain.Transferencia.ITransferenciaService">
+    <Position X="25.5" Y="15.5" Width="3" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Domain.Lancamento.ILancamentoService">
+    <Position X="25.5" Y="7.5" Width="8.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Domain.Usuario.IUsuarioService">
+    <Position X="25.5" Y="17.75" Width="3.75" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Domain.Compromisso.ICompromissoRepository">
+    <Position X="25.5" Y="19.5" Width="6.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Domain.ContaConjunta.IContaConjuntaRepository">
+    <Position X="25.5" Y="22.25" Width="7.25" />
+    <InheritanceLine Type="ConFin.Common.Repository.Infra.IBaseRepository" FixedToPoint="true">
+      <Path>
+        <Point X="35.875" Y="44.75" />
+        <Point X="35.875" Y="24.625" />
+        <Point X="35.499" Y="24.625" Type="JumpStart" />
+        <Point X="35.333" Y="24.625" Type="JumpEnd" />
+        <Point X="35.253" Y="24.625" Type="JumpStart" />
+        <Point X="35.087" Y="24.625" Type="JumpEnd" />
+        <Point X="35.034" Y="24.625" Type="JumpStart" />
+        <Point X="34.868" Y="24.625" Type="JumpEnd" />
+        <Point X="32.75" Y="24.625" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Domain.ContaFinanceira.IContaFinanceiraRepository">
+    <Position X="25.5" Y="25.25" Width="4.25" />
+    <InheritanceLine Type="ConFin.Common.Repository.Infra.IBaseRepository" FixedToPoint="true">
+      <Path>
+        <Point X="35.875" Y="44.75" />
+        <Point X="35.875" Y="27.25" />
+        <Point X="35.499" Y="27.25" Type="JumpStart" />
+        <Point X="35.333" Y="27.25" Type="JumpEnd" />
+        <Point X="35.034" Y="27.25" Type="JumpStart" />
+        <Point X="34.868" Y="27.25" Type="JumpEnd" />
+        <Point X="29.75" Y="27.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Domain.ContaFinanceiraTipo.IContaFinanceiraTipoRepository">
+    <Position X="25.5" Y="27.75" Width="3.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Domain.Lancamento.ILancamentoRepository">
+    <Position X="25.5" Y="29.25" Width="9.5" />
+    <InheritanceLine Type="ConFin.Common.Repository.Infra.IBaseRepository" FixedToPoint="true">
+      <Path>
+        <Point X="35.875" Y="44.75" />
+        <Point X="35.875" Y="30.75" />
+        <Point X="35.499" Y="30.75" Type="JumpStart" />
+        <Point X="35.333" Y="30.75" Type="JumpEnd" />
+        <Point X="35" Y="30.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Domain.LancamentoCategoria.ILancamentoCategoriaRepository">
+    <Position X="25.5" Y="32.25" Width="5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Domain.Login.ILoginRepository">
+    <Position X="25.5" Y="35.25" Width="5.75" />
+    <InheritanceLine Type="ConFin.Common.Repository.Infra.IBaseRepository" FixedToPoint="true">
+      <Path>
+        <Point X="35.875" Y="44.75" />
+        <Point X="35.875" Y="36.25" />
+        <Point X="35.499" Y="36.25" Type="JumpStart" />
+        <Point X="35.333" Y="36.25" Type="JumpEnd" />
+        <Point X="35.034" Y="36.25" Type="JumpStart" />
+        <Point X="34.868" Y="36.25" Type="JumpEnd" />
+        <Point X="31.25" Y="36.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Domain.Notificacao.INotificacaoRepository">
+    <Position X="25.5" Y="37.75" Width="3.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Domain.Transferencia.ITransferenciaRepository">
+    <Position X="25.5" Y="39.75" Width="4.5" />
+    <InheritanceLine Type="ConFin.Common.Repository.Infra.IBaseRepository" FixedToPoint="true">
+      <Path>
+        <Point X="35.875" Y="44.75" />
+        <Point X="35.875" Y="41.062" />
+        <Point X="35.499" Y="41.062" Type="JumpStart" />
+        <Point X="35.333" Y="41.062" Type="JumpEnd" />
+        <Point X="30" Y="41.062" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Domain.Usuario.IUsuarioRepository">
+    <Position X="25.5" Y="42.5" Width="4.25" />
+    <InheritanceLine Type="ConFin.Common.Repository.Infra.IBaseRepository" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="35.875" Y="44.75" />
+        <Point X="35.875" Y="44.125" />
+        <Point X="29.75" Y="44.125" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Common.Repository.Infra.IBaseRepository">
+    <Position X="34.75" Y="44.75" Width="2.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ConFin.Common.Repository.Infra.IDatabaseConnection">
+    <Position X="44" Y="44.25" Width="2.75" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

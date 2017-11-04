@@ -1,6 +1,5 @@
 ﻿using ConFin.Common.Domain.Dto;
 using ConFin.Common.Repository.Infra;
-using ConFin.Domain.Login.Dto;
 
 namespace ConFin.Domain.Login
 {
