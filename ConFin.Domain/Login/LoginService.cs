@@ -10,35 +10,35 @@ namespace ConFin.Domain.Login
 {
     public class LoginService : ILoginService
     {
-        public readonly ILoginRepository LoginRepository;
-        public readonly IContaFinanceiraRepository ContaFinanceiraRepository;
-        public readonly ILancamentoCategoriaRepository LancamentoCategoriaRepository;
-        public readonly Notification Notification;
+        private readonly ILoginRepository _loginRepository;
+        private readonly IContaFinanceiraRepository _contaFinanceiraRepository;
+        private readonly ILancamentoCategoriaRepository _lancamentoCategoriaRepository;
+        private readonly Notification _notification;
         private static Parameters _parameters;
 
         public LoginService(Notification notification, ILoginRepository loginRepository, Parameters parameters, IContaFinanceiraRepository contaFinanceiraRepository, ILancamentoCategoriaRepository lancamentoCategoriaRepository)
         {
-            Notification = notification;
-            LoginRepository = loginRepository;
+            _notification = notification;
+            _loginRepository = loginRepository;
             _parameters = parameters;
-            ContaFinanceiraRepository = contaFinanceiraRepository;
-            LancamentoCategoriaRepository = lancamentoCategoriaRepository;
+            _contaFinanceiraRepository = contaFinanceiraRepository;
+            _lancamentoCategoriaRepository = lancamentoCategoriaRepository;
         }
 
         public UsuarioDto Get(string email, string senha = null)
         {
-            var usuario = LoginRepository.Get(email, senha);
+            var usuario = _loginRepository.Get(email, senha);
 
             if (usuario == null)
             {
-                Notification.Add("Usuário não encontrado :(");
+                _notification.Add("Usuário não encontrado :(");
                 return null;
             }
 
             if (usuario.DataConfirmCadastro.HasValue)
                 return usuario;
 
-            Notification.Add("Aguardando usuário confirmar cadastro");
+            _notification.Add("Aguardando usuário confirmar cadastro");
             return null;
         }
 
@@ -46,23 +46,23 @@ namespace ConFin.Domain.Login
         {
             if (usuario == null)
             {
-                Notification.Add("Usuário não enviado para cadastro");
+                _notification.Add("Usuário não enviado para cadastro");
                 return;
             }
 
-            if (!usuario.IsValid(Notification))
+            if (!usuario.IsValid(_notification))
                 return;
 
-            if (LoginRepository.Get(usuario.Email) != null)
+            if (_loginRepository.Get(usuario.Email) != null)
             {
-                Notification.Add("E-mail de usuário já cadastrado");
+                _notification.Add("E-mail de usuário já cadastrado");
                 return;
             }
 
-            LoginRepository.OpenTransaction();
-            LoginRepository.Post(usuario);
+            _loginRepository.OpenTransaction();
+            _loginRepository.Post(usuario);
             EnviaEmailConfirmacaoCadastro(usuario);
-            LoginRepository.CommitTransaction();
+            _loginRepository.CommitTransaction();
         }
 
         private static void EnviaEmailConfirmacaoCadastro(UsuarioDto usuario)
@@ -82,17 +82,17 @@ namespace ConFin.Domain.Login
         {
 
             var usuario = Get(email);
-            if (Notification.Any)
+            if (_notification.Any)
                 return;
 
             var token = Guid.NewGuid().ToString();
 
-            LoginRepository.OpenTransaction();
-            LoginRepository.PostSolicitacaoTrocaSenhaLogin(usuario.Id, token);
+            _loginRepository.OpenTransaction();
+            _loginRepository.PostSolicitacaoTrocaSenhaLogin(usuario.Id, token);
 
-            if (Notification.Any)
+            if (_notification.Any)
             {
-                LoginRepository.RollbackTransaction();
+                _loginRepository.RollbackTransaction();
                 return;
             }
 
@@ -105,33 +105,33 @@ namespace ConFin.Domain.Login
                         "<p>Atenciosamente,</br>ConFin - Controle Financeiro Pessoal </p>";
 
             EnviaEmail(usuario, body, "Alteração de Senha");
-            LoginRepository.CommitTransaction();
+            _loginRepository.CommitTransaction();
 
         }
 
         public void GetVerificaTokenValidoRedefinirSenha(int idUsuario, string token)
         {
-            var dadosSolicitacao = LoginRepository.GetSolicitacaoTrocaSenhaLogin(idUsuario, token);
+            var dadosSolicitacao = _loginRepository.GetSolicitacaoTrocaSenhaLogin(idUsuario, token);
             if (dadosSolicitacao == null)
             {
-                Notification.Add("Solicitação de redefinição de senha não encontrada, favor realizar nova solicitação.");
+                _notification.Add("Solicitação de redefinição de senha não encontrada, favor realizar nova solicitação.");
                 return;
             }
 
             var tempoExpiracao = DateTime.Now - dadosSolicitacao.DataCadastro;
 
             if (tempoExpiracao.Minutes > 60)
-                Notification.Add("A Solicitação de refinição de senha está expirada, favor realizar nova solicitação.");
+                _notification.Add("A Solicitação de refinição de senha está expirada, favor realizar nova solicitação.");
 
         }
 
         public void PutConfirmacaoCadastro(int idUsuario)
         {
-            LoginRepository.OpenTransaction();
+            _loginRepository.OpenTransaction();
 
-            LoginRepository.PutConfirmacaoCadastro(idUsuario);
+            _loginRepository.PutConfirmacaoCadastro(idUsuario);
 
-            ContaFinanceiraRepository.Post(new ContaFinanceiraDto
+            _contaFinanceiraRepository.Post(new ContaFinanceiraDto
             {
                 Nome = "Padrão",
                 IdTipo = 3, // Carteira
@@ -139,12 +139,12 @@ namespace ConFin.Domain.Login
                 IdUsuarioCadastro = idUsuario
             });
 
-            LancamentoCategoriaRepository.PostCategoriasIniciaisUsuario(idUsuario);
+            _lancamentoCategoriaRepository.PostCategoriasIniciaisUsuario(idUsuario);
 
-            if(!Notification.Any)
-                LoginRepository.CommitTransaction();
+            if(!_notification.Any)
+                _loginRepository.CommitTransaction();
             else
-                LoginRepository.RollbackTransaction();
+                _loginRepository.RollbackTransaction();
         }
 
         private static void EnviaEmail(UsuarioDto usuario, string body, string subject)

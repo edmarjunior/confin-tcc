@@ -6,66 +6,66 @@ namespace ConFin.Domain.Usuario
 {
     public class UsuarioService: IUsuarioService
     {
-        public readonly IUsuarioRepository UsuarioRepository;
-        public readonly ILoginRepository LoginRepository;
-        public readonly ILoginService LoginService;
-        public readonly Notification Notification;
+       private readonly IUsuarioRepository _usuarioRepository;
+       private readonly ILoginRepository _loginRepository;
+       private readonly ILoginService _loginService;
+       private readonly Notification _notification;
 
         public UsuarioService(IUsuarioRepository usuarioRepository, Notification notification, ILoginService loginService, ILoginRepository loginRepository)
         {
-            UsuarioRepository = usuarioRepository;
-            Notification = notification;
-            LoginService = loginService;
-            LoginRepository = loginRepository;
+            _usuarioRepository = usuarioRepository;
+            _notification = notification;
+            _loginService = loginService;
+            _loginRepository = loginRepository;
         }
 
         public void PutSenha(int id, string token, string novaSenha)
         {
-            LoginService.GetVerificaTokenValidoRedefinirSenha(id, token);
-            if (Notification.Any)
+            _loginService.GetVerificaTokenValidoRedefinirSenha(id, token);
+            if (_notification.Any)
                 return;
 
-            UsuarioRepository.OpenTransaction();
-            LoginRepository.PutSolicitacaoTrocaSenhaLogin(id, token);
-            UsuarioRepository.PutSenha(id, novaSenha);
-            UsuarioRepository.CommitTransaction();
+            _usuarioRepository.OpenTransaction();
+            _loginRepository.PutSolicitacaoTrocaSenhaLogin(id, token);
+            _usuarioRepository.PutSenha(id, novaSenha);
+            _usuarioRepository.CommitTransaction();
         }
 
         public void Put(UsuarioDto usuario)
         {
-            UsuarioRepository.OpenTransaction();
+            _usuarioRepository.OpenTransaction();
 
             if (!string.IsNullOrEmpty(usuario.NovaSenha))
                 RedefinirSenha(usuario.Id, usuario.Senha, usuario.NovaSenha);
 
-            if (Notification.Any)
+            if (_notification.Any)
             {
-                UsuarioRepository.RollbackTransaction();
+                _usuarioRepository.RollbackTransaction();
                 return;
             }
 
-            UsuarioRepository.Put(usuario);
-            UsuarioRepository.CommitTransaction();
+            _usuarioRepository.Put(usuario);
+            _usuarioRepository.CommitTransaction();
 
         }
 
         private void RedefinirSenha(int idUsuario, string senhaAtual, string novaSenha)
         {
-            var usuario = UsuarioRepository.Get(idUsuario);
+            var usuario = _usuarioRepository.Get(idUsuario);
 
             if (usuario == null)
             {
-                Notification.Add($"Não foi encontrado usuario com o id {idUsuario}");
+                _notification.Add($"Não foi encontrado usuario com o id {idUsuario}");
                 return;
             }
 
-            if (!UsuarioRepository.SenhaCorreta(idUsuario, senhaAtual))
+            if (!_usuarioRepository.SenhaCorreta(idUsuario, senhaAtual))
             {
-                Notification.Add("A senha atual enviada esta incorreta");
+                _notification.Add("A senha atual enviada esta incorreta");
                 return;
             }
 
-            UsuarioRepository.PutSenha(idUsuario, novaSenha);
+            _usuarioRepository.PutSenha(idUsuario, novaSenha);
         }
     }
 }

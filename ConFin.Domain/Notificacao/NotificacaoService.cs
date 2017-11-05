@@ -7,19 +7,19 @@ namespace ConFin.Domain.Notificacao
 {
     public class NotificacaoService: INotificacaoService
     {
-        public readonly INotificacaoRepository NotificacaoRepository;
-        public readonly IContaConjuntaRepository ContaConjuntaRepository;
+        private readonly INotificacaoRepository _notificacaoRepository;
+        private readonly IContaConjuntaRepository _contaConjuntaRepository;
 
         public NotificacaoService(INotificacaoRepository notificacaoRepository, IContaConjuntaRepository contaConjuntaRepository)
         {
-            NotificacaoRepository = notificacaoRepository;
-            ContaConjuntaRepository = contaConjuntaRepository;
+            _notificacaoRepository = notificacaoRepository;
+            _contaConjuntaRepository = contaConjuntaRepository;
         }
 
         public IEnumerable<NotificacaoDto> Get(int idUsuario, bool notificacaoLida, out bool nenhumaNotificacao)
         {
             nenhumaNotificacao = false;
-            var notificacoes = NotificacaoRepository.Get(idUsuario).OrderByDescending(x => x.DataCadastro).ToList();
+            var notificacoes = _notificacaoRepository.Get(idUsuario).OrderByDescending(x => x.DataCadastro).ToList();
 
             if (!notificacoes.Any())
             {
@@ -35,19 +35,19 @@ namespace ConFin.Domain.Notificacao
             if (!notificacoes.Any())
                 return notificacoes;
 
-            NotificacaoRepository.OpenTransaction();
+            _notificacaoRepository.OpenTransaction();
 
             foreach (var notificacao in notificacoes.Where(x => x.DataLeitura == null))
-                NotificacaoRepository.PutDataLeitura(notificacao.Id);
+                _notificacaoRepository.PutDataLeitura(notificacao.Id);
 
-            NotificacaoRepository.CommitTransaction();
+            _notificacaoRepository.CommitTransaction();
 
             return notificacoes;
         }
 
         public void Post(int idUsuarioEnvio, int idConta, short idTipo, string mensagem, List<int> idsUsuarioNaoEnviar = null)
         {
-            var usuariosVinculados = ContaConjuntaRepository.Get(null, idConta).Where(x => x.IndicadorAprovado == "A").ToList();
+            var usuariosVinculados = _contaConjuntaRepository.Get(null, idConta).Where(x => x.IndicadorAprovado == "A").ToList();
             if (!usuariosVinculados.Any())
                 return;
 
@@ -60,7 +60,7 @@ namespace ConFin.Domain.Notificacao
 
             foreach (var usuario in usuariosNotificacao)
             {
-                NotificacaoRepository.Post(new NotificacaoDto
+                _notificacaoRepository.Post(new NotificacaoDto
                 {
                     IdTipo = idTipo,
                     IdUsuarioEnvio = idUsuarioEnvio,

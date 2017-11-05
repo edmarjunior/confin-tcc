@@ -52,7 +52,7 @@ namespace ConFin.Api
         {
             Container.Register<ILoginService, LoginService>();
             Container.Register<IUsuarioService, UsuarioService>();
-           // Container.Register<IContaFinanceiraService, ContaFinanceiraService>();
+            Container.Register<IContaFinanceiraService, ContaFinanceiraService>();
             Container.Register<ILancamentoCategoriaService, LancamentoCategoriaService>();
             Container.Register<ILancamentoService, LancamentoService>();
             Container.Register<IContaConjuntaService, ContaConjuntaService>();
