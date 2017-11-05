@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="ConFin.Common.Domain.Dto.CompromissoDto">
+    <Position X="4" Y="8" Width="3" />
+    <InheritanceLine Type="ConFin.Common.Domain.Auxiliar.DataManut" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.625" Y="13" />
+        <Point X="5.625" Y="12.646" />
+        <Point X="7.24" Y="12.646" />
+        <Point X="7.24" Y="9.062" />
+        <Point X="7" Y="9.062" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAACAIAAAAABAAAAACAQAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Domain\Dto\CompromissoDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConFin.Common.Domain.Dto.CompromissoLancamentoDto">
+    <Position X="4" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>gAAAABAAAAAAAAAAAAABAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Dto\CompromissoLancamentoDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConFin.Common.Domain.Dto.ContaConjuntaDto">
+    <Position X="7.5" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AIACAAAgAAAAAAAAADAQAABEAAAAABBAAgAAAAAAAgA=</HashCode>
+      <FileName>Domain\Dto\ContaConjuntaDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConFin.Common.Domain.Dto.ContaFinanceiraDto">
+    <Position X="0.5" Y="9.5" Width="3.25" />
+    <InheritanceLine Type="ConFin.Common.Domain.Auxiliar.DataManut" FixedFromPoint="true">
+      <Path>
+        <Point X="5.625" Y="13" />
+        <Point X="5.625" Y="12.646" />
+        <Point X="2.125" Y="12.646" />
+        <Point X="2.125" Y="12.271" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAQBAAAAQAAAAAAAAAQAAAAAACIAACEAAAA=</HashCode>
+      <FileName>Domain\Dto\ContaFinanceiraDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConFin.Common.Domain.Dto.ContaFinanceiraTipoDto">
+    <Position X="1.5" Y="13" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Domain\Dto\ContaFinanceiraTipoDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConFin.Common.Domain.Dto.LancamentoCategoriaDto">
+    <Position X="4.25" Y="10.5" Width="2.75" />
+    <InheritanceLine Type="ConFin.Common.Domain.Auxiliar.DataManut" FixedFromPoint="true">
+      <Path>
+        <Point X="5.625" Y="13" />
+        <Point X="5.625" Y="12.31" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAEAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Domain\Dto\LancamentoCategoriaDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConFin.Common.Domain.Dto.LancamentoDto">
+    <Position X="7.5" Y="7.75" Width="3.25" />
+    <InheritanceLine Type="ConFin.Common.Domain.Auxiliar.DataManut" FixedFromPoint="true">
+      <Path>
+        <Point X="5.625" Y="13" />
+        <Point X="5.625" Y="12.646" />
+        <Point X="9.125" Y="12.646" />
+        <Point X="9.125" Y="12.252" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAACAIgAEAABAAAIACQABAAMCACAgBAAAAgAAAAAAAA=</HashCode>
+      <FileName>Domain\Dto\LancamentoDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConFin.Common.Domain.Dto.LancamentoResumoGeralDto">
+    <Position X="0.5" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAABAAAAAABAAgAAAAAgAAAAAAAAAAAgg=</HashCode>
+      <FileName>Domain\Dto\LancamentoResumoGeralDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConFin.Common.Domain.Dto.NotificacaoDto">
+    <Position X="0.5" Y="3" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>EAACAAAgAAQAEAACAAAQBAAEAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Domain\Dto\NotificacaoDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConFin.Common.Domain.Dto.NotificacaoTipoDto">
+    <Position X="4" Y="6" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAABAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Dto\NotificacaoTipoDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConFin.Common.Domain.Dto.PeriodoDto">
+    <Position X="7.5" Y="4" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAABAAAAAgAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Domain\Dto\PeriodoDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConFin.Common.Domain.Dto.SolicitacaoTrocaSenhaLoginDto">
+    <Position X="7" Y="6" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAQAAAQAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Domain\Dto\SolicitacaoTrocaSenhaLoginDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConFin.Common.Domain.Dto.TransferenciaDto">
+    <Position X="0.5" Y="6" Width="3" />
+    <InheritanceLine Type="ConFin.Common.Domain.Auxiliar.DataManut" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.625" Y="13" />
+        <Point X="5.625" Y="12.646" />
+        <Point X="3.867" Y="12.646" />
+        <Point X="3.867" Y="9.125" />
+        <Point X="3.5" Y="9.125" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAgAEAABAAAAAAQABAAEAAAAgBAAAAgAAAACAAA=</HashCode>
+      <FileName>Domain\Dto\TransferenciaDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConFin.Common.Domain.Dto.UsuarioDto">
+    <Position X="4" Y="2.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAICAAABACAAAAAAACwQAAAAACAAAAACAAAAAAEAAAI=</HashCode>
+      <FileName>Domain\Dto\UsuarioDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConFin.Common.Domain.Auxiliar.DataManut">
+    <Position X="4.75" Y="13" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAQQAAQAAAAIAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Domain\Auxiliar\DataManut.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

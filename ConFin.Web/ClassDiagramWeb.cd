@@ -13,13 +13,13 @@
     <AssociationLine Name="_contaConjuntaAppService" Type="ConFin.Application.AppService.ContaConjunta.IContaConjuntaAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="6.5" Y="15.443" />
-        <Point X="14.354" Y="15.443" Type="JumpStart" />
+        <Point X="14.355" Y="15.443" Type="JumpStart" />
         <Point X="14.521" Y="15.443" Type="JumpEnd" />
         <Point X="14.917" Y="15.443" Type="JumpStart" />
         <Point X="15.083" Y="15.443" Type="JumpEnd" />
         <Point X="15.848" Y="15.443" Type="JumpStart" />
-        <Point X="16.015" Y="15.443" Type="JumpEnd" />
-        <Point X="16.838" Y="15.443" Type="JumpStart" />
+        <Point X="16.014" Y="15.443" Type="JumpEnd" />
+        <Point X="16.839" Y="15.443" Type="JumpStart" />
         <Point X="17.005" Y="15.443" Type="JumpEnd" />
         <Point X="17.493" Y="15.443" />
         <Point X="17.493" Y="5.375" />
@@ -49,16 +49,18 @@
         <Point X="10" Y="12.943" />
         <Point X="10.375" Y="12.943" />
         <Point X="10.375" Y="9.625" />
-        <Point X="14.354" Y="9.625" Type="JumpStart" />
+        <Point X="14.355" Y="9.625" Type="JumpStart" />
         <Point X="14.521" Y="9.625" Type="JumpEnd" />
         <Point X="15.848" Y="9.625" Type="JumpStart" />
-        <Point X="16.015" Y="9.625" Type="JumpEnd" />
-        <Point X="16.33" Y="9.625" Type="JumpStart" />
+        <Point X="16.014" Y="9.625" Type="JumpEnd" />
+        <Point X="16.331" Y="9.625" Type="JumpStart" />
         <Point X="16.497" Y="9.625" Type="JumpEnd" />
-        <Point X="17.409" Y="9.625" Type="JumpStart" />
+        <Point X="17.41" Y="9.625" Type="JumpStart" />
         <Point X="17.576" Y="9.625" Type="JumpEnd" />
-        <Point X="17.825" Y="9.625" Type="JumpStart" />
+        <Point X="17.826" Y="9.625" Type="JumpStart" />
         <Point X="17.992" Y="9.625" Type="JumpEnd" />
+        <Point X="19.478" Y="9.625" Type="JumpStart" />
+        <Point X="19.645" Y="9.625" Type="JumpEnd" />
         <Point X="19.792" Y="9.625" Type="JumpStart" />
         <Point X="19.958" Y="9.625" Type="JumpEnd" />
         <Point X="20.25" Y="9.625" />
@@ -89,13 +91,15 @@
         <Point X="13.917" Y="21.758" Type="JumpStart" />
         <Point X="14.083" Y="21.758" Type="JumpEnd" />
         <Point X="15.848" Y="21.758" Type="JumpStart" />
-        <Point X="16.015" Y="21.758" Type="JumpEnd" />
-        <Point X="16.838" Y="21.758" Type="JumpStart" />
+        <Point X="16.014" Y="21.758" Type="JumpEnd" />
+        <Point X="16.839" Y="21.758" Type="JumpStart" />
         <Point X="17.005" Y="21.758" Type="JumpEnd" />
         <Point X="17.404" Y="21.758" />
         <Point X="17.404" Y="18.938" />
-        <Point X="17.825" Y="18.938" Type="JumpStart" />
+        <Point X="17.826" Y="18.938" Type="JumpStart" />
         <Point X="17.992" Y="18.938" Type="JumpEnd" />
+        <Point X="19.478" Y="18.938" Type="JumpStart" />
+        <Point X="19.645" Y="18.938" Type="JumpEnd" />
         <Point X="19.792" Y="18.938" Type="JumpStart" />
         <Point X="19.958" Y="18.938" Type="JumpEnd" />
         <Point X="20.25" Y="18.938" />
@@ -119,32 +123,20 @@
         <Point X="1" Y="18.041" />
       </Path>
     </InheritanceLine>
-    <AssociationLine Name="_contaFinanceiraAppService" Type="ConFin.Application.AppService.ContaFinanceira.IContaFinanceiraAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="14.438" Y="16.75" />
-        <Point X="14.438" Y="6.938" />
-        <Point X="17.409" Y="6.938" Type="JumpStart" />
-        <Point X="17.576" Y="6.938" Type="JumpEnd" />
-        <Point X="19.792" Y="6.938" Type="JumpStart" />
-        <Point X="19.958" Y="6.938" Type="JumpEnd" />
-        <Point X="20.25" Y="6.938" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.091" Y="0.069" />
-      </MemberNameLabel>
-    </AssociationLine>
     <AssociationLine Name="_lancamentoAppService" Type="ConFin.Application.AppService.Lancamento.ILancamentoAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="15" Y="16.75" />
         <Point X="15" Y="11.485" />
         <Point X="15.848" Y="11.485" Type="JumpStart" />
-        <Point X="16.015" Y="11.485" Type="JumpEnd" />
-        <Point X="17.409" Y="11.485" Type="JumpStart" />
+        <Point X="16.014" Y="11.485" Type="JumpEnd" />
+        <Point X="17.41" Y="11.485" Type="JumpStart" />
         <Point X="17.576" Y="11.485" Type="JumpEnd" />
-        <Point X="17.825" Y="11.485" Type="JumpStart" />
+        <Point X="17.826" Y="11.485" Type="JumpStart" />
         <Point X="17.992" Y="11.485" Type="JumpEnd" />
         <Point X="18.518" Y="11.485" />
         <Point X="18.518" Y="11.5" />
+        <Point X="19.478" Y="11.5" Type="JumpStart" />
+        <Point X="19.645" Y="11.5" Type="JumpEnd" />
         <Point X="19.792" Y="11.5" Type="JumpStart" />
         <Point X="19.958" Y="11.5" Type="JumpEnd" />
         <Point X="20.25" Y="11.5" />
@@ -156,11 +148,13 @@
         <Point X="15.75" Y="18.25" />
         <Point X="15.75" Y="18.25" />
         <Point X="15.848" Y="18.25" Type="JumpStart" />
-        <Point X="16.015" Y="18.25" Type="JumpEnd" />
-        <Point X="16.838" Y="18.25" Type="JumpStart" />
+        <Point X="16.014" Y="18.25" Type="JumpEnd" />
+        <Point X="16.839" Y="18.25" Type="JumpStart" />
         <Point X="17.005" Y="18.25" Type="JumpEnd" />
-        <Point X="17.825" Y="18.25" Type="JumpStart" />
+        <Point X="17.826" Y="18.25" Type="JumpStart" />
         <Point X="17.992" Y="18.25" Type="JumpEnd" />
+        <Point X="19.478" Y="18.25" Type="JumpStart" />
+        <Point X="19.645" Y="18.25" Type="JumpEnd" />
         <Point X="19.792" Y="18.25" Type="JumpStart" />
         <Point X="19.958" Y="18.25" Type="JumpEnd" />
         <Point X="20.25" Y="18.25" />
@@ -169,18 +163,34 @@
         <Position X="0.053" Y="0.093" />
       </MemberNameLabel>
     </AssociationLine>
+    <AssociationLine Name="_contaFinanceiraAppService" Type="ConFin.Application.AppService.ContaFinanceira.IContaFinanceiraAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="14.438" Y="16.75" />
+        <Point X="14.438" Y="6.938" />
+        <Point X="17.41" Y="6.938" Type="JumpStart" />
+        <Point X="17.576" Y="6.938" Type="JumpEnd" />
+        <Point X="19.478" Y="6.938" Type="JumpStart" />
+        <Point X="19.645" Y="6.938" Type="JumpEnd" />
+        <Point X="19.792" Y="6.938" Type="JumpStart" />
+        <Point X="19.958" Y="6.938" Type="JumpEnd" />
+        <Point X="20.25" Y="6.938" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.091" Y="0.069" />
+      </MemberNameLabel>
+    </AssociationLine>
     <AssociationLine Name="_transferenciaAppService" Type="ConFin.Application.AppService.Transferencia.ITransferenciaAppService" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="14" Y="20.098" />
         <Point X="14" Y="25.75" />
         <Point X="16.378" Y="25.75" Type="JumpStart" />
-        <Point X="16.545" Y="25.75" Type="JumpEnd" />
-        <Point X="16.838" Y="25.75" Type="JumpStart" />
+        <Point X="16.544" Y="25.75" Type="JumpEnd" />
+        <Point X="16.839" Y="25.75" Type="JumpStart" />
         <Point X="17.005" Y="25.75" Type="JumpEnd" />
-        <Point X="19.366" Y="25.75" Type="JumpStart" />
-        <Point X="19.533" Y="25.75" Type="JumpEnd" />
-        <Point X="19.792" Y="25.75" Type="JumpStart" />
-        <Point X="19.958" Y="25.75" Type="JumpEnd" />
+        <Point X="19.075" Y="25.75" Type="JumpStart" />
+        <Point X="19.241" Y="25.75" Type="JumpEnd" />
+        <Point X="19.478" Y="25.75" Type="JumpStart" />
+        <Point X="19.645" Y="25.75" Type="JumpEnd" />
         <Point X="20.25" Y="25.75" />
       </Path>
     </AssociationLine>
@@ -189,9 +199,9 @@
       <FileName>Controllers\LancamentoController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="_contaFinanceiraAppService" />
       <Field Name="_lancamentoAppService" />
       <Field Name="_lancamentoCategoriaAppService" />
+      <Field Name="_contaFinanceiraAppService" />
       <Field Name="_transferenciaAppService" />
     </ShowAsAssociation>
   </Class>
@@ -207,7 +217,7 @@
     <AssociationLine Name="_loginAppService" Type="ConFin.Application.AppService.Login.ILoginAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="6.75" Y="6.312" />
-        <Point X="17.409" Y="6.312" Type="JumpStart" />
+        <Point X="17.41" Y="6.312" Type="JumpStart" />
         <Point X="17.576" Y="6.312" Type="JumpEnd" />
         <Point X="19.875" Y="6.312" />
         <Point X="19.875" Y="20.438" />
@@ -217,10 +227,10 @@
     <AssociationLine Name="_usuarioAppService" Type="ConFin.Application.AppService.Usuario.IUsuarioAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="6.75" Y="6.625" />
-        <Point X="17.409" Y="6.625" Type="JumpStart" />
+        <Point X="17.41" Y="6.625" Type="JumpStart" />
         <Point X="17.576" Y="6.625" Type="JumpEnd" />
-        <Point X="19.875" Y="6.625" />
-        <Point X="19.875" Y="27.75" />
+        <Point X="19.561" Y="6.625" />
+        <Point X="19.561" Y="27.75" />
         <Point X="20.25" Y="27.75" />
       </Path>
     </AssociationLine>
@@ -246,12 +256,12 @@
     <AssociationLine Name="_notificacaoAppService" Type="ConFin.Application.AppService.Notificacao.INotificacaoAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="5.5" Y="26.688" />
-        <Point X="16.838" Y="26.688" Type="JumpStart" />
+        <Point X="16.839" Y="26.688" Type="JumpStart" />
         <Point X="17.005" Y="26.688" Type="JumpEnd" />
-        <Point X="19.45" Y="26.688" />
-        <Point X="19.45" Y="23.375" />
-        <Point X="19.792" Y="23.375" Type="JumpStart" />
-        <Point X="19.958" Y="23.375" Type="JumpEnd" />
+        <Point X="19.158" Y="26.688" />
+        <Point X="19.158" Y="23.375" />
+        <Point X="19.478" Y="23.375" Type="JumpStart" />
+        <Point X="19.645" Y="23.375" Type="JumpEnd" />
         <Point X="20.25" Y="23.375" />
       </Path>
     </AssociationLine>
@@ -273,44 +283,46 @@
         <Point X="1" Y="24.166" />
       </Path>
     </InheritanceLine>
-    <AssociationLine Name="_lancamentoCategoriaAppService" Type="ConFin.Application.AppService.LancamentoCategoria.ILancamentoCategoriaAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="13" Y="24.562" />
-        <Point X="13.917" Y="24.562" Type="JumpStart" />
-        <Point X="14.083" Y="24.562" Type="JumpEnd" />
-        <Point X="15.848" Y="24.562" Type="JumpStart" />
-        <Point X="16.015" Y="24.562" Type="JumpEnd" />
-        <Point X="16.378" Y="24.562" Type="JumpStart" />
-        <Point X="16.545" Y="24.562" Type="JumpEnd" />
-        <Point X="16.838" Y="24.562" Type="JumpStart" />
-        <Point X="17.005" Y="24.562" Type="JumpEnd" />
-        <Point X="18.595" Y="24.562" />
-        <Point X="18.595" Y="19.562" />
-        <Point X="19.792" Y="19.562" Type="JumpStart" />
-        <Point X="19.958" Y="19.562" Type="JumpEnd" />
-        <Point X="20.25" Y="19.562" />
-      </Path>
-    </AssociationLine>
     <AssociationLine Name="_transferenciaAppService" Type="ConFin.Application.AppService.Transferencia.ITransferenciaAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="13" Y="23.25" />
         <Point X="13.917" Y="23.25" Type="JumpStart" />
         <Point X="14.083" Y="23.25" Type="JumpEnd" />
         <Point X="15.848" Y="23.25" Type="JumpStart" />
-        <Point X="16.015" Y="23.25" Type="JumpEnd" />
+        <Point X="16.014" Y="23.25" Type="JumpEnd" />
         <Point X="16.461" Y="23.25" />
         <Point X="16.461" Y="26.312" />
-        <Point X="16.838" Y="26.312" Type="JumpStart" />
+        <Point X="16.839" Y="26.312" Type="JumpStart" />
         <Point X="17.005" Y="26.312" Type="JumpEnd" />
-        <Point X="19.366" Y="26.312" Type="JumpStart" />
-        <Point X="19.533" Y="26.312" Type="JumpEnd" />
-        <Point X="19.792" Y="26.312" Type="JumpStart" />
-        <Point X="19.958" Y="26.312" Type="JumpEnd" />
+        <Point X="19.075" Y="26.312" Type="JumpStart" />
+        <Point X="19.241" Y="26.312" Type="JumpEnd" />
+        <Point X="19.478" Y="26.312" Type="JumpStart" />
+        <Point X="19.645" Y="26.312" Type="JumpEnd" />
         <Point X="20.25" Y="26.312" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.098" Y="0.072" />
       </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_lancamentoCategoriaAppService" Type="ConFin.Application.AppService.LancamentoCategoria.ILancamentoCategoriaAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13" Y="24.562" />
+        <Point X="13.917" Y="24.562" Type="JumpStart" />
+        <Point X="14.083" Y="24.562" Type="JumpEnd" />
+        <Point X="15.848" Y="24.562" Type="JumpStart" />
+        <Point X="16.014" Y="24.562" Type="JumpEnd" />
+        <Point X="16.378" Y="24.562" Type="JumpStart" />
+        <Point X="16.544" Y="24.562" Type="JumpEnd" />
+        <Point X="16.839" Y="24.562" Type="JumpStart" />
+        <Point X="17.005" Y="24.562" Type="JumpEnd" />
+        <Point X="18.595" Y="24.562" />
+        <Point X="18.595" Y="19.562" />
+        <Point X="19.478" Y="19.562" Type="JumpStart" />
+        <Point X="19.645" Y="19.562" Type="JumpEnd" />
+        <Point X="19.792" Y="19.562" Type="JumpStart" />
+        <Point X="19.958" Y="19.562" Type="JumpEnd" />
+        <Point X="20.25" Y="19.562" />
+      </Path>
     </AssociationLine>
     <AssociationLine Name="_contaFinanceiraAppService" Type="ConFin.Application.AppService.ContaFinanceira.IContaFinanceiraAppService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
@@ -318,13 +330,15 @@
         <Point X="13.917" Y="23.875" Type="JumpStart" />
         <Point X="14.083" Y="23.875" Type="JumpEnd" />
         <Point X="15.848" Y="23.875" Type="JumpStart" />
-        <Point X="16.015" Y="23.875" Type="JumpEnd" />
+        <Point X="16.014" Y="23.875" Type="JumpEnd" />
         <Point X="16.378" Y="23.875" Type="JumpStart" />
-        <Point X="16.545" Y="23.875" Type="JumpEnd" />
-        <Point X="16.838" Y="23.875" Type="JumpStart" />
+        <Point X="16.544" Y="23.875" Type="JumpEnd" />
+        <Point X="16.839" Y="23.875" Type="JumpStart" />
         <Point X="17.005" Y="23.875" Type="JumpEnd" />
         <Point X="17.909" Y="23.875" />
         <Point X="17.909" Y="7.5" />
+        <Point X="19.478" Y="7.5" Type="JumpStart" />
+        <Point X="19.645" Y="7.5" Type="JumpEnd" />
         <Point X="19.792" Y="7.5" Type="JumpStart" />
         <Point X="19.958" Y="7.5" Type="JumpEnd" />
         <Point X="20.25" Y="7.5" />
@@ -338,8 +352,8 @@
       <FileName>Controllers\TransferenciaController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="_lancamentoCategoriaAppService" />
       <Field Name="_transferenciaAppService" />
+      <Field Name="_lancamentoCategoriaAppService" />
       <Field Name="_contaFinanceiraAppService" />
     </ShowAsAssociation>
   </Class>
@@ -362,12 +376,12 @@
         <Point X="10.458" Y="10.75" Type="JumpEnd" />
         <Point X="11.546" Y="10.75" />
         <Point X="11.546" Y="12.525" />
-        <Point X="14.354" Y="12.525" Type="JumpStart" />
+        <Point X="14.355" Y="12.525" Type="JumpStart" />
         <Point X="14.521" Y="12.525" Type="JumpEnd" />
         <Point X="14.917" Y="12.525" Type="JumpStart" />
         <Point X="15.083" Y="12.525" Type="JumpEnd" />
         <Point X="15.848" Y="12.525" Type="JumpStart" />
-        <Point X="16.015" Y="12.525" Type="JumpEnd" />
+        <Point X="16.014" Y="12.525" Type="JumpEnd" />
         <Point X="16.922" Y="12.525" />
         <Point X="16.922" Y="28.688" />
         <Point X="20.25" Y="28.688" />
@@ -395,14 +409,16 @@
         <Point X="8.25" Y="8.75" />
         <Point X="9.073" Y="8.75" Type="JumpStart" />
         <Point X="9.24" Y="8.75" Type="JumpEnd" />
-        <Point X="14.354" Y="8.75" Type="JumpStart" />
+        <Point X="14.355" Y="8.75" Type="JumpStart" />
         <Point X="14.521" Y="8.75" Type="JumpEnd" />
         <Point X="16.414" Y="8.75" />
         <Point X="16.414" Y="10.938" />
-        <Point X="17.409" Y="10.938" Type="JumpStart" />
+        <Point X="17.41" Y="10.938" Type="JumpStart" />
         <Point X="17.576" Y="10.938" Type="JumpEnd" />
-        <Point X="17.825" Y="10.938" Type="JumpStart" />
+        <Point X="17.826" Y="10.938" Type="JumpStart" />
         <Point X="17.992" Y="10.938" Type="JumpEnd" />
+        <Point X="19.478" Y="10.938" Type="JumpStart" />
+        <Point X="19.645" Y="10.938" Type="JumpEnd" />
         <Point X="19.792" Y="10.938" Type="JumpStart" />
         <Point X="19.958" Y="10.938" Type="JumpEnd" />
         <Point X="20.25" Y="10.938" />
@@ -413,18 +429,18 @@
         <Point X="8.25" Y="9.187" />
         <Point X="9.073" Y="9.187" Type="JumpStart" />
         <Point X="9.24" Y="9.187" Type="JumpEnd" />
-        <Point X="14.354" Y="9.187" Type="JumpStart" />
+        <Point X="14.355" Y="9.187" Type="JumpStart" />
         <Point X="14.521" Y="9.187" Type="JumpEnd" />
         <Point X="15.931" Y="9.187" />
         <Point X="15.931" Y="25.125" />
         <Point X="16.378" Y="25.125" Type="JumpStart" />
-        <Point X="16.545" Y="25.125" Type="JumpEnd" />
-        <Point X="16.838" Y="25.125" Type="JumpStart" />
+        <Point X="16.544" Y="25.125" Type="JumpEnd" />
+        <Point X="16.839" Y="25.125" Type="JumpStart" />
         <Point X="17.005" Y="25.125" Type="JumpEnd" />
-        <Point X="19.366" Y="25.125" Type="JumpStart" />
-        <Point X="19.533" Y="25.125" Type="JumpEnd" />
-        <Point X="19.792" Y="25.125" Type="JumpStart" />
-        <Point X="19.958" Y="25.125" Type="JumpEnd" />
+        <Point X="19.075" Y="25.125" Type="JumpStart" />
+        <Point X="19.241" Y="25.125" Type="JumpEnd" />
+        <Point X="19.478" Y="25.125" Type="JumpStart" />
+        <Point X="19.645" Y="25.125" Type="JumpEnd" />
         <Point X="20.25" Y="25.125" />
       </Path>
     </AssociationLine>
