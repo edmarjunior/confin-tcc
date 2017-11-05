@@ -1,5 +1,4 @@
-﻿using ConFin.Common.Domain;
-using ConFin.Common.Domain.Dto;
+﻿using ConFin.Common.Domain.Dto;
 using Newtonsoft.Json;
 using System.Net;
 using System.Net.Http;
@@ -18,7 +17,7 @@ namespace ConFin.Common.Web
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (UsuarioLogado == null)
-                filterContext.Result = new RedirectResult(new Parameters().UriWeb + "Home");
+                filterContext.Result = Error("Sua sessão foi expirada");
         }
 
         protected override void OnException(ExceptionContext filterContext)
