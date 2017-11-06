@@ -6,52 +6,30 @@
     <title>ConFin - Controle Financeiro Pessonal</title>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="~/css/materialize.min.css" media="screen,projection" />
-    <link type="text/css" rel="stylesheet" href="~/css/common.css" />
     <link type="text/css" rel="stylesheet" href="~/css/nouislider.min.css" />
     <link type="text/css" rel="stylesheet" href="~/css/jquery-ui.min.css" />
     <link type="text/css" rel="stylesheet" href="~/css/jquery-ui.theme.css" />
-    <link type="text/css" rel="stylesheet" href="~/css/jquery-ui.structure.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/jquery-ui.structure.css"/>
+    <link type="text/css" rel="stylesheet" href="~/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="~/css/common.css" />
 
     <script type="text/javascript" src="~/js/jquery-2.1.0.min.js"></script>
-    <script type="text/javascript" src="~/js/materialize.min.js"></script>
-    <script type="text/javascript" src="~/js/common.js"></script>
     <script type="text/javascript" src="~/js/jquery.mask.min.js"></script>
     <script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="~/js/nouislider.min.js"></script>
     <script type="text/javascript" src="~/js/wNumb.js"></script>
     <script type="text/javascript" src="~/js/malsup-form.js"></script>
+    <script type="text/javascript" src="~/js/materialize.min.js"></script>
+    <script type="text/javascript" src="~/js/common.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery.signalR-2.2.2.js"></script>
 
     <script>
         $(document).ready(function () {
             $('.date').mask('00/00/0000', { placeholder: "__/__/____" });
             $('.month-year').mask('00/0000', { placeholder: "__/____" });
-            $('.time').mask('00:00:00');
-            $('.date_time').mask('00/00/0000 00:00:00');
-            $('.cep').mask('00000-000');
-            $('.phone').mask('0000-0000');
-            $('.phone_with_ddd').mask('(00) 0000-0000');
-            $('.phone_us').mask('(000) 000-0000');
-            $('.mixed').mask('AAA 000-S0S');
-            $('.cpf').mask('000.000.000-00', { reverse: true });
-            $('.cnpj').mask('00.000.000/0000-00', { reverse: true });
             $('.money').mask("#.##0,00", { reverse: true });
             $('.money2').mask('000.000.000.000.000,00', { reverse: true });
-            $('.percent').mask('##0,00%', { reverse: true });
-            $('.clear-if-not-match').mask("00/00/0000", { clearIfNotMatch: true });
             $('.selectonfocus').mask("00/00/0000", { selectOnFocus: true });
-
-            $(".date").datepicker({
-                dateFormat: 'dd/mm/yy',
-                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-                nextText: 'Próximo',
-                prevText: 'Anterior'
-            });
         });
 
         // função para esconder as notificações
@@ -72,7 +50,6 @@
                 prevText: 'Anterior'
             });
         });
-
     </script>
 
     <style>
@@ -142,11 +119,6 @@
                     </a>
 
                 </div>
-                
-
-                
-
-                
             </div>
         </div>
     </footer>
