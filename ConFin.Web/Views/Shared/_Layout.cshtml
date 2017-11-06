@@ -103,7 +103,7 @@
                         <p style="margin-top: 0!important;" class="grey-text text-lighten-4 ">Saldo Anterior: (R$)</p>
                         <p style="font-size: 25pt; margin: -25px"><span id="spanSaldoAnterior">-</span></p>
                     </div>
-                    <div class="col s8 center-align">
+                    <div id="divSaldoAtual" class="col s8 center-align">
                         <p style="margin-top: 0!important;" class="grey-text text-lighten-4 ">Saldo Atual: (R$)</p>
                         <p style="font-size: 25pt; margin: -25px"><span id="spanSaldoAtual">-</span></p>
                     </div>
@@ -112,7 +112,7 @@
                         <p style="font-size: 25pt; margin: -25px"><span id="spanSaldoPrev">-</span></p>
                     </div>
                     
-                    <a style="position: absolute; bottom: 30px; right: 20px;" href="javascript:void(0)"
+                    <a id="linkResumoFinanceiro" style="position: absolute; bottom: 30px; right: 20px;" href="javascript:void(0)"
                        onclick="slideToggleResumoSaldo(this)" class="tooltipped up grey-text text-lighten-4"
                        data-position="top" data-delay="25" data-tooltip="Exibir Resumo Financeiro">
                         <i class="material-icons">keyboard_arrow_up</i>
@@ -123,6 +123,64 @@
         </div>
     </footer>
 
+    @*      Ajudas do sistema       *@
+
+    <div id="targetNotificacao" class="tap-target" data-activates="linkNotificacao">
+        <div class="tap-target-content" style="text-align: center">
+            <h5>Notificações</h5>
+            <p>Constantemente você receberá notificações, para visualizá-las é só clicar neste icone.</p>
+            <a class="waves-effect waves-light" href="javascript:void(0)" onclick="nextHelp('targetNotificacao', 'targetMenu')">Próxima dica <i class="material-icons">navigate_next</i></a>
+        </div>
+    </div>
+
+    <div id="targetMenu" class="tap-target" data-activates="linkMenu">
+        <div class="tap-target-content">
+            <h5>Menu</h5>
+            <p>Conheça o ConFin explorando as opções de menu do sistema.</p>
+            <a class="waves-effect waves-light" href="javascript:void(0)" onclick="nextHelp('targetMenu', 'targetResumoFinanceiro')">Próxima dica <i class="material-icons">navigate_next</i></a>
+        </div>
+    </div>
+
+    <div id="targetResumoFinanceiro" class="tap-target" data-activates="linkResumoFinanceiro">
+        <div class="tap-target-content" style="text-align: right">
+            <h5>Resumo Financeiro</h5>
+            <p>Clicando nesta opção você poderá visualizar o seu resumo financeiro detalhadamente.</p>
+            <a class="waves-effect waves-light" href="javascript:void(0)" onclick="nextHelp('targetResumoFinanceiro', 'targetLinkEmail')">Próxima dica <i class="material-icons">navigate_next</i></a>
+        </div>
+    </div>
+
+    <div id="targetLinkEmail" class="tap-target" data-activates="linkEmail">
+        <div class="tap-target-content">
+            <h5>Perfil / Logoff</h5>
+            <p>Nesta opção você pode editar os dados do seu perfil ou encerrar sua sessão</p>
+            <a class="waves-effect waves-light" href="javascript:void(0)" onclick="nextHelp('targetLinkEmail', 'targetSpanSaldoAtual')">Próxima dica <i class="material-icons">navigate_next</i></a>
+        </div>
+    </div>
+
+    <div id="targetSpanSaldoAtual" class="tap-target" data-activates="spanSaldoAtual">
+        <div class="tap-target-content">
+            <h5>Saldo Atual</h5>
+            <p>Este é o seu saldo atual, durante todo seu acesso ele estará disponível para visualização em qualquer tela.</p>
+            <a class="waves-effect waves-light" href="javascript:void(0)" onclick="nextHelp('targetSpanSaldoAtual', 'targetSpanSaldoAnterior')">Próxima dica <i class="material-icons">navigate_next</i></a>
+        </div>
+    </div>
+
+    <div id="targetSpanSaldoAnterior" class="tap-target" data-activates="spanSaldoAnterior">
+        <div class="tap-target-content">
+            <h5>Saldo Anterior</h5>
+            <p>Este é o saldo anterior ao mês atual, ele também ficara visível durante todo seu acesso ao sistema.</p>
+            <a class="waves-effect waves-light" href="javascript:void(0)" onclick="nextHelp('targetSpanSaldoAnterior', 'targetSpanSaldoPrev')">Próxima dica <i class="material-icons">navigate_next</i></a>
+        </div>
+    </div>
+
+    <div id="targetSpanSaldoPrev" class="tap-target" data-activates="spanSaldoPrev">
+        <div class="tap-target-content">
+            <h5>Saldo Previsto</h5>
+            <p>Aqui você pode conferir seu saldo previsto para o final do mês atual.</p>
+            <a class="waves-effect waves-light" href="javascript:void(0)" onclick="nextHelp('targetSpanSaldoPrev')">Repetir dicas <i class="material-icons">navigate_next</i></a>
+        </div>
+    </div>
+
     <div data-id-usuario="@ViewBag.Id" class="container" id="containerPrincipal">
         @RenderBody()
     </div>
@@ -130,9 +188,9 @@
 </body>
 </html>
 
-
-
 <script>
+
+    $("#targetNotificacao").tapTarget('open');
 
     function slideToggleResumoSaldo(button) {
         if ($(button).hasClass("up")) {
@@ -147,6 +205,15 @@
             $(button).find("i").text("keyboard_arrow_up");
             $("#divResumoSaldo").slideUp();
         }
+    }
+
+    function nextHelp(idAtual, idProximo) {
+
+        if (idProximo == undefined)
+            nextHelp(idAtual, "targetNotificacao");
+
+        $("#" + idAtual).tapTarget('close');
+        $("#" + idProximo).tapTarget('open');
     }
 
     $(".button-collapse").sideNav();

@@ -5,13 +5,15 @@
         <div class="nav-wrapper">
             <ul class="right hide-on-med-and-down">
                 <input type="hidden" id="btnHiddenAtualizaTotalNotificacoes" />
-                <li class="darkBackground notificacao" onclick="exibeNotificacoes('N')" style="padding: 0 15px 0 15px">
+                <li class="notificacao" onclick="exibeNotificacoes('N')" style="padding: 0 15px 0 15px">
                     <div id="divSpansNotificacao" style="position: relative; display: none">
                         <span class="notification">
                             <span class="count-notification" id="spanTotNotificacaoNaoLida">0</span>
                         </span>
                     </div>
-                    <i class="material-icons">notifications</i>
+                    <a id="linkNotificacao" class="waves-effect waves-light" href="javascript:void(0)">
+                        <i class="material-icons">notifications</i>
+                    </a>
                 </li>
                 <li>
                     <a id="linkEmail" class="dropdown-button" href="javascript:void(0)" data-activates="comboOpcoesUsuario">
@@ -23,6 +25,8 @@
         </div>
     </nav>
 </div>
+
+
 
 <ul id="ulNotificacao" class="collection" style="display: none; width: 37%; position: absolute; right: 0; z-index: 1000; max-height: 80%; overflow-y: auto">
     <li id="liEmptyNotificacaoNaoLida" class="collection-item avatar" style="display: none">
@@ -44,7 +48,7 @@
     <li><a href="@Url.AbsoluteAction("Home", "Logout")"><i class="material-icons">exit_to_app</i>Sair</a></li>
 </ul>
 
-<a href="javascript:void(0)" style="position: fixed; z-index: 101; top: 16px; left: 16px; color: #eeeeee" data-activates="menuLateral"
+<a id="linkMenu" href="javascript:void(0)" style="position: fixed; z-index: 101; top: 16px; left: 16px; color: #eeeeee" data-activates="menuLateral"
    class="button-collapse tooltipped" data-position="right" data-delay="25" data-tooltip="Menu">
     <i class="small material-icons">menu</i>
 </a>

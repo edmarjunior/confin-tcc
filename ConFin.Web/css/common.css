@@ -71,3 +71,13 @@ i.scale { transition: all .2s ease-in-out}
 i.scale:hover {
     transform: scale(1.8);
 }
+
+.tap-target {
+    background-color: lightblue !important
+}
+
+.tap-target-content {
+    color: white;
+    font-weight: bolder;
+    font-size: 13pt
+}
