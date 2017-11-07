@@ -87,6 +87,7 @@
     <Compile Include="Api\Controllers\PingController.cs" />
     <Compile Include="Api\WebApiConfig.cs" />
     <Compile Include="Domain\Auxiliar\DataManut.cs" />
+    <Compile Include="Domain\Auxiliar\Email.cs" />
     <Compile Include="Domain\Dto\CompromissoDto.cs" />
     <Compile Include="Domain\Dto\CompromissoLancamentoDto.cs" />
     <Compile Include="Domain\Dto\ContaConjuntaDto.cs" />
