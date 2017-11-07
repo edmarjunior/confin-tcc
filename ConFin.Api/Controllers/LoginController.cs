@@ -9,14 +9,11 @@ namespace ConFin.Api.Controllers
     public class LoginController: ApiController
     {
         private readonly ILoginService _loginService;
-        private readonly ILoginRepository _loginRepository;
         private readonly Notification _notification;
 
-
-        public LoginController(ILoginService loginService, ILoginRepository loginRepository, Notification notification)
+        public LoginController(ILoginService loginService, Notification notification)
         {
             _loginService = loginService;
-            _loginRepository = loginRepository;
             _notification = notification;
         }
 
