@@ -1,10 +1,9 @@
 ﻿using ConFin.Common.Domain;
+using ConFin.Common.Domain.Auxiliar;
 using ConFin.Common.Domain.Dto;
 using ConFin.Domain.ContaFinanceira;
 using ConFin.Domain.LancamentoCategoria;
 using System;
-using System.Net;
-using System.Net.Mail;
 
 namespace ConFin.Domain.Login
 {
@@ -75,12 +74,11 @@ namespace ConFin.Domain.Login
                           "<p>Este é um e-mail automático. Não é necessário respondê-lo</p>" +
                           "<p>Atenciosamente,</br>ConFin - Controle Financeiro Pessoal </p>";
 
-            EnviaEmail(usuario, body, "Confirmação de Cadastro");
+            Email.Enviar("Confirmação de Cadastro", usuario.Email, body, usuario.Nome);
         }
 
         public void PostReenviarSenha(string email)
         {
-
             var usuario = Get(email);
             if (_notification.Any)
                 return;
@@ -104,9 +102,8 @@ namespace ConFin.Domain.Login
                         "<p>Este é um e-mail automático. Não é necessário respondê-lo</p>" +
                         "<p>Atenciosamente,</br>ConFin - Controle Financeiro Pessoal </p>";
 
-            EnviaEmail(usuario, body, "Alteração de Senha");
+            Email.Enviar("Alteração de Senha", usuario.Email, body, usuario.Nome);
             _loginRepository.CommitTransaction();
-
         }
 
         public void GetVerificaTokenValidoRedefinirSenha(int idUsuario, string token)
@@ -147,27 +144,5 @@ namespace ConFin.Domain.Login
                 _loginRepository.RollbackTransaction();
         }
 
-        private static void EnviaEmail(UsuarioDto usuario, string body, string subject)
-        {
-            var client = new SmtpClient()
-            {
-                Host = "smtp-mail.outlook.com",
-                EnableSsl = true,
-                Credentials = new NetworkCredential("confinpessoal@outlook.com", "teste321"),
-                Port = 587
-            };
-
-            var mail = new MailMessage
-            {
-                Sender = new MailAddress(usuario.Email, usuario.Nome),
-                From = new MailAddress("confinpessoal@outlook.com", "ConFin automático"),
-                Subject = subject,
-                Body = body,
-                IsBodyHtml = true,
-            };
-
-            mail.To.Add(new MailAddress(usuario.Email, usuario.Nome));
-            client.Send(mail);
-        }
     }
 }
