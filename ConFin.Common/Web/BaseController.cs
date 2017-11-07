@@ -1,5 +1,7 @@
-﻿using ConFin.Common.Domain.Dto;
+﻿using ConFin.Common.Domain.Auxiliar;
+using ConFin.Common.Domain.Dto;
 using Newtonsoft.Json;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Web.Mvc;
@@ -22,9 +24,24 @@ namespace ConFin.Common.Web
 
         protected override void OnException(ExceptionContext filterContext)
         {
-            filterContext.ExceptionHandled = true;
-            filterContext.Result = Error("Ocorreu um erro ao realizar a operação. Já estamos trabalhando para corrigir.");
-            base.OnException(filterContext);
+            try
+            {
+                var body = $"Ocorreu uma falha na web-confin: {filterContext.RequestContext.HttpContext.Request.Url}{Environment.NewLine}" +
+                       $"Data......: {DateTime.Now}.{Environment.NewLine}" +
+                       $"Exception.: {filterContext.Exception.Message}{Environment.NewLine}" +
+                       $"StackTrace: {filterContext.Exception.StackTrace}";
+
+                Email.Enviar("Exception Filter WEB", "confinpessoal@outlook.com", body, "ConFin automático");
+                filterContext.ExceptionHandled = true;
+                filterContext.Result = Error("Ocorreu um erro ao realizar a operação. Já estamos trabalhando para corrigir.");
+                base.OnException(filterContext);
+            }
+            catch (Exception ex)
+            {
+                filterContext.ExceptionHandled = true;
+                filterContext.Result = Error("Ocorreu um erro ao realizar a operação. Já estamos trabalhando para corrigir.");
+                base.OnException(filterContext);
+            }
         }
 
         protected ActionResult Ok(string mensagem = null)
