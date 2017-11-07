@@ -1,4 +1,5 @@
-﻿using ConFin.Application.AppService.Lancamento;
+﻿using ConFin.Application.AppService.AcessoOpcaoMenu;
+using ConFin.Application.AppService.Lancamento;
 using ConFin.Common.Domain.Dto;
 using ConFin.Common.Web;
 using ConFin.Web.Reports.Lancamento;
@@ -15,14 +16,22 @@ namespace ConFin.Web.Controllers.Relatorios
     public class RelLancamentoController: BaseController
     {
         private readonly ILancamentoAppService _lancamentoAppService;
+        private readonly IAcessoOpcaoMenuAppService _acessoOpcaoMenuAppService;
 
-        public RelLancamentoController(ILancamentoAppService lancamentoAppService)
+        public RelLancamentoController(ILancamentoAppService lancamentoAppService, IAcessoOpcaoMenuAppService acessoOpcaoMenuAppService)
         {
             _lancamentoAppService = lancamentoAppService;
+            _acessoOpcaoMenuAppService = acessoOpcaoMenuAppService;
         }
 
         public ActionResult RelLancamento()
         {
+            var responseOpcMenu = _acessoOpcaoMenuAppService.Post(UsuarioLogado.Id, 8); // 8: codigo opção menu "Relatório Lançamento"
+            if (!responseOpcMenu.IsSuccessStatusCode)
+                return Error(responseOpcMenu);
+
+            ViewBag.PrimeiroAcesso = Deserialize<int>(responseOpcMenu) < 1 ? "S" : "N";
+
             return View();
         }
 

@@ -1,4 +1,5 @@
-﻿using ConFin.Application.AppService.ContaFinanceira;
+﻿using ConFin.Application.AppService.AcessoOpcaoMenu;
+using ConFin.Application.AppService.ContaFinanceira;
 using ConFin.Application.AppService.Lancamento;
 using ConFin.Application.AppService.LancamentoCategoria;
 using ConFin.Application.AppService.Transferencia;
@@ -25,14 +26,15 @@ namespace ConFin.Web.Controllers
         private readonly ILancamentoCategoriaAppService _lancamentoCategoriaAppService;
         private readonly IContaFinanceiraAppService _contaFinanceiraAppService;
         private readonly ITransferenciaAppService _transferenciaAppService;
+        private readonly IAcessoOpcaoMenuAppService _acessoOpcaoMenuAppService;
 
-
-        public LancamentoController(ILancamentoAppService lancamentoAppService, ILancamentoCategoriaAppService lancamentoCategoriaAppService, IContaFinanceiraAppService contaFinanceiraAppService, ITransferenciaAppService transferenciaAppService)
+        public LancamentoController(ILancamentoAppService lancamentoAppService, ILancamentoCategoriaAppService lancamentoCategoriaAppService, IContaFinanceiraAppService contaFinanceiraAppService, ITransferenciaAppService transferenciaAppService, IAcessoOpcaoMenuAppService acessoOpcaoMenuAppService)
         {
             _lancamentoAppService = lancamentoAppService;
             _lancamentoCategoriaAppService = lancamentoCategoriaAppService;
             _contaFinanceiraAppService = contaFinanceiraAppService;
             _transferenciaAppService = transferenciaAppService;
+            _acessoOpcaoMenuAppService = acessoOpcaoMenuAppService;
         }
 
         public ActionResult Lancamento(int? idConta = null, int? idCategoria = null, byte? mes = null, short? ano = null)
@@ -69,6 +71,12 @@ namespace ConFin.Web.Controllers
 
             var responsePossuiOpcaoTransferencia = _transferenciaAppService.GetVerificaClientePossuiTransferenciaHabilitada(UsuarioLogado.Id);
             ViewBag.PossuiOpcaoTransferencia = responsePossuiOpcaoTransferencia.IsSuccessStatusCode;
+
+            var responseOpcMenu = _acessoOpcaoMenuAppService.Post(UsuarioLogado.Id, 3); // 3: codigo opção menu "Lancamentos"
+            if (!responseOpcMenu.IsSuccessStatusCode)
+                return Error(responseOpcMenu);
+
+            ViewBag.PrimeiroAcesso = Deserialize<int>(responseOpcMenu) < 1 ? "S" : "N";
 
             return View("Lancamento", new LancamentoMasterViewModel(lancamentos, (byte)mes, (short)ano, idConta, idCategoria)
             {

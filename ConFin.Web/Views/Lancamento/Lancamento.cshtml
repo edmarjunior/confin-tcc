@@ -163,40 +163,92 @@
 </div>
 
 <div class="btnAdd fixed-action-btn">
-	<a class="btn-floating btn-large">
-		<i class="large material-icons">add</i>
-	</a>
-	<ul>
-		<li>
-			<a href="javascript:void(0)" onclick="showModalImportarLancamento()"
-			   class="btn-floating modal-trigger tooltipped" data-position="left" data-delay="25" data-tooltip="Importar lançamentos">
-				<i class="material-icons">backup</i>
-			</a>
-		</li>
-		@if ((bool)ViewBag.PossuiOpcaoTransferencia)
-		{
-			<li>
-				<a href="javascript:void(0)" onclick="showModalCadastroEdicaoTransferencia()"
-				   class="btn-floating blue modal-trigger tooltipped" data-position="left" data-delay="25" data-tooltip="Transferência">
-					<i class="material-icons">compare_arrows</i>
-				</a>
-			</li>
-		}
-		<li>
-			<a href="javascript:void(0)" onclick="showModalCadastroEdicaoLancamento(this, null, 'R')"
-			   class="btn-floating green modal-trigger tooltipped" data-position="left" data-delay="25" data-tooltip="Receita">
-				<i class="material-icons">tag_faces</i>
-			</a>
-		</li>
-		<li>
-			<a href="javascript:void(0)" onclick="showModalCadastroEdicaoLancamento(this, null, 'D')"
-			   class="btn-floating red modal-trigger tooltipped" data-position="left" data-delay="25" data-tooltip="Despesa">
-				<i class="material-icons">mood_bad</i>
-			</a>
-		</li>
-	</ul>
+    <a id="btnAddLancamento" class="btn-floating btn-large">
+        <i class="large material-icons">add</i>
+    </a>
+    <ul>
+        <li>
+            <a id="linkCadImportacao" href="javascript:void(0)" onclick="showModalImportarLancamento()"
+               class="btn-floating modal-trigger tooltipped" data-position="left" data-delay="25" data-tooltip="Importar lançamentos">
+                <i style="color: lightblue" class="material-icons">backup</i>
+            </a>
+        </li>
+        <li>
+            <a @((bool)ViewBag.PossuiOpcaoTransferencia ? "" : "disabled") id="linkCadTransferencia" href="javascript:void(0)" onclick="showModalCadastroEdicaoTransferencia()"
+                class="btn-floating blue modal-trigger tooltipped" data-position="left" data-delay="25" data-tooltip="Transferência">
+                <i class="material-icons">compare_arrows</i>
+            </a>
+        </li>
+        <li>
+            <a id="linkCaReceita" href="javascript:void(0)" onclick="showModalCadastroEdicaoLancamento(this, null, 'R')"
+               class="btn-floating green modal-trigger tooltipped" data-position="left" data-delay="25" data-tooltip="Receita">
+                <i class="material-icons">tag_faces</i>
+            </a>
+        </li>
+        <li>
+            <a id="linkCadDespesa" href="javascript:void(0)" onclick="showModalCadastroEdicaoLancamento(this, null, 'D')"
+               class="btn-floating red modal-trigger tooltipped" data-position="left" data-delay="25" data-tooltip="Despesa">
+                <i class="material-icons">mood_bad</i>
+            </a>
+        </li>
+    </ul>
 </div>
 
+@*      Ajudas do sistema       *@
+
+
+<div id="targetBtnAddLancamento" class="tap-target" data-activates="btnAddLancamento">
+    <div class="tap-target-content" style="text-align: center">
+        <h5>Multiplas opções</h5>
+        <p>Bem vindo a tela de lançamentos, provavelmente esta será sua principal tela. Passando o mouse
+         sobre esse icone é exibido algumas funcionalidades.</p>
+        <a class="waves-effect waves-light" href="javascript:void(0)"
+           onclick="nextHelpLancamento('targetBtnAddLancamento', 'targetLinkCadDespesa')">Próxima dica
+            <i class="material-icons">navigate_next</i>
+        </a>
+    </div>
+</div>
+
+<div id="targetLinkCadDespesa" class="tap-target" data-activates="linkCadDespesa">
+    <div class="tap-target-content" style="text-align: center">
+        <h5>Cadastro de Despesa</h5>
+        <p>Cadastre todos seus gastos e despesas. Ex: material escolar, roupas, etc.</p>
+        <a class="waves-effect waves-light" href="javascript:void(0)"
+           onclick="nextHelpLancamento('targetLinkCadDespesa', 'targetLinkCaReceita')">Próxima dica
+            <i class="material-icons">navigate_next</i>
+        </a>
+    </div>
+</div>
+<div id="targetLinkCaReceita" class="tap-target" data-activates="linkCaReceita">
+    <div class="tap-target-content" style="text-align: center">
+        <h5>Cadastro de Receita</h5>
+        <p>Aqui você pode cadastrar todas suas fontes de renda e receitas. Ex: salário, comissões, etc.</p>
+        <a class="waves-effect waves-light" href="javascript:void(0)"
+           onclick="nextHelpLancamento('targetLinkCaReceita', 'targetLinkCadTransferencia')">Próxima dica
+            <i class="material-icons">navigate_next</i>
+        </a>
+    </div>
+</div>
+<div id="targetLinkCadTransferencia" class="tap-target" data-activates="linkCadTransferencia">
+    <div class="tap-target-content" style="text-align: center">
+        <h5>Transferências</h5>
+        <p>Caso possua mais de uma conta, você pode realizar transferência de valores entre elas.</p>
+        <a class="waves-effect waves-light" href="javascript:void(0)"
+           onclick="nextHelpLancamento('targetLinkCadTransferencia', 'targetLinkCadImportacao')">Próxima dica
+            <i class="material-icons">navigate_next</i>
+        </a>
+    </div>
+</div>
+<div id="targetLinkCadImportacao" class="tap-target" data-activates="linkCadImportacao">
+    <div class="tap-target-content" style="text-align: center">
+        <h5>Importar lançamentos</h5>
+        <p>Olha que legal, aqui você pode pegar todos aqueles lançamentos que estão em planilhas de excel e importar de uma só vez para uma conta.</p>
+        <a class="waves-effect waves-light" href="javascript:void(0)"
+           onclick="nextHelpLancamento('targetLinkCadImportacao')">Repetir dicas
+            <i class="material-icons">navigate_next</i>
+        </a>
+    </div>
+</div>
 <script>
 
 	$(".tooltipped").tooltip({ delay: 25 });
@@ -222,6 +274,22 @@
 		sendAjaxAtualizaResumoGeral(urlAtualizaSaldo, $("#thComboConta").val(), $("#thComboCategoria").val(), $("#hiddenMesAtual").val(), $("#hiddenAnoAtual").val());
 		return fnc;
 	})();
+
+
+	var primeiroAcesso = '@ViewBag.PrimeiroAcesso';
+    if (primeiroAcesso == "S") {
+        $("#btnAddLancamento").trigger("mouseover");
+	    $("#targetBtnAddLancamento").tapTarget('open');
+	}
+
+	function nextHelpLancamento(idAtual, idProximo) {
+
+	    if (idProximo == undefined)
+	        nextHelpLancamento(idAtual, "targetBtnAddLancamento");
+
+	    $("#" + idAtual).tapTarget('close');
+	    $("#" + idProximo).tapTarget('open');
+	}
 
 	function showModalCadastroEdicaoLancamento(button, idLancamento, indicadorReceitaDespesa) {
 	    $('.toast').remove();

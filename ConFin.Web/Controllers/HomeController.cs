@@ -1,4 +1,5 @@
-﻿using ConFin.Application.AppService.Lancamento;
+﻿using ConFin.Application.AppService.AcessoOpcaoMenu;
+using ConFin.Application.AppService.Lancamento;
 using ConFin.Application.AppService.Transferencia;
 using ConFin.Common.Domain.Dto;
 using ConFin.Common.Web;
@@ -16,12 +17,14 @@ namespace ConFin.Web.Controllers
     {
         private readonly ILancamentoAppService _lancamentoAppService;
         private readonly ITransferenciaAppService _transferenciaAppService;
+        private readonly IAcessoOpcaoMenuAppService _acessoOpcaoMenuAppService;
 
 
-        public HomeController(ILancamentoAppService lancamentoAppService, ITransferenciaAppService transferenciaAppService)
+        public HomeController(ILancamentoAppService lancamentoAppService, ITransferenciaAppService transferenciaAppService, IAcessoOpcaoMenuAppService acessoOpcaoMenuAppService)
         {
             _lancamentoAppService = lancamentoAppService;
             _transferenciaAppService = transferenciaAppService;
+            _acessoOpcaoMenuAppService = acessoOpcaoMenuAppService;
         }
 
         public ActionResult Home()
@@ -37,10 +40,18 @@ namespace ConFin.Web.Controllers
                 .Select(x => new LancamentoViewModel(x)).ToList();
 
             var responsePossuiOpcaoTransferencia = _transferenciaAppService.GetVerificaClientePossuiTransferenciaHabilitada(UsuarioLogado.Id);
-            ViewBag.PossuiOpcaoTransferencia = responsePossuiOpcaoTransferencia.IsSuccessStatusCode;
 
+            ViewBag.PossuiOpcaoTransferencia = responsePossuiOpcaoTransferencia.IsSuccessStatusCode;
             ViewBag.Email = UsuarioLogado.Email;
             ViewBag.Id = UsuarioLogado.Id;
+
+            var responseOpcMenu = _acessoOpcaoMenuAppService.Post(UsuarioLogado.Id, 1); // 1: codigo opção menu "HOME"
+            if(!responseOpcMenu.IsSuccessStatusCode)
+                return Error(responseOpcMenu);
+
+            ViewBag.PrimeiroAcesso = Deserialize<int>(responseOpcMenu) < 1 ? "S" : "N";
+
+
             return View("Home", new HomeViewModel { Lancamentos = lancamentos });
         }
 

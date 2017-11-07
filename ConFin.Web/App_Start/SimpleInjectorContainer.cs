@@ -1,4 +1,5 @@
-﻿using ConFin.Application.AppService.ContaConjunta;
+﻿using ConFin.Application.AppService.AcessoOpcaoMenu;
+using ConFin.Application.AppService.ContaConjunta;
 using ConFin.Application.AppService.ContaFinanceira;
 using ConFin.Application.AppService.ContaFinanceiraTipo;
 using ConFin.Application.AppService.Lancamento;
@@ -26,6 +27,7 @@ namespace ConFin.Web
             container.Register<ITransferenciaAppService, TransferenciaAppService>();
             container.Register<IContaConjuntaAppService, ContaConjuntaAppService>();
             container.Register<INotificacaoAppService, NotificacaoAppService>();
+            container.Register<IAcessoOpcaoMenuAppService, AcessoOpcaoMenuAppService>();
 
             container.Verify();
             return container;

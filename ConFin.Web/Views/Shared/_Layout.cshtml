@@ -190,7 +190,10 @@
 
 <script>
 
-    $("#targetNotificacao").tapTarget('open');
+    var primeiroAcesso = '@ViewBag.PrimeiroAcesso';
+
+    if (primeiroAcesso == "S")
+        $("#targetNotificacao").tapTarget('open');
 
     function slideToggleResumoSaldo(button) {
         if ($(button).hasClass("up")) {

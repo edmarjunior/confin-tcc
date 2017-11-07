@@ -1,4 +1,5 @@
-﻿using ConFin.Application.AppService.LancamentoCategoria;
+﻿using ConFin.Application.AppService.AcessoOpcaoMenu;
+using ConFin.Application.AppService.LancamentoCategoria;
 using ConFin.Application.AppService.Transferencia;
 using ConFin.Common.Domain.Dto;
 using ConFin.Common.Web;
@@ -12,10 +13,12 @@ namespace ConFin.Web.Controllers
     public class LancamentoCategoriaController: BaseController
     {
         private readonly ILancamentoCategoriaAppService _lancamentoCategoriaAppService;
+        private readonly IAcessoOpcaoMenuAppService _acessoOpcaoMenuAppService;
 
-        public LancamentoCategoriaController(ILancamentoCategoriaAppService lancamentoCategoriaAppService, ITransferenciaAppService transferenciaAppService)
+        public LancamentoCategoriaController(ILancamentoCategoriaAppService lancamentoCategoriaAppService, ITransferenciaAppService transferenciaAppService, IAcessoOpcaoMenuAppService acessoOpcaoMenuAppService)
         {
             _lancamentoCategoriaAppService = lancamentoCategoriaAppService;
+            _acessoOpcaoMenuAppService = acessoOpcaoMenuAppService;
         }
 
         public ActionResult LancamentoCategoria()
@@ -25,6 +28,13 @@ namespace ConFin.Web.Controllers
                 return Error(response);
 
             var categorias = JsonConvert.DeserializeObject<IEnumerable<LancamentoCategoriaDto>>(response.Content.ReadAsStringAsync().Result);
+
+            var responseOpcMenu = _acessoOpcaoMenuAppService.Post(UsuarioLogado.Id, 4); // 4: codigo opção menu "Categorias Lançamento"
+            if (!responseOpcMenu.IsSuccessStatusCode)
+                return Error(responseOpcMenu);
+
+            ViewBag.PrimeiroAcesso = Deserialize<int>(responseOpcMenu) < 1 ? "S" : "N";
+
             return View("LancamentoCategoria", categorias);
         }
 

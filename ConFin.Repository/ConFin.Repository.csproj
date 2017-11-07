@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcessoOpcaoMenuRepository.cs" />
     <Compile Include="CompromissoRepository.cs" />
     <Compile Include="ContaConjuntaRepository.cs" />
     <Compile Include="ContaFinanceiraRepository.cs" />

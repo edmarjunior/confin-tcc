@@ -1,5 +1,6 @@
 ﻿using ConFin.Common.Domain;
 using ConFin.Common.Repository.Infra;
+using ConFin.Domain.AcessoOpcaoMenu;
 using ConFin.Domain.Compromisso;
 using ConFin.Domain.ContaConjunta;
 using ConFin.Domain.ContaFinanceira;
@@ -46,6 +47,7 @@ namespace ConFin.Api
             Container.Register<ICompromissoRepository, CompromissoRepository>();
             Container.Register<IContaConjuntaRepository, ContaConjuntaRepository>();
             Container.Register<INotificacaoRepository, NotificacaoRepository>();
+            Container.Register<IAcessoOpcaoMenuRepository, AcessoOpcaoMenuRepository>();
         }
 
         private static void RegisterServices()
@@ -58,6 +60,7 @@ namespace ConFin.Api
             Container.Register<IContaConjuntaService, ContaConjuntaService>();
             Container.Register<INotificacaoService, NotificacaoService>();
             Container.Register<ITransferenciaService, TransferenciaService>();
+            Container.Register<IAcessoOpcaoMenuService, AcessoOpcaoMenuService>();
         }
     }
 }

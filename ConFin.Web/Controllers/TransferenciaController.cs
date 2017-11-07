@@ -1,4 +1,5 @@
-﻿using ConFin.Application.AppService.ContaFinanceira;
+﻿using ConFin.Application.AppService.AcessoOpcaoMenu;
+using ConFin.Application.AppService.ContaFinanceira;
 using ConFin.Application.AppService.LancamentoCategoria;
 using ConFin.Application.AppService.Transferencia;
 using ConFin.Common.Domain.Dto;
@@ -17,14 +18,16 @@ namespace ConFin.Web.Controllers
         private readonly ITransferenciaAppService _transferenciaAppService;
         private readonly ILancamentoCategoriaAppService _lancamentoCategoriaAppService;
         private readonly IContaFinanceiraAppService _contaFinanceiraAppService;
+        private readonly IAcessoOpcaoMenuAppService _acessoOpcaoMenuAppService;
 
 
         public TransferenciaController(ITransferenciaAppService transferenciaAppService,
-            IContaFinanceiraAppService contaFinanceiraAppService, ILancamentoCategoriaAppService lancamentoCategoriaAppService)
+            IContaFinanceiraAppService contaFinanceiraAppService, ILancamentoCategoriaAppService lancamentoCategoriaAppService, IAcessoOpcaoMenuAppService acessoOpcaoMenuAppService)
         {
             _transferenciaAppService = transferenciaAppService;
             _contaFinanceiraAppService = contaFinanceiraAppService;
             _lancamentoCategoriaAppService = lancamentoCategoriaAppService;
+            _acessoOpcaoMenuAppService = acessoOpcaoMenuAppService;
         }
 
         public ActionResult Transferencia()
@@ -34,6 +37,12 @@ namespace ConFin.Web.Controllers
                 return Error(response);
 
             var transferencias = JsonConvert.DeserializeObject<IEnumerable<TransferenciaDto>>(response.Content.ReadAsStringAsync().Result);
+
+            var responseOpcMenu = _acessoOpcaoMenuAppService.Post(UsuarioLogado.Id, 5); // 5: codigo opção menu "Transferencia"
+            if (!responseOpcMenu.IsSuccessStatusCode)
+                return Error(responseOpcMenu);
+
+            ViewBag.PrimeiroAcesso = Deserialize<int>(responseOpcMenu) < 1 ? "S" : "N";
             return View("Transferencia", transferencias.Select(x => new TransferenciaViewModel(x) { UsuarioPodeEditarTransferencia = x.IdUsuarioCadastro == UsuarioLogado.Id }));
         }
 

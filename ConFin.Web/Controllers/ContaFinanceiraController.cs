@@ -1,4 +1,5 @@
-﻿using ConFin.Application.AppService.ContaFinanceira;
+﻿using ConFin.Application.AppService.AcessoOpcaoMenu;
+using ConFin.Application.AppService.ContaFinanceira;
 using ConFin.Application.AppService.ContaFinanceiraTipo;
 using ConFin.Common.Domain.Dto;
 using ConFin.Common.Web;
@@ -15,11 +16,13 @@ namespace ConFin.Web.Controllers
     {
         private readonly IContaFinanceiraAppService _contaFinanceiraAppService;
         private readonly IContaFinanceiraTipoAppService _contaFinanceiraTipoAppService;
+        private readonly IAcessoOpcaoMenuAppService _acessoOpcaoMenuAppService;
 
-        public ContaFinanceiraController(IContaFinanceiraAppService contaFinanceiraAppService, IContaFinanceiraTipoAppService contaFinanceiraTipoAppService)
+        public ContaFinanceiraController(IContaFinanceiraAppService contaFinanceiraAppService, IContaFinanceiraTipoAppService contaFinanceiraTipoAppService, IAcessoOpcaoMenuAppService acessoOpcaoMenuAppService)
         {
             _contaFinanceiraAppService = contaFinanceiraAppService;
             _contaFinanceiraTipoAppService = contaFinanceiraTipoAppService;
+            _acessoOpcaoMenuAppService = acessoOpcaoMenuAppService;
         }
 
         public ActionResult ContaFinanceira()
@@ -29,6 +32,12 @@ namespace ConFin.Web.Controllers
                 return Error(response);
 
             var contas = JsonConvert.DeserializeObject<IEnumerable<ContaFinanceiraDto>>(response.Content.ReadAsStringAsync().Result);
+
+            var responseOpcMenu = _acessoOpcaoMenuAppService.Post(UsuarioLogado.Id, 2); // 2: codigo opção menu "ContaFinanceira"
+            if (!responseOpcMenu.IsSuccessStatusCode)
+                return Error(responseOpcMenu);
+
+            ViewBag.PrimeiroAcesso = Deserialize<int>(responseOpcMenu) < 1 ? "S" : "N";
             return View("ContaFinanceira", contas.Select(x => new ContaFinanceiraViewModel(x)));
         }
 

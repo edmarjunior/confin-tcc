@@ -7,7 +7,7 @@
         <div class="divider" style="margin-top: -5px;"></div>
     </div>
     <div class="row">
-        <form id="formRelLancamentos" class= "col s12">
+        <form id="formRelLancamentos" class="col s12">
             <div class="row">
                 <div class="input-field col s3"></div>
                 <div class="input-field col s3">
@@ -15,7 +15,7 @@
                     <label for="txtDataRelatorio" class="active">Mês/Ano</label>
                 </div>
                 <div class="input-field col s3">
-                    <a onclick="gerarRelLancamento()" href="javascript:void()" class="btn waves-effect waves-light">Gerar
+                    <a id="linkGerarRelLancamento" onclick="gerarRelLancamento()" href="javascript:void()" class="btn waves-effect waves-light">Gerar
                         <i class="material-icons">file_download</i>
                     </a>
                 </div>
@@ -24,9 +24,23 @@
     </div>
 </div>
 
+@*      Ajudas do sistema       *@
+
+<div id="targetLinkGerarRelLancamento" class="tap-target" data-activates="linkGerarRelLancamento">
+    <div class="tap-target-content" style="text-align: right">
+        <h5>Relatório Mensal</h5>
+        <p>Após informar um mês e ano, você poderá gerar um relatório mensal em excel contendo 3(três) abas, sendo elas um resumo mensal, 
+            lista de receitas e por fim de despesas, prontinho para análise e impressão.</p>
+    </div>
+</div>
 <script>
 
     var urlGerarRelLancamento = '@Url.Action("Gerar", "RelLancamento")';
+
+    var primeiroAcesso = '@ViewBag.PrimeiroAcesso';
+    if (primeiroAcesso == "S")
+        $("#targetLinkGerarRelLancamento").tapTarget("open");
+
 
     $("#formRelLancamentos").submit(function(e) {
         e.preventDefault();

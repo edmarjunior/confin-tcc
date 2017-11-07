@@ -81,9 +81,21 @@
 </div>
 
 <div class="btnAdd fixed-action-btn horizontal click-to-toggle">
-	<a href="javascript:void(0)" onclick="showModalCadastroEdicaoTransferencia()" class="waves-effect waves-light modal-trigger btn-floating btn-large">
+	<a id="linkAddTransferencia" href="javascript:void(0)" onclick="showModalCadastroEdicaoTransferencia()" class="waves-effect waves-light modal-trigger btn-floating btn-large">
 		<i class="material-icons">add</i>
 	</a>
+</div>
+
+@*      Ajudas do sistema       *@
+
+<div id="targetLinkAddTransferencia" class="tap-target" data-activates="linkAddTransferencia">
+    <div class="tap-target-content" style="text-align: right">
+        <h5>Transferência</h5>
+        <p>
+            Bem vindo a tela de Transferências, 
+            nesta tela você pode realizar transferência de valores de uma conta para outra, fazer a manutenção e visualizar todas já realizadas.
+        </p>
+    </div>
 </div>
 
 <script>
@@ -102,6 +114,10 @@
 		Delete: '@Url.Action("Delete", "Transferencia")',
 		PutIndicadorPagoRecebido: '@Url.Action("PutIndicadorPagoRecebido", "Transferencia")'
 	};
+
+    var primeiroAcesso = '@ViewBag.PrimeiroAcesso';
+    if (primeiroAcesso == "S")
+        $("#targetLinkAddTransferencia").tapTarget("open");
 
     function showModalCadastroEdicaoTransferencia(idTransferencia) {
         $('.toast').remove();

@@ -44,12 +44,20 @@
     </table>
 </div>
 
-
-
-<div class="btnAdd fixed-action-btn horizontal click-to-toggle">
+<div id="btnAddCategoria" class="btnAdd fixed-action-btn horizontal click-to-toggle">
     <a href="javascript:void(0)" onclick="showModalCadastroEdicaoCategoria()" class="waves-effect waves-light modal-trigger btn-floating btn-large">
         <i class="material-icons">add</i>
     </a>
+</div>
+
+@*      Ajudas do sistema       *@
+
+<div id="targetBtnAddCategoria" class="tap-target" data-activates="btnAddCategoria">
+    <div class="tap-target-content" style="text-align: right">
+        <h5>Novas Categorias</h5>
+        <p>Bem vindo a tela de Categorias, os itens cadastrados aqui serão utilizados para categorizar os lançamentos.</p>
+        <p>Cadastramos algumas categorias para você, fique à vontade para modifica-las e cadastrar mais.</p>
+    </div>
 </div>
 
 <script>
@@ -61,6 +69,10 @@
         Put: '@Url.Action("Put", "LancamentoCategoria")',
         Delete: '@Url.Action("Delete", "LancamentoCategoria")'
     };
+
+    var primeiroAcesso = '@ViewBag.PrimeiroAcesso';
+    if (primeiroAcesso == "S")
+        $("#targetBtnAddCategoria").tapTarget("open");
 
     function showModalCadastroEdicaoCategoria(idCategoria) {
         $.get(urlsCategoria.GetModalCadastroEdicao, {

@@ -47,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppService\AcessoOpcaoMenu\AcessoOpcaoMenuAppService.cs" />
+    <Compile Include="AppService\AcessoOpcaoMenu\IAcessoOpcaoMenuAppService.cs" />
     <Compile Include="AppService\ContaConjunta\ContaConjuntaAppService.cs" />
     <Compile Include="AppService\ContaConjunta\IContaConjuntaAppService.cs" />
     <Compile Include="AppService\ContaFinanceiraTipo\ContaFinanceiraTipoAppService.cs" />
