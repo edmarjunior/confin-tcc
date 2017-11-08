@@ -10,17 +10,29 @@
         <form id="formRelLancamentos" class="col s12">
             <div class="row">
                 <div class="input-field col s3"></div>
-                <div class="input-field col s3">
+                <div class="input-field col s2">
                     <input id="txtDataRelatorio" type="text" class="validate month-year">
                     <label for="txtDataRelatorio" class="active">Mês/Ano</label>
                 </div>
+                <div id="divCheckRepetir" class="col s4">
+                    <p>
+                        <input type="checkbox" id="checkboxInclueLancPrev"/>
+                        <label for="checkboxInclueLancPrev">Incluir lançamentos previsto</label>
+                    </p>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="input-field col s6"></div>
                 <div class="input-field col s3">
-                    <a id="linkGerarRelLancamento" onclick="gerarRelLancamento()" href="javascript:void()" class="btn waves-effect waves-light">Gerar
+                    <a id="linkGerarRelLancamento" onclick="gerarRelLancamento()" href="javascript:void()" class="btn waves-effect waves-light">
+                        Gerar
                         <i class="material-icons">file_download</i>
                     </a>
                 </div>
             </div>
-        </form>
+
+</form>
     </div>
 </div>
 
@@ -67,7 +79,7 @@
             return false;
 
         var data = $("#txtDataRelatorio").val().split("/");
-        window.open(urlGerarRelLancamento + "?mes=" + data[0] + "&ano=" + data[1]);
+        window.open(urlGerarRelLancamento + "?mes=" + data[0] + "&ano=" + data[1] + "&incluiLancamentosPrevisto=" + $("#checkboxInclueLancPrev").is(":checked"));
     }
 
 </script>

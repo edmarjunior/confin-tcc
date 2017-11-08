@@ -35,7 +35,7 @@ namespace ConFin.Web.Controllers.Relatorios
             return View();
         }
 
-        public ActionResult Gerar(byte mes, short ano)
+        public ActionResult Gerar(byte mes, short ano, bool incluiLancamentosPrevisto)
         {
             var response = _lancamentoAppService.GetAll(UsuarioLogado.Id, mes, ano);
             if(!response.IsSuccessStatusCode)
@@ -43,7 +43,10 @@ namespace ConFin.Web.Controllers.Relatorios
 
             var lancamentos = Deserialize<IEnumerable<LancamentoDto>>(response).Select(x => new LancamentoViewModel(x)).ToList();
 
-            if(!lancamentos.Any())
+            if (!incluiLancamentosPrevisto)
+                lancamentos = lancamentos.Where(x => x.IsPagoRecebido).ToList();
+
+            if (!lancamentos.Any())
                 return Error("Você não possui movimentações para este mês");
 
             var excel = LancamentoReport.GetExcel(lancamentos);
