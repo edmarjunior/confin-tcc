@@ -132,7 +132,6 @@ namespace ConFin.Domain.ContaConjunta
 
         public void Delete(int idContaConjunta, int idUsuario)
         {
-            _contaConjuntaRepository.OpenTransaction();
             var contaConjunta = _contaConjuntaRepository.Get(null, null, idContaConjunta).First();
             if (contaConjunta.IndicadorAprovado == "R")
             {
@@ -144,6 +143,8 @@ namespace ConFin.Domain.ContaConjunta
             var usuarioConvidado = _usuarioRepository.Get(contaConjunta.IdUsuarioConvidado);
 
             string msg;
+
+            _contaConjuntaRepository.OpenTransaction();
 
             if (idUsuario == usuarioConvidado.Id)
             {
