@@ -32,7 +32,7 @@
             email: $("#txtEmailRecuperar").val()
         }).success(function () {
             $('#modalRecuperarSenha').modal('close');
-            Materialize.toast('<span>Conta criada com sucesso, favor verificar e-mail de confirmação.</span>', 10000, "green");
+            Materialize.toast('<span>Foi Enviado e-mail com o link para redefinição de senha.</span>', 10000, "green");
         }).error(function (xhr) {
             Materialize.toast('<span>' + xhr.responseText + '</span>', 5000, "red");
         });
