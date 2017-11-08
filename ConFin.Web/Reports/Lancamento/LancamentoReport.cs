@@ -26,13 +26,13 @@ namespace ConFin.Web.Reports.Lancamento
             SetAnoMes(wss, lancamentos);
 
             // montando as planilhas de Despesas e Receitas (percorrendo os lançamentos)
-            MontaLancamentos(wss["Despesas"], lancamentos.Where(x => x.IndicadorReceitaDespesa != "R"));
-            MontaLancamentos(wss["Receitas"], lancamentos.Where(x => x.IndicadorReceitaDespesa != "D"));
+            MontaLancamentos("D", wss["Despesas"], lancamentos.Where(x => !x.IsReceita));
+            MontaLancamentos("R", wss["Receitas"], lancamentos.Where(x => !x.IsDespesa));
 
             // montando total por despesas agrupadas em aba oculta
             var ws = wss["Despesa_Categoria"];
             var linha = 3;
-            foreach (var categoria in lancamentos.Where(x => x.IndicadorReceitaDespesa != "R").GroupBy(x => x.IdCategoria))
+            foreach (var categoria in lancamentos.Where(x => !x.IsReceita).GroupBy(x => x.IdCategoria))
             {
                 ws.InsertRow(linha, 1, linha - 1);
                 ws.Cells[linha, 1].Value = $"{categoria.First().NomeCategoria}";
@@ -43,7 +43,7 @@ namespace ConFin.Web.Reports.Lancamento
             ws.DeleteRow(linha - 1);
 
             // atualizando grafico de despesas por categoria
-            AtualizaGraficoCategorias(wss, linha - 2, lancamentos.All(x => x.IndicadorReceitaDespesa != "D"));
+            AtualizaGraficoCategorias(wss, linha - 2, lancamentos.All(x => !x.IsDespesa));
 
             return excel;
         }
@@ -58,7 +58,7 @@ namespace ConFin.Web.Reports.Lancamento
             (wss["Receitas"].Drawings["Ano do Orçamento"] as ExcelShape).Text = $"{mes} {ano}";
         }
 
-        private static void MontaLancamentos(ExcelWorksheet ws, IEnumerable<LancamentoViewModel> lancamentos)
+        private static void MontaLancamentos(string indicadorDespesaReceita, ExcelWorksheet ws, IEnumerable<LancamentoViewModel> lancamentos)
         {
             var lancamentoViewModels = lancamentos as IList<LancamentoViewModel> ?? lancamentos.ToList();
             if (!lancamentoViewModels.Any())
@@ -68,12 +68,18 @@ namespace ConFin.Web.Reports.Lancamento
 
             foreach (var lancamento in lancamentoViewModels)
             {
+                var nomeConta = !lancamento.IsTransferencia 
+                    ? lancamento.NomeContaOrigem 
+                    : indicadorDespesaReceita == "D"
+                        ? lancamento.NomeContaOrigem 
+                        : lancamento.NomeContaDestino;
+
                 ws.InsertRow(linha, 1, linha - 1);
                 ws.Row(linha).Height = HeightDefault;
                 ws.Cells[linha, 2].Value = $"{lancamento.DataLancamento}";
                 ws.Cells[linha, 3].Value = lancamento.Descricao;
                 ws.Cells[linha, 4].Value = lancamento.Valor;
-                ws.Cells[linha, 5].Value = lancamento.NomeContaOrigem;
+                ws.Cells[linha, 5].Value = nomeConta;
                 ws.Cells[linha, 6].Value = lancamento.NomeCategoria;
                 linha++;
             }
