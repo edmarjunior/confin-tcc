@@ -50,8 +50,8 @@
 
     var urlsConviteContaConjunta = {
         put: '@Url.Action("Put", "ContaConjunta")',
-        contaConjunta: '@Url.Action("ContaConjunta", "ContaConjunta")'
-
+        contaConjunta: '@Url.Action("ContaConjunta", "ContaConjunta")',
+        getResumoLancamento: '@Url.Action("GetResumoLancamento", "Lancamento")'
     };
 
     function putContaConjunta(idContaConjunta, idConta, indicadorAprovado, idUsuarioEnvio) {
@@ -68,6 +68,11 @@
                 $.toast({ message: message, type: "success" });
                 $("#btnHiddenAtualizaTotalNotificacoes").trigger("click");
                 atualizarContaConjunta();
+
+                if (indicadorAprovado == "A") {
+                    // atualizando o resumo de lançamentos (previstos e realizados)
+                    sendAjaxAtualizaResumoGeral(urlsConviteContaConjunta.getResumoLancamento);
+                }
             });
         });
 
