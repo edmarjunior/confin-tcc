@@ -26,7 +26,7 @@
                 <td class="center-align">
                     @if (item.PodeRemoverContaConjunta)
                     {
-                        <a title="Excluir usuário" style="color: crimson" href="javascript:void(0)" onclick="removerUsuarioContaConjunta(@item.Id)">
+                        <a title="Excluir usuário" style="color: crimson" href="javascript:void(0)" onclick="removerUsuarioContaConjunta(@item.Id, '@item.IndicadorAprovado')">
                             <i class="material-icons">delete_forever</i>
                         </a>
                     }
@@ -46,7 +46,7 @@
 <script>
 
 
-    function removerUsuarioContaConjunta(idContaConjunta) {
+    function removerUsuarioContaConjunta(idContaConjunta, indicadorAprovado) {
 
         if (!confirm("Deseja realmente excluir o usuário da conta?"))
             return false;
@@ -55,7 +55,10 @@
             idContaConjunta: idContaConjunta
         }).success(function(message) {
             $.toast({ message: message, type: "success" });
-            $("#btnHiddenAtualizaTotalNotificacoes").trigger("click");
+           
+            if(indicadorAprovado != "R")
+                $("#btnHiddenAtualizaTotalNotificacoes").trigger("click");
+
             atualizaGridUsuarios();
         });
     }

@@ -134,6 +134,12 @@ namespace ConFin.Domain.ContaConjunta
         {
             _contaConjuntaRepository.OpenTransaction();
             var contaConjunta = _contaConjuntaRepository.Get(null, null, idContaConjunta).First();
+            if (contaConjunta.IndicadorAprovado == "R")
+            {
+                _contaConjuntaRepository.Delete(idContaConjunta);
+                return;
+            }
+
             var conta = _contaFinanceiraRepository.Get(contaConjunta.IdConta);
             var usuarioConvidado = _usuarioRepository.Get(contaConjunta.IdUsuarioConvidado);
 
