@@ -113,7 +113,7 @@
         $.get(urlGetNotificacao, {
             indicadorNotificacaoLida: indicadorLida
         }).success(function (notificacoes) {
-            console.log(notificacoes);
+
             $("#liEmptyNotificacaoNaoLida, #liEmptyNotificacaoLida").hide();
 
             // independente se a pesquisa for por notificações lidas ou não lidas (caso não tenha registros algum)

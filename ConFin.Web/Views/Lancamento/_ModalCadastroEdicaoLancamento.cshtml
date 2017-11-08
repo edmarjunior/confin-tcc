@@ -161,17 +161,13 @@
                 $("#comboCategorias").append("<option value='" + categoria.Id + "'>" + categoria.Nome + "</option>");
             });
 
-            console.log(json.filter(function(item) { return item.Id == idCategoriaAnterior }));
-
-            if (idCategoria != null) {
+            if (idCategoria != null)
                 $("#comboCategorias").val(idCategoria);
-            } else if (json.filter(function(item) { return item.Id == idCategoriaAnterior }).length) {
+            else if (json.filter(function(item) { return item.Id == idCategoriaAnterior }).length) 
                 $("#comboCategorias").val(idCategoriaAnterior);
-            } else {
+            else
                 $("#comboCategorias").val("");
-            }
-
-            console.log(json);
+            
         });
     };
 
@@ -187,8 +183,6 @@
     });
 
     $("input[name='IndicadorFixoParcelado']").click(function () {
-
-        console.log($(this).val());
 
         if ($(this).val() == "F")
             $("#checkLancamentoParcelado").removeAttr("checked");
