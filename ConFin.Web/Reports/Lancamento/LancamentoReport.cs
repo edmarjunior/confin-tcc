@@ -26,13 +26,13 @@ namespace ConFin.Web.Reports.Lancamento
             SetAnoMes(wss, lancamentos);
 
             // montando as planilhas de Despesas e Receitas (percorrendo os lançamentos)
-            MontaLancamentos(wss["Despesas"], lancamentos.Where(x => x.IndicadorReceitaDespesa == "D"));
-            MontaLancamentos(wss["Receitas"], lancamentos.Where(x => x.IndicadorReceitaDespesa == "R"));
+            MontaLancamentos(wss["Despesas"], lancamentos.Where(x => x.IndicadorReceitaDespesa != "R"));
+            MontaLancamentos(wss["Receitas"], lancamentos.Where(x => x.IndicadorReceitaDespesa != "D"));
 
             // montando total por despesas agrupadas em aba oculta
             var ws = wss["Despesa_Categoria"];
             var linha = 3;
-            foreach (var categoria in lancamentos.Where(x => x.IndicadorReceitaDespesa == "D").GroupBy(x => x.IdCategoria))
+            foreach (var categoria in lancamentos.Where(x => x.IndicadorReceitaDespesa != "R").GroupBy(x => x.IdCategoria))
             {
                 ws.InsertRow(linha, 1, linha - 1);
                 ws.Cells[linha, 1].Value = $"{categoria.First().NomeCategoria}";
